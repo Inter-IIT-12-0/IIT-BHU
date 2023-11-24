@@ -11,6 +11,7 @@ const handler = connectDb(NextAuth({
             clientSecret: process.env.GOOGLE_SECRET
         })
     ],
+    secret: process.env.NEXTAUTH_SECRET,
     callbacks: {
         async session({session}) {
             const sessionUser = await User.findOne({email: session.user.email});
