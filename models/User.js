@@ -15,11 +15,10 @@ const SocialMediaSchema = new mongoose.Schema({
 });
 
 const UserSchema = new mongoose.Schema({
-    firstName: { type: String },
-    lastName: { type: String },
+    name: { type: String },
     avatarUrl: { type: String },
     mobileNumber: { type: String },
-    emailAddress: { type: String },
+    email: { type: String, unique: true, required: true},
     tagline: { type: String },
     workExperienceYears: { type: Number },
     workExperienceMonths: { type: Number },
@@ -53,4 +52,4 @@ const UserSchema = new mongoose.Schema({
     lastLogin: { type: Date }
 }, { timestamps: true });
 
-export default mongoose.model("User", UserSchema);
+export default mongoose.models.User || mongoose.model("User", UserSchema);
