@@ -34,3 +34,15 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## .env
+`MONGO_URI = mongodb+srv://trumio:trumio@cluster0.dv3akgs.mongodb.net/?retryWrites=true&w=majority
+JWT_SECRET= TrumioDevSecretKey@IITBhu
+GOOGLE_ID = "862100342212-3ni3104l7sqtb2dgirrnt8282e5v5fr1.apps.googleusercontent.com"
+GOOGLE_SECRET = "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"
+NEXTAUTH_URL = "http://localhost:3000"`
+
+## For API's documentation
+`npx nextjs-routes-docs src`
+This will update the documentation in the `route.yaml` file in the project directory
+
