@@ -2,6 +2,7 @@
 import styles from './page.module.css';
 import { useSession, signIn, signOut } from 'next-auth/react';
 import GoogleButton from 'react-google-button';
+import Milestone from '@/components/Milestone';
 
 export default function Home() {
   const { data: session } = useSession();
@@ -9,7 +10,8 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <div className={styles.description}>
-        <h1 className='text-blue-500'>Home Page</h1>
+       
+        <Milestone/>
         {session ? (
           <>
             <p>Welcome, {session.user?.name}!</p>
