@@ -37,8 +37,8 @@ const Milestone: React.FC<MyComponentProps> = () => {
     <div>
       <ol className="relative border-s border-gray-200 dark:border-gray-700">
       {milestones.map((milestone, index) => (
-      <li key={index} className="mb-10 ms-4" >
-          <div onMouseEnter={() => handleMouseEnter(index)} onMouseLeave={handleMouseLeave}
+      <li key={index} onMouseEnter={() => handleMouseEnter(index)} onMouseLeave={handleMouseLeave} className="mb-10 ms-4" >
+          <div 
             className={`absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white dark:border-gray-900 dark:bg-gray-700 ${
               hoveredIndex === index ? 'hovered' : ''
             }`}
@@ -54,7 +54,7 @@ const Milestone: React.FC<MyComponentProps> = () => {
           {hoveredIndex === index && (
             <div className="absolute top-0 left-1/2 p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-md z-50">
               {/* Additional Component content */}
-              <p>This is first component</p>
+              <p>{milestone.additionalContent}</p>
             </div>
           )}
         </li> ))}
