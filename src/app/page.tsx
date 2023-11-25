@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <div className={styles.description}>
-        <h1>Home Page</h1>
+        <h1 className='text-blue-500'>Home Page</h1>
         {session ? (
           <>
             <p>Welcome, {session.user?.name}!</p>
