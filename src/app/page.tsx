@@ -4,7 +4,8 @@ import { useSession, signIn, signOut } from 'next-auth/react';
 import GoogleButton from 'react-google-button';
 import Sidebar from '@/components/Sidebar';
 import ChatbotCard from '@/components/ChatbotCard';
-
+import Bot from '@/components/Bot';
+import ComparisonGraph from '@/components/ComparisonGraph';
 export default function Home() {
   const { data: session } = useSession();
 
@@ -24,6 +25,8 @@ export default function Home() {
         )} */}
         <ChatbotCard />
       {/* </div> */}
+      <Bot />
+      <ComparisonGraph />
     </main>
   );
 }
