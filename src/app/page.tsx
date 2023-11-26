@@ -2,7 +2,8 @@
 import styles from './page.module.css';
 import { useSession, signIn, signOut } from 'next-auth/react';
 import GoogleButton from 'react-google-button';
-
+import Bot from '@/components/Bot';
+import ComparisonGraph from '@/components/ComparisonGraph';
 export default function Home() {
   const { data: session } = useSession();
 
@@ -20,6 +21,8 @@ export default function Home() {
           <button onClick={() => signIn('google')} > Sign In </button>
         )}
       </div>
+      <Bot />
+      <ComparisonGraph />
     </main>
   );
 }
