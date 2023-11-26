@@ -33,8 +33,7 @@ export default function Sidebar() {
         //     <div></div>
         // </div>
         <div className="w-60 h-full relative bg-white shadow-2xl pb-3">
-            <div className="w-48 h-9 left-[16px] top-[115px] absolute bg-sky-100 rounded" />
-            <div className="w-6 h-6 left-[16px] top-[976px] absolute" />
+            {/* <div className="w-6 h-6 left-[16px] top-[976px] absolute" /> */}
             <div className="left-[16px] top-[25px] absolute justify-start items-center gap-4 inline-flex">
                 <Trumio_logo />
                 <div>
@@ -44,13 +43,13 @@ export default function Sidebar() {
                     </div>
                 </div>
             </div>
-            <div className="left-[32px] top-[121px] absolute justify-start items-center gap-8 inline-flex">
+            <div className="left-8 top-[121px] absolute justify-start items-center gap-8 inline-flex">
                 <div className="w-6 h-6 justify-center items-center flex">
                     <Projects_Icon />
                 </div>
                 <div className="text-black text-base font-normal font-sans">Projects</div>
             </div>
-            <div className="left-[32px] top-[176px] absolute justify-start items-center gap-8 inline-flex">
+            <div className="left-8 top-[176px] absolute justify-start items-center gap-8 inline-flex hover-background">
                 <div className="w-6 h-6 justify-center items-center flex">
                     <div className="w-6 h-6 relative">
                         <My_Learnings_Icon />
@@ -58,7 +57,7 @@ export default function Sidebar() {
                 </div>
                 <div className="text-black text-base font-normal font-sans">My Learnings</div>
             </div>
-            <div className="left-[32px] top-[232px] absolute justify-start items-center gap-8 inline-flex">
+            <div className="left-8 top-[232px] absolute justify-start items-center gap-8 inline-flex">
                 <div className="w-6 h-6 justify-center items-center flex">
                     <div className="w-6 h-6 relative">
                         <Discussion_Icon />
@@ -66,7 +65,7 @@ export default function Sidebar() {
                 </div>
                 <div className="text-black text-base font-normal font-sans">Discussion</div>
             </div>
-            <div className="left-[32px] top-[288px] absolute justify-start items-center gap-8 inline-flex">
+            <div className="left-8 top-[288px] absolute justify-start items-center gap-8 inline-flex">
                 <div className="w-6 h-6 justify-center items-center flex">
                     <div className="w-6 h-6 relative">
                         <Mentorship_Icon />
@@ -74,7 +73,7 @@ export default function Sidebar() {
                 </div>
                 <div className="text-black text-base font-normal font-sans">Mentorship</div>
             </div>
-            <div className="left-[32px] top-[344px] absolute justify-start items-center gap-8 inline-flex">
+            <div className="left-8 top-[344px] absolute justify-start items-center gap-8 inline-flex">
                 <div className="w-6 h-6 justify-center items-center flex">
                     <div className="w-6 h-6 relative">
                         <Skill_Test_Icon />
