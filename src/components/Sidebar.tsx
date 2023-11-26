@@ -1,13 +1,13 @@
 "use client"
 import Image from "next/image";
-import Trumio_logo from "../Images/Trumio_Logo.svg";
-import Trumio_text from "../Images/Trumio_Text.svg";
-import Projects_Icon from "../Images/Projects_icon.svg"
-import My_Learnings_Icon from "../Images/My_Learnings_Icon.svg"
-import Discussion_Icon from "../Images/Discussion_Icon.svg"
-import Mentorship_Icon from "../Images/Mentorship_Icon.svg"
-import Skill_Test_Icon from "../Images/Skill_Test_Icon.svg"
-import Settings_Icon from "../Images/Settings_Icon.svg"
+import Trumio_logo from "../../public/Images/Trumio_Logo.svg";
+import Trumio_text from "../../public/Images/Trumio_Text.svg";
+import Projects_Icon from "../../public/Images/Projects_icon.svg"
+import My_Learnings_Icon from "../../public/Images/My_Learnings_Icon.svg"
+import Discussion_Icon from "../../public/Images/Discussion_Icon.svg"
+import Mentorship_Icon from "../../public/Images/Mentorship_Icon.svg"
+import Skill_Test_Icon from "../../public/Images/Skill_Test_Icon.svg"
+import Settings_Icon from "../../public/Images/Settings_Icon.svg"
 
 
 export default function Sidebar() {
@@ -32,7 +32,7 @@ export default function Sidebar() {
         //     <div></div>
         //     <div></div>
         // </div>
-        <div className="w-60 h-full relative bg-white shadow-2xl pb-3">
+        <div className="w-60 h-full fixed bg-white shadow-2xl pb-3">
             {/* <div className="w-6 h-6 left-[16px] top-[976px] absolute" /> */}
             <div className="left-[16px] top-[25px] absolute justify-start items-center gap-4 inline-flex">
                 <Trumio_logo />
@@ -81,7 +81,7 @@ export default function Sidebar() {
                 </div>
                 <div className="text-black text-base font-normal font-sans">Skill Test</div>
             </div>
-            <div className="left-8 top-[978px] absolute text-black text-base font-normal font-sans justify-start items-center gap-8 inline-flex pb-3">
+            <div className="left-8 bottom-10 absolute text-black text-base font-normal font-sans justify-start items-center gap-8 inline-flex pb-3">
                 <div className="w-6 h-6 justify-center items-center flex">
                     <div className="w-6 h-6 relative">
                         <Settings_Icon />
@@ -89,7 +89,7 @@ export default function Sidebar() {
                 </div>
                 <div className="text-black text-base font-normal font-sans">Settings</div>
             </div>
-            <div className="w-80 h-px left-0 top-[952px] absolute border border-stone-300"></div>
+            <div className="w-60 h-px left-0 bottom-24 absolute border border-stone-300"></div>
         </div>
     );
 }

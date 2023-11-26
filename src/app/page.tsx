@@ -6,6 +6,7 @@ import Sidebar from '@/components/Sidebar';
 import ChatbotCard from '@/components/ChatbotCard';
 import Bot from '@/components/Bot';
 import ComparisonGraph from '@/components/ComparisonGraph';
+import Footer from '@/components/Footer';
 export default function Home() {
   const { data: session } = useSession();
 
@@ -23,10 +24,11 @@ export default function Home() {
         ) : (
           <button onClick={() => signIn('google')} > Sign In </button>
         )} */}
-        <ChatbotCard />
+        {/* <ChatbotCard /> */}
       {/* </div> */}
-      <Bot />
-      <ComparisonGraph />
+      {/* <Bot /> */}
+      <Footer />
+      {/* <ComparisonGraph /> */}
     </main>
   );
 }
