@@ -6,13 +6,15 @@ import Sidebar from '@/components/Sidebar';
 import ChatbotCard from '@/components/ChatbotCard';
 import Bot from '@/components/Bot';
 import ComparisonGraph from '@/components/ComparisonGraph';
+import GlossyCard from '@/components/GlossyCard';
+import RightCard from '@/components/RightCard';
 import Footer from '@/components/Footer';
 export default function Home() {
   const { data: session } = useSession();
 
   return (
     <main className='flex'>
-      {/* <div> */}
+      {/* {/* <div> */}
         <Sidebar />
         {/* <h1 className='text-blue-500'>Home Page</h1>
         {session ? (
@@ -28,7 +30,9 @@ export default function Home() {
       {/* </div> */}
       {/* <Bot /> */}
       <Footer />
-      {/* <ComparisonGraph /> */}
+      {/* <ComparisonGraph /> */} */
+      <GlossyCard />
+      <RightCard />
     </main>
   );
 }
