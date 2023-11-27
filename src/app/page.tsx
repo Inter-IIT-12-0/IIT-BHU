@@ -31,7 +31,7 @@ export default function Home() {
       {/* </div> */}
       {/* <Bot /> */}
       <Footer />
-      {/* <ComparisonGraph /> */} */}
+      {/* <ComparisonGraph /> */} */
       <RightCard />
     </main>
   );

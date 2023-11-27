@@ -1,6 +1,5 @@
 import React from "react";
 
-
 const RightCard = () => {
   return (
     <div className="flex max-w-md mx-auto bg-white shadow-md rounded-2xl p-4 overflow-hidden ">
