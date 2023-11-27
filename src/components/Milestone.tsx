@@ -55,28 +55,42 @@ const Milestone: React.FC<MilestoneProps> = () => {
             
           
             {hoveredIndex === index && (
-                
-              <div className="absolute top-0 left-1/2 p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-md z-50">
+              <div className="w-[200px] h-[250px] bg-white rounded-[20px] shadow" >
+                <div className="w-[200px] h-[200px] bg-gradient-to-l from-emerald-200 to-emerald-100 rounded-tl-[20px] rounded-tr-[10px]" >
+             
                 {/* Additional Component content */}
+                
+                <div className="text-teal-700 text-[15px] text-center font-normal font-['Nunito']">Generating sub-milestones...</div>
 
                 <ul>
+                
+                
                   {milestone.subMilestones.map((subMilestone, subIndex) => (
-                    <ol className="relative border-s border-gray-200 dark:border-gray-700">
-                      <li className="mb-10 ms-4">
-                        <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>
-                        <h3 className="text-sm font-semibold text-gray-900 dark:text-white">
-                          {subMilestone.heading}
-                        </h3>
-                        <time className="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
-                          {subMilestone.isCompleted
-                            ? `Completed`
-                            : `Not Completed`}
-                        </time>
-                      </li>
-                    </ol>
+                <ol className="relative border-s ml-4 border-gray-200 dark:border-gray-700">
+                <li className=" ms-4">
+                  <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>
+                  <h3 className="text-xs font-semibold text-gray-900 dark:text-white">
+                    {subMilestone.heading}
+                  </h3>
+                  <time className=" text-xs font-normal leading-none text-gray-400 dark:text-gray-500">
+                    {subMilestone.isCompleted
+                      ? `Completed`
+                      : `Not Completed`}
+                  </time>
+                </li>
+              </ol>
                   ))}
+                
+                  
                 </ul>
-              </div>
+              
+                </div>
+                <div className="w-[140px] h-[20px] mt-2 ml-7 scale-33 p-[13.33px] bg-gradient-to-l from-emerald-200 to-emerald-100 rounded-[55.54px] flex justify-center items-center gap-[9.44px] inline-flex">
+    <div className="text-black text-xs font-normal font-['Roboto']">Copy to Workspace</div>
+</div>
+
+                </div>
+            
             )}
 
 
