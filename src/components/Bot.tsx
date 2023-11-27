@@ -9,7 +9,6 @@ interface BotProps {
 
 const Bot: React.FC<BotProps> = ({isOpen, setIsOpen}) => {
   const handleClick = () => {
-    console.log("CLicked")
     setIsOpen(isOpen => !isOpen);
   }
   return (

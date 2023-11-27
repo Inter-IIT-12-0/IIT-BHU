@@ -4,6 +4,6 @@
 
 @layer components {
     .hover-background {
-        @apply hover:bg-sky-100 hover:rounded hover:fill-sky-500 w-48 h-9 cursor-pointer;
+        @apply hover:bg-sky-100 hover:rounded w-48 h-9 cursor-pointer pl-2 transition-all duration-500;
     }
 }
