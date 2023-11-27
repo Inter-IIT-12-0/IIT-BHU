@@ -3,4 +3,6 @@ info:
   title: Swagger API
   version: 1.0.0
 paths:
+  /api/GPT/gpt:
+    post: {}
   /api/user/hello: {}
