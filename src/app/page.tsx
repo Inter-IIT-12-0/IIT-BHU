@@ -4,12 +4,15 @@ import { useSession, signIn, signOut } from 'next-auth/react';
 import GoogleButton from 'react-google-button';
 import Bot from '@/components/Bot';
 import ComparisonGraph from '@/components/ComparisonGraph';
+import GlassyCard from '@/components/OnBoarding';
+import GlossyCard from '@/components/GlossyCard';
+import RightCard from '@/components/RightCard';
 export default function Home() {
   const { data: session } = useSession();
 
   return (
     <main className={styles.main}>
-      <div className={styles.description}>
+      {/* <div className={styles.description}>
         <h1 className='text-blue-500'>Home Page</h1>
         {session ? (
           <>
@@ -22,7 +25,8 @@ export default function Home() {
         )}
       </div>
       <Bot />
-      <ComparisonGraph />
+      <ComparisonGraph /> */}
+      <RightCard />
     </main>
   );
 }
