@@ -1,16 +1,20 @@
 "use client"
-import styles from './page.module.css';
+// import styles from './page.module.css';
 import { useSession, signIn, signOut } from 'next-auth/react';
 import GoogleButton from 'react-google-button';
+import Sidebar from '@/components/Sidebar';
+import ChatbotCard from '@/components/ChatbotCard';
 import Bot from '@/components/Bot';
 import ComparisonGraph from '@/components/ComparisonGraph';
+import Footer from '@/components/Footer';
 export default function Home() {
   const { data: session } = useSession();
 
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <h1 className='text-blue-500'>Home Page</h1>
+    <main className='flex'>
+      {/* <div> */}
+        <Sidebar />
+        {/* <h1 className='text-blue-500'>Home Page</h1>
         {session ? (
           <>
             <p>Welcome, {session.user?.name}!</p>
@@ -19,10 +23,12 @@ export default function Home() {
           </>
         ) : (
           <button onClick={() => signIn('google')} > Sign In </button>
-        )}
-      </div>
-      <Bot />
-      <ComparisonGraph />
+        )} */}
+        {/* <ChatbotCard /> */}
+      {/* </div> */}
+      {/* <Bot /> */}
+      <Footer />
+      {/* <ComparisonGraph /> */}
     </main>
   );
 }
