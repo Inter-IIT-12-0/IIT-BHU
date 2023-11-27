@@ -40,7 +40,8 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 JWT_SECRET= TrumioDevSecretKey@IITBhu
 GOOGLE_ID = "862100342212-3ni3104l7sqtb2dgirrnt8282e5v5fr1.apps.googleusercontent.com"
 GOOGLE_SECRET = "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"
-NEXTAUTH_URL = "http://localhost:3000"`
+NEXTAUTH_URL = "http://localhost:3000"
+OPENAI_API_KEY = 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`
 
 ## For API's documentation
 `npx nextjs-routes-docs src`
