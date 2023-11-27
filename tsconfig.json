@@ -22,6 +22,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/api/user/adduser/route.js", "src/app/api/team/route.js", "src/app/api/team/route.js", "src/app/page.tsx", "src/app/api/auth/[...nextauth]/route.ts", "src/components/Provider.tsx", "src/app/layout.jsx", "middlewares/mongoose.js", "src/components/Bot.jsx", "src/pages/api/user/hello.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/api/user/adduser/route.js", "src/app/api/team/route.js", "src/app/api/team/route.js", "src/app/page.tsx", "src/app/api/auth/[...nextauth]/route.ts", "src/components/Provider.tsx", "src/app/layout.jsx", "middlewares/mongoose.js", "src/components/Bot.jsx", "src/pages/api/user/hello.js", "src/app/myprojects/page.jsx", "src/components/ProjectCard.jsx"],
   "exclude": ["node_modules"]
 }

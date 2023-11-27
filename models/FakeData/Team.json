@@ -1,0 +1,41 @@
+{
+    "teamName": "Sample Team",
+    "teamTagline": "Building Solutions Together",
+    "teamIntroduction": "We are a dedicated team passionate about delivering high-quality solutions.",
+    "service": {
+        "services": [
+            "Service1",
+            "Service3",
+            "Service5"
+        ]
+    },
+    "languagesSupported": [
+        "English",
+        "French",
+        "Spanish"
+    ],
+    "tools": [
+        "Tool1",
+        "Tool2",
+        "Tool4"
+    ],
+    "skills": [
+        "Skill2",
+        "Skill4",
+        "Skill5"
+    ],
+    "availability": {
+        "preferredTimeZone": "UTC",
+        "daysAvailable": [
+            "Weekdays"
+        ],
+        "startTime": "09:00 AM",
+        "endTime": "06:00 PM",
+        "whichDays": [
+            "Mon",
+            "Wed",
+            "Fri"
+        ]
+    },
+    "teamUrl": "https://sample-team-url.com"
+}
