@@ -2,7 +2,7 @@ import React from "react";
 
 const GlossyCard = () => {
   return (
-    <div className="max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg">
+    <div className="max-w-sm mx-auto overflow-hidden bg-white rounded-[38px] shadow-lg cursor-pointer hover:scale-110 transition-all duration-500">
       {/* Image section */}
       <div className="bg-cover bg-center">
         <img src="/GlossyRectangle.jpg"></img>

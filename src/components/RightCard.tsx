@@ -2,7 +2,7 @@ import React from "react";
 
 const RightCard = () => {
   return (
-    <div className="flex max-w-md mx-auto bg-white shadow-md rounded-2xl p-4 overflow-hidden ">
+    <div className="flex max-w-md h-32 mx-auto bg-white shadow-md rounded-2xl overflow-hidden ">
       {/* Left side with text */}
       <div className="p-4 flex-1">
         <h2 className="text-xl font-semibold mb-2">Rewards & Badges</h2>
@@ -19,7 +19,7 @@ const RightCard = () => {
         <img
           src="/Reward.svg"
           alt="Your Image"
-          className="w-full h-full object-cover"
+          className="scale-75 object-cover"
         />
         {/* or */}
         {/* <svg className="w-full h-full" viewBox="0 0 100 100">

@@ -6,7 +6,6 @@ import Sidebar from '@/components/Sidebar';
 import ChatbotCard from '@/components/ChatbotCard';
 import Bot from '@/components/Bot';
 import ComparisonGraph from '@/components/ComparisonGraph';
-import GlassyCard from '@/components/OnBoarding';
 import GlossyCard from '@/components/GlossyCard';
 import RightCard from '@/components/RightCard';
 import Footer from '@/components/Footer';
@@ -32,6 +31,7 @@ export default function Home() {
       {/* <Bot /> */}
       <Footer />
       {/* <ComparisonGraph /> */} */
+      <GlossyCard />
       <RightCard />
     </main>
   );

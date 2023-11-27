@@ -4,8 +4,8 @@
 
 import { useState } from "react";
 
-const GlassyCard = () => {
-  const [selectedCard, setSelectedCard] = useState<number | null>(null);
+const OnBoarding = () => {
+  const [selectedCard, setSelectedCard] = useState<number>(1);
   const handleCardClick = (cardNumber) => {
     setSelectedCard(cardNumber);
   };
@@ -99,4 +99,4 @@ const GlassyCard = () => {
   );
 };
 
-export default GlassyCard;
+export default OnBoarding;
