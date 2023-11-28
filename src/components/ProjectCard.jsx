@@ -1,10 +1,12 @@
 "use client";
 import SearchIcon from "../../public/Images/SearchIcon.svg";
 import NotificationsIcon from "../../public/Images/NotificationsIcon.svg";
+import Link from "next/link";
 
-const   ProjectCard = ({project}) => {
+const ProjectCard = ({project}) => {
   return (
-    <div className="flex items-center justify-center">
+    <Link href={`/myprojects/${project.id}`}>
+    <div className="flex items-center justify-center cursor-pointer w-72 mx-8">
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4">
         <div className="relative bg-white py-6 px-6 rounded-3xl w-64 my-4 shadow-xl">
           <div className=" text-white flex items-center absolute rounded-full py-4 px-4 shadow-xl bg-pink-500 left-4 -top-6">
@@ -16,9 +18,9 @@ const   ProjectCard = ({project}) => {
               stroke="currentColor"
             >
               <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
                 d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"
               />
             </svg>
@@ -41,9 +43,9 @@ const   ProjectCard = ({project}) => {
                 stroke="currentColor"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
                 />
               </svg>
@@ -73,9 +75,9 @@ const   ProjectCard = ({project}) => {
                     stroke="currentColor"
                   >
                     <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
                       d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
                     />
                   </svg>
@@ -89,9 +91,9 @@ const   ProjectCard = ({project}) => {
                     stroke="currentColor"
                   >
                     <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
                       d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9"
                     />
                   </svg>
@@ -124,6 +126,7 @@ const   ProjectCard = ({project}) => {
         </div>
       </div>
     </div>
+    </Link>
   );
 };
 

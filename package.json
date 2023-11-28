@@ -9,8 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@svgr/webpack": "^8.1.0",
     "@faker-js/faker": "^8.3.1",
+    "@svgr/webpack": "^8.1.0",
+    "axios": "^1.6.2",
     "bcrypt": "^5.1.1",
     "chart.js": "^4.4.0",
     "chartjs": "^0.3.24",
