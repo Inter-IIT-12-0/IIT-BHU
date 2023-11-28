@@ -1,6 +1,6 @@
 // Import necessary modules and schemas
-import connectDb from "../../../../../middlewares/mongoose";
-import Project from "../../../../../models/Project";
+import connectDb from "../../../../middlewares/mongoose";
+import Project from "../../../../models/Project";
 
 const handler = async (req, res) => {
   if (req.method === 'POST') {
