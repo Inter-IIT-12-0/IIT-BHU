@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
 
 const LanguageEnum = ['English', 'Spanish', 'French', 'German'];
-const RoleEnum = ['UX/UI Designer', 'Developer'];
+const DomainEnum = ['UX/UI Designer', 'Developer'];
+const RoleEnum = ['Student', 'Client'];
 const DaysEnum = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
 const EducationSchema = new mongoose.Schema({
@@ -23,8 +24,12 @@ const UserSchema = new mongoose.Schema({
     workExperienceYears: { type: Number },
     workExperienceMonths: { type: Number },
     professionalIntroduction: { type: String },
+    domain: { type: String, enum: DomainEnum },
     role: { type: String, enum: RoleEnum },
     languages: [{ type: String, enum: LanguageEnum }],
+    companyName: { type: String },
+    numOfJobsPosted: { type: Number },
+    sectorName: { type: String },
     currentAddress: {
         streetAddress: { type: String },
         houseNumber: { type: String },
