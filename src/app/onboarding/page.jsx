@@ -5,7 +5,7 @@
 import { useState } from "react";
 
 const OnBoarding = () => {
-  const [selectedCard, setSelectedCard] = useState<number>(1);
+  const [selectedCard, setSelectedCard] = useState(1);
   const handleCardClick = (cardNumber) => {
     setSelectedCard(cardNumber);
   };

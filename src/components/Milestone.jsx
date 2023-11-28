@@ -6,7 +6,7 @@ import Calendar from "../../public/Images/calendar.svg";
 import Clipboard from "../../public/Images/clipboard.svg"
 
 const Milestone = () => {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [hoveredIndex, setHoveredIndex] = useState(null);
 
   const handleMouseEnter = (index) => {
     setHoveredIndex(index);
