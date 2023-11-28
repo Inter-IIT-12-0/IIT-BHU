@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import Sidebar from "../../../components/Sidebar";
-import Footer from "../../../components/Footer";
-import StudentSidebar from "../../../components/StudentSidebar";
-import Navbar from "../../../components/Navbar";
-// import Projects from "../../../models/FakeData/Project.json";
+import Sidebar from "../../components/Sidebar";
+import Footer from "../../components/Footer";
+import StudentSidebar from "../../components/StudentSidebar";
+import Navbar from "../../components/Navbar";
+// import Projects from "../../models/FakeData/Project.json";
 import ProjectCard from "../../components/ProjectCard.jsx";
 
 const MyProjects = () => {
