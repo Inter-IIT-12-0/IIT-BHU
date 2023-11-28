@@ -1,13 +1,13 @@
 import React from "react";
-import Navbar from "@/components/Navbar";
-import SidebarUpskilling from "@/components/SidebarUpskilling";
+import Navbar from "../../../components/Navbar";
+import SidebarUpskilling from "../../../components/SidebarUpskilling";
 import TableOfTools from "../../../public/Images/TableOfTools.svg";
 import Calendar from "../../../public/Images/calendar.svg";
-import MilestoneSideBar from "@/components/Milestone_sidebar";
+import MilestoneSideBar from "../../../components/Milestone_sidebar";
 import Export from "../../../public/Images/export.svg";
 import Link from "next/link";
-import Milestone from "@/components/Milestone";
-import Footer from "@/components/Footer";
+import Milestone from "../../../components/Milestone";
+import Footer from "../../../components/Footer";
 
 const Upskilling = () => {
   return (

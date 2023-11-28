@@ -3,12 +3,8 @@ import Triangle from "../../public/Images/Triangle.svg"
 import Send_Icon from "../../public/Images/Send_Icon.svg"
 import React from "react";
 
-interface CardProps {
-    isOpen: boolean;
-}
-
-const ChatbotCard: React.FC<CardProps> = ({isOpen}) => {
-    const handleSubmit = (e:React.FormEvent) => {
+const ChatbotCard = ({isOpen}) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
     }
     return (

@@ -1,15 +1,10 @@
 "use client"
-import Navbar from "@/components/Navbar";
-import StudentSidebar from "@/components/StudentSidebar";
+import Navbar from "../../../components/Navbar";
+import StudentSidebar from "../../../components/StudentSidebar";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-interface ProjectPageProps {
-  params: { id: number };
-}
-
-
-const Project: React.FC<ProjectPageProps> = ({ params }) => {
+const Project = ({ params }) => {
   const project = {
     "id": 2,
     "title": "Project2",
