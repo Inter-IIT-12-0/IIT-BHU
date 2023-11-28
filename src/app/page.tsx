@@ -18,7 +18,8 @@ export default function Home() {
 
   return (
     <main className='flex'>
-      <Calendar />
+      {/* <Calendar /> */}
+      <TaskList />
     </main>
   );
 }
