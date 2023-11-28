@@ -9,18 +9,33 @@ const milestoneSchema = new mongoose.Schema({
   name: { type: String, required: true },
   deliverableDetails: { type: String, required: true },
   description: { type: String }
-})
+});
 
 const proposalSchema = new mongoose.Schema({
   proposalScore: { type: Number },
-  acceptanceProbability: { type: Float },
+  acceptanceProbability: { type: Number },
   bidAmount: { type: Number },
   startDate: { type: Date },
   milestones: [milestoneSchema],
   files: {
-    type:[Buffer]
+    type: [Buffer]
   }
-})
+});
+
+const teamUserMap = new mongoose.Schema({
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  },
+  role: {
+    type: String,
+    enum: ['Leader', 'Member']
+  },
+  status: {
+    type: String,
+    enum: ['Selected', 'Rejected','Hold']
+  }
+});
 
 const teamSchema = new mongoose.Schema({
   teamName: {
@@ -38,11 +53,9 @@ const teamSchema = new mongoose.Schema({
     required: true
   },
   service: {
-    services: {
-      type: [String],
-      enum: serviceEnum,
-      required: true
-    }
+    type: [String],
+    enum: serviceEnum,
+    required: true
   },
   languagesSupported: {
     type: [String],
@@ -87,25 +100,9 @@ const teamSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  proposal: {
-    type: proposalSchema
-  }
+  proposal: proposalSchema,
+  teamUserMap: [teamUserMap]
 });
-
-const teamUserMap = new mongoose.Schema({
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
-  },
-  role: {
-    type: String,
-    enum: ['Leader', 'Member']
-  },
-  status: {
-    type: String,
-    enum: ['Selected', 'Rejected']
-  }
-})
 
 const Team = mongoose.model('Team', teamSchema);
 

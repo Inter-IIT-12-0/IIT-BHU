@@ -4,6 +4,7 @@ const LanguageEnum = ['English', 'Spanish', 'French', 'German'];
 const DomainEnum = ['UX/UI Designer', 'Developer'];
 const RoleEnum = ['Student', 'Client'];
 const DaysEnum = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+import Project from "./Project";
 
 const EducationSchema = new mongoose.Schema({
     nameOfCollegeOrUniversity: { type: String },
@@ -54,6 +55,8 @@ const UserSchema = new mongoose.Schema({
         hourlyRate: { type: Number }
     },
     socialMedia: [SocialMediaSchema],
+    projects:[{type: mongoose.Schema.Types.ObjectId,
+        ref: 'Project'}],
     lastLogin: { type: Date }
 }, { timestamps: true });
 

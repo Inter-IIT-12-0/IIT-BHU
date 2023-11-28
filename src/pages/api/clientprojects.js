@@ -4,23 +4,26 @@ import Project from "../../../models/Project";
 
 const handler = async (req, res) => {
     if (req.method === 'GET') {
-        const { userId } = req.query;
+        const { clientId } = req.query;
 
-        if (!userId) {
+        if (!clientId) {
             res.status(400).json({ error: 'User ID is required' });
             return;
         }
 
         try {
-            const projects = await Project.find({ 'assignedBy': userId }, '-_id -__v')
+            const projects = await Project.find({ 'assignedBy': clientId }, '-_id -__v')
                 .populate({
                     path: 'assignedTeam',
                     select: '-_id -__v',
                     populate: {
-                        path: 'users',
+                        path: 'teamUserMap',
                         select: '-_id -__v'
                     }
-                });
+                })
+                .populate({
+                    path: 'assignedBy'
+                })
 
             res.status(200).json(projects);
         } catch (error) {

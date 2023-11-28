@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const statusEnum = ['Todo', 'In Progress', 'Completed'];
+const statusEnum = ['Todo', 'In Progress', 'Completed','Not Started'];
 const appsEnum = [('Figma', 'http://figma.com')];
 const toolsEnum = ['Engineering', 'Design'];
 
@@ -32,15 +32,6 @@ const clientRequirementsSchema = new mongoose.Schema({
   requiredTools: { type: [String] },
   files: { type: [Buffer] }
 });
-
-const activitySchema = new mongoose.Schema({
-  submilestone: { type: mongoose.Schema.Types.ObjectId, ref: 'SubMilestone' },
-  type: { type: ['CREATE', 'EDIT', 'DELETE', 'Message'], required: true },
-  timestamp: { type: Date, required: true },
-  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-  message: { type: String }
-});
-
 const subMilestoneSchema = new mongoose.Schema({
   title: { type: String, required: true },
   isCompleted: { type: Boolean, default: false },
@@ -55,6 +46,16 @@ const subMilestoneSchema = new mongoose.Schema({
   work: { type: workSchema },
   stickyNotes: { type: [String] }
 });
+
+const activitySchema = new mongoose.Schema({
+  submilestone:{ type: subMilestoneSchema},
+  type: { type: String, enum: ['CREATE', 'EDIT', 'DELETE', 'Message'], required: true },
+  timestamp: { type: Date, required: true },
+  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  message: { type: String }
+});
+
+
 
 const milestoneSchema = new mongoose.Schema({
   dueDate: { type: Date, required: true },
@@ -90,8 +91,7 @@ const projectSchema = new mongoose.Schema({
   endDate: { type: Date },
   activity: [activitySchema],
   clientRequirements: clientRequirementsSchema,
-  work: workSchema, // Include work schema directly
-  subMilestone: subMilestoneSchema // Include subMilestone schema directly
+  work: workSchema,
 });
 
 const Project = mongoose.model('Project', projectSchema);
