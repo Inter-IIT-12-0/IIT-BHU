@@ -28,7 +28,7 @@ const UserSchema = new mongoose.Schema({
     role: { type: String, enum: RoleEnum },
     languages: [{ type: String, enum: LanguageEnum }],
     companyName: { type: String },
-    numOfJobsPosted: { type: Int },
+    numOfJobsPosted: { type: Number },
     sectorName: { type: String },
     currentAddress: {
         streetAddress: { type: String },

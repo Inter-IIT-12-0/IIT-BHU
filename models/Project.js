@@ -78,7 +78,7 @@ const userAgreementSchema = new mongoose.Schema({
 //TODO: Health
 const healthSchema = new mongoose.Schema({
   progress: {
-    type: Int,
+    type: Number,
     default: 0
   }
 });

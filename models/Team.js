@@ -12,9 +12,9 @@ const milestoneSchema = new mongoose.Schema({
 })
 
 const proposalSchema = new mongoose.Schema({
-  proposalScore: { type: Int },
+  proposalScore: { type: Number },
   acceptanceProbability: { type: Float },
-  bidAmount: { type: Int },
+  bidAmount: { type: Number },
   startDate: { type: Date },
   milestones: [milestoneSchema],
   files: {
