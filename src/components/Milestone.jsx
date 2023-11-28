@@ -4,12 +4,11 @@ import { useState } from "react";
 import milestones from "../../models/Milestone.json";
 import Calendar from "../../public/Images/calendar.svg";
 import Clipboard from "../../public/Images/clipboard.svg"
-interface MilestoneProps {}
 
-const Milestone: React.FC<MilestoneProps> = () => {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+const Milestone = () => {
+  const [hoveredIndex, setHoveredIndex] = useState(null);
 
-  const handleMouseEnter = (index: number) => {
+  const handleMouseEnter = (index) => {
     setHoveredIndex(index);
   };
 
