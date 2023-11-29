@@ -18,8 +18,17 @@ export default function Home() {
 
   return (
     <main className='flex'>
+      {session ? (
+          <>
+            <p>Welcome, {session.user?.name}!</p>
+            <img src={session.user.image} alt="" />
+            <button onClick={() => signOut()}>Sign Out</button>
+          </>
+        ) : (
+          <button onClick={() => signIn('google')} > Sign In </button>
+        )}
       {/* <Calendar /> */}
-      <TaskList />
+      {/* <TaskList /> */}
     </main>
   );
 }

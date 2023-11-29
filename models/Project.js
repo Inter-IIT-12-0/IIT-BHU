@@ -30,7 +30,7 @@ const clientRequirementsSchema = new mongoose.Schema({
   },
   workDays: { type: [String] },
   requiredTools: { type: [String] },
-  files: { type: [Buffer] }
+  files: { type: [(String, Buffer)] }
 });
 const subMilestoneSchema = new mongoose.Schema({
   title: { type: String, required: true },
@@ -92,8 +92,9 @@ const projectSchema = new mongoose.Schema({
   activity: [activitySchema],
   clientRequirements: clientRequirementsSchema,
   work: workSchema,
+  duration: { type: String, required: true }
 });
 
-const Project = mongoose.model('Project', projectSchema);
+const Project = mongoose.models.Project || mongoose.model('Project', projectSchema);
 
 export default Project;
