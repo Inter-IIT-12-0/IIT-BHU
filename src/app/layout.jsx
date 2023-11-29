@@ -2,7 +2,7 @@
 import { Inter } from 'next/font/google'
 import './globals.css'
 import Provider from '../components/Provider'
-import NoSSR from 'react-no-ssr'
+// import NoSSR from 'react-no-ssr'
 
 export default function RootLayout({
   children,
@@ -10,11 +10,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <NoSSR>
+        {/* <NoSSR> */}
           <Provider>
             {children}
           </Provider>
-        </NoSSR>
+        {/* </NoSSR> */}
       </body>
     </html>
   )
