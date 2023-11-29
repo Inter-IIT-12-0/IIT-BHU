@@ -80,7 +80,8 @@ export const generate = async (domain, tool, input, result, setResult) => {
     if (signal.aborted) {
       setResult("Request aborted.");
     } else {
-      console.error("Error:", error);
+      /* console.error("Error:", error); */
+      console.log(domain, tool, input, result, setResult);
       setResult("Error occurred while generating.");
     }
   } finally {

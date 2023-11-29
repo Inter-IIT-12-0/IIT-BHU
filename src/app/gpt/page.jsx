@@ -27,9 +27,11 @@ const Subdomain = ({ domain,subdomain, onSubdomainClick, onSubmit,result,setResu
   };
 
   const handleSubmit = (e) => {
-    handleGenerate(domain,subdomain,formValues,result,setResult);
+    
     e.preventDefault();
     onSubmit(formValues);
+    console.log("subdomain",subdomain.name);
+    handleGenerate(domain ,subdomain.name,formValues,result,setResult);
   };
 
   return (
@@ -61,6 +63,11 @@ const MyCard = () => {
   const [submittedData, setSubmittedData] = useState(null);
 
   const domains = [
+    /* case "Write Technical Specifications":
+      return `Provide detailed technical specifications based on the given requirements (${input.businessRequirements}), systems involved (${input.systemsInvolved}), and best practices (${input.bestPractices}).`;
+
+    case "Bug Report":
+      return `Describe the bug you encountered. Include any context (${input.context}) or steps to reproduce the issue if available.`; */
     {
       name: 'Engineering',
       subdomains: [
@@ -71,17 +78,34 @@ const MyCard = () => {
             { name: 'codeLanguage', label: 'codeLanguage', type: 'text' },
           ],
         },
+        {
+          name: 'Bug Report',
+          formFields: [
+            { name: 'context', label: 'context', type: 'text' },
+            
+          ],
+        },
+        {
+          name: 'Write Technical specifications',
+          formFields: [
+            { name: 'businessRequirements', label: 'businessRequirements', type: 'text' },
+            { name: 'systemsInvolved', label: 'systemsInvolved', type: 'text' },
+            { name: 'bestPractices', label: 'bestPractices', type: 'text' },
+          
+            
+          ],
+        },
+
         // Add more subdomains for Domain 1 if needed
       ],
     },
     {
-      name: 'Domain 2',
+      name: 'Research Documentation',
       subdomains: [
         {
-          name: 'Subdomain 2.1',
+          name: 'Summarizes Text',
           formFields: [
-            { name: 'field3', label: 'Field 3', type: 'text' },
-            { name: 'field4', label: 'Field 4', type: 'text' },
+            { name: 'text', label: 'text', type: 'text' },
           ],
         },
         // Add more subdomains for Domain 2 if needed
