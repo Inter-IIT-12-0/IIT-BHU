@@ -99,6 +99,7 @@ const MyProjects = () => {
 	useEffect(() => {
 		axios.get(`/api/userprojects`)
 		.then(res => {
+			console.log(res.data);
 			setProjects(res.data)
 		})
 		.catch(err => {
