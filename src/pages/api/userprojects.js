@@ -3,18 +3,16 @@ import connectDb from "../../../middlewares/mongoose"
 import Project from "../../../models/Project";
 
 const handler = async (req, res) => {
-    if (req.method === 'POST') {
-        try {
-            const project = new Project(req.body);
-            const savedProject = await project.save();
-            res.status(201).json(savedProject);
-        } catch (error) {
-            console.error(error);
-            res.status(500).json({ error: 'Error creating project' });
+    if (req.method === 'GET') {
+        const { userId } = req.query;
+
+        if (!userId) {
+            res.status(400).json({ error: 'User ID is required' });
+            return;
         }
-    } else if (req.method === 'GET') {
+
         try {
-            const projects = await Project.find({}, '-_id -__v')
+            const projects = await Project.find({ 'assignedTeam.users': userId }, '-_id -__v')
                 .populate({
                     path: 'assignedTeam',
                     select: '-_id -__v',
@@ -22,17 +20,16 @@ const handler = async (req, res) => {
                         path: 'users',
                         select: '-_id -__v'
                     }
-                })
-                .populate('assignedBy', '-_id -__v');
+                });
 
             res.status(200).json(projects);
         } catch (error) {
             console.error(error);
-            res.status(500).json({ error: 'Error retrieving projects' });
+            res.status(500).json({ error: 'Error retrieving projects for the user' });
         }
     } else {
         res.status(405).json({ error: 'Method Not Allowed' });
-    }
+    };
 };
 
 export default connectDb(handler);

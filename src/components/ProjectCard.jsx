@@ -9,21 +9,8 @@ const ProjectCard = ({project}) => {
     <div className="flex items-center justify-center cursor-pointer w-72 mx-8">
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4">
         <div className="relative bg-white py-6 px-6 rounded-3xl w-64 my-4 shadow-xl">
-          <div className=" text-white flex items-center absolute rounded-full py-4 px-4 shadow-xl bg-pink-500 left-4 -top-6">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-8 w-8"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"
-              />
-            </svg>
+          <div className=" text-white flex items-center absolute rounded-full shadow-xl bg-pink-500 left-4 -top-6">
+            <img src={project.logo} alt="Logo" className="w-16 h-16 rounded-full"/>
           </div>
           <div className="mt-8">
             <p className="text-xl font-semibold my-2"> {project.title} </p>
@@ -32,7 +19,7 @@ const ProjectCard = ({project}) => {
                 
                 <img src="https://img.icons8.com/ios-glyphs/30/client-management--v1.png" className="w-5 h-5"></img>
               
-              <p> {project.clientName} </p>
+              <p> {project.assignedBy.username} </p>
             </div>
             <div className="flex space-x-2 text-gray-400 text-sm my-3">
               <svg
