@@ -1,16 +1,17 @@
 // Import necessary modules and schemas
 import connectDb from "../../../middlewares/mongoose"
 import Project from "../../../models/Project";
+import { getSession } from 'next-auth/react';
 
 const handler = async (req, res) => {
     if (req.method === 'GET') {
-        const { userId } = req.query;
+        // const { userId } = req.query;
+        const session = await getSession({ req });
 
-        if (!userId) {
-            res.status(400).json({ error: 'User ID is required' });
-            return;
-        }
+        if (!session) return res.status(403).json({ error: 'Login First' })
 
+        const userId = session.user.id
+        console.log(userId)
         try {
             const projects = await Project.find({ 'assignedTeam.users': userId }, '-_id -__v')
                 .populate({
