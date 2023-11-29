@@ -5,7 +5,7 @@ import { useState,useEffect } from "react";
 import { generate, stop } from "../../pages/api/GPT/stream-response";
 import React from "react";
 
-const Subdomain = ({ subdomain, onSubdomainClick, onSubmit,result,setResult }) => {
+const Subdomain = ({ domain,subdomain, onSubdomainClick, onSubmit,result,setResult }) => {
 
 
   const [formValues, setFormValues] = useState({});
@@ -27,7 +27,7 @@ const Subdomain = ({ subdomain, onSubdomainClick, onSubmit,result,setResult }) =
   };
 
   const handleSubmit = (e) => {
-    handleGenerate("Engineering","Generate Code Snippet",formValues,result,setResult);
+    handleGenerate(domain,subdomain,formValues,result,setResult);
     e.preventDefault();
     onSubmit(formValues);
   };
