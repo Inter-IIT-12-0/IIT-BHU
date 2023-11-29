@@ -13,12 +13,13 @@ import ProjectList from '../components/ProjectCard';
 import ProjectCard from '../components/ProjectCard';
 import Calendar from '../components/Calendar';
 import TaskList from '../components/TaskList';
+import Clickup from '../components/Clickup';
 export default function Home() {
   const { data: session } = useSession();
 
   return (
     <main className='flex'>
-      {session ? (
+      {/* {session ? (
           <>
             <p>Welcome, {session.user?.name}!</p>
             <img src={session.user.image} alt="" />
@@ -26,9 +27,9 @@ export default function Home() {
           </>
         ) : (
           <button onClick={() => signIn('google')} > Sign In </button>
-        )}
+        )} */}
       {/* <Calendar /> */}
-      {/* <TaskList /> */}
+      <Clickup />
     </main>
   );
 }

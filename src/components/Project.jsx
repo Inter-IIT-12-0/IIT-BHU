@@ -154,12 +154,13 @@ const Project = ({ project, isOpen, setIsOpen }) => {
                         <button className='bg-gradient-to-bl from-cyan-300 to to-blue-700 w-40 h-12 rounded-md text-white font-mono block my-6'>CREATE BID</button>
                         <button className='bg-gradient-to-bl from-yellow-300 to to-yellow-600 w-52 h-12 rounded-md text-white font-mono block my-6'>Mark as interested</button>
 
-                        <div>
+                        {/* <div>
                             <span className={winning_prob >= 75 ? `text-green-600` : winning_prob >= 40 ? `text-orange-500` : `text-red-500`}> {winning_prob}% </span>
                             <span> Winning Probability </span>
-                        </div>
+                        </div> */}
                     </div>
                     <div className="border-t-2 border-gray-300 pt-6">
+                    <h3 className='font-bold'>About Client</h3>
                         <div className="px-4 py-2 hover:bg-gray-100 flex">
                             <div className="text-gray-800">
                                 <img src="https://www.text-image.com/samples/per_normal_face.jpg" alt="Face" className='rounded-full w-16 h-16' />
