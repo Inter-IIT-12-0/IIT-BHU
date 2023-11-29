@@ -5,37 +5,39 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 const Project = ({ params }) => {
-  const project = {
-    "id": 2,
-    "title": "Project2",
-    "statement": "This is a sample project statement.",
-    "logo": "https://i.gadgets360cdn.com/products/large/vivo-t2-5g-db-709x800-1681200173.jpg",
-    "startDate": "2023-12-01T00:00:00.000Z",
-    "endDate": "2023-12-05T00:00:00.000Z",
-    "clientName": "Facebook",
-    "milestones": [
-      {
-        "dueDate": "2023-12-01T00:00:00.000Z",
-        "heading": "Milestone 1",
-        "submissionLink": "https://sample-submission-link.com",
-        "feedbackLink": "https://sample-feedback-link.com",
-        "subMilestones": [
-          {
-            "heading": "SubMilestone 1",
-            "isCompleted": false
-          },
-          {
-            "heading": "SubMilestone 2",
-            "isCompleted": true
-          }
-        ],
-        "isCompleted": false,
-        "status": "Not Started"
-      }
-    ],
-    "userAgreement": {},
-    "assignedTeam": "60a72b7c56f18a53bce5a0c1"
-  }
+  // const project = {
+  //   "id": 2,
+  //   "title": "Project2",
+  //   "statement": "This is a sample project statement.",
+  //   "logo": "https://i.gadgets360cdn.com/products/large/vivo-t2-5g-db-709x800-1681200173.jpg",
+  //   "startDate": "2023-12-01T00:00:00.000Z",
+  //   "endDate": "2023-12-05T00:00:00.000Z",
+  //   "clientName": "Facebook",
+  //   "milestones": [
+  //     {
+  //       "dueDate": "2023-12-01T00:00:00.000Z",
+  //       "heading": "Milestone 1",
+  //       "submissionLink": "https://sample-submission-link.com",
+  //       "feedbackLink": "https://sample-feedback-link.com",
+  //       "subMilestones": [
+  //         {
+  //           "heading": "SubMilestone 1",
+  //           "isCompleted": false
+  //         },
+  //         {
+  //           "heading": "SubMilestone 2",
+  //           "isCompleted": true
+  //         }
+  //       ],
+  //       "isCompleted": false,
+  //       "status": "Not Started"
+  //     }
+  //   ],
+  //   "userAgreement": {},
+  //   "assignedTeam": "60a72b7c56f18a53bce5a0c1"
+  // }
+
+  const [project, setProject] = useState({})
   const [isPopupOpen, setPopupOpen] = useState(false);
   const { id } = params;
 
@@ -44,8 +46,11 @@ const Project = ({ params }) => {
   };
 
   useEffect(() => {
-
-  })
+    axios.get(`/api/project/${id}`)
+    .then(res => {
+      setProject(res.data);
+    })
+  }, [])
 
   return (
     <div className="w-full">

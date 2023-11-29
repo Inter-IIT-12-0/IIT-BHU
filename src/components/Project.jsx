@@ -2,84 +2,84 @@
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react'
 
-const Project = ({ project }) => {
-    project = {
-        "id": 1,
-        "title": "Sample Project",
-        "statement": "This is a sample project statement. lorem ipsum dolor sit amet consectetur adipiscing elit sed diam nonumy eirmod tempor invid id velit esse cillum dolore magna aliquy iaculis nisi ut aliqu incididunt",
-        "milestones": [
-            {
-                "dueDate": "2023-12-31T23:59:59.999Z",
-                "heading": "Milestone 1",
-                "submissionLink": "http://sample-submission-link.com",
-                "feedbackLink": "http://sample-feedback-link.com",
-                "subMilestones": [
-                    {
-                        "title": "SubMilestone 1",
-                        "isCompleted": false,
-                        "status": "Not Started",
-                        "dueDate": "2023-12-15T23:59:59.999Z",
-                        "assignedTo": "<User ObjectId>",
-                        "description": "Description of SubMilestone 1",
-                        "startDate": null,
-                        "endDate": null,
-                        "Aitools": ["Engineering"],
-                        "connectedApps": [["Figma", "http://figma.com"]],
-                        "work": {
-                            "fileType": "file",
-                            "file": "<Buffer Data>"
-                        },
-                        "stickyNotes": ["Note 1", "Note 2"]
-                    },
-                ],
-                "isCompleted": false,
-                "status": "Not Started"
-            }
-        ],
-        "userAgreement": {
-        },
-        "assignedTeam": {
-            "name": "Development Team",
-            "users": [
-                {
-                    "username": "user1",
-                    "email": "user1@example.com"
-                },
-            ]
-        },
-        "assignedBy": {
-            "name": "admin",
-            "email": "admin@example.com",
-            "companyName": "Google",
-            "numOfJobsPosted": 2,
-        },
-        "logo": "https://aemi.ie/wp-content/uploads/2021/10/Project-Arts-Centre-Logo-Black-1-scaled.jpg",
-        "health": {
-            "progress": 0
-        },
-        "startDate": "2023-01-01T00:00:00.000Z",
-        "endDate": "2023-12-31T23:59:59.999Z",
-        "activity": [
-            {
-                "submilestone": "<SubMilestone ObjectId>",
-                "type": "CREATE",
-                "timestamp": "2023-01-01T12:00:00.000Z",
-                "user": "<User ObjectId>",
-                "message": "Created the project."
-            }
-        ],
-        "clientRequirements": {
-            "paymentType": "Fixed",
-            "worksDays": ["Mon", "Tue", "Wed"],
-            "requiredTools": ["Figma", "MERN"],
-            "files": [("doc.docx", Buffer.from([0x53, 0x61, 0x6D, 0x70, 0x6C, 0x65, 0x20, 0x62, 0x69, 0x6E, 0x61, 0x72, 0x79, 0x20, 0x64, 0x61, 0x74, 0x61]))]
-        },
-        "work": {
-            "fileType": "file",
-            "file": "<Buffer Data>"
-        },
-        "duration": "5 Months"
-    }
+const Project = ({ project, isOpen, setIsOpen }) => {
+    // project = {
+    //     "id": 1,
+    //     "title": "Sample Project",
+    //     "statement": "This is a sample project statement. lorem ipsum dolor sit amet consectetur adipiscing elit sed diam nonumy eirmod tempor invid id velit esse cillum dolore magna aliquy iaculis nisi ut aliqu incididunt",
+    //     "milestones": [
+    //         {
+    //             "dueDate": "2023-12-31T23:59:59.999Z",
+    //             "heading": "Milestone 1",
+    //             "submissionLink": "http://sample-submission-link.com",
+    //             "feedbackLink": "http://sample-feedback-link.com",
+    //             "subMilestones": [
+    //                 {
+    //                     "title": "SubMilestone 1",
+    //                     "isCompleted": false,
+    //                     "status": "Not Started",
+    //                     "dueDate": "2023-12-15T23:59:59.999Z",
+    //                     "assignedTo": "<User ObjectId>",
+    //                     "description": "Description of SubMilestone 1",
+    //                     "startDate": null,
+    //                     "endDate": null,
+    //                     "Aitools": ["Engineering"],
+    //                     "connectedApps": [["Figma", "http://figma.com"]],
+    //                     "work": {
+    //                         "fileType": "file",
+    //                         "file": "<Buffer Data>"
+    //                     },
+    //                     "stickyNotes": ["Note 1", "Note 2"]
+    //                 },
+    //             ],
+    //             "isCompleted": false,
+    //             "status": "Not Started"
+    //         }
+    //     ],
+    //     "userAgreement": {
+    //     },
+    //     "assignedTeam": {
+    //         "name": "Development Team",
+    //         "users": [
+    //             {
+    //                 "username": "user1",
+    //                 "email": "user1@example.com"
+    //             },
+    //         ]
+    //     },
+    //     "assignedBy": {
+    //         "name": "admin",
+    //         "email": "admin@example.com",
+    //         "companyName": "Google",
+    //         "numOfJobsPosted": 2,
+    //     },
+    //     "logo": "https://aemi.ie/wp-content/uploads/2021/10/Project-Arts-Centre-Logo-Black-1-scaled.jpg",
+    //     "health": {
+    //         "progress": 0
+    //     },
+    //     "startDate": "2023-01-01T00:00:00.000Z",
+    //     "endDate": "2023-12-31T23:59:59.999Z",
+    //     "activity": [
+    //         {
+    //             "submilestone": "<SubMilestone ObjectId>",
+    //             "type": "CREATE",
+    //             "timestamp": "2023-01-01T12:00:00.000Z",
+    //             "user": "<User ObjectId>",
+    //             "message": "Created the project."
+    //         }
+    //     ],
+    //     "clientRequirements": {
+    //         "paymentType": "Fixed",
+    //         "worksDays": ["Mon", "Tue", "Wed"],
+    //         "requiredTools": ["Figma", "MERN"],
+    //         "files": [("doc.docx", Buffer.from([0x53, 0x61, 0x6D, 0x70, 0x6C, 0x65, 0x20, 0x62, 0x69, 0x6E, 0x61, 0x72, 0x79, 0x20, 0x64, 0x61, 0x74, 0x61]))]
+    //     },
+    //     "work": {
+    //         "fileType": "file",
+    //         "file": "<Buffer Data>"
+    //     },
+    //     "duration": "5 Months"
+    // }
     const winning_prob = 39;
     const [files, setFiles] = useState([]);
     // useEffect(() => {
@@ -91,9 +91,10 @@ const Project = ({ project }) => {
     // }, [project.clientRequirements.files]);
 
     return (
-        <main>
-            <div className='bg-slate-600 absolute top-0 left-0 w-[100vw] h-[100vh] opacity-40'></div>
-            <div className="my-10 absolute right-0 top-0 flex">
+        <main className={`${isOpen? 'w-[100vw] h-[100vh] opacity-100 z-10': 'translate-x-[100vw]'} absolute left-0 top-0 z-40 transition-all duration-700`}>
+            <div className='absolute top-10 right-96 bg-black text-white w-10 h-10 rounded-full flex justify-center items-center z-40 cursor-pointer' onClick={() => setIsOpen(!isOpen)}> X </div>
+            <div className='bg-slate-600 w-[100vw] h-[100vh] opacity-40'></div>
+            <div className="my-10 absolute right-0 top-16 flex">
                 <div className="bg-white overflow-hidden shadow-lg w-[500px] relative border-r-8 border-gray-100 px-4 rounded-l-3xl">
                     <div className="text-center p-6 border-b flex items-center">
                         <span className='text-left mr-8 font-semibold'> {project.title} </span>

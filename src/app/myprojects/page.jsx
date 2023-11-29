@@ -87,7 +87,6 @@ const MyProjects = () => {
 	// 		}
 	// 	}
 	// ]
-	const Frontend_Url = process.env.FRONTEND_URL
 
 	const [Projects, setProjects] = useState([]);
 	const [selectedOption, setSelectedOption] = useState('option1');
@@ -96,22 +95,25 @@ const MyProjects = () => {
 		setSelectedOption(event.target.value);
 	};
 
+	
 	useEffect(() => {
 		axios.get(`/api/userprojects`)
 		.then(res => {
-			console.log(res.data)
 			setProjects(res.data)
+		})
+		.catch(err => {
+			console.log(err);
 		})
 	}, [])
 	return (
 
-		<div className=" bg-opacity-30">
+		<div className=" bg-opacity-30 overflow-x-hidden">
 			{/* <Sidebar /> */}
 			<StudentSidebar />
 			<Navbar />
-			<div className="relative left-96 top-20 flex flex-col">
-				<div className=" bg-gray-100 flex justify-end items-end w-3/5">
-					<div className="container mx-auto bg-indigo-500 bg-opacity-30 backdrop-blur-lg rounded-lg p-6">
+			<div className="pl-96 pt-20 flex flex-col">
+				<div className=" bg-gray-100 flex justify-end items-end w-[800px]">
+					<div className="container mx-auto bg-indigo-500 bg-opacity-30 backdrop-blur-lg rounded-lg p-6 w-[800px] z-20">
 						<form>
 							<h1 className="text-center font-bold text-white text-4xl mb-8">Find your project</h1>
 							<div className="sm:flex items-center bg-white rounded-lg overflow-hidden px-2 py-1 justify-between">
@@ -132,7 +134,7 @@ const MyProjects = () => {
 					{
 						Projects.map(project => (
 							// <div key={project.id}> {project.title} </div>
-							<ProjectCard key={project.id} project={project} />
+							<ProjectCard key={project._id} project={project} />
 						))
 					}
 				</div>

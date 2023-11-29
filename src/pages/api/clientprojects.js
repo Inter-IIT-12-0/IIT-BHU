@@ -12,7 +12,7 @@ const handler = async (req, res) => {
         }
 
         try {
-            const projects = await Project.find({ 'assignedBy': clientId }, '-_id -__v')
+            const projects = await Project.find({ 'assignedBy': clientId }, '-__v')
                 .populate({
                     path: 'assignedTeam',
                     select: '-_id -__v',

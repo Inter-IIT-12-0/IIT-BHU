@@ -104,6 +104,6 @@ const teamSchema = new mongoose.Schema({
   teamUserMap: [teamUserMap]
 });
 
-const Team =  mongoose.model.Team || mongoose.model('Team', teamSchema);
+const Team =  mongoose.models.Team || mongoose.model('Team', teamSchema);
 
 export default Team;
