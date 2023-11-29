@@ -161,7 +161,6 @@ const Project = ({ project, isOpen, setIsOpen }) => {
                     </div>
                     <div className="border-t-2 border-gray-300 pt-6">
                     <h3 className='font-bold'>About Client</h3>
-
                         <div className="px-4 py-2 hover:bg-gray-100 flex">
                             <div className="text-gray-800">
                                 <img src="https://www.text-image.com/samples/per_normal_face.jpg" alt="Face" className='rounded-full w-16 h-16' />
