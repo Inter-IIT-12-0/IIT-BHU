@@ -5,6 +5,38 @@ const skillsEnum = ['Skill1', 'Skill2', 'Skill3', 'Skill4', 'Skill5'];
 const toolsEnum = ['Tool1', 'Tool2', 'Tool3', 'Tool4', 'Tool5'];
 const languagesEnum = ['English', 'French', 'Spanish', 'German', 'Other'];
 
+const milestoneSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  deliverableDetails: { type: String, required: true },
+  description: { type: String }
+});
+
+const proposalSchema = new mongoose.Schema({
+  proposalScore: { type: Number },
+  acceptanceProbability: { type: Number },
+  bidAmount: { type: Number },
+  startDate: { type: Date },
+  milestones: [milestoneSchema],
+  files: {
+    type: [Buffer]
+  }
+});
+
+const teamUserMap = new mongoose.Schema({
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  },
+  role: {
+    type: String,
+    enum: ['Leader', 'Member']
+  },
+  status: {
+    type: String,
+    enum: ['Selected', 'Rejected','Hold']
+  }
+});
+
 const teamSchema = new mongoose.Schema({
   teamName: {
     type: String,
@@ -21,11 +53,9 @@ const teamSchema = new mongoose.Schema({
     required: true
   },
   service: {
-    services: {
-      type: [String],
-      enum: serviceEnum,
-      required: true
-    }
+    type: [String],
+    enum: serviceEnum,
+    required: true
   },
   languagesSupported: {
     type: [String],
@@ -69,9 +99,11 @@ const teamSchema = new mongoose.Schema({
   teamUrl: {
     type: String,
     required: true
-  }
+  },
+  proposal: proposalSchema,
+  teamUserMap: [teamUserMap]
 });
 
-const Team = mongoose.model('Team', teamSchema);
+const Team =  mongoose.models.Team || mongoose.model('Team', teamSchema);
 
 export default Team;

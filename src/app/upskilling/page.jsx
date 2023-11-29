@@ -1,15 +1,16 @@
+"use client"
 import React from "react";
-import Navbar from "@/components/Navbar";
-import SidebarUpskilling from "@/components/SidebarUpskilling";
+import Navbar from "../../components/Navbar";
+import SidebarUpskilling from "../../components/SidebarUpskilling";
 import TableOfTools from "../../../public/Images/TableOfTools.svg";
 import AIArcade from "../../../public/Images/AIArcade.svg";
 import Mentorship from "../../../public/Images/Mentorship.svg";
-import GlossyCard from "@/components/GlossyCard";
-import UpskillingCard from "@/components/UpskillingCard";
+import GlossyCard from "../../components/GlossyCard";
+import UpskillingCard from "../../components/UpskillingCard";
 import Plus from "../../../public/Images/Plus.svg";
 import Link from "next/link";
-import Footer from "@/components/Footer";
-import RightCard from "@/components/RightCard";
+import Footer from "../../components/Footer";
+import RightCard from "../../components/RightCard";
 
 const Upskilling = () => {
   return (

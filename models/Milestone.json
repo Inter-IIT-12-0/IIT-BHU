@@ -1,0 +1,50 @@
+[
+    {
+      "dueDate": "2023-12-01T00:00:00.000Z",
+      "heading": "This is the heading of Milestone 1",
+      "submissionLink": "https://sample-submission-link.com",
+      "feedbackLink": "https://sample-feedback-link.com",
+      "subMilestones": [
+        {"heading": "This is the submilestone 1", "isCompleted": false},
+        {"heading": "This is the submilestone 2", "isCompleted": true}
+      ],
+      "isCompleted": false,
+      "status": "Not Started"
+    },
+    {
+        "dueDate": "2023-12-01T00:00:00.000Z",
+        "heading": "This is the heading of Milestone 2",
+        "submissionLink": "https://sample-submission-link.com",
+        "feedbackLink": "https://sample-feedback-link.com",
+        "subMilestones": [
+          {"heading": "This is the submilestone 1", "isCompleted": false},
+          {"heading": "This is the submilestone 2", "isCompleted": true}
+        ],
+        "isCompleted": false,
+        "status": "Not Started"
+      },
+      {
+        "dueDate": "2023-12-01T00:00:00.000Z",
+        "heading": "This is the heading of Milestone 3",
+        "submissionLink": "https://sample-submission-link.com",
+        "feedbackLink": "https://sample-feedback-link.com",
+        "subMilestones": [
+          {"heading": "This is the submilestone 1", "isCompleted": false},
+          {"heading": "This is the submilestone 2", "isCompleted": true}
+        ],
+        "isCompleted": true,
+        "status": "Not Started"
+      },
+    {
+      "dueDate": "2023-12-15T00:00:00.000Z",
+      "heading": "Milestone 4",
+      "submissionLink": "https://sample-submission-link.com",
+      "feedbackLink": "https://sample-feedback-link.com",
+      "subMilestones": [
+        {"heading": "SubMilestone 1", "isCompleted": true},
+        {"heading": "SubMilestone 2", "isCompleted": true}
+      ],
+      "isCompleted": true,
+      "status": "Completed"
+    }
+  ]

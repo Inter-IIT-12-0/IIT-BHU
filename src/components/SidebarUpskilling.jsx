@@ -1,7 +1,7 @@
 "use client"
 import Image from "next/image";
 import Trumio_logo from "../../public/Images/Trumio_Logo.svg";
-import Trumio_text from "../../public/Images/Trumio_Text.svg";
+import Trumio_text from "../../public/Images/Trumio_text.svg";
 import Dashboard_Icon from "../../public/Images/Dashboard_Icon.svg"
 import My_Learnings_Icon from "../../public/Images/My_Learnings_Icon.svg"
 import AIArcadeIcon from "../../public/Images/AIArcadeIcon.svg"

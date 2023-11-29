@@ -1,8 +1,10 @@
 const mongoose = require("mongoose");
 
 const LanguageEnum = ['English', 'Spanish', 'French', 'German'];
-const RoleEnum = ['UX/UI Designer', 'Developer'];
+const DomainEnum = ['UX/UI Designer', 'Developer'];
+const RoleEnum = ['Student', 'Client'];
 const DaysEnum = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+import Project from "./Project";
 
 const EducationSchema = new mongoose.Schema({
     nameOfCollegeOrUniversity: { type: String },
@@ -23,8 +25,12 @@ const UserSchema = new mongoose.Schema({
     workExperienceYears: { type: Number },
     workExperienceMonths: { type: Number },
     professionalIntroduction: { type: String },
+    domain: { type: String, enum: DomainEnum },
     role: { type: String, enum: RoleEnum },
     languages: [{ type: String, enum: LanguageEnum }],
+    companyName: { type: String },
+    numOfJobsPosted: { type: Number },
+    sectorName: { type: String },
     currentAddress: {
         streetAddress: { type: String },
         houseNumber: { type: String },
@@ -49,6 +55,8 @@ const UserSchema = new mongoose.Schema({
         hourlyRate: { type: Number }
     },
     socialMedia: [SocialMediaSchema],
+    projects:[{type: mongoose.Schema.Types.ObjectId,
+        ref: 'Project'}],
     lastLogin: { type: Date }
 }, { timestamps: true });
 
