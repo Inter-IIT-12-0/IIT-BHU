@@ -1,24 +1,21 @@
 // /app/gpt/page.tsx
 "use client"
-// pages/index.js
-import { useState,useEffect } from "react";
+import { useState } from "react";
 import { generate, stop } from "../../pages/api/GPT/stream-response";
 import React from "react";
 
-const Subdomain = ({ domain,subdomain, onSubdomainClick, onSubmit,result,setResult }) => {
-
-
+const Subdomain = ({ domain, subdomain, onSubmit, result, setResult }) => {
   const [formValues, setFormValues] = useState({});
   const [controller, setController] = useState(null);
 
-  const handleGenerate = async (domain, subdomain,formValues,result,setResult) => {
-    // ... (your existing input validation)
-    await generate(domain,subdomain,formValues, result, setResult);
+  const handleGenerate = async (domain, subdomain, formValues, result, setResult) => {
+    await generate(domain, subdomain, formValues, result, setResult);
   };
 
   const handleStop = () => {
     stop(controller, setResult);
   };
+
   const handleInputChange = (name, value) => {
     setFormValues((prevFormValues) => ({
       ...prevFormValues,
@@ -27,35 +24,34 @@ const Subdomain = ({ domain,subdomain, onSubdomainClick, onSubmit,result,setResu
   };
 
   const handleSubmit = (e) => {
-    
     e.preventDefault();
-    onSubmit(formValues);
-    console.log("subdomain",subdomain.name);
-    handleGenerate(domain ,subdomain.name,formValues,result,setResult);
+    
+    handleGenerate(domain, subdomain.name, formValues, result, setResult);
   };
 
   return (
-    <div>
-      <h3>{subdomain.name}</h3>
-      {/* Form with input fields */}
-      <form onSubmit={handleSubmit}>
+    <div className="p-4 border rounded shadow">
+      <h3 className="text-xl font-semibold mb-4">{subdomain.name}</h3>
+      <form onSubmit={handleSubmit} className="space-y-4">
         {subdomain.formFields.map((field) => (
-          <label key={field.name}>
+          <label key={field.name} className="block">
             {field.label}:
             <input
               type={field.type}
               value={formValues[field.name] || ''}
               onChange={(e) => handleInputChange(field.name, e.target.value)}
+              className="border p-2 rounded mt-1"
             />
           </label>
         ))}
-        <button type="submit">Submit</button>
+        <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">
+          Submit
+        </button>
       </form>
     </div>
   );
 };
 
-// Card component
 const MyCard = () => {
   const [result, setResult] = useState("");
   const [selectedDomain, setSelectedDomain] = useState('');
@@ -108,33 +104,37 @@ const MyCard = () => {
             { name: 'text', label: 'text', type: 'text' },
           ],
         },
-        // Add more subdomains for Domain 2 if needed
+        // Add more subdomains fSummarizes Textor Domain 2 if needed
       ],
     },
     // Add more domains if needed
   ];
-
   const handleDomainSelect = (selectedDomain) => {
     setSelectedDomain(selectedDomain);
-    setSelectedSubdomain(null); // Reset selected subdomain when a new domain is selected
-    setSubmittedData(null); // Reset submitted data when a new domain is selected
+    setSelectedSubdomain(null);
+    setSubmittedData(null);
   };
 
   const handleSubdomainSelect = (subdomain) => {
     setSelectedSubdomain(subdomain);
-    setSubmittedData(null); // Reset submitted data when a new subdomain is selected
+    setSubmittedData(null);
   };
 
   const handleFormSubmit = (formData) => {
     setSubmittedData(formData);
+    setSelectedDomain('');
+    setSelectedSubdomain(null);
   };
 
   return (
-    <div>
-      <h2>Card with Subdomains and Forms</h2>
-      {/* Dropdown for selecting domain */}
-      <label>Select Domain:</label>
-      <select value={selectedDomain} onChange={(e) => handleDomainSelect(e.target.value)}>
+    <div className="p-8 max-w-lg mx-auto">
+      <h2 className="text-2xl font-semibold mb-6">Card with Subdomains and Forms</h2>
+      <label className="block mb-2">Select Domain:</label>
+      <select
+        value={selectedDomain}
+        onChange={(e) => handleDomainSelect(e.target.value)}
+        className="border p-2 rounded"
+      >
         <option value="" disabled>Select an option</option>
         {domains.map((domain) => (
           <option key={domain.name} value={domain.name}>
@@ -143,16 +143,16 @@ const MyCard = () => {
         ))}
       </select>
 
-      {/* Display subdomains based on selected domain */}
       {selectedDomain && (
-        <div>
-          <h3>Subdomains for {selectedDomain}:</h3>
+        <div className="mt-4">
+          <h3 className="text-lg font-semibold mb-2">Subdomains for {selectedDomain}:</h3>
           {domains
             .find((domain) => domain.name === selectedDomain)
             .subdomains.map((subdomain) => (
               <button
                 key={subdomain.name}
                 onClick={() => handleSubdomainSelect(subdomain)}
+                className="bg-gray-200 text-gray-800 px-4 py-2 rounded mr-2 mb-2 hover:bg-gray-300"
               >
                 {subdomain.name}
               </button>
@@ -160,25 +160,35 @@ const MyCard = () => {
         </div>
       )}
 
-      {/* Display the selected subdomain's form */}
       {selectedSubdomain && (
-        <div>
-          <h3>Form for {selectedSubdomain.name}:</h3>
-          <Subdomain domain={selectedDomain} subdomain={selectedSubdomain} onSubmit={handleFormSubmit} result={result} setResult={setResult} />
+        <div className="mt-4">
+          <h3 className="text-lg font-semibold mb-2">Form for {selectedSubdomain.name}:</h3>
+          <Subdomain
+            domain={selectedDomain}
+            subdomain={selectedSubdomain}
+            onSubmit={handleFormSubmit}
+            result={result}
+            setResult={setResult}
+          />
         </div>
       )}
 
-      {/* Display submitted data */}
       {submittedData && (
-        <div>
-          <h3>Submitted Data:</h3>
-          <pre>{JSON.stringify(submittedData, null, 2)}</pre>
+        <div className="mt-4">
+          <h3 className="text-lg font-semibold mb-2">Submitted Data:</h3>
+          <pre className="border p-4 rounded bg-gray-100">{JSON.stringify(submittedData, null, 2)}</pre>
         </div>
       )}
 
-{result}
+      {result && (
+        <div className="mt-4">
+          <h3 className="text-lg font-semibold mb-2">Result:</h3>
+          <div className="border p-4 rounded bg-gray-100">
+            <pre className="whitespace-pre-line">{result}</pre>
+          </div>
+        </div>
+      )}
     </div>
-    
   );
 };
 
