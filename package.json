@@ -9,8 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@svgr/webpack": "^8.1.0",
     "@faker-js/faker": "^8.3.1",
+    "@svgr/webpack": "^8.1.0",
     "bcrypt": "^5.1.1",
     "chart.js": "^4.4.0",
     "chartjs": "^0.3.24",
@@ -22,7 +22,10 @@
     "react": "^18",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18",
-    "react-google-button": "^0.7.2"
+    "react-google-button": "^0.7.2",
+    "react-responsive-carousel": "^3.2.23",
+    "react-slick": "^0.29.0",
+    "slick-carousel": "^1.8.1"
   },
   "devDependencies": {
     "@types/node": "^20",
