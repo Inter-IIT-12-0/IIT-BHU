@@ -26,7 +26,7 @@ const handler = async (req, res) => {
                     path: 'assignedTeam',
                     select: '-_id -__v',
                     populate: {
-                        path: 'teamUserMap',
+                        path: 'teamUserMap.user',
                         select: '-_id -__v'
                     }
                 })

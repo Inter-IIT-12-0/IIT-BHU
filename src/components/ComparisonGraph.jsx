@@ -51,7 +51,7 @@ const options = {
   },
 };
 
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+const labels = ['Milestone 1', 'Milestone 2', 'Milestone 3', 'Milestone 4'];
 
 const getRandomData = () => {
   return labels.map(() => Math.floor(Math.random() * 2000) - 1000);
@@ -61,14 +61,14 @@ const data = {
   labels,
   datasets: [
     {
-      label: 'Dataset 1',
+      label: 'Varun Kolanu',
       data: getRandomData(),
       borderColor: 'rgb(255, 99, 132)',
       backgroundColor: 'rgba(255, 99, 132, 0.5)',
       yAxisID: 'y',
     },
     {
-      label: 'Dataset 2',
+      label: 'John Doe',
       data: getRandomData(),
       borderColor: 'rgb(53, 162, 235)',
       backgroundColor: 'rgba(53, 162, 235, 0.5)',
