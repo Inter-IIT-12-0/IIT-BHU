@@ -30,7 +30,7 @@ export default function Home() {
         )} */}
       {/* <Calendar /> */}
 
-      <Clickup />
+{/*       <Clickup /> */}
     </main>
   );
 }
