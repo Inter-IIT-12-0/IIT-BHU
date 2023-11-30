@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from 'react'
-import BackArrow from "../../public/Images/BackArrow_Icon.svg"
+import RightArrow from "../../public/Images/Right_Arrow.svg"
 import Copy_Link from "../../public/Images/Copy_Link_Icon.svg"
 import Export from "../../public/Images/Export_Icon.svg"
 import Hand from "../../public/Images/Hand_Icon.svg"
@@ -13,7 +13,7 @@ import Calendar_Icon from "../../public/Images/Calendar2.svg"
 import Export_Icon from "../../public/Images/export.svg"
 import Location_Icon from "../../public/Images/Location_Icon.svg"
 
-const Project = ({ project }) => {
+const Project = ({ project, setOpenedProj }) => {
     // project = {
     //     "id": 1,
     //     "title": "Sample Project",
@@ -117,22 +117,23 @@ const Project = ({ project }) => {
         const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
         return daysDifference;
     }
+    const [isFullOpen, setFullOpen] = useState(false);
 
     return (
         <main className="w-[100vw] h-[100vh] z-10 absolute top-0 right-0 overflow-y-hidden">
             {/* <div className='absolute top-10 right-96 bg-black text-white w-10 h-10 rounded-full flex justify-center items-center z-40 cursor-pointer' onClick={() => setIsOpen(!isOpen)}> X </div> */}
             <div className='w-[100vw] h-[100vh] absolute top-0 right-0 opacity-50 transition-all duration-1000 bg-zinc-800'></div>
-            <div className="absolute right-0 top-0 flex flex-col h-full bg-white rounded-l-3xl animate-[appear_1s_ease-in-out]">
+            <div className={`absolute right-0 top-0 flex flex-col h-full bg-white rounded-l-3xl animate-[appear_1s_ease-in-out] ${isFullOpen ? 'w-full' : ''} transition-all duration-500`}>
                 <nav className='h-16 flex justify-between px-6 py-4'>
-                    <BackArrow className="scale-75" />
-                    <a href="#" className='text-sm mr-16 flex items-center'>
+                    <div onClick={() => setOpenedProj({})} className='cursor-pointer'> X </div>
+                    <div onClick={() => setFullOpen(!isFullOpen)} className='text-sm mr-16 flex items-center cursor-pointer'>
                         <Export_Icon />
-                        <span className='ml-3'> Open in new window </span>
-                    </a>
+                        <span className='ml-3'>  {isFullOpen ? 'Minimize Window' : 'Open in new window'}  </span>
+                    </div>
 
                 </nav>
                 <div className='flex'>
-                    <div className="shadow-lg w-[600px] relative border-r-8 border-gray-100 px-4">
+                    <div className={`shadow-lg ${isFullOpen ? 'w-full' : 'w-[600px]'} relative border-r-8 border-gray-100 px-4`}>
                         <div className="text-center px-6 flex items-center justify-between">
                             <span className='text-3xl mr-8 font-semibold'> {project.title} </span>
                             <span className='text-sm'> Listing Live till {(new Date(project.endDate)).toLocaleDateString('en-US', {
@@ -145,14 +146,14 @@ const Project = ({ project }) => {
                             <div className='flex justify-between mb-3'>
                                 <div className='flex flex-col'>
                                     <div className='flex mr-20 ml-5 mb-2'>
-                                    <div className='flex mr-5'>
-                                        <Location_Icon />
-                                        <span className='ml-3'> {project.location} </span>
-                                    </div>
-                                    <div className='flex'>
-                                        <Star_Bold className="scale-75" />
-                                        <span className='ml-3'> {project.domain} </span>
-                                    </div>
+                                        <div className='flex mr-5'>
+                                            <Location_Icon />
+                                            <span className='ml-3'> {project.location} </span>
+                                        </div>
+                                        <div className='flex'>
+                                            <Star_Bold className="scale-75" />
+                                            <span className='ml-3'> {project.domain} </span>
+                                        </div>
                                     </div>
                                     <div className='flex mr-20 ml-5'>
                                         <Calendar_Icon />
@@ -169,7 +170,7 @@ const Project = ({ project }) => {
                                     {
                                         days.map(day => (
                                             <div className='flex flex-col items-center' key={day}>
-                                                <div className={`w-3.5 h-3.5 rounded-full ${project.clientRequirements.worksDays.includes(day) ? 'bg-white border border-gray-400' : 'bg-red-500'}`} />
+                                                <div className={`w-3.5 h-3.5 rounded-full ${project.clientRequirements.workDays.includes(day) ? 'bg-white border border-gray-400' : 'bg-red-500'}`} />
                                                 {day}
                                             </div>
                                         ))
@@ -221,7 +222,7 @@ const Project = ({ project }) => {
 
 
 
-                    <div className="bg-white rounded shadow-lg w-80">
+                    <div className={`bg-white rounded shadow-lg ${isFullOpen ? 'w-full' : 'w-80'}`}>
                         <div className="text-center  border-b-2 flex items-center flex-col pt-5 pb-5">
                             <button className="w-48 h-12 bg-blue-400 rounded-lg shadow mb-5 text-xl font-bold font-sans tracking-tight" >Create Bid </button>
                             <button className="w-48 h-12 rounded-lg shadow border text-xl border-blue-400 flex justify-center items-center cursor-pointer" >

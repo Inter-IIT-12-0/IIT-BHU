@@ -13,12 +13,13 @@ import ProjectList from "../components/ProjectCard";
 import ProjectCard from "../components/MyProjectCard";
 import Calendar from "../components/Calendar";
 import TaskList from "../components/TaskList";
+import MilestonesTimeline from "../components/MilestonesTimeline";
 
 export default function Home() {
   const { data: session } = useSession();
 
   return (
-    <main className="flex">
+    <main className="flex w-[100vw] h-[100vh]">
       {/* {session ? (
           <>
             <p>Welcome, {session.user?.name}!</p>
@@ -30,7 +31,9 @@ export default function Home() {
         )} */}
       {/* <Calendar /> */}
 
-      <Clickup />
+      {/* <Clickup /> */}
+
+      <MilestonesTimeline />
     </main>
   );
 }
