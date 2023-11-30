@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const statusEnum = ['Todo', 'In Progress', 'Completed','Not Started'];
+const statusEnum = ['In Progress', 'Completed','Not Started'];
 const appsEnum = [('Figma', 'http://figma.com')];
 const toolsEnum = ['Engineering', 'Design'];
 
@@ -63,11 +63,13 @@ const activitySchema = new mongoose.Schema({
 const milestoneSchema = new mongoose.Schema({
   dueDate: { type: Date, required: true },
   heading: { type: String, required: true },
+  description: { type: String },
   submissionLink: { type: String },
   feedbackLink: { type: String },
   subMilestones: [subMilestoneSchema],
   isCompleted: { type: Boolean, default: false },
   status: { type: String, enum: statusEnum, default: 'Not Started' },
+  payment: { type: Number, required: true }
 });
 
 const userAgreementSchema = new mongoose.Schema({

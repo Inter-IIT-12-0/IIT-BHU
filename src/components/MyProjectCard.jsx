@@ -3,7 +3,6 @@ import SearchIcon from "../../public/Images/SearchIcon.svg";
 import NotificationsIcon from "../../public/Images/NotificationsIcon.svg";
 import Link from "next/link";
 import { useState } from "react";
-import Project from "./Project";
 
 const MyProjectCard = ({ project }) => {
 
@@ -12,9 +11,7 @@ const MyProjectCard = ({ project }) => {
     setIsOpen(!isOpen);
   }
   return (
-    // <Link href={`/myprojects/${project._id}`}>
-    <>
-      <Project isOpen={isOpen} project={project} setIsOpen={setIsOpen} />
+    <Link href={`/myprojects/${project._id}`}>
       <div className="cursor-pointer" onClick={clickHandler}>
         <div className="flex items-center justify-center cursor-pointer w-72 mx-8">
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4">
@@ -124,8 +121,7 @@ const MyProjectCard = ({ project }) => {
           </div>
         </div>
       </div>
-    </>
-    // </Link>
+    </Link>
   );
 };
 

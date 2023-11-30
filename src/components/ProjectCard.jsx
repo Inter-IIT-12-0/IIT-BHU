@@ -121,7 +121,7 @@ const ProjectCard = ({ project, setOpenedProj }) => {
                     </div>
                     <div className='flex mr-8 justify-center items-center'>
                         <Money_Icon className="mr-1" />
-                        {project.clientRequirements.paymentType} - {project.clientRequirements.payment}
+                        {project.clientRequirements.paymentType} - &#8377; {project.clientRequirements.payment}
                     </div>
                 </div>
                 <div className='my-6 text-neutral-700'>
@@ -162,6 +162,7 @@ const ProjectCard = ({ project, setOpenedProj }) => {
 
                                 })
                             }
+                            &nbsp; ( {project.assignedBy.rating} )
                         </div>
                         <div className='font-semibold' > {project.assignedBy.name} </div>
                         <div> {project.assignedBy.companyName} </div>

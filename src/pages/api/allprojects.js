@@ -12,7 +12,12 @@ const handler = async (req, res) => {
           path: 'teamUserMap.user',
           select: '-_id -__v'
         }
-      });
+      })
+      .populate({
+        path: 'assignedBy',
+        select: '-_id -__v'
+      })
+      ;
 
       res.status(200).json(projects);
     } catch (error) {
