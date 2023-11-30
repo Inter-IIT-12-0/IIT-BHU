@@ -1,7 +1,6 @@
 import React from 'react';
 import HealthDashboard from './Milestone_sidebar';
 import ComparisonGraph from './ComparisonGraph';
-import ComparisonGraph from './ComparisonGraph';
 import RoundedProgressBar from './RoundedProgressBar';
 
 const Healthdashboard = ({ project }) => {

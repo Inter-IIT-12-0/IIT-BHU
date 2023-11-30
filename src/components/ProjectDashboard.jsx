@@ -4,6 +4,7 @@ import Calendar from './Calendar';
 import Healthdashboard from './HealthDashboard';
 import TeamCard from './TeamCard';
 import AppCard from './AppCard';
+import SubMilestoneCard from './SubMilestoneCard';
 
 
 
@@ -17,7 +18,7 @@ const ProjectTimeline = ({ project, setIsOpen, isOpen }) => {
   const renderContent = () => {
     switch (selectedTab) {
       case 'Milestones':
-        return <MilestoneTable project={project} />
+        return <MilestoneTable project={project} setSelectedSubmilestone={setSelectedSubmilestone} />
       case 'Timeline':
         return <Calendar />;
       case 'Health':
@@ -31,8 +32,17 @@ const ProjectTimeline = ({ project, setIsOpen, isOpen }) => {
     }
   };
 
+  const [selectedSubmilestone, setSelectedSubmilestone] = useState(null);
+
+  const handleSubmilestoneClick = (submilestone) => {
+    setSelectedSubmilestone(submilestone);
+  };
+
   return (
     <div>
+      {selectedSubmilestone && (
+        <SubMilestoneCard submilestone={selectedSubmilestone} setSelectedSubmilestone={setSelectedSubmilestone} />
+      )}
       <div className={`flex flex-col w-11/12 mt-8 ${isOpen ? 'blur-xl' : ''} `}>
         <ul className="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400">
           <li className="me-2">

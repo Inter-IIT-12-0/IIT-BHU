@@ -5,16 +5,7 @@ import SubMilestoneCard from './SubMilestoneCard';
 import CalendarIcon from '../../public/Images/Calendar2.svg'
 import Calendar_Icon from "../../public/Images/Calendar2.svg"
 
-const MilestoneTable = ({ project }) => {
-  const [selectedSubmilestone, setSelectedSubmilestone] = useState(null);
-
-  const handleSubmilestoneClick = (submilestone) => {
-    setSelectedSubmilestone(submilestone);
-  };
-
-  const closePopup = () => {
-    setSelectedSubmilestone(null);
-  };
+const MilestoneTable = ({ project, setSelectedSubmilestone }) => {
 
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -58,7 +49,7 @@ const MilestoneTable = ({ project }) => {
                 <tr
                   key={submilestone.id}
                   className="bg-white border-b dark:border-gray-700 cursor-pointer"
-                  onClick={() => handleSubmilestoneClick(submilestone)}
+                  onClick={() => setSelectedSubmilestone(submilestone)}
                 >
                   <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                     {submilestone.title}
@@ -85,11 +76,6 @@ const MilestoneTable = ({ project }) => {
           </table>
         ))}
       </div>
-
-      {/* Pop-up Card */}
-      {selectedSubmilestone && (
-        <SubMilestoneCard submilestone={selectedSubmilestone} />
-      )}
     </div>
   );
 };
