@@ -4,15 +4,15 @@ import Close from "../../public/Images/Close_Icon.svg"
 import Export_Icon from "../../public/Images/export.svg"
 
 
-const MilestonesTimeline = () => {
+const MilestonesTimeline = ({setTimelineOpen}) => {
     return (
-        <div className="w-96 h-full ml-20 flex flex-col absolute right-0 top-0">
+        <div className="w-96 h-full ml-20 flex flex-col absolute right-0 top-0 animate-[appear_1s_ease-in-out]">
             <nav className='flex justify-between py-6 border-b-2 border-zinc-200 items-center'>
                 <div>
                     <span className='font-bold'> Status: </span>
                     <span className='text-red-600'>Due Today</span>
                 </div>
-                <Close />
+                <Close onClick={() => setTimelineOpen(false)} className="cursor-pointer" />
             </nav>
             <div className='w-96 rounded-2xl py-3 flex flex-col mb-10 border border-gray-300 p-4 my-4'>
                 <div className='flex justify-between border-b-2 border-zinc-200 mb-3'>

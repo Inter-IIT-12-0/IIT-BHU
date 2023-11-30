@@ -3,11 +3,46 @@ import HealthDashboard from './Milestone_sidebar';
 import ComparisonGraph from './ComparisonGraph';
 import RoundedProgressBar from './RoundedProgressBar';
 
-const Healthdashboard = () => {
+const Healthdashboard = ({ project }) => {
+
+  const getTotalAmount = () => {
+    let amount = 0;
+    project.milestones.forEach(milestone => amount += milestone.payment)
+    // const amount = project.milestones.reduce((acc, currJson) => {
+    //   return acc + currJson.payment
+    // }, 0);
+    console.log(amount);
+    return amount;
+  }
+
+  const getCompletedAmount = () => {
+    const amount = project.milestones.filter(milestone => milestone.status === 'Completed').reduce((acc, currJson) => {
+      return acc + currJson.payment
+    }, 0);
+    return amount;
+  }
   return (
     <div className="grid grid-cols-2 gap-4">
-      <div className="p-4 bg-gray-200 rounded shadow">
-        <RoundedProgressBar progress={60}/>
+      <div className="p-4 bg-gray-200 rounded shadow flex flex-col">
+        <div className='w-full flex justify-center font-bold text-xl'> Percentage Completion </div>
+        <div className='flex justify-around items-center h-full'>
+          <div>
+            <div className='mb-3 -mt-6 '><span className='font-bold'> Start Date: </span> <span> {(new Date(project.startDate)).toLocaleDateString('en-US', {
+              day: 'numeric',
+              month: 'long',
+              year: 'numeric'
+            })} </span> </div>
+
+            <div className='my-3'><span className='font-bold'> End Date: </span> <span> {(new Date(project.endDate)).toLocaleDateString('en-US', {
+              day: 'numeric',
+              month: 'long',
+              year: 'numeric'
+            })} </span> </div>
+          </div>
+          <RoundedProgressBar progress={project.health.progress} />
+
+        </div>
+
       </div>
       <div className="p-4 bg-gray-200 rounded shadow">
         <ComparisonGraph />
@@ -15,56 +50,56 @@ const Healthdashboard = () => {
       <div className="col-span-2 p-4 bg-gray-200 rounded shadow">
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
           <caption className="p-5 text-lg font-semibold text-left rtl:text-right text-gray-900 bg-white">
-            <div className='flex'>
+            <div className='flex justify-between w-1/2'>
               <p className='mr-32 font-bold'>Payments</p>
-              <p className='justify-end '></p>
+              <p className='px-3 py-1 bg-green-400 rounded-2xl'>
+                &#8377; {getCompletedAmount()}/{getTotalAmount()}
+              </p>
             </div>
-            <p className="mt-1 text-sm font-normal text-gray-500 dark:text-gray-400">
-              MileStone Description: Description of milestone Description of milestone Description of milestone Description of milestone Description of milestone.
-            </p>
           </caption>
           <thead className="text-xs text-gray-700 uppercase bg-gray-50  dark:text-gray-400">
             <tr>
               <th scope="col" className="px-6 py-3">
-                Name
+                Milestone
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Date
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Amount
               </th>
               <th scope="col" className="px-6 py-3">
                 Status
               </th>
-              <th scope="col" className="px-6 py-3">
-                Due Date
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Assigned to
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Comments
-              </th>
             </tr>
           </thead>
           <tbody>
-            <tr className="bg-white border-b dark:border-gray-700">
-              <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                SubMilestone 1
-              </th>
-              <td className="px-6 py-4">
-                TODO
-              </td>
-              <td className="px-6 py-4">
-                12/11/23
-              </td>
-              <td className="px-6 py-4">
-                Varun Kolanu
-              </td>
-              <td className="px-6 py-4">
-                N/A
-              </td>
-            </tr>
+            {
+              project.milestones.map(milestone => (
+                <tr className="bg-white border-b dark:border-gray-700">
+                  <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
+                    {milestone.heading}
+                  </th>
+                  <td className="px-6 py-4">
+                    {
+                      milestone.status === 'Completed' ? (new Date(milestone.paymentDate)).toLocaleDateString('en-US', {
+                        day: 'numeric',
+                        month: 'long',
+                        year: 'numeric'
+                      }) : '-'
+                    }
+                  </td>
+                  <td className="px-6 py-4">
+                    &#8377; {milestone.payment}
+                  </td>
+                  <td className="px-6 py-4">
+                    {milestone.status}
+                  </td>
+                </tr>
+              ))
+            }
           </tbody>
         </table>
-      </div>
-      <div className="p-4 bg-gray-200 rounded shadow">
-        Card 4
       </div>
     </div>
   );
