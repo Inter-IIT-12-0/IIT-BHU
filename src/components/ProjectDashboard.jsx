@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import MilestoneTable from './MileStoneProject';
 import Calendar from './Calendar';
 import Healthdashboard from './HealthDashboard';
+import TeamCard from './TeamCard';
+import AppCard from './AppCard';
+
 
 
 const ProjectTimeline = ({ project, setIsOpen, isOpen }) => {

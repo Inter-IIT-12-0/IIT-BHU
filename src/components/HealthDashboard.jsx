@@ -1,6 +1,7 @@
 import React from 'react';
 import HealthDashboard from './Milestone_sidebar';
 import ComparisonGraph from './ComparisonGraph';
+import ComparisonGraph from './ComparisonGraph';
 import RoundedProgressBar from './RoundedProgressBar';
 
 const Healthdashboard = ({ project }) => {
@@ -45,6 +46,7 @@ const Healthdashboard = ({ project }) => {
 
       </div>
       <div className="p-4 bg-gray-200 rounded shadow">
+        <ComparisonGraph />
         <ComparisonGraph />
       </div>
       <div className="col-span-2 p-4 bg-gray-200 rounded shadow">
