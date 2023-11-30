@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import milestones from "../../models/Milestone.json";
-import Calendar from "../../public/Images/calendar.svg";
+import Calendar from "../../public/Images/Calendar_Icon.svg";
 import Clipboard from "../../public/Images/clipboard.svg"
 
 const Milestone = () => {
