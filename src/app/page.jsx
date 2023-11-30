@@ -35,7 +35,8 @@ export default function Home() {
       {/* <Calendar /> */}
 
 {/*       <Clickup /> */}
-<ProjectDashboard/>
+{/* <ProjectDashboard/> */}
+{/* <RoundedProgressBar /> */}
     </main>
   );
 }

@@ -4,8 +4,8 @@ import Calendar from './Calendar';
 import Healthdashboard from './HealthDashboard';
 
 
-const ProjectDashboard = () => {
-  const [selectedTab, setSelectedTab] = useState('Profile');
+const ProjectTimeline = ({project}) => {
+  const [selectedTab, setSelectedTab] = useState('Milestones');
 
   const handleTabClick = (tab) => {
     setSelectedTab(tab);
@@ -13,71 +13,71 @@ const ProjectDashboard = () => {
 
   const renderContent = () => {
     switch (selectedTab) {
-      case 'Profile':
-        return <MilestoneTable />
-      case 'Dashboard':
+      case 'Milestones':
+        return <MilestoneTable project={project}/>
+      case 'Timeline':
         return <Calendar />;
-      case 'Settings':
+      case 'Health':
         return <Healthdashboard />;
-      case 'Contacts':
-        return <div>Contacts Content Goes Here</div>;
-      case 'Disabled':
-        return <div>Disabled Content Goes Here</div>;
+      case 'Apps':
+        return <div>Apps Content Goes Here</div>;
+      case 'Teams':
+        return <div>Teams Content Goes Here</div>;
       default:
         return null;
     }
   };
 
   return (
-    <div className="flex flex-col items-center mt-8">
+    <div className="flex flex-col w-11/12 mt-8">
       <ul className="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400">
         <li className="me-2">
           <a
             href="#"
-            onClick={() => handleTabClick('Profile')}
+            onClick={() => handleTabClick('Milestones')}
             className={`inline-block p-4 ${
-              selectedTab === 'Profile'
+              selectedTab === 'Milestones'
                 ? 'text-blue-600 bg-gray-100 rounded-t-lg active dark:bg-gray-800 dark:text-blue-500'
                 : 'text-gray-500 dark:text-gray-400'
             }`}
           >
-            Profile
+            Milestones
           </a>
         </li>
         <li className="me-2">
           <a
             href="#"
-            onClick={() => handleTabClick('Dashboard')}
+            onClick={() => handleTabClick('Timeline')}
             className={`inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300`}
           >
-            Dashboard
+            Timeline
           </a>
         </li>
         <li className="me-2">
           <a
             href="#"
-            onClick={() => handleTabClick('Settings')}
+            onClick={() => handleTabClick('Apps')}
             className={`inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300`}
           >
-            Settings
+            Apps
           </a>
         </li>
         <li className="me-2">
           <a
             href="#"
-            onClick={() => handleTabClick('Contacts')}
+            onClick={() => handleTabClick('Health')}
             className={`inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300`}
           >
-            Contacts
+            Health
           </a>
         </li>
-        <li>
+        <li className="me-2">
           <a
-            className="inline-block p-4 text-gray-400 rounded-t-lg cursor-not-allowed dark:text-gray-500"
             href="#"
-            onClick={(e) => e.preventDefault()}
+            onClick={() => handleTabClick('Teams')}
+            className={`inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300`}
           >
-            Disabled
+            Teams
           </a>
         </li>
       </ul>
@@ -86,4 +86,4 @@ const ProjectDashboard = () => {
   );
 };
 
-export default ProjectDashboard;
+export default ProjectTimeline;

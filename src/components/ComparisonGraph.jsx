@@ -77,6 +77,6 @@ const data = {
   ],
 };
 
-export function ComparisonGraph() {
+export default function ComparisonGraph() {
   return <Line options={options} data={data} />;
 }

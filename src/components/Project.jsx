@@ -246,51 +246,51 @@ const Project = ({ project, setOpenedProj }) => {
                             </div>
                         </div>
                     </div>
-                        <div className='mx-3 py-8'>
-                            <h3 className='font-semibold'>Attachments: </h3>
-                            <div className='flex mt-3'>
-                                {
-                                    // files.map((file, id) => (
-                                    //     <a key={id} className='w-10 h-10 bg-slate-200 rounded-md' href={`data:image/png;base64,${file[1]}`}> {file[0]} </a>
-                                    // ))
-                                    [["File 1", "sdfg"], ["File 2", "abcd"]].map(([filename, filepath], id) => (
-                                        <a key={id} className='h-10 text-sky-700 rounded-md w-20 mr-5 flex justify-center items-center' href={`data:image/png;base64,${filepath}`}> {filename} </a>
-                                    ))
-                                }
-                            </div>
+                    <div className='mx-3 py-8'>
+                        <h3 className='font-semibold'>Attachments: </h3>
+                        <div className='flex mt-3'>
+                            {
+                                // files.map((file, id) => (
+                                //     <a key={id} className='w-10 h-10 bg-slate-200 rounded-md' href={`data:image/png;base64,${file[1]}`}> {file[0]} </a>
+                                // ))
+                                [["File 1", "sdfg"], ["File 2", "abcd"]].map(([filename, filepath], id) => (
+                                    <a key={id} className='h-10 text-sky-700 rounded-md w-20 mr-5 flex justify-center items-center' href={`data:image/png;base64,${filepath}`}> {filename} </a>
+                                ))
+                            }
                         </div>
                     </div>
+                </div>
 
 
 
-                    <div className={`bg-white rounded shadow-lg ${isFullOpen ? 'w-full' : 'w-80'}`}>
-                        <div className="text-center  border-b-2 flex items-center flex-col pt-5 pb-5">
-                            <button className="w-48 h-12 bg-blue-400 rounded-lg shadow mb-5 text-xl font-bold font-sans tracking-tight" >Create Bid </button>
-                            <button className="w-48 h-12 rounded-lg shadow border text-xl border-blue-400 flex justify-center items-center cursor-pointer" >
-                                <Hand className="scale-75" />
-                                <span> Interested </span>
-                            </button>
-                            <button className="mt-5 w-32 h-8 bg-blue-400 bg-opacity-0 rounded-lg shadow border border-blue-400 flex items-center justify-center text-sm cursor-pointer" >
-                                <Heart className="scale-50" />
-                                <span> Favourite </span>
-                            </button>
-                        </div>
-                        <div className="pt-6 flex flex-col items-center text-xl border-b-2">
-                            <h3 className='font-bold'>About the Client</h3>
+                <div className={`bg-white rounded shadow-lg ${isFullOpen ? 'w-full' : 'w-80'}`}>
+                    <div className="text-center  border-b-2 flex items-center flex-col pt-5 pb-5">
+                        <button className="w-48 h-12 bg-blue-400 rounded-lg shadow mb-5 text-xl font-bold font-sans tracking-tight" >Create Bid </button>
+                        <button className="w-48 h-12 rounded-lg shadow border text-xl border-blue-400 flex justify-center items-center cursor-pointer" >
+                            <Hand className="scale-75" />
+                            <span> Interested </span>
+                        </button>
+                        <button className="mt-5 w-32 h-8 bg-blue-400 bg-opacity-0 rounded-lg shadow border border-blue-400 flex items-center justify-center text-sm cursor-pointer" >
+                            <Heart className="scale-50" />
+                            <span> Favourite </span>
+                        </button>
+                    </div>
+                    <div className="pt-6 flex flex-col items-center text-xl border-b-2">
+                        <h3 className='font-bold'>About the Client</h3>
 
-                            <div className="px-4 py-2 flex flex-col">
-                                <div className="text-gray-800 my-3">
-                                    <img src="https://www.text-image.com/samples/per_normal_face.jpg" alt="Face" className='rounded-full w-16 h-16' />
-                                </div>
-                                <div className="pl-3 flex flex-col justify-around items-center mb-3">
-                                    <p className="text-sm font-medium text-gray-800 leading-none mb-1"> {project.assignedBy.name} </p>
-                                    <p className="text-xs text-gray-500"> {project.assignedBy.companyName} </p>
-                                </div>
+                        <div className="px-4 py-2 flex flex-col">
+                            <div className="text-gray-800 my-3">
+                                <img src="https://www.text-image.com/samples/per_normal_face.jpg" alt="Face" className='rounded-full w-16 h-16' />
                             </div>
-                            <div className="px-4 py-2 flex flex-col">
-                                <div className="text-neutral-700 text-base font-normal font-sans tracking-wide">Sector: {project.assignedBy.sectorName} </div>
-                                <div className="text-neutral-700 text-base font-normal font-sans tracking-wide">Payments Completed: &#8377; {project.assignedBy.paymentsCompleted} </div>
-                                <div className="text-neutral-700 text-base font-normal font-sans tracking-wide">Projects Posted: {project.assignedBy.projectsPosted} </div>
+                            <div className="pl-3 flex flex-col justify-around items-center mb-3">
+                                <p className="text-sm font-medium text-gray-800 leading-none mb-1"> {project.assignedBy.name} </p>
+                                <p className="text-xs text-gray-500"> {project.assignedBy.companyName} </p>
+                            </div>
+                        </div>
+                        <div className="px-4 py-2 flex flex-col">
+                            <div className="text-neutral-700 text-base font-normal font-sans tracking-wide">Sector: {project.assignedBy.sectorName} </div>
+                            <div className="text-neutral-700 text-base font-normal font-sans tracking-wide">Payments Completed: &#8377; {project.assignedBy.paymentsCompleted} </div>
+                            <div className="text-neutral-700 text-base font-normal font-sans tracking-wide">Projects Posted: {project.assignedBy.projectsPosted} </div>
                             <div className="px-4 py-2 flex flex-col">
                                 <div className="text-neutral-700 text-base font-normal font-sans tracking-wide">Sector: {project.assignedBy.sectorName} </div>
                                 <div className="text-neutral-700 text-base font-normal font-sans tracking-wide">Payments Completed: &#8377; {project.assignedBy.paymentsCompleted} </div>
@@ -317,24 +317,26 @@ const Project = ({ project, setOpenedProj }) => {
                                 </a>
 
 
-                        <div className="flex flex-col py-4">
-                            <div className='flex justify-center mb-4'>
-                                <p className='font-semibold text-2xl'> Share </p>
-                            </div>
-                            <div className='flex justify-around'>
-                                <a className='flex flex-col items-center' href="#">
-                                    <Slack className="scale-50" />
-                                    Slack
-                                </a>
-                                <a className='flex flex-col items-center' href="#">
-                                    <Whatsapp className="scale-50" />
-                                    Whatsapp
-                                </a>
-                                <a className='flex flex-col items-center' href="#">
-                                    <Copy_Link className="scale-50" />
-                                    Copy Link
-                                </a>
+                                <div className="flex flex-col py-4">
+                                    <div className='flex justify-center mb-4'>
+                                        <p className='font-semibold text-2xl'> Share </p>
+                                    </div>
+                                    <div className='flex justify-around'>
+                                        <a className='flex flex-col items-center' href="#">
+                                            <Slack className="scale-50" />
+                                            Slack
+                                        </a>
+                                        <a className='flex flex-col items-center' href="#">
+                                            <Whatsapp className="scale-50" />
+                                            Whatsapp
+                                        </a>
+                                        <a className='flex flex-col items-center' href="#">
+                                            <Copy_Link className="scale-50" />
+                                            Copy Link
+                                        </a>
 
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
