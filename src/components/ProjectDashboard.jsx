@@ -61,7 +61,10 @@ const ProjectTimeline = ({ project, setIsOpen, isOpen }) => {
             <a
               href="#"
               onClick={() => handleTabClick('Timeline')}
-              className={`inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300`}
+              className={`inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300 ${selectedTab === 'Timeline'
+                ? 'text-blue-600 bg-gray-100 rounded-t-lg active dark:bg-gray-800 dark:text-blue-500'
+                : 'text-gray-500 dark:text-gray-400'
+                } `}
             >
               Timeline
             </a>
@@ -70,7 +73,10 @@ const ProjectTimeline = ({ project, setIsOpen, isOpen }) => {
             <a
               href="#"
               onClick={() => handleTabClick('Apps')}
-              className={`inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300`}
+              className={`inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300 ${selectedTab === 'Apps'
+                ? 'text-blue-600 bg-gray-100 rounded-t-lg active dark:bg-gray-800 dark:text-blue-500'
+                : 'text-gray-500 dark:text-gray-400'
+                } `}
             >
               Apps
             </a>
@@ -79,7 +85,10 @@ const ProjectTimeline = ({ project, setIsOpen, isOpen }) => {
             <a
               href="#"
               onClick={() => handleTabClick('Health')}
-              className={`inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300`}
+              className={`inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300 ${selectedTab === 'Health'
+                ? 'text-blue-600 bg-gray-100 rounded-t-lg active dark:bg-gray-800 dark:text-blue-500'
+                : 'text-gray-500 dark:text-gray-400'
+                } `}
             >
               Health
             </a>
@@ -88,7 +97,10 @@ const ProjectTimeline = ({ project, setIsOpen, isOpen }) => {
             <a
               href="#"
               onClick={() => handleTabClick('Teams')}
-              className={`inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300`}
+              className={`inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300 ${selectedTab === 'Teams'
+              ? 'text-blue-600 bg-gray-100 rounded-t-lg active dark:bg-gray-800 dark:text-blue-500'
+              : 'text-gray-500 dark:text-gray-400'
+              } `}
             >
               Teams
             </a>

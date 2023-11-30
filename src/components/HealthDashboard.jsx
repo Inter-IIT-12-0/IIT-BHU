@@ -46,7 +46,6 @@ const Healthdashboard = ({ project }) => {
       </div>
       <div className="p-4 bg-gray-200 rounded shadow">
         <ComparisonGraph />
-        <ComparisonGraph />
       </div>
       <div className="col-span-2 p-4 bg-gray-200 rounded shadow">
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
