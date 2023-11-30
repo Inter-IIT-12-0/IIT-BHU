@@ -6,7 +6,7 @@ import Footer from "../../components/Footer";
 import StudentSidebar from "../../components/StudentSidebar";
 import Navbar from "../../components/Navbar";
 // import Projects from "../../models/FakeData/Project.json";
-import ProjectCard from "../../components/ProjectCard.jsx";
+import ProjectCard from "../../components/MyProjectCard.jsx";
 import axios from "axios";
 
 const MyProjects = () => {

@@ -28,6 +28,9 @@ const clientRequirementsSchema = new mongoose.Schema({
     type: String,
     enum: ['Fixed', 'Installment']
   },
+  payment: {
+    type: Number
+  },
   workDays: { type: [String] },
   requiredTools: { type: [String] },
   files: { type: [(String, Buffer)] }
@@ -92,7 +95,11 @@ const projectSchema = new mongoose.Schema({
   activity: [activitySchema],
   clientRequirements: clientRequirementsSchema,
   work: workSchema,
-  duration: { type: String, required: true }
+  duration: { type: Number, required: true },
+  domain: { type: String, required: true},
+  postedOn: {type: Date, default: Date.now},
+  status: {type: String, enum: ['Open', 'In Review'], default: 'In Review'},
+  location: { type: String, required: true}
 });
 
 const Project = mongoose.models.Project || mongoose.model('Project', projectSchema);

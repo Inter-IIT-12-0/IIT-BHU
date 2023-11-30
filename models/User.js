@@ -29,7 +29,6 @@ const UserSchema = new mongoose.Schema({
     role: { type: String, enum: RoleEnum },
     languages: [{ type: String, enum: LanguageEnum }],
     companyName: { type: String },
-    numOfJobsPosted: { type: Number },
     sectorName: { type: String },
     currentAddress: {
         streetAddress: { type: String },
@@ -57,7 +56,10 @@ const UserSchema = new mongoose.Schema({
     socialMedia: [SocialMediaSchema],
     projects:[{type: mongoose.Schema.Types.ObjectId,
         ref: 'Project'}],
-    lastLogin: { type: Date }
+    lastLogin: { type: Date },
+    paymentsCompleted: { type: Number, default: 0 },
+    projectsPosted: { type: Number, default: 0},
+    rating: { type: Number, default: 0 }
 }, { timestamps: true });
 
 export default mongoose.models.User || mongoose.model("User", UserSchema);
