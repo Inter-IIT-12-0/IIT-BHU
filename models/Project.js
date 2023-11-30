@@ -1,9 +1,15 @@
 import mongoose from 'mongoose';
 
 const statusEnum = ['In Progress', 'Completed','Not Started'];
-const appsEnum = [('Figma', 'http://figma.com')];
 const toolsEnum = ['Engineering', 'Design'];
 
+const ApplicationSchema = new mongoose.Schema({
+  tool:{type:String},
+  url:{type:String},
+  connectedOn:{type:Date},
+  connectedBy:{type:String}
+
+})
 const workSchema = new mongoose.Schema({
   fileType: {
     type: String,
@@ -45,7 +51,6 @@ const subMilestoneSchema = new mongoose.Schema({
   startDate: { type: Date },
   endDate: { type: Date },
   Aitools: [toolsEnum],
-  connectedApps: { type: [appsEnum] },
   work: { type: workSchema },
   stickyNotes: { type: [String] }
 });
@@ -101,7 +106,8 @@ const projectSchema = new mongoose.Schema({
   domain: { type: String, required: true},
   postedOn: {type: Date, default: Date.now},
   status: {type: String, enum: ['Open', 'In Review'], default: 'In Review'},
-  location: { type: String, required: true}
+  location: { type: String, required: true},
+  connectedApps: { type: [ApplicationSchema] },
 });
 
 const Project = mongoose.models.Project || mongoose.model('Project', projectSchema);
