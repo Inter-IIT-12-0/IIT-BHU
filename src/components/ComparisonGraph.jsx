@@ -1,89 +1,82 @@
-"use client"
-import React, { useRef, useEffect, useState } from 'react';
+import React from 'react';
+import { Line } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
   PointElement,
   LineElement,
+  Title,
   Tooltip,
   Legend,
 } from 'chart.js';
-import { Chart } from 'react-chartjs-2';
 
 ChartJS.register(
   CategoryScale,
   LinearScale,
   PointElement,
   LineElement,
+  Title,
   Tooltip,
   Legend
 );
 
+const options = {
+  responsive: true,
+  interaction: {
+    mode: 'index',
+    intersect: false,
+  },
+  stacked: false,
+  plugins: {
+    title: {
+      display: true,
+      text: 'Chart.js Line Chart - Multi Axis',
+    },
+  },
+  scales: {
+    y: {
+      type: 'linear',
+      display: true,
+      position: 'left',
+    },
+    y1: {
+      type: 'linear',
+      display: true,
+      position: 'right',
+      grid: {
+        drawOnChartArea: false,
+      },
+    },
+  },
+};
+
 const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-const colors = [
-  'red',
-  'orange',
-  'yellow',
-  'lime',
-  'green',
-  'teal',
-  'blue',
-  'purple',
-];
 
-function createGradient(ctx, area) {
-  const colorStart = getRandomElement(colors);
-  const colorMid = getRandomElement(colors.filter(color => color !== colorStart));
-  const colorEnd = getRandomElement(
-    colors.filter(color => color !== colorStart && color !== colorMid)
-  );
+const getRandomData = () => {
+  return labels.map(() => Math.floor(Math.random() * 2000) - 1000);
+};
 
-  const gradient = ctx.createLinearGradient(0, area.bottom, 0, area.top);
+const data = {
+  labels,
+  datasets: [
+    {
+      label: 'Dataset 1',
+      data: getRandomData(),
+      borderColor: 'rgb(255, 99, 132)',
+      backgroundColor: 'rgba(255, 99, 132, 0.5)',
+      yAxisID: 'y',
+    },
+    {
+      label: 'Dataset 2',
+      data: getRandomData(),
+      borderColor: 'rgb(53, 162, 235)',
+      backgroundColor: 'rgba(53, 162, 235, 0.5)',
+      yAxisID: 'y1',
+    },
+  ],
+};
 
-  gradient.addColorStop(0, colorStart);
-  gradient.addColorStop(0.5, colorMid);
-  gradient.addColorStop(1, colorEnd);
-
-  return gradient;
+export function ComparisonGraph() {
+  return <Line options={options} data={data} />;
 }
-
-function getRandomElement(array) {
-  const randomIndex = Math.floor(Math.random() * array.length);
-  return array[randomIndex];
-}
-
-const ComparisonGraph= () =>  {
-  const chartRef = useRef<ChartJS>(null);
-  const [chartData, setChartData] = useState<ChartData<'bar'>>({
-    datasets: [],
-  });
-
-  useEffect(() => {
-    const chart = chartRef.current;
-
-    if (!chart) {
-      return;
-    }
-
-    const chartData = {
-      labels,
-      datasets: labels.map(label => ({
-        label: `Dataset ${label}`,
-        data: Array.from({ length: labels.length }, () =>
-          getRandomNumberInRange(-1000, 1000)
-        ),
-        borderColor: createGradient(chart.ctx, chart.chartArea),
-      })),
-    };
-
-    setChartData(chartData);
-  }, []);
-
-  function getRandomNumberInRange(min, max )  {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
-
-  return (<Chart ref={chartRef} type='line' data={chartData} />);
-}
-export default ComparisonGraph;

@@ -19,6 +19,8 @@ const Project = ({ project, setOpenedProj }) => {
     //     "title": "Sample Project",
     //     "domain": "Sales and Marketing",
     //     "location": "Mumbai",
+    //     "domain": "Sales and Marketing",
+    //     "location": "Mumbai",
     //     "statement": "This is a sample project statement. lorem ipsum dolor sit amet consectetur adipiscing elit sed diam nonumy eirmod tempor invid id velit esse cillum dolore magna aliquy iaculis nisi ut aliqu incididunt",
     //     "milestones": [
     //         {
@@ -67,6 +69,9 @@ const Project = ({ project, setOpenedProj }) => {
     //         "projectsPosted": 12,
     //         "sectorName": "DeepTech",
     //         "paymentsCompleted": 2680
+    //         "projectsPosted": 12,
+    //         "sectorName": "DeepTech",
+    //         "paymentsCompleted": 2680
     //     },
     //     "logo": "https://aemi.ie/wp-content/uploads/2021/10/Project-Arts-Centre-Logo-Black-1-scaled.jpg",
     //     "health": {
@@ -86,6 +91,7 @@ const Project = ({ project, setOpenedProj }) => {
     //     "clientRequirements": {
     //         "paymentType": "Fixed",
     //         "payment": 2200,
+    //         "payment": 2200,
     //         "worksDays": ["Mon", "Tue", "Wed"],
     //         "requiredTools": ["Figma", "MERN"],
     //         "files": [("doc.docx", Buffer.from([0x53, 0x61, 0x6D, 0x70, 0x6C, 0x65, 0x20, 0x62, 0x69, 0x6E, 0x61, 0x72, 0x79, 0x20, 0x64, 0x61, 0x74, 0x61]))]
@@ -94,6 +100,8 @@ const Project = ({ project, setOpenedProj }) => {
     //         "fileType": "file",
     //         "file": "<Buffer Data>"
     //     },
+    //     "duration": 8,
+    //     "postedOn": "2023-11-26T12:00:00.000Z"
     //     "duration": 8,
     //     "postedOn": "2023-11-26T12:00:00.000Z"
     // }
@@ -197,6 +205,19 @@ const Project = ({ project, setOpenedProj }) => {
                                 }
                             </div>
                         </div>
+                        <div className='flex flex-col my-5 pl-5 border-b-2 pb-3 border-gray-300'>
+                            <span className='font-bold text-xl'>Requirement Details</span>
+                            <span className='mt-2'>Skills</span>
+                            <div className='flex'>
+                                {
+                                    project.clientRequirements.requiredTools.map((tool, id) => (
+                                        <div key={id} className='text-sm mr-6 my-2 bg-zinc-300 rounded-lg px-5 py-1'>
+                                            {tool}
+                                        </div>
+                                    ))
+                                }
+                            </div>
+                        </div>
 
                         <div className='m-3'>
                             <h3 className='font-bold text-xl'>Description:</h3>
@@ -204,7 +225,27 @@ const Project = ({ project, setOpenedProj }) => {
                                 {project.statement}
                             </div>
                         </div>
+                        <div className='m-3'>
+                            <h3 className='font-bold text-xl'>Description:</h3>
+                            <div className='rounded-lg py-4 text-neutral-700 text-base'>
+                                {project.statement}
+                            </div>
+                        </div>
 
+                        <div className='mx-3 py-8'>
+                            <h3 className='font-semibold'>Attachments: </h3>
+                            <div className='flex mt-3'>
+                                {
+                                    // files.map((file, id) => (
+                                    //     <a key={id} className='w-10 h-10 bg-slate-200 rounded-md' href={`data:image/png;base64,${file[1]}`}> {file[0]} </a>
+                                    // ))
+                                    [["File 1", "sdfg"], ["File 2", "abcd"]].map(([filename, filepath], id) => (
+                                        <a key={id} className='h-10 text-sky-700 rounded-md w-20 mr-5 flex justify-center items-center' href={`data:image/png;base64,${filepath}`}> {filename} </a>
+                                    ))
+                                }
+                            </div>
+                        </div>
+                    </div>
                         <div className='mx-3 py-8'>
                             <h3 className='font-semibold'>Attachments: </h3>
                             <div className='flex mt-3'>
@@ -250,8 +291,31 @@ const Project = ({ project, setOpenedProj }) => {
                                 <div className="text-neutral-700 text-base font-normal font-sans tracking-wide">Sector: {project.assignedBy.sectorName} </div>
                                 <div className="text-neutral-700 text-base font-normal font-sans tracking-wide">Payments Completed: &#8377; {project.assignedBy.paymentsCompleted} </div>
                                 <div className="text-neutral-700 text-base font-normal font-sans tracking-wide">Projects Posted: {project.assignedBy.projectsPosted} </div>
+                            <div className="px-4 py-2 flex flex-col">
+                                <div className="text-neutral-700 text-base font-normal font-sans tracking-wide">Sector: {project.assignedBy.sectorName} </div>
+                                <div className="text-neutral-700 text-base font-normal font-sans tracking-wide">Payments Completed: &#8377; {project.assignedBy.paymentsCompleted} </div>
+                                <div className="text-neutral-700 text-base font-normal font-sans tracking-wide">Projects Posted: {project.assignedBy.projectsPosted} </div>
                             </div>
                         </div>
+
+                        <div className="flex flex-col py-4">
+                            <div className='flex justify-center mb-4'>
+                                <p className='font-semibold text-2xl'> Share </p>
+                            </div>
+                            <div className='flex justify-around'>
+                                <a className='flex flex-col items-center' href="#">
+                                    <Slack className="scale-50" />
+                                    Slack
+                                </a>
+                                <a className='flex flex-col items-center' href="#">
+                                    <Whatsapp className="scale-50" />
+                                    Whatsapp
+                                </a>
+                                <a className='flex flex-col items-center' href="#">
+                                    <Copy_Link className="scale-50" />
+                                    Copy Link
+                                </a>
+
 
                         <div className="flex flex-col py-4">
                             <div className='flex justify-center mb-4'>
