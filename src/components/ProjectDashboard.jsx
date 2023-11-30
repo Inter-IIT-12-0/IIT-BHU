@@ -9,97 +9,6 @@ import AppCard from './AppCard';
 
 const ProjectTimeline = ({project}) => {
   const [selectedTab, setSelectedTab] = useState('Milestones');
-  const projectone = {
-    "title": "Your Project Title",
-    "statement": "Your Project Statement",
-    "milestones": [
-      {
-        "dueDate": "2023-12-31",
-        "heading": "Milestone 1",
-        "description": "Description for Milestone 1",
-        "submissionLink": "Submission Link for Milestone 1",
-        "feedbackLink": "Feedback Link for Milestone 1",
-        "subMilestones": [
-          {
-            "title": "SubMilestone 1",
-            "isCompleted": false,
-            "status": "Not Started",
-            "dueDate": "2023-12-15",
-            "assignedTo": "userId",
-            "description": "Description for SubMilestone 1",
-            "startDate": null,
-            "endDate": null,
-            "Aitools": ["Engineering"],
-            "work": {
-              "fileType": "file",
-              "file": "Sample File Content" // Note: This is a placeholder. You might need to handle file content differently.
-            },
-            "stickyNotes": []
-          }
-          // Add more subMilestones as needed
-        ],
-        "isCompleted": false,
-        "status": "Not Started",
-        "payment": 1000
-      }
-      // Add more milestones as needed
-    ],
-    "userAgreement": {
-      // Define user agreement fields as needed
-    },
-    "assignedTeam": "teamId",
-    "assignedBy": "userId",
-    "logo": "path/to/logo.png",
-    "health": {
-      "progress": 0
-    },
-    "startDate": "2023-01-01",
-    "endDate": "2023-12-31",
-    "activity": [
-      {
-        "submilestone": {
-          "title": "SubMilestone 1",
-          "isCompleted": false,
-          "status": "Not Started",
-          "dueDate": "2023-12-15",
-          "assignedTo": "userId",
-          "description": "Description for SubMilestone 1",
-          "startDate": null,
-          "endDate": null,
-          "Aitools": ["Engineering"],
-          "work": {
-            "fileType": "file",
-            "file": "Sample File Content"
-          },
-          "stickyNotes": []
-        },
-        "type": "CREATE",
-        "timestamp": "2023-11-30T00:00:00.000Z",
-        "user": "userId",
-        "message": "Project created"
-      }
-      // Add more activity entries as needed
-    ],
-    "clientRequirements": {
-      "paymentType": "Fixed",
-      "payment": 5000,
-      "workDays": ["Monday", "Wednesday", "Friday"],
-      "requiredTools": ["Engineering"],
-      "files": []
-    },
-    "work": {
-      "fileType": "file",
-      "file": "Sample File Content"
-    },
-    "duration": 6,
-    "domain": "Your Project Domain",
-    "postedOn": "2023-11-30T00:00:00.000Z",
-    "status": "In Review",
-    "location": "Project Location",
-    "connectedApps": [
-      ["Figma", "http://figma.com"]
-    ]
-  };
   
   console.log(JSON.stringify(project, null, 2));
   
@@ -116,7 +25,7 @@ const ProjectTimeline = ({project}) => {
       case 'Health':
         return <Healthdashboard />;
       case 'Apps':
-        return <AppCard project={projectone} />;
+        return <AppCard project={project} />;
       case 'Teams':
         return (
           <>

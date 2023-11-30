@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 
-const SubMilestoneCard = () => {
+const SubMilestoneCard = ({submilestone}) => {
   const [selectedFiles, setSelectedFiles] = useState([]);
-
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
     setSelectedFiles((prevFiles) => [...prevFiles, ...files]);
@@ -16,7 +15,7 @@ const SubMilestoneCard = () => {
     <div className="container mx-auto p-8">
       {/* Main Heading and Text Options */}
       <div className="flex justify-between items-center mb-4">
-      <h1 class="text-black font-Lato text-5xl font-medium leading-normal tracking-wide">Your Heading Text</h1>
+      <h1 class="text-black font-Lato text-5xl font-medium leading-normal tracking-wide">{submilestone.title}</h1>
         <div className="flex space-x-4">
         <p class="text-black font-Lato text-2xl font-semibold leading-normal tracking-tight underline">Team Chat</p>
         <p class="text-black font-Lato text-2xl font-semibold leading-normal tracking-tight underline">Show Milestone</p>
@@ -26,12 +25,12 @@ const SubMilestoneCard = () => {
       {/* Text Description */}
       <h1 class="text-black font-Lato text-2xl font-medium leading-normal tracking-tight" style={{"letterSpacing":0.7}}>Description</h1>
       <p className="text-gray-700 font-Lato text-2xl font-medium leading-normal tracking-tight" style={{ letterSpacing: '0.7px' }}>
-      Quia voluptatem accusantium sint. Id sed possimus impedit. Corruapti qui soluta aperiam ullamquisquam aut pariatur ut. Dolores eum at doloribus eum quis rerum aspernatur porro. Nostrum aest ut illo neque.
+      {submilestone.description}
     </p>
 
     <h1 class="text-black font-Lato text-2xl font-medium leading-normal tracking-tight" style={{"letterSpacing":0.7}}>Dates</h1>
       <p className="text-gray-700 font-Lato text-2xl font-medium leading-normal tracking-tight" style={{ letterSpacing: '0.7px' }}>
-      12/11/23 - 20/11/23
+      {submilestone.startDate} - {submilestone.endDate}
     </p>
 
     <h1 class="text-black font-Lato text-2xl font-medium leading-normal tracking-tight" style={{"letterSpacing":0.7}}>CONNECTED APPS</h1>

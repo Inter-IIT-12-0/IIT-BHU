@@ -50,7 +50,7 @@ const subMilestoneSchema = new mongoose.Schema({
   description: { type: String, required: true },
   startDate: { type: Date },
   endDate: { type: Date },
-  Aitools: [toolsEnum],
+  Aitools: [ApplicationSchema],
   work: { type: workSchema },
   stickyNotes: { type: [String] }
 });
