@@ -97,7 +97,9 @@ const projectSchema = new mongoose.Schema({
   work: workSchema,
   duration: { type: Number, required: true },
   domain: { type: String, required: true},
-  postedOn: {type: Date, default: Date.now} 
+  postedOn: {type: Date, default: Date.now},
+  status: {type: String, enum: ['Open', 'In Review'], default: 'In Review'},
+  location: { type: String, required: true}
 });
 
 const Project = mongoose.models.Project || mongoose.model('Project', projectSchema);

@@ -58,7 +58,8 @@ const UserSchema = new mongoose.Schema({
         ref: 'Project'}],
     lastLogin: { type: Date },
     paymentsCompleted: { type: Number, default: 0 },
-    projectsPosted: { type: Number, default: 0}
+    projectsPosted: { type: Number, default: 0},
+    rating: { type: Number, default: 0 }
 }, { timestamps: true });
 
 export default mongoose.models.User || mongoose.model("User", UserSchema);

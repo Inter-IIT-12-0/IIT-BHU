@@ -10,7 +10,7 @@ import GlossyCard from "../components/GlossyCard";
 import RightCard from "../components/RightCard";
 import Footer from "../components/Footer";
 import ProjectList from "../components/ProjectCard";
-import ProjectCard from "../components/ProjectCard";
+import ProjectCard from "../components/MyProjectCard";
 import Calendar from "../components/Calendar";
 import TaskList from "../components/TaskList";
 import Clickup from "../components/Clickup";
