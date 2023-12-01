@@ -4,18 +4,17 @@
  * code includes functionality to handle errors and abort requests using an AbortController.
  * The API_KEY variable needs to be updated with the appropriate value from OpenAI for successful API communication.
  */
-import messageGenerator from "./messageGenerator";
 
 const API_URL = "https://api.openai.com/v1/chat/completions";
-// const API_KEY = "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";
 const API_KEY = process.env.NEXT_PUBLIC_OPENAI_API_KEY;
+// const API_KEY = "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";
 
 let controller = null; // Store the AbortController instance
 
-export const generate = async (domain, tool, input, result, setResult) => {
+export const generate = async (messages, result, setResult) => {
   // Alert the user if no prompt value
   console.log(process.env.NEXT_PUBLIC_OPENAI_API_KEY);
-  if (!input) {
+  if (messages.length === 0) {
     alert("Please enter a prompt.");
     return;
   }
@@ -28,7 +27,6 @@ export const generate = async (domain, tool, input, result, setResult) => {
   const signal = controller.signal;
 
   try {
-    const messages = messageGenerator(domain, tool, input);
     console.log(messages);
     // Fetch the response from the OpenAI API with the signal from AbortController
     const response = await fetch(API_URL, {
@@ -50,7 +48,7 @@ export const generate = async (domain, tool, input, result, setResult) => {
     const reader = response.body.getReader();
     const decoder = new TextDecoder("utf-8");
     setResult("");
-    result = ""
+    result = "";
     while (true) {
       const { done, value } = await reader.read();
       if (done) {
@@ -71,7 +69,7 @@ export const generate = async (domain, tool, input, result, setResult) => {
         // Update the UI with the new content
         if (content) {
           setResult(result + content);
-          result += content
+          result += content;
         }
       }
     }
@@ -87,6 +85,8 @@ export const generate = async (domain, tool, input, result, setResult) => {
     // Enable the generate button and disable the stop button
     controller = null; // Reset the AbortController instance
   }
+  messages.push({ role: "assistant", content: result });
+  return messages;
 };
 
 export const stop = (controller, setResult) => {
