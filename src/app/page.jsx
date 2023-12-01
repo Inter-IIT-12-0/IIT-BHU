@@ -17,6 +17,8 @@ import SubMilestoneCard from "../components/SubMilestoneCard";
 import SubMilestoneSidebar from "../components/SubMilestoneSidebar";
 import ProjectDashboard from "../components/ProjectDashboard";
 import RoundedProgressBar from "../components/RoundedProgressBar";
+import ToolMaker from "../components/ToolMaker";
+import Slider from "../components/Slider";
 
 export default function Home() {
   const { data: session } = useSession();
@@ -37,6 +39,7 @@ export default function Home() {
 {/*       <Clickup /> */}
 {/* <ProjectDashboard/> */}
 {/* <RoundedProgressBar /> */}
+<ToolMaker />
     </main>
   );
 }
