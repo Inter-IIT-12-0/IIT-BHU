@@ -35,6 +35,7 @@ const handler = async (req, res) => {
                     path: 'milestones.subMilestones.assignedTo',
                     select: '-_id -__v'
                 })
+                .populate('connectedApps.connectedBy', 'avatarUrl')
 
             if (!projects) {
                 res.status(404).json({ error: 'Project not found' });

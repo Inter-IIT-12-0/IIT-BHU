@@ -8,10 +8,6 @@ const Healthdashboard = ({ project }) => {
   const getTotalAmount = () => {
     let amount = 0;
     project.milestones.forEach(milestone => amount += milestone.payment)
-    // const amount = project.milestones.reduce((acc, currJson) => {
-    //   return acc + currJson.payment
-    // }, 0);
-    console.log(amount);
     return amount;
   }
 
@@ -76,7 +72,7 @@ const Healthdashboard = ({ project }) => {
           <tbody>
             {
               project.milestones.map(milestone => (
-                <tr className="bg-white border-b dark:border-gray-700">
+                <tr className="bg-white border-y dark:border-gray-300">
                   <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
                     {milestone.heading}
                   </th>
