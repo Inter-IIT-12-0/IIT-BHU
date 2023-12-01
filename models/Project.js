@@ -1,9 +1,16 @@
 import mongoose from 'mongoose';
 
-const statusEnum = ['Todo', 'In Progress', 'Completed','Not Started'];
+const statusEnum = ['In Progress', 'Completed','Not Started'];
 const appsEnum = [('Figma', 'http://figma.com')];
 const toolsEnum = ['Engineering', 'Design'];
 
+const ApplicationSchema = new mongoose.Schema({
+  tool:{type:String},
+  url:{type:String},
+  connectedOn:{type:Date},
+  connectedBy:{type: mongoose.Schema.Types.ObjectId, ref: 'User'}
+
+})
 const workSchema = new mongoose.Schema({
   fileType: {
     type: String,
@@ -28,6 +35,9 @@ const clientRequirementsSchema = new mongoose.Schema({
     type: String,
     enum: ['Fixed', 'Installment']
   },
+  payment: {
+    type: Number
+  },
   workDays: { type: [String] },
   requiredTools: { type: [String] },
   files: { type: [(String, Buffer)] }
@@ -41,8 +51,7 @@ const subMilestoneSchema = new mongoose.Schema({
   description: { type: String, required: true },
   startDate: { type: Date },
   endDate: { type: Date },
-  Aitools: [toolsEnum],
-  connectedApps: { type: [appsEnum] },
+  Aitools: [ApplicationSchema],
   work: { type: workSchema },
   stickyNotes: { type: [String] }
 });
@@ -60,11 +69,14 @@ const activitySchema = new mongoose.Schema({
 const milestoneSchema = new mongoose.Schema({
   dueDate: { type: Date, required: true },
   heading: { type: String, required: true },
+  description: { type: String },
   submissionLink: { type: String },
   feedbackLink: { type: String },
   subMilestones: [subMilestoneSchema],
   isCompleted: { type: Boolean, default: false },
   status: { type: String, enum: statusEnum, default: 'Not Started' },
+  payment: { type: Number, required: true },
+  paymentDate: { type: Date }
 });
 
 const userAgreementSchema = new mongoose.Schema({
@@ -92,7 +104,12 @@ const projectSchema = new mongoose.Schema({
   activity: [activitySchema],
   clientRequirements: clientRequirementsSchema,
   work: workSchema,
-  duration: { type: String, required: true }
+  duration: { type: Number, required: true },
+  domain: { type: String, required: true},
+  postedOn: {type: Date, default: Date.now},
+  status: {type: String, enum: ['Open', 'In Review'], default: 'In Review'},
+  location: { type: String, required: true},
+  connectedApps: { type: [ApplicationSchema] },
 });
 
 const Project = mongoose.models.Project || mongoose.model('Project', projectSchema);

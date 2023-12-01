@@ -1,11 +1,26 @@
 "use client"
-import Image from 'next/image';
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
+import RightArrow from "../../public/Images/Right_Arrow.svg"
+import Copy_Link from "../../public/Images/Copy_Link_Icon.svg"
+import Export from "../../public/Images/Export_Icon.svg"
+import Hand from "../../public/Images/Hand_Icon.svg"
+import Heart from "../../public/Images/Heart_Icon.svg"
+import Slack from "../../public/Images/Slack_Icon.svg"
+import Star_Bold from "../../public/Images/Star_Bold_Icon.svg"
+import Whatsapp from "../../public/Images/Whatsapp_Icon.svg"
+import Clock from "../../public/Images/Clock_Icon.svg"
+import Calendar_Icon from "../../public/Images/Calendar2.svg"
+import Export_Icon from "../../public/Images/export.svg"
+import Location_Icon from "../../public/Images/Location_Icon.svg"
 
-const Project = ({ project, isOpen, setIsOpen }) => {
+const Project = ({ project, setOpenedProj }) => {
     // project = {
     //     "id": 1,
     //     "title": "Sample Project",
+    //     "domain": "Sales and Marketing",
+    //     "location": "Mumbai",
+    //     "domain": "Sales and Marketing",
+    //     "location": "Mumbai",
     //     "statement": "This is a sample project statement. lorem ipsum dolor sit amet consectetur adipiscing elit sed diam nonumy eirmod tempor invid id velit esse cillum dolore magna aliquy iaculis nisi ut aliqu incididunt",
     //     "milestones": [
     //         {
@@ -51,7 +66,12 @@ const Project = ({ project, isOpen, setIsOpen }) => {
     //         "name": "admin",
     //         "email": "admin@example.com",
     //         "companyName": "Google",
-    //         "numOfJobsPosted": 2,
+    //         "projectsPosted": 12,
+    //         "sectorName": "DeepTech",
+    //         "paymentsCompleted": 2680
+    //         "projectsPosted": 12,
+    //         "sectorName": "DeepTech",
+    //         "paymentsCompleted": 2680
     //     },
     //     "logo": "https://aemi.ie/wp-content/uploads/2021/10/Project-Arts-Centre-Logo-Black-1-scaled.jpg",
     //     "health": {
@@ -70,6 +90,8 @@ const Project = ({ project, isOpen, setIsOpen }) => {
     //     ],
     //     "clientRequirements": {
     //         "paymentType": "Fixed",
+    //         "payment": 2200,
+    //         "payment": 2200,
     //         "worksDays": ["Mon", "Tue", "Wed"],
     //         "requiredTools": ["Figma", "MERN"],
     //         "files": [("doc.docx", Buffer.from([0x53, 0x61, 0x6D, 0x70, 0x6C, 0x65, 0x20, 0x62, 0x69, 0x6E, 0x61, 0x72, 0x79, 0x20, 0x64, 0x61, 0x74, 0x61]))]
@@ -78,7 +100,10 @@ const Project = ({ project, isOpen, setIsOpen }) => {
     //         "fileType": "file",
     //         "file": "<Buffer Data>"
     //     },
-    //     "duration": "5 Months"
+    //     "duration": 8,
+    //     "postedOn": "2023-11-26T12:00:00.000Z"
+    //     "duration": 8,
+    //     "postedOn": "2023-11-26T12:00:00.000Z"
     // }
     const winning_prob = 39;
     const [files, setFiles] = useState([]);
@@ -90,57 +115,146 @@ const Project = ({ project, isOpen, setIsOpen }) => {
     //     setBase64Data(files);
     // }, [project.clientRequirements.files]);
 
+    const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+    function getDaysDifference(startDate, endDate) {
+        startDate = new Date(startDate)
+        endDate = new Date(endDate)
+        const startUTC = Date.UTC(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
+        const endUTC = Date.UTC(endDate.getFullYear(), endDate.getMonth(), endDate.getDate());
+        const timeDifference = endUTC - startUTC;
+        const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+        return daysDifference;
+    }
+    const [isFullOpen, setFullOpen] = useState(false);
+
     return (
-        <main className={`${isOpen? 'w-[100vw] h-[100vh] opacity-100 z-10': 'translate-x-[100vw]'} absolute left-0 top-0 z-40 transition-all duration-700`}>
-            <div className='absolute top-10 right-96 bg-black text-white w-10 h-10 rounded-full flex justify-center items-center z-40 cursor-pointer' onClick={() => setIsOpen(!isOpen)}> X </div>
-            <div className='bg-slate-600 w-[100vw] h-[100vh] opacity-40'></div>
-            <div className="my-10 absolute right-0 top-16 flex">
-                <div className="bg-white overflow-hidden shadow-lg w-[500px] relative border-r-8 border-gray-100 px-4 rounded-l-3xl">
-                    <div className="text-center p-6 border-b flex items-center">
-                        <span className='text-left mr-8 font-semibold'> {project.title} </span>
-                        <img src="https://hbr.org/resources/images/article_assets/2023/02/Feb23_021243567244.jpg" alt="Project" className='w-12 h-12 rounded-full' />
+        <main className="w-[100vw] h-[100vh] z-10 absolute top-0 right-0 overflow-y-hidden">
+            {/* <div className='absolute top-10 right-96 bg-black text-white w-10 h-10 rounded-full flex justify-center items-center z-40 cursor-pointer' onClick={() => setIsOpen(!isOpen)}> X </div> */}
+            <div className='w-[100vw] h-[100vh] absolute top-0 right-0 opacity-50 transition-all duration-1000 bg-zinc-800'></div>
+            <div className={`absolute right-0 top-0 flex flex-col h-full bg-white rounded-l-3xl animate-[appear_1s_ease-in-out] ${isFullOpen ? 'w-full' : ''} transition-all duration-500`}>
+                <nav className='h-16 flex justify-between px-6 py-4'>
+                    <div onClick={() => setOpenedProj({})} className='cursor-pointer'> X </div>
+                    <div onClick={() => setFullOpen(!isFullOpen)} className='text-sm mr-16 flex items-center cursor-pointer'>
+                        <Export_Icon />
+                        <span className='ml-3'>  {isFullOpen ? 'Minimize Window' : 'Open in new window'}  </span>
                     </div>
 
-                    <div className='flex justify-start border-b-2 border-gray-300 pb-5 mt-5'>
-                        <div className='flex flex-col mr-20 ml-5'>
-                            <span>Payment Method</span>
-                            <span> {project.clientRequirements.paymentType} </span>
+                </nav>
+                <div className='flex'>
+                    <div className={`shadow-lg ${isFullOpen ? 'w-full' : 'w-[600px]'} relative border-r-8 border-gray-100 px-4`}>
+                        <div className="text-center px-6 flex items-center justify-between">
+                            <span className='text-3xl mr-8 font-semibold'> {project.title} </span>
+                            <span className='text-sm'> Listing Live till {(new Date(project.endDate)).toLocaleDateString('en-US', {
+                                day: 'numeric',
+                                month: 'long',
+                            })} </span>
                         </div>
-                        <div className='flex flex-col'>
-                            <span>Duration</span>
-                            <span> {project.duration} </span>
-                        </div>
-                    </div>
 
-                    <div className='flex flex-col my-5'>
-                        <span className='ml-5 font-semibold'>Required Tools</span>
-                        <div className='flex ml-4'>
-                            {
-                                project.clientRequirements.requiredTools.map((tool, id) => (
-                                    <div key={id} className='mx-3 my-2 bg-pink-600 rounded-lg p-2 text-white'>
-                                        {tool}
+                        <div className='flex flex-col border-b-2 border-gray-300 pb-5 mt-5'>
+                            <div className='flex justify-between mb-3'>
+                                <div className='flex flex-col'>
+                                    <div className='flex mr-20 ml-5 mb-2'>
+                                        <div className='flex mr-5'>
+                                            <Location_Icon />
+                                            <span className='ml-3'> {project.location} </span>
+                                        </div>
+                                        <div className='flex'>
+                                            <Star_Bold className="scale-75" />
+                                            <span className='ml-3'> {project.domain} </span>
+                                        </div>
                                     </div>
-                                ))
-                            }
+                                    <div className='flex mr-20 ml-5'>
+                                        <Calendar_Icon />
+                                        <span className='ml-3'> Expected Duration - {project.duration} W </span>
+                                    </div>
+                                </div>
+                                <div className='flex flex-col justify-center items-center w-28 bg-zinc-300 rounded-xl'>
+                                    <span className='font-bold'> &#8377; {project.clientRequirements.payment} </span>
+                                    <span> {project.clientRequirements.paymentType} </span>
+                                </div>
+                            </div>
+                            <div className='flex justify-between items-center'>
+                                <div className="w-72 h-16 bg-zinc-300 flex justify-evenly items-center mt-3 ml-3" >
+                                    {
+                                        days.map(day => (
+                                            <div className='flex flex-col items-center' key={day}>
+                                                <div className={`w-3.5 h-3.5 rounded-full ${project.clientRequirements.workDays.includes(day) ? 'bg-white border border-gray-400' : 'bg-red-500'}`} />
+                                                {day}
+                                            </div>
+                                        ))
+                                    }
+
+                                </div>
+                                <div className='text-sm flex w-40 justify-around'>
+                                    <Clock />
+                                    Posted {getDaysDifference(project.postedOn, new Date())} days ago
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className='flex flex-col my-5 pl-5 border-b-2 pb-3 border-gray-300'>
+                            <span className='font-bold text-xl'>Requirement Details</span>
+                            <span className='mt-2'>Skills</span>
+                            <div className='flex'>
+                                {
+                                    project.clientRequirements.requiredTools.map((tool, id) => (
+                                        <div key={id} className='text-sm mr-6 my-2 bg-zinc-300 rounded-lg px-5 py-1'>
+                                            {tool}
+                                        </div>
+                                    ))
+                                }
+                            </div>
+                        </div>
+                        <div className='flex flex-col my-5 pl-5 border-b-2 pb-3 border-gray-300'>
+                            <span className='font-bold text-xl'>Requirement Details</span>
+                            <span className='mt-2'>Skills</span>
+                            <div className='flex'>
+                                {
+                                    project.clientRequirements.requiredTools.map((tool, id) => (
+                                        <div key={id} className='text-sm mr-6 my-2 bg-zinc-300 rounded-lg px-5 py-1'>
+                                            {tool}
+                                        </div>
+                                    ))
+                                }
+                            </div>
+                        </div>
+
+                        <div className='m-3'>
+                            <h3 className='font-bold text-xl'>Description:</h3>
+                            <div className='rounded-lg py-4 text-neutral-700 text-base'>
+                                {project.statement}
+                            </div>
+                        </div>
+                        <div className='m-3'>
+                            <h3 className='font-bold text-xl'>Description:</h3>
+                            <div className='rounded-lg py-4 text-neutral-700 text-base'>
+                                {project.statement}
+                            </div>
+                        </div>
+
+                        <div className='mx-3 py-8'>
+                            <h3 className='font-semibold'>Attachments: </h3>
+                            <div className='flex mt-3'>
+                                {
+                                    // files.map((file, id) => (
+                                    //     <a key={id} className='w-10 h-10 bg-slate-200 rounded-md' href={`data:image/png;base64,${file[1]}`}> {file[0]} </a>
+                                    // ))
+                                    [["File 1", "sdfg"], ["File 2", "abcd"]].map(([filename, filepath], id) => (
+                                        <a key={id} className='h-10 text-sky-700 rounded-md w-20 mr-5 flex justify-center items-center' href={`data:image/png;base64,${filepath}`}> {filename} </a>
+                                    ))
+                                }
+                            </div>
                         </div>
                     </div>
-
-                    <div className='m-3'>
-                        <h3>Statement:</h3>
-                        <div className='border-2 border-slate-400 rounded-lg p-4 '>
-                            {project.statement}
-                        </div>
-                    </div>
-
-                    <div className='mx-3 mt-20 mb-8'>
-                        <h3>Attachments: </h3>
+                    <div className='mx-3 py-8'>
+                        <h3 className='font-semibold'>Attachments: </h3>
                         <div className='flex mt-3'>
                             {
                                 // files.map((file, id) => (
                                 //     <a key={id} className='w-10 h-10 bg-slate-200 rounded-md' href={`data:image/png;base64,${file[1]}`}> {file[0]} </a>
                                 // ))
                                 [["File 1", "sdfg"], ["File 2", "abcd"]].map(([filename, filepath], id) => (
-                                    <a key={id} className='h-10 bg-slate-200 rounded-md w-20 mr-5 flex justify-center items-center' href={`data:image/png;base64,${filepath}`}> {filename} </a>
+                                    <a key={id} className='h-10 text-sky-700 rounded-md w-20 mr-5 flex justify-center items-center' href={`data:image/png;base64,${filepath}`}> {filename} </a>
                                 ))
                             }
                         </div>
@@ -149,70 +263,82 @@ const Project = ({ project, isOpen, setIsOpen }) => {
 
 
 
-                <div className="bg-white rounded overflow-hidden shadow-lg w-72">
-                    <div className="text-center p-6  border-b">
-                        <button className='bg-gradient-to-bl from-cyan-300 to to-blue-700 w-40 h-12 rounded-md text-white font-mono block my-6'>CREATE BID</button>
-                        <button className='bg-gradient-to-bl from-yellow-300 to to-yellow-600 w-52 h-12 rounded-md text-white font-mono block my-6'>Mark as interested</button>
-
-                        <div>
-                            <span className={winning_prob >= 75 ? `text-green-600` : winning_prob >= 40 ? `text-orange-500` : `text-red-500`}> {winning_prob}% </span>
-                            <span> Winning Probability </span>
-                        </div>
+                <div className={`bg-white rounded shadow-lg ${isFullOpen ? 'w-full' : 'w-80'}`}>
+                    <div className="text-center  border-b-2 flex items-center flex-col pt-5 pb-5">
+                        <button className="w-48 h-12 bg-blue-400 rounded-lg shadow mb-5 text-xl font-bold font-sans tracking-tight" >Create Bid </button>
+                        <button className="w-48 h-12 rounded-lg shadow border text-xl border-blue-400 flex justify-center items-center cursor-pointer" >
+                            <Hand className="scale-75" />
+                            <span> Interested </span>
+                        </button>
+                        <button className="mt-5 w-32 h-8 bg-blue-400 bg-opacity-0 rounded-lg shadow border border-blue-400 flex items-center justify-center text-sm cursor-pointer" >
+                            <Heart className="scale-50" />
+                            <span> Favourite </span>
+                        </button>
                     </div>
-                    <div className="border-t-2 border-gray-300 pt-6">
-                        <div className="px-4 py-2 hover:bg-gray-100 flex">
-                            <div className="text-gray-800">
+                    <div className="pt-6 flex flex-col items-center text-xl border-b-2">
+                        <h3 className='font-bold'>About the Client</h3>
+
+                        <div className="px-4 py-2 flex flex-col">
+                            <div className="text-gray-800 my-3">
                                 <img src="https://www.text-image.com/samples/per_normal_face.jpg" alt="Face" className='rounded-full w-16 h-16' />
                             </div>
-                            <div className="pl-3 flex flex-col justify-around items-center">
-                                <p className="text-sm font-medium text-gray-800 leading-none"> {project.assignedBy.name} </p>
+                            <div className="pl-3 flex flex-col justify-around items-center mb-3">
+                                <p className="text-sm font-medium text-gray-800 leading-none mb-1"> {project.assignedBy.name} </p>
                                 <p className="text-xs text-gray-500"> {project.assignedBy.companyName} </p>
                             </div>
                         </div>
-                        <div className="px-4 py-2 hover:bg-gray-100 flex">
-                            <div className="text-gray-800">
-                                <svg
-                                    fill="none"
-                                    stroke="currentColor"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth="1"
-                                    viewBox="0 0 24 24"
-                                    className="w-5 h-5"
-                                >
-                                    <path d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
+                        <div className="px-4 py-2 flex flex-col">
+                            <div className="text-neutral-700 text-base font-normal font-sans tracking-wide">Sector: {project.assignedBy.sectorName} </div>
+                            <div className="text-neutral-700 text-base font-normal font-sans tracking-wide">Payments Completed: &#8377; {project.assignedBy.paymentsCompleted} </div>
+                            <div className="text-neutral-700 text-base font-normal font-sans tracking-wide">Projects Posted: {project.assignedBy.projectsPosted} </div>
+                            <div className="px-4 py-2 flex flex-col">
+                                <div className="text-neutral-700 text-base font-normal font-sans tracking-wide">Sector: {project.assignedBy.sectorName} </div>
+                                <div className="text-neutral-700 text-base font-normal font-sans tracking-wide">Payments Completed: &#8377; {project.assignedBy.paymentsCompleted} </div>
+                                <div className="text-neutral-700 text-base font-normal font-sans tracking-wide">Projects Posted: {project.assignedBy.projectsPosted} </div>
                             </div>
-                            <div className="pl-3">
-                                <p className="text-sm font-medium text-gray-800 leading-none"> {project.assignedBy.email} </p>
-                            </div>
-                        </div>
-                        <div className="px-4 py-2 hover:bg-gray-100 flex">
-                            <span> {project.assignedBy.numOfJobsPosted} </span>
-                            <div className="pl-3 flex justify-center items-center">
-                                <p className="text-sm font-medium text-gray-800 leading-none">Jobs Posted</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="border-t-2 border-gray-400 flex py-4">
-                        <div className='mx-3'>
-                            <p> Share </p>
-                        </div>
-                        <div className="text-gray-800">
-                            <svg
-                                fill="none"
-                                stroke="currentColor"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="1"
-                                viewBox="0 0 24 24"
-                                className="w-5 h-5"
-                            >
-                                <path d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
                         </div>
 
+                        <div className="flex flex-col py-4">
+                            <div className='flex justify-center mb-4'>
+                                <p className='font-semibold text-2xl'> Share </p>
+                            </div>
+                            <div className='flex justify-around'>
+                                <a className='flex flex-col items-center' href="#">
+                                    <Slack className="scale-50" />
+                                    Slack
+                                </a>
+                                <a className='flex flex-col items-center' href="#">
+                                    <Whatsapp className="scale-50" />
+                                    Whatsapp
+                                </a>
+                                <a className='flex flex-col items-center' href="#">
+                                    <Copy_Link className="scale-50" />
+                                    Copy Link
+                                </a>
+
+
+                                <div className="flex flex-col py-4">
+                                    <div className='flex justify-center mb-4'>
+                                        <p className='font-semibold text-2xl'> Share </p>
+                                    </div>
+                                    <div className='flex justify-around'>
+                                        <a className='flex flex-col items-center' href="#">
+                                            <Slack className="scale-50" />
+                                            Slack
+                                        </a>
+                                        <a className='flex flex-col items-center' href="#">
+                                            <Whatsapp className="scale-50" />
+                                            Whatsapp
+                                        </a>
+                                        <a className='flex flex-col items-center' href="#">
+                                            <Copy_Link className="scale-50" />
+                                            Copy Link
+                                        </a>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

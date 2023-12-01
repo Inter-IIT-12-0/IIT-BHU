@@ -1,16 +1,14 @@
-"use client";
-import Image from "next/image";
+import React from 'react';
+import ComparisonGraph from './ComparisonGraph';
+import RoundedProgressBar from './RoundedProgressBar';
 
-export default function MilestoneSideBar() {
+const HealthDashboard = () => {
   return (
     <div>
-    <span style={{ color: 'black', fontSize: '1.5rem', fontWeight: '600', fontFamily: 'Inter', lineHeight: '1.75' }}>
-      Status:{" "}
-    </span>
-    <span style={{ color: 'red', fontSize: '1.5rem', fontWeight: '700', fontFamily: 'Inter', lineHeight: '1.75' }}>
-      Due Today
-    </span>
-  </div>
-  
+      <ComparisonGraph />
+      <RoundedProgressBar />
+    </div>
   );
-}
+};
+
+export default HealthDashboard;

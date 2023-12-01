@@ -13,16 +13,8 @@ import Settings_Icon from "../../public/Images/Settings_Icon.svg"
 export default function StudentSidebar() {
 
     return (
-        <div className="w-60 h-full fixed bg-white shadow-2xl pb-3 flex flex-col justify-start pl-5 z-20 transition-all duration-1000">
-            <div className="justify-start items-center inline-flex mt-8 gap-4">
-                <Trumio_logo />
-                <div>
-                    <Trumio_text />
-                    <div className="w-28 h-2 bg-gradient-to-l from-[#00509f] to-white rounded-[0.1rem] flex flex-row-reverse font-bold font-['Montserrat'] text-white text-[0.3rem] pr-1 items-center" >
-                        UNIK
-                    </div>
-                </div>
-            </div>
+        <div className="w-60 h-[120vh] bg-white shadow-2xl pb-3 flex flex-col justify-start pl-5 transition-all duration-1000">
+            
             <div className="justify-start items-center inline-flex mt-8 gap-6 hover-background transition-all duration-1000">
                 <div className="w-6 h-6 justify-center items-center flex">
                     <Projects_Icon />

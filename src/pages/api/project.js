@@ -1,6 +1,6 @@
 // Import necessary modules and schemas
-import connectDb from "../../../../middlewares/mongoose";
-import Project from "../../../../models/Project";
+import connectDb from "../../../middlewares/mongoose";
+import Project from "../../../models/Project";
 
 const handler = async (req, res) => {
     if (req.method === 'POST') {
@@ -21,21 +21,16 @@ const handler = async (req, res) => {
         }
 
         try {
-            const projects = await Project.findById(id, '-__v')
+            const projects = await Project.findById(id, '-_id -__v')
                 .populate({
-                    path: 'assignedTeam',
+                    path: 'Team',
                     select: '-_id -__v',
                     populate: {
-                        path: 'teamUserMap.user',
+                        path: 'user',
                         select: '-_id -__v'
                     }
                 })
-                .populate('assignedBy', '-_id -__v')
-                .populate({
-                    path: 'milestones.subMilestones.assignedTo',
-                    select: '-_id -__v'
-                })
-                .populate('connectedApps.connectedBy', 'avatarUrl')
+                .populate('user', '-_id -__v');
 
             if (!projects) {
                 res.status(404).json({ error: 'Project not found' });
