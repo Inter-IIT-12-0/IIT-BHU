@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import SubMilestoneCard from './SubMilestoneCard';
 import CalendarIcon from '../../public/Images/Calendar2.svg'
 import Calendar_Icon from "../../public/Images/Calendar2.svg"
+import Calendar_Icon from "../../public/Images/Calendar2.svg"
 
 const MilestoneTable = ({ project, setSelectedSubmilestone }) => {
 

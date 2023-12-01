@@ -21,8 +21,46 @@ const Healthdashboard = ({ project }) => {
     }, 0);
     return amount;
   }
+const Healthdashboard = ({ project }) => {
+
+  const getTotalAmount = () => {
+    let amount = 0;
+    project.milestones.forEach(milestone => amount += milestone.payment)
+    // const amount = project.milestones.reduce((acc, currJson) => {
+    //   return acc + currJson.payment
+    // }, 0);
+    console.log(amount);
+    return amount;
+  }
+
+  const getCompletedAmount = () => {
+    const amount = project.milestones.filter(milestone => milestone.status === 'Completed').reduce((acc, currJson) => {
+      return acc + currJson.payment
+    }, 0);
+    return amount;
+  }
   return (
     <div className="grid grid-cols-2 gap-4">
+      <div className="p-4 bg-gray-200 rounded shadow flex flex-col">
+        <div className='w-full flex justify-center font-bold text-xl'> Percentage Completion </div>
+        <div className='flex justify-around items-center h-full'>
+          <div>
+            <div className='mb-3 -mt-6 '><span className='font-bold'> Start Date: </span> <span> {(new Date(project.startDate)).toLocaleDateString('en-US', {
+              day: 'numeric',
+              month: 'long',
+              year: 'numeric'
+            })} </span> </div>
+
+            <div className='my-3'><span className='font-bold'> End Date: </span> <span> {(new Date(project.endDate)).toLocaleDateString('en-US', {
+              day: 'numeric',
+              month: 'long',
+              year: 'numeric'
+            })} </span> </div>
+          </div>
+          <RoundedProgressBar progress={project.health.progress} />
+
+        </div>
+
       <div className="p-4 bg-gray-200 rounded shadow flex flex-col">
         <div className='w-full flex justify-center font-bold text-xl'> Percentage Completion </div>
         <div className='flex justify-around items-center h-full'>
@@ -51,7 +89,11 @@ const Healthdashboard = ({ project }) => {
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
           <caption className="p-5 text-lg font-semibold text-left rtl:text-right text-gray-900 bg-white">
             <div className='flex justify-between w-1/2'>
+            <div className='flex justify-between w-1/2'>
               <p className='mr-32 font-bold'>Payments</p>
+              <p className='px-3 py-1 bg-green-400 rounded-2xl'>
+                &#8377; {getCompletedAmount()}/{getTotalAmount()}
+              </p>
               <p className='px-3 py-1 bg-green-400 rounded-2xl'>
                 &#8377; {getCompletedAmount()}/{getTotalAmount()}
               </p>
