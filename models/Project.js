@@ -101,7 +101,7 @@ const projectSchema = new mongoose.Schema({
   health: healthSchema,
   startDate: { type: Date },
   endDate: { type: Date },
-  activity: [activitySchema],
+  activities: [activitySchema],
   clientRequirements: clientRequirementsSchema,
   work: workSchema,
   duration: { type: Number, required: true },

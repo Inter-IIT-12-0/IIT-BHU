@@ -30,8 +30,7 @@ const handler = async (req, res) => {
                         select: '-_id -__v'
                     }
                 })
-                .populate('user', '-_id -__v');
-
+                .populate('user', '-_id -__v')
             if (!projects) {
                 res.status(404).json({ error: 'Project not found' });
                 return;

@@ -14,23 +14,25 @@ const handler = async (req, res) => {
         const userId = session.user.id;
 
         try {
-            const user = await User.findOne({ _id: userId }).populate({
-                path: 'projects',
-                select: '-__v',
-                populate: {
-                    path: 'assignedTeam',
-                    select: '-_id -__v',
-                    populate: {
-                        path: 'teamUserMap.user',
-                        select: '-_id -__v'
-                    }
-                },
-                populate: {
-                    path: 'assignedBy',
-                    select: '-_id -__v',
-                }
-
-            });
+            const user = await User.findOne({ _id: userId })
+                .populate({
+                    path: 'projects',
+                    select: '-__v',
+                    populate: [
+                        {
+                            path: 'assignedTeam',
+                            select: '-_id -__v',
+                            populate: {
+                                path: 'teamUserMap.user',
+                                select: '-_id -__v'
+                            }
+                        },
+                        {
+                            path: 'assignedBy',
+                            select: '-_id -__v',
+                        }
+                    ]
+                });
 
             if (!user) {
                 res.status(404).json({ error: 'User not found' });

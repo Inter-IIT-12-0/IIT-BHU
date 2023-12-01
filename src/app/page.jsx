@@ -23,7 +23,7 @@ export default function Home() {
 
   return (
     <main className="flex">
-      {/* {session ? (
+      {session ? (
           <>
             <p>Welcome, {session.user?.name}!</p>
             <img src={session.user.image} alt="" />
@@ -31,7 +31,7 @@ export default function Home() {
           </>
         ) : (
           <button onClick={() => signIn('google')} > Sign In </button>
-        )} */}
+        )}
       {/* <Calendar /> */}
 
 {/*       <Clickup /> */}
