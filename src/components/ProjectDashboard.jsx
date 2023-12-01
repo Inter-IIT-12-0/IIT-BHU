@@ -38,12 +38,6 @@ const ProjectTimeline = ({ project, setIsOpen, isOpen }) => {
     setSelectedSubmilestone(submilestone);
   };
 
-  const [selectedSubmilestone, setSelectedSubmilestone] = useState(null);
-
-  const handleSubmilestoneClick = (submilestone) => {
-    setSelectedSubmilestone(submilestone);
-  };
-
   return (
     <div>
       {selectedSubmilestone && (
