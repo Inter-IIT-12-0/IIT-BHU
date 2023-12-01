@@ -76,7 +76,7 @@ const Healthdashboard = ({ project }) => {
           <tbody>
             {
               project.milestones.map(milestone => (
-                <tr className="bg-white border-b dark:border-gray-700">
+                <tr className="bg-white border dark:border-gray-300">
                   <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
                     {milestone.heading}
                   </th>
@@ -86,7 +86,7 @@ const Healthdashboard = ({ project }) => {
                         day: 'numeric',
                         month: 'long',
                         year: 'numeric'
-                      }) : '-'
+                      }) : 'N/A'
                     }
                   </td>
                   <td className="px-6 py-4">

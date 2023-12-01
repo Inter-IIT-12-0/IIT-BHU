@@ -21,22 +21,29 @@ const AppCard = ({ project }) => {
                         </th>
                     </tr>
                 </thead>
-                {project.connectedApps.map((connectedApp, appIndex) => (
-                    <div className="relative overflow-x-auto">
+                <tbody className='relative overflow-x-auto'>
+                    {project.connectedApps.map((connectedApp, appIndex) => (
+                        // <div className="relative overflow-x-auto">
 
-                        <tbody>
-                            <tr className="bg-white ">
-                                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                                    <img className='h-12 w-12' src={connectedApp.tool}></img>
-                                </th>
-                                <td className="px-6 py-4"><a href={connectedApp.link}>Click here</a></td>
-                                <td className="px-6 py-4">{connectedApp.connectedOn}</td>
-                                <td className="px-6 py-4">{connectedApp.connectedBy}</td>
-                            </tr>
-                        </tbody>
 
-                    </div>
-                ))}
+                        <tr className="bg-white ">
+                            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
+                                <img className='h-16 w-16' src={connectedApp.tool}></img>
+                            </th>
+                            <td className="px-6 py-4"><a href={connectedApp.link} className='text-blue-500 cursor-pointer'>Click here</a></td>
+                            <td className="px-6 py-4">{(new Date(connectedApp.connectedOn)).toLocaleDateString('en-US', {
+                                day: 'numeric',
+                                month: 'long',
+                                year: 'numeric'
+                            })}</td>
+                            <td className="px-6 py-4">
+                                <img className='h-16 w-16' src={connectedApp.connectedBy.avatarUrl}></img>
+                            </td>
+                        </tr>
+
+                        // </div>
+                    ))}
+                </tbody>
             </table>
         </>
 

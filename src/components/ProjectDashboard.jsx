@@ -24,9 +24,9 @@ const ProjectTimeline = ({ project, setIsOpen, isOpen }) => {
       case 'Health':
         return <Healthdashboard project={project} />;
       case 'Apps':
-        return <div>Apps Content Goes Here</div>;
-      case 'Teams':
-        return <div>Teams Content Goes Here</div>;
+        return <div> <AppCard project={project} /> </div>;
+      case 'Team':
+        return <div> <TeamCard project={project} /> </div>;
       default:
         return null;
     }
@@ -96,13 +96,13 @@ const ProjectTimeline = ({ project, setIsOpen, isOpen }) => {
           <li className="me-2">
             <a
               href="#"
-              onClick={() => handleTabClick('Teams')}
-              className={`inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300 ${selectedTab === 'Teams'
+              onClick={() => handleTabClick('Team')}
+              className={`inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300 ${selectedTab === 'Team'
               ? 'text-blue-600 bg-gray-100 rounded-t-lg active dark:bg-gray-800 dark:text-blue-500'
               : 'text-gray-500 dark:text-gray-400'
               } `}
             >
-              Teams
+              Team
             </a>
           </li>
         </ul>

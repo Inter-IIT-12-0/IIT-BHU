@@ -48,7 +48,7 @@ const MilestoneTable = ({ project, setSelectedSubmilestone }) => {
               {milestone.subMilestones.map((submilestone) => (
                 <tr
                   key={submilestone.id}
-                  className="bg-white border-b dark:border-gray-700 cursor-pointer"
+                  className="bg-white border-y dark:border-gray-200 cursor-pointer"
                   onClick={() => setSelectedSubmilestone(submilestone)}
                 >
                   <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">

@@ -8,7 +8,7 @@ const ApplicationSchema = new mongoose.Schema({
   tool:{type:String},
   url:{type:String},
   connectedOn:{type:Date},
-  connectedBy:{type:String}
+  connectedBy:{type: mongoose.Schema.Types.ObjectId, ref: 'User'}
 
 })
 const workSchema = new mongoose.Schema({
