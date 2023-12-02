@@ -16,8 +16,8 @@ import Settings_Icon from "../../public/Images/Settings_Icon.svg"
 export default function SidebarUpskilling() {
 
     return (
-        <div className="w-60 h-full fixed bg-white shadow-2xl pb-3 flex flex-col justify-evenly pl-5 z-20">
-            <div className=" justify-start items-center gap-4 inline-flex">
+        <div className="w-60 h-full bg-white shadow-2xl pb-3 flex flex-col pl-5 z-20">
+            {/* <div className=" justify-start items-center gap-4 inline-flex">
                 <Trumio_logo />
                 <div>
                     <Trumio_text />
@@ -25,14 +25,15 @@ export default function SidebarUpskilling() {
                         UNIK
                     </div>
                 </div>
-            </div>
-            <div className=" justify-start items-center gap-8 inline-flex hover-background bg-sky-100 rounded">
+            </div> */}
+            <div>
+            <div className=" justify-start items-center gap-8 inline-flex hover-background bg-sky-100 rounded mt-6">
                 <div className="w-6 h-6 justify-center items-center flex">
                     <Dashboard_Icon />
                 </div>
                 <div className="text-black text-base font-semibold font-sans">Dashboard</div>
             </div>
-            <div className="justify-start items-center gap-8 inline-flex hover-background">
+            <div className="justify-start items-center gap-8 inline-flex hover-background mt-6">
                 <div className="w-6 h-6 justify-center items-center flex">
                     <div className="w-6 h-6 relative">
                         <AIArcadeIcon />
@@ -40,7 +41,7 @@ export default function SidebarUpskilling() {
                 </div>
                 <div className="text-black text-base font-semibold font-sans">AI Arcade</div>
             </div>
-            <div className="justify-start items-center gap-8 inline-flex hover-background">
+            <div className="justify-start items-center gap-8 inline-flex hover-background mt-6">
                 <div className="w-6 h-6 justify-center items-center flex">
                     <div className="w-6 h-6 relative">
                         <AILoungeIcon />
@@ -48,8 +49,8 @@ export default function SidebarUpskilling() {
                 </div>
                 <div className="text-black text-base font-semibold font-sans">AI Lounge</div>
             </div>
-            <hr className="w-60"/>
-            <div className="justify-start items-center gap-8 inline-flex hover-background">
+            <hr className="w-50 mt-2"/>
+            <div className="justify-start items-center gap-8 inline-flex hover-background mt-6">
                 <div className="w-6 h-6 justify-center items-center flex">
                     <div className="w-6 h-6 relative">
                         <ToolsIcon />
@@ -57,7 +58,7 @@ export default function SidebarUpskilling() {
                 </div>
                 <div className="text-black text-base font-semibold font-sans">Table of Tools</div>
             </div>
-            <div className="justify-start items-center gap-8 inline-flex hover-background">
+            <div className="justify-start items-center gap-8 inline-flex hover-background mt-6">
                 <div className="w-6 h-6 justify-center items-center flex">
                     <div className="w-6 h-6 relative">
                         <LeaderboardIcon />
@@ -65,7 +66,8 @@ export default function SidebarUpskilling() {
                 </div>
                 <div className="text-black text-base font-semibold font-sans">Leaderboard</div>
             </div>
-            <div className="justify-start items-center gap-8 inline-flex hover-background">
+            <div className="mt-2 relative w-50 h-px left-0 border border-stone-300"></div>
+            <div className="justify-start items-center gap-8 inline-flex hover-background mt-6">
                 <div className="w-6 h-6 justify-center items-center flex">
                     <div className="w-6 h-6 relative">
                         <ChallengesIcon />
@@ -73,7 +75,7 @@ export default function SidebarUpskilling() {
                 </div>
                 <div className="text-black text-base font-semibold font-sans">Challenges</div>
             </div>
-            <div className="justify-start items-center gap-8 inline-flex hover-background">
+            <div className="justify-start items-center gap-8 inline-flex hover-background mt-6">
                 <div className="w-6 h-6 justify-center items-center flex">
                     <div className="w-6 h-6 relative">
                         <MentorshipIconUpskill />
@@ -81,7 +83,7 @@ export default function SidebarUpskilling() {
                 </div>
                 <div className="text-black text-base font-semibold font-sans">Mentorship</div>
             </div>
-            <div className="justify-start items-center gap-8 inline-flex hover-background">
+            <div className="justify-start items-center gap-8 inline-flex hover-background mt-6">
                 <div className="w-6 h-6 justify-center items-center flex">
                     <div className="w-6 h-6 relative">
                         <My_Learnings_Icon />
@@ -89,7 +91,7 @@ export default function SidebarUpskilling() {
                 </div>
                 <div className="text-black text-base font-semibold font-sans">Courses</div>
             </div>
-            <div className=" text-black text-base font-semibold font-sans justify-start items-center gap-8 inline-flex hover-background">
+            <div className=" text-black text-base font-semibold font-sans justify-start items-center gap-8 inline-flex hover-background mt-6">
                 <div className="w-6 h-6 justify-center items-center flex">
                     <div className="w-6 h-6 relative">
                         <Settings_Icon />
@@ -97,7 +99,8 @@ export default function SidebarUpskilling() {
                 </div>
                 <div className="text-black text-base font-semibold font-sans">Settings</div>
             </div>
-            <div className="w-60 h-px left-0 bottom-24 absolute border border-stone-300"></div>
+            </div>
+            
         </div>
     );
 }

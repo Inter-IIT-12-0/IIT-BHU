@@ -25,6 +25,10 @@ export default function messageGenerator(domain, tool, input) {
       "Analyses and Finds Resources":
         "You are analyzing and finding resources.",
     },
+    "General":
+    {
+      "G":"Assume you are a TruBot for Trumio now respond accordingly"
+    }
     // Add more domains as needed
   };
 
@@ -49,6 +53,11 @@ function generateUserPrompt(domain, tool, input) {
 
     case "Research Documentation":
       return generateResearchDocumentationPrompt(tool, input);
+
+    case "General":
+      return `Assume you are TruBot for Trumio and respond the query (${input.query})`
+
+    
 
     // Add more cases for additional domains if needed
 
@@ -91,6 +100,7 @@ function generateResearchDocumentationPrompt(tool, input) {
 
     case "Analyses and Finds Resources":
       return `Analyze a given use case (${input.useCase}) and find relevant resources.`;
+
 
     default:
       return ""; // Default case if no specific user prompt is defined for the tool
