@@ -18,15 +18,18 @@ import SubMilestoneSidebar from "../components/SubMilestoneSidebar";
 import ProjectDashboard from "../components/ProjectDashboard";
 import RoundedProgressBar from "../components/RoundedProgressBar";
 import ToolMaker from "../components/ToolMaker";
-import Slider from "../components/Slider";
+import StudentSidebar from "../components/StudentSidebar";
+import Navbar from "../components/Navbar";
+import SidebarUpskilling from "../components/SidebarUpskilling";
+// import Slider from "../components/Slider";
 
 export default function Home() {
   const { data: session } = useSession();
 
   return (
-    <main className="flex">
+    <main className="flex overflow-x-hidden">
       {/* {session ? (
-          <>
+          <> 
             <p>Welcome, {session.user?.name}!</p>
             <img src={session.user.image} alt="" />
             <button onClick={() => signOut()}>Sign Out</button>
@@ -39,7 +42,17 @@ export default function Home() {
 {/*       <Clickup /> */}
 {/* <ProjectDashboard/> */}
 {/* <RoundedProgressBar /> */}
-<ToolMaker />
+      <div>
+      <div className="w-screen">
+      <Navbar/>
+      </div>
+      <div className="flex flex-row">
+          <div>
+          <SidebarUpskilling/>
+          </div>
+          <ToolMaker/>
+      </div>
+      </div>
     </main>
   );
 }
