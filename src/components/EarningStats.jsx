@@ -5,7 +5,7 @@ const EarningStats = () => {
         <div className="w-full h-[42%] p-8 bg-blue-100 rounded">
             <h1 className="font-semibold text-2xl">Earning Stats</h1>
             <p className="py-3">Here's Your overall performance</p>
-            <div className="flex flex-row justify-evenly space-x-12">
+            <div className="flex justify-between">
                 <div className="px-24 justify-center items-center bg-white rounded py-2">
                     <img src="/Images/electric_icon.png" alt="" />
                     <div className="flex flex-col justify-center items-center">
