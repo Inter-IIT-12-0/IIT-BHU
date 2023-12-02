@@ -27,7 +27,7 @@ export default function Home() {
   const { data: session } = useSession();
 
   return (
-    <main className="flex overflow-x-hidden">
+    <main>
       {/* {session ? (
           <> 
             <p>Welcome, {session.user?.name}!</p>
@@ -42,17 +42,6 @@ export default function Home() {
 {/*       <Clickup /> */}
 {/* <ProjectDashboard/> */}
 {/* <RoundedProgressBar /> */}
-      <div>
-      <div className="w-screen">
-      <Navbar/>
-      </div>
-      <div className="flex flex-row">
-          <div>
-          <SidebarUpskilling/>
-          </div>
-          <ToolMaker/>
-      </div>
-      </div>
     </main>
   );
 }

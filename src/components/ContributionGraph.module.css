@@ -1,0 +1,35 @@
+/* styles/ContributionGraph.module.css */
+
+.contributionGraph {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  
+  .contributionBox {
+    width: 12px;
+    height: 12px;
+    text-align: center;
+    line-height: 12px;
+    font-size: 8px;
+    font-weight: bold;
+    border: 1px solid #ebedf0;
+  }
+  
+  /* Different shades of green based on contribution type */
+  .small {
+    background-color: #ebedf0;
+  }
+  
+  .medium {
+    background-color: #c6e48b;
+  }
+  
+  .large {
+    background-color: #7bc96f;
+  }
+  
+  .extraLarge {
+    background-color: #239a3b;
+  }
+  
