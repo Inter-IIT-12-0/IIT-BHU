@@ -1,39 +1,28 @@
 const API_URL = "https://api.openai.com/v1/chat/completions";
 const API_KEY = process.env.NEXT_PUBLIC_OPENAI_API_KEY;
-// // Usage
-// getAllUniqueKeywords()
-//   .then((result)= > {
-// console.log(result)
-//})
-//   .catch((error)= > {
-// console.error(error)
-// })
+
 async function generateMessages(userPrompt) {
   const url = `${process.env.NEXTAUTH_URL}/api/recommendation/userDetails`;
-  console.log(url);
   const response = await fetch(url);
   if (!response.ok) {
     throw new Error("Failed to fetch user details");
   }
-  // console.log(response.json());
   const keyWords = await response.json();
   const listOfWords = JSON.stringify(keyWords);
-  console.log(listOfWords);
   const messages = [
     {
       role: "system",
       content:
-        "Extract tags from the paragraph input by the user and output the related tags only from this list," +
+        "Extract tags from the paragraph input by the user and output the related tags, using words only from this list," +
         listOfWords +
-        ". Return in form of JS list. No other text.",
+        ". Return in form of JS list [...,...]. Return empty list [] if none found. No other text should be output.",
     },
     { role: "user", content: userPrompt },
   ];
-  // console.log(messages);
   return messages;
 }
 
-async function GPT(messages) {
+export async function GPT(messages) {
   // Alert the user if no prompt value
   if (messages.length === 0) {
     alert("Please enter a prompt.");
@@ -69,9 +58,6 @@ export default async function recommend(req, res) {
   const messages = await generateMessages(
     "I am currently in search of a talented frontend developer to join our dynamic team. The ideal candidate should possess a strong proficiency in HTML, CSS, and JavaScript, with a keen eye for detail in crafting visually appealing and user-friendly interfaces. You will play a crucial role in translating design mockups into responsive and interactive web applications. Experience with modern frontend frameworks such as React, Angular, or next.js is highly desirable. As a frontend developer, you will collaborate closely with our design and backend teams to ensure seamless integration and optimal user experiences."
   );
-  // console.log(messages);
   const json_response = await GPT(messages);
-  console.log(json_response);
   res.status(200).json(json_response);
-  // return json_response;
 }
