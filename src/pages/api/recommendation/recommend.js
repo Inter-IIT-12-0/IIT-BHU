@@ -1,3 +1,4 @@
+import axios from "axios";
 const API_URL = "https://api.openai.com/v1/chat/completions";
 const API_KEY = process.env.NEXT_PUBLIC_OPENAI_API_KEY;
 // // Usage
@@ -9,15 +10,10 @@ const API_KEY = process.env.NEXT_PUBLIC_OPENAI_API_KEY;
 // console.error(error)
 // })
 async function generateMessages(userPrompt) {
-  const url = `${process.env.NEXTAUTH_URL}/api/recommendation/userDetails`;
+  const url = `/api/recommendation/userDetails/`;
   console.log(url);
-  const response = await fetch(url);
-  if (!response.ok) {
-    throw new Error("Failed to fetch user details");
-  }
-  // console.log(response.json());
-  const keyWords = await response.json();
-  const listOfWords = JSON.stringify(keyWords);
+  const response = await axios.get(url)
+  const listOfWords = response.data
   console.log(listOfWords);
   const messages = [
     {
@@ -25,7 +21,7 @@ async function generateMessages(userPrompt) {
       content:
         "Extract tags from the paragraph input by the user and output the related tags only from this list," +
         listOfWords +
-        ". Return in form of JS list. No other text.",
+        ". Return in form of JS list in order of weight of their importance wrt to the paragraph. No other text.",
     },
     { role: "user", content: userPrompt },
   ];
@@ -57,6 +53,7 @@ async function GPT(messages) {
 
     // Read the response as a stream of data
     const res_message = await response.json();
+    console.log("response",res_message);
     const message = res_message["choices"][0]["message"]["content"];
 
     return JSON.parse(message);
@@ -65,13 +62,13 @@ async function GPT(messages) {
   }
 }
 
-export default async function recommend(req, res) {
+export default async function recommend(statement) {
   const messages = await generateMessages(
-    "I am currently in search of a talented frontend developer to join our dynamic team. The ideal candidate should possess a strong proficiency in HTML, CSS, and JavaScript, with a keen eye for detail in crafting visually appealing and user-friendly interfaces. You will play a crucial role in translating design mockups into responsive and interactive web applications. Experience with modern frontend frameworks such as React, Angular, or next.js is highly desirable. As a frontend developer, you will collaborate closely with our design and backend teams to ensure seamless integration and optimal user experiences."
+    statement
   );
   // console.log(messages);
   const json_response = await GPT(messages);
-  console.log(json_response);
-  res.status(200).json(json_response);
+  return json_response;
   // return json_response;
+  // "I am currently in search of a talented frontend developer to join our dynamic team. The ideal candidate should possess a strong proficiency in HTML, CSS, and JavaScript, with a keen eye for detail in crafting visually appealing and user-friendly interfaces. You will play a crucial role in translating design mockups into responsive and interactive web applications. Experience with modern frontend frameworks such as React, Angular, or next.js is highly desirable. As a frontend developer, you will collaborate closely with our design and backend teams to ensure seamless integration and optimal user experiences."
 }
