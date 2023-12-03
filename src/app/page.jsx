@@ -22,36 +22,13 @@ import StudentSidebar from "../components/StudentSidebar";
 import Navbar from "../components/Navbar";
 import SidebarUpskilling from "../components/SidebarUpskilling";
 // import Slider from "../components/Slider";
+import People from "../components/People";
 
 export default function Home() {
   const { data: session } = useSession();
   return (
     <main className="flex overflow-x-hidden">
-      {/* {session ? (
-          <> 
-            <p>Welcome, {session.user?.name}!</p>
-            <img src={session.user.image} alt="" />
-            <button onClick={() => signOut()}>Sign Out</button>
-          </>
-        ) : (
-          <button onClick={() => signIn('google')} > Sign In </button>
-        )}
-      {/* <Calendar /> */}
-
-{/*       <Clickup /> */}
-{/* <ProjectDashboard/> */}
-{/* <RoundedProgressBar /> */}
-      <div>
-      <div className="w-screen">
-      <Navbar/>
-      </div>
-      <div className="flex flex-row">
-          <div>
-          <SidebarUpskilling/>
-          </div>
-          <ToolMaker/>
-      </div>
-      </div>
+      <People />
     </main>
   );
 }
