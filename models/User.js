@@ -30,6 +30,7 @@ const UserSchema = new mongoose.Schema({
     languages: [{ type: String, enum: LanguageEnum }],
     companyName: { type: String },
     sectorName: { type: String },
+    institute: { type: String },
     currentAddress: {
         streetAddress: { type: String },
         houseNumber: { type: String },

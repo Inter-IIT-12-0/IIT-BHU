@@ -6,7 +6,7 @@ import Trumio_text from "../../public/Images/Trumio_text.svg"
 
 const Navbar = () => {
   return (
-    <div className="w-full h-16 shadow-md flex justify-between items-center pr-5 border-b-2 opacity-100">
+    <div className="w-full h-16 shadow-md flex justify-between items-center border-b-2 opacity-100">
       <div className="justify-start items-center inline-flex gap-4 ml-4 scale-75">
         <Trumio_logo />
         <div>

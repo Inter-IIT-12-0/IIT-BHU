@@ -62,8 +62,8 @@ const ToolMaker = () => {
                 <h1 className="text-Text-Black font-Lato text-2xl font-bold leading-normal tracking-tight">Choose your Domain</h1>
                 <div className='flex flex-row w-[100%]'>
                 {
-                    tools.Domains && tools.Domains.map((ele) => { 
-                        return <div className='w-[18%] h-40 mr-6 border-gray-300 rounded-lg bg-neutral-400 text-center cursor-pointer' onClick={() => {setShowAiTools(false); setShowSpecs(true); SetSpecsSet(ele.name); setDomainName(ele.name)}}>
+                    tools.Domains && tools.Domains.map((ele, index) => { 
+                        return <div key={index} className='w-[18%] h-40 mr-6 border-gray-300 rounded-lg bg-neutral-400 text-center cursor-pointer' onClick={() => {setShowAiTools(false); setShowSpecs(true); SetSpecsSet(ele.name); setDomainName(ele.name)}}>
                                 {ele.name}
                         </div>
                     })
@@ -75,8 +75,8 @@ const ToolMaker = () => {
                 <h1 className="text-Text-Black font-Lato text-2xl font-bold leading-normal tracking-tight">Select Specification</h1>
                 <div className='flex flex-row w-[100%]'>
                 {
-                    tools.specs && tools.specs[specsSet].map((ele) => { 
-                        return <div className='w-[18%] h-40 mr-6 border-gray-300 rounded-lg bg-neutral-400 text-center cursor-pointer' onClick={() => {setSpecName(ele.name)}}>
+                    tools.specs && tools.specs[specsSet].map((ele, index) => { 
+                        return <div key={index} className='w-[18%] h-40 mr-6 border-gray-300 rounded-lg bg-neutral-400 text-center cursor-pointer' onClick={() => {setSpecName(ele.name)}}>
                                 {ele.name}
                         </div>
                     })
@@ -88,8 +88,8 @@ const ToolMaker = () => {
                 <h1 className="text-Text-Black font-Lato text-2xl font-bold leading-normal tracking-tight">Choose AI Tool</h1>
                 <div className='flex flex-row w-[100%]'>
                 {
-                    tools.aiTools && tools.aiTools.map((ele) => { 
-                        return <div className='w-[18%] h-40 mr-6 border-gray-300 rounded-lg bg-neutral-400 text-center cursor-pointer' onClick={() => {setAiToolName(ele.name)}}>
+                    tools.aiTools && tools.aiTools.map((ele, index) => { 
+                        return <div key={index} className='w-[18%] h-40 mr-6 border-gray-300 rounded-lg bg-neutral-400 text-center cursor-pointer' onClick={() => {setAiToolName(ele.name)}}>
                                 {ele.name}
                         </div>
                     })
@@ -101,8 +101,8 @@ const ToolMaker = () => {
                 <h1 className="text-Text-Black font-Lato text-2xl font-bold leading-normal tracking-tight">Your Personalised Tools</h1>
                 <div className='flex flex-row w-[100%]'>
                 {
-                    tools.myTools && tools.myTools.map((ele) => { 
-                        return <div className='w-[18%] h-40 mr-6 border-gray-300 rounded-lg bg-neutral-400 text-center cursor-pointer'>
+                    tools.myTools && tools.myTools.map((ele, index) => { 
+                        return <div key={index} className='w-[18%] h-40 mr-6 border-gray-300 rounded-lg bg-neutral-400 text-center cursor-pointer'>
                                 {ele.name}
                         </div>
                     })

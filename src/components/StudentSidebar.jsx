@@ -13,7 +13,7 @@ import Settings_Icon from "../../public/Images/Settings_Icon.svg"
 export default function StudentSidebar() {
 
     return (
-        <div className="w-60 h-[120vh] bg-white shadow-2xl pb-3 flex flex-col justify-start pl-5 transition-all duration-1000">
+        <div className="w-60 h-[93vh] bg-white shadow-2xl pb-3 flex flex-col justify-start pl-5 transition-all duration-1000">
             
             <div className="justify-start items-center inline-flex mt-8 gap-6 hover-background transition-all duration-1000">
                 <div className="w-6 h-6 justify-center items-center flex">

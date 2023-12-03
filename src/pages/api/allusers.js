@@ -6,7 +6,6 @@ const handler = async (req, res) => {
   if (req.method === 'GET') {
     try {
       const people = await User.find({}, '-__v')
-        console.log(people);
       res.status(200).json(people);
     } catch (error) {
       console.error(error);

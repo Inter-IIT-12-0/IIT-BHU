@@ -7,15 +7,15 @@ const handler = async (req, res) => {
     try {
       const projects = await Project.find({}, '-__v').populate({
         path: 'assignedTeam',
-        select: '-_id -__v',
+        select: '-__v',
         populate: {
           path: 'teamUserMap.user',
-          select: '-_id -__v'
+          select: '-__v'
         }
       })
       .populate({
         path: 'assignedBy',
-        select: '-_id -__v'
+        select: '-__v'
       })
       ;
 
