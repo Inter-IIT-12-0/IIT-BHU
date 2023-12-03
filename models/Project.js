@@ -76,7 +76,8 @@ const milestoneSchema = new mongoose.Schema({
   isCompleted: { type: Boolean, default: false },
   status: { type: String, enum: statusEnum, default: 'Not Started' },
   payment: { type: Number, required: true },
-  paymentDate: { type: Date }
+  paymentDate: { type: Date },
+  deliverables : { type: String }
 });
 
 const userAgreementSchema = new mongoose.Schema({

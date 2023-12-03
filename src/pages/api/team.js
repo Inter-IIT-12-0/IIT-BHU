@@ -10,13 +10,13 @@ const handler = async (req, res) => {
       res.status(201).json(savedTeam);
     } catch (error) {
       console.error(error);
-      res.status(500).json({ error: 'Error creating team' });
+      res.status(500).json({ error: `Error creating team` + error });
     }
   } else if (req.method === 'GET') {
     try {
-      const teams = await Team.find({"_id":req.query.id}, '-_id -__v')
-        .populate('proposal', '-_id -__v')
-        .populate('teamUserMap.user', '-_id -__v');
+      const teams = await Team.find({"_id":req.query.id}, '-__v')
+        .populate('proposal', '-__v')
+        .populate('teamUserMap.user', '-__v');
 
       res.status(200).json(teams);
     } catch (error) {

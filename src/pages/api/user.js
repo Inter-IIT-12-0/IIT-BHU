@@ -17,7 +17,7 @@ const handler = async (req, res) => {
 
     case 'GET':
       try {
-        const users = await User.find({"_id":req.query.id}, '-_id -__v');
+        const users = await User.find({"_id":req.query.id}, '-__v');
         res.status(200).json(users);
       } catch (error) {
         console.error(error);

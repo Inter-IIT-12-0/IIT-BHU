@@ -12,8 +12,14 @@ import Clock from "../../public/Images/Clock_Icon.svg"
 import Calendar_Icon from "../../public/Images/Calendar2.svg"
 import Export_Icon from "../../public/Images/export.svg"
 import Location_Icon from "../../public/Images/Location_Icon.svg"
+import axios from 'axios'
+import { useSession } from 'next-auth/react'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 const Project = ({ project, setOpenedProj }) => {
+    const {data: session} = useSession()
+    const router = useRouter()
     // project = {
     //     "id": 1,
     //     "title": "Sample Project",
@@ -127,6 +133,29 @@ const Project = ({ project, setOpenedProj }) => {
     }
     const [isFullOpen, setFullOpen] = useState(false);
 
+    const handleCreateBid = () => {
+        try {
+            let changedProject = project
+            axios.post('/api/team', {
+                teamUserMap: [
+                    {
+                        user: session.user._id,
+                        role: 'Leader',
+                        status: 'Approved'
+                    }
+                ],
+                project: project._id
+            }).then(res => {
+                console.log(res.data)
+                changedProject.assignedTeam = res.data._id
+                axios.put(`/api/project/${project._id}`, changedProject).then(res => console.log(res.data)).catch(console.log)
+                router.push(`createBid/${project._id}`)
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     return (
         <main className="w-[100vw] h-[100vh] z-10 absolute top-0 right-0 overflow-y-hidden">
             {/* <div className='absolute top-10 right-96 bg-black text-white w-10 h-10 rounded-full flex justify-center items-center z-40 cursor-pointer' onClick={() => setIsOpen(!isOpen)}> X </div> */}
@@ -230,7 +259,7 @@ const Project = ({ project, setOpenedProj }) => {
 
                     <div className={`bg-white rounded shadow-lg ${isFullOpen ? 'w-full' : 'w-80'}`}>
                         <div className="text-center  border-b-2 flex items-center flex-col pt-5 pb-5">
-                            <button className="w-48 h-12 bg-blue-400 rounded-lg shadow mb-5 text-xl font-bold font-sans tracking-tight" >Create Bid </button>
+                            <button className="w-48 h-12 bg-blue-400 rounded-lg shadow mb-5 text-xl font-bold font-sans tracking-tight" onClick={handleCreateBid} >Create Bid </button>
                             <button className="w-48 h-12 rounded-lg shadow border text-xl border-blue-400 flex justify-center items-center cursor-pointer" >
                                 <Hand className="scale-75" />
                                 <span> Interested </span>

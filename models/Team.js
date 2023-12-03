@@ -33,75 +33,77 @@ const teamUserMap = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ['Selected', 'Rejected','Hold']
+    enum: ['Approved', 'Not Approved','Pending']
   }
 });
 
 const teamSchema = new mongoose.Schema({
   teamName: {
     type: String,
-    required: true
+    // required: true
   },
   teamTagline: {
     type: String,
     maxlength: 60,
-    required: true
+    // required: true
   },
   teamIntroduction: {
     type: String,
     maxlength: 500,
-    required: true
+    // required: true
   },
   service: {
     type: [String],
     enum: serviceEnum,
-    required: true
+    // required: true
   },
   languagesSupported: {
     type: [String],
     enum: languagesEnum,
-    required: true
+    // required: true
   },
   tools: {
     type: [String],
     enum: toolsEnum,
-    required: true
+    // required: true
   },
   skills: {
     type: [String],
     enum: skillsEnum,
-    required: true
+    // required: true
   },
   availability: {
     preferredTimeZone: {
       type: String,
-      required: true
+      // required: true
     },
     daysAvailable: {
       type: [String],
       enum: ['Weekdays', 'Weekends'],
-      required: true
+      // required: true
     },
     startTime: {
       type: String,
-      required: true
+      // required: true
     },
     endTime: {
       type: String,
-      required: true
+      // required: true
     },
     whichDays: {
       type: [String],
       enum: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-      required: true
+      // required: true
     }
   },
   teamUrl: {
     type: String,
-    required: true
+    // required: true
   },
   proposal: proposalSchema,
-  teamUserMap: [teamUserMap]
+  teamUserMap: [teamUserMap],
+  project: { type: mongoose.Schema.Types.ObjectId, ref: 'Project', required: true },
+  status: { type: String, enum: ['In Proposal', 'Pending', 'Accepted'], default: 'In Proposal' },
 });
 
 const Team =  mongoose.models.Team || mongoose.model('Team', teamSchema);

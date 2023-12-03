@@ -25,7 +25,6 @@ import SidebarUpskilling from "../components/SidebarUpskilling";
 
 export default function Home() {
   const { data: session } = useSession();
-
   return (
     <main className="flex overflow-x-hidden">
       {/* {session ? (
