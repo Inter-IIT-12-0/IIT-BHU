@@ -20,10 +20,37 @@ const ClientMarketPlace = () => {
                     <input className="h-10 w-full rounded m-2"></input>
                 </div>
                 <div className="mt-4 rounded-md bg-white px-8 py-2">
-                    <div className="flex flex-row justify-self-start w-full my-3">
-                        <h2 onClick={() => {setHeading(recommendedTalent)}} className="text-blue text-blue-600 font-semibold text-2xl mx-8 cursor-pointer">{recommendedTalent}</h2>
-                        <h2 onClick={() => {setHeading(recommendedTeams)}} className="text-blue text-black font-semibold text-2xl mx-8 cursor-pointer">{recommendedTeams}</h2>
-                        <h2 onClick={() => {setHeading(almaMatter)}} className="text-blue text-black font-semibold text-2xl mx-8 cursor-pointer">{almaMatter}</h2>
+                <div className="flex flex-row justify-self-start w-full my-3">
+                    <h2
+                        onClick={() => {
+                        setHeading(recommendedTalent);
+                        }}
+                        className={`font-semibold text-2xl mx-8 cursor-pointer ${
+                        heading === recommendedTalent ? 'text-blue-700' : 'text-black'
+                        }`}
+                    >
+                        {recommendedTalent}
+                    </h2>
+                    <h2
+                        onClick={() => {
+                        setHeading(recommendedTeams);
+                        }}
+                        className={`font-semibold text-2xl mx-8 cursor-pointer ${
+                        heading === recommendedTeams ? 'text-blue-700' : 'text-black'
+                        }`}
+                    >
+                        {recommendedTeams}
+                    </h2>
+                    <h2
+                        onClick={() => {
+                        setHeading(almaMatter);
+                        }}
+                        className={`font-semibold text-2xl mx-8 cursor-pointer ${
+                        heading === almaMatter ? ' text-blue-700' : 'text-black'
+                        }`}
+                    >
+                        {almaMatter}
+                    </h2>
                     </div>
                     <hr className="w-full"/>
                     <div className="flex flex-col px-8 py-3">
