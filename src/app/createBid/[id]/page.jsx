@@ -19,82 +19,9 @@ const CreateBid = ({ params }) => {
     const { id } = params
 
     const { data: session } = useSession();
-    const users = [
-        {
-            "name": "Andrew",
-            "domain": "Product",
-            "avatarUrl": "https://lh3.googleusercontent.com/a/ACg8ocI15oHqqqCHli7mCZtUOEGuYAP_qlXBhn5cmwKSIklyaOM=s96-c"
-        },
-        {
-            "name": "Smith",
-            "domain": "Development",
-            "avatarUrl": "https://lh3.googleusercontent.com/a/ACg8ocI15oHqqqCHli7mCZtUOEGuYAP_qlXBhn5cmwKSIklyaOM=s96-c"
-        },
-        {
-            "name": "Andrew",
-            "domain": "Product",
-            "avatarUrl": "https://lh3.googleusercontent.com/a/ACg8ocI15oHqqqCHli7mCZtUOEGuYAP_qlXBhn5cmwKSIklyaOM=s96-c"
-        },
-        {
-            "name": "Smith",
-            "domain": "Development",
-            "avatarUrl": "https://lh3.googleusercontent.com/a/ACg8ocI15oHqqqCHli7mCZtUOEGuYAP_qlXBhn5cmwKSIklyaOM=s96-c"
-        },
-        {
-            "name": "Andrew",
-            "domain": "Product",
-            "avatarUrl": "https://lh3.googleusercontent.com/a/ACg8ocI15oHqqqCHli7mCZtUOEGuYAP_qlXBhn5cmwKSIklyaOM=s96-c"
-        },
-        {
-            "name": "Smith",
-            "domain": "Development",
-            "avatarUrl": "https://lh3.googleusercontent.com/a/ACg8ocI15oHqqqCHli7mCZtUOEGuYAP_qlXBhn5cmwKSIklyaOM=s96-c"
-        },
-        {
-            "name": "Andrew",
-            "domain": "Product",
-            "avatarUrl": "https://lh3.googleusercontent.com/a/ACg8ocI15oHqqqCHli7mCZtUOEGuYAP_qlXBhn5cmwKSIklyaOM=s96-c"
-        },
-        {
-            "name": "Smith",
-            "domain": "Development",
-            "avatarUrl": "https://lh3.googleusercontent.com/a/ACg8ocI15oHqqqCHli7mCZtUOEGuYAP_qlXBhn5cmwKSIklyaOM=s96-c"
-        },
-        {
-            "name": "Andrew",
-            "domain": "Product",
-            "avatarUrl": "https://lh3.googleusercontent.com/a/ACg8ocI15oHqqqCHli7mCZtUOEGuYAP_qlXBhn5cmwKSIklyaOM=s96-c"
-        },
-        {
-            "name": "Smith",
-            "domain": "Development",
-            "avatarUrl": "https://lh3.googleusercontent.com/a/ACg8ocI15oHqqqCHli7mCZtUOEGuYAP_qlXBhn5cmwKSIklyaOM=s96-c"
-        },
-        {
-            "name": "Andrew",
-            "domain": "Product",
-            "avatarUrl": "https://lh3.googleusercontent.com/a/ACg8ocI15oHqqqCHli7mCZtUOEGuYAP_qlXBhn5cmwKSIklyaOM=s96-c"
-        },
-        {
-            "name": "Smith",
-            "domain": "Development",
-            "avatarUrl": "https://lh3.googleusercontent.com/a/ACg8ocI15oHqqqCHli7mCZtUOEGuYAP_qlXBhn5cmwKSIklyaOM=s96-c"
-        },
-        {
-            "name": "Andrew",
-            "domain": "Product",
-            "avatarUrl": "https://lh3.googleusercontent.com/a/ACg8ocI15oHqqqCHli7mCZtUOEGuYAP_qlXBhn5cmwKSIklyaOM=s96-c"
-        },
-        {
-            "name": "Smith",
-            "domain": "Development",
-            "avatarUrl": "https://lh3.googleusercontent.com/a/ACg8ocI15oHqqqCHli7mCZtUOEGuYAP_qlXBhn5cmwKSIklyaOM=s96-c"
-        },
-
-    ]
     const [filter, setFilter] = useState('Past')
     const [pastTeamMembers, setPastTeamMembers] = useState([])
-    const [recommended, setRecommended] = useState(users)
+    const [recommended, setRecommended] = useState()
     const [presentTeam, setPresentTeam] = useState({})
     const [sessionData, setSessionData] = useState({})
     const [teamName, setTeamName] = useState("")
@@ -104,7 +31,7 @@ const CreateBid = ({ params }) => {
     const [allUsers, setAllUsers] = useState([])
     const [popup, setPopup] = useState(false)
     const [nonApprovals, setNonApprovals] = useState(0)
-    const [presentPage, setPresentPage] = useState(2)
+    const [presentPage, setPresentPage] = useState(1)
     const [files, setFiles] = useState([])
     const [project, setProject] = useState()
 
@@ -139,7 +66,7 @@ const CreateBid = ({ params }) => {
             }).catch(console.log)
 
         axios.get(`/api/project/${id}`).then(res => setProject(res.data))
-
+        axios.get('/api/allusers').then(res => setRecommended(res.data)).catch(console.log)
     }, [noOfTeams])
 
     const addToTeam = (member) => {
@@ -183,7 +110,7 @@ const CreateBid = ({ params }) => {
     const handleContinue = () => {
         let newTeam = presentTeam
         newTeam.teamName = teamName
-        axios.put(`/api/team/${presentTeam._id}`, newTeam).then(res => console.log(res.data)).catch(console.log)
+        axios.put(`/api/team/?teamId=${presentTeam._id}`, newTeam).then(res => console.log(res.data)).catch(console.log)
     }
 
     return (
