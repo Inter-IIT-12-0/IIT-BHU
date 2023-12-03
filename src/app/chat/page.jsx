@@ -56,11 +56,11 @@ const page = () => {
     <main className='w-[100vw] h-[100vh] flex justify-center items-center relative'>
       <div onClick={generateBotChat} className='absolute top-2 left-32'> Generate bot chat </div>
       <div className='w-[50vw] h-[90vh] bg-indigo-200 relative rounded-2xl'>
-        <div className='h-5/6 relative top-5 mx-3 rounded-xl px-5'>
+        <div className='h-5/6 overflow-scroll overflow-y-auto overflow-x-hidden relative top-5 mx-3 rounded-xl px-5'>
           {convo &&
             convo.slice(2).map(msgJson => (
-              <div className={`w-full flex ${msgJson.role === 'user' ? 'justify-end' : 'justify-start' } `}>
-                <div className={`px-6 py-2 rounded-lg ${msgJson.role === 'user' ? 'bg-sky-500 text-indigo-50' : 'border-sky-500 border-2 text-sky-600' }`}>
+              <div className={`w-full flex ${msgJson.role === 'user' ? 'justify-end' : 'justify-start' }`}>
+                <div className={`px-6 py-2 my-5 rounded-lg ${msgJson.role === 'user' ? 'bg-sky-500 text-indigo-50' : 'border-sky-500 border-2 text-sky-600' }`}>
                   {msgJson.content}
                 </div>
               </div>
