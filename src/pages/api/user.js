@@ -15,15 +15,24 @@ const handler = async (req, res) => {
       }
       break;
 
-    case 'GET':
-      try {
-        const users = await User.find({"_id":req.query.id}, '-__v');
-        res.status(200).json(users);
-      } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Error retrieving users' });
-      }
-      break;
+      case 'GET':
+        try {
+          // Check if a specific user ID is provided in the query
+          if (req.query.id) {
+            console.log("hello");
+            const users = await User.find({ "_id": req.query.id }, '-_id -__v');
+            res.status(200).json(users);
+          } else {
+            // If no specific user ID, fetch all users
+            
+            const allUsers = await User.find({}, '-__v');
+            res.status(200).json(allUsers);
+          }
+        } catch (error) {
+          console.error(error);
+          res.status(500).json({ error: 'Error retrieving users' });
+        }
+        break;
 
     case 'PUT':
       try {

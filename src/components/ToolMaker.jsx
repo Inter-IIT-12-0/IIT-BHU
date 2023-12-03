@@ -42,7 +42,15 @@ const ToolMaker = () => {
 
                 </div>
                 <div className='flex flex-col content '>
-                    <button onClick={() => {setShowModal(true)}} className=' rounded-full text-white bg-blue-500 w-[70%] p-2 mx-auto'>Generate</button>
+                    <button
+                        onClick={() => setShowModal(true)}
+                        disabled={domainName === "+Add Domain" || aiToolName === "+Add AI tool"}
+                        className={`rounded-full text-white bg-blue-500 w-[70%] p-2 mx-auto ${
+                            (domainName === "+Add Domain" || aiToolName === "+Add AI tool") ? 'disabled:bg-blue-200' : ''
+                        }`}
+                        >
+                        Generate
+                    </button>
                     <p className="text-Text-Black text-center font-Lato text-base font-normal leading-normal tracking-wide">
                         You have 3 attempts remaining. Visit Arcade to earn more
                     </p>
