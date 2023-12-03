@@ -10,7 +10,6 @@ import axios from 'axios';
 import { useSession } from 'next-auth/react'
 import SearchAlgo from '../../../lib/SearchAlgo'
 import FriendsSearchPopup from '../../../components/FriendsSearchPopup'
-import CreateBidNext from '../../../components/createBidNext'
 import BackArrow_Icon from "../../../../public/Images/BackArrow_Icon.svg"
 import Folder_Icon from "../../../../public/Images/Folder_Icon.svg"
 
