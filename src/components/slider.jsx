@@ -9,14 +9,6 @@ import 'swiper/css/navigation';
 
 import { EffectCoverflow, Pagination, Navigation } from 'swiper/modules';
 
-import slide_image_1 from '../../public/Images/img_1.jpg';
-import slide_image_2 from '../../public/Images/img_2.jpg';
-import slide_image_3 from '../../public/Images/img_3.jpg';
-import slide_image_4 from '../../public/Images/img_4.jpg';
-import slide_image_5 from '../../public/Images/img_1.jpg';
-import slide_image_6 from '../../public/Images/img_2.jpg';
-import slide_image_7 from '../../public/Images/img_3.jpg';
-
 function Slider({users}) {
     console.log("users are 123e:",users)
   return (
