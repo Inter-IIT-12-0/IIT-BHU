@@ -11,8 +11,8 @@ const PeoplePage = () => {
             <Navbar/>
                 <div className="flex flex-row">
                 <StudentSidebar/>
-                <University/>
-                {/* <People/> */}
+                {/* <University/> */}
+                <People/>
             </div>
         </div>
     )
