@@ -10,7 +10,7 @@ const handler = async (req, res) => {
         const savedUniversity = await university.save();
         res.status(201).json(savedUniversity);
       } catch (error) {
-        console.error(error);
+        console.error(error); 
         res.status(500).json({ error: 'Error creating university' });
       }
       break;

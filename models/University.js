@@ -10,7 +10,7 @@ const UniversitySchema = new mongoose.Schema({
     professors:[{type: mongoose.Schema.Types.ObjectId,
             ref: 'User'}],
     labcount:{type:Number},
-    address:{type:string},
+    address:{type:String},
     description:{type:String},
     domains:{type:String},
     sector:{type:String},

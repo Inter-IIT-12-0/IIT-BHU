@@ -1,14 +1,22 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import University from './University';
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, EffectCoverflow } from 'swiper/modules';
 
+import 'swiper/css';
+import 'swiper/css/effect-coverflow';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation'
+import Slider from './slider';
 
 const People = () => {
     const [activeIndex, setActiveIndex] = useState(0);
     const [users, setUser] = useState([]);
     const [domain, setDomain] = useState('');
     const [type, setType] = useState('');
-
+    const [role, setRole] = useState('Student');
 
     const [filteredPeople, setFilteredPeople] = useState(users);
     useEffect(() => {
@@ -16,8 +24,8 @@ const People = () => {
             .then(res => { // Log the response to the console
                 console.log("hello");
                 
-                setUser(res.data.filter(person => person.role === 'Student'));
-                setFilteredPeople(res.data.filter(person => person.role === 'Student'));
+                setUser(res.data.filter(person => person.role === role));
+                setFilteredPeople(res.data.filter(person => person.role === role));
 
             })
             .catch(err => console.log(err));
@@ -87,39 +95,41 @@ const People = () => {
 
     };
 
+    console.log("users are :", filteredPeople);
+    const[onUniversity, setOnUniversity] = useState(false)
+
     return (
-        <div className='flex-col flex'>
+        <>
+        {!onUniversity && (<div className='flex-col flex w-300 pt-8 px-6 overflow-x-hidden'>
             <div className='flex flex-row'>
-                <div></div>
-                <div></div>
-                <div></div>
+                <div className='flex flex-row my-6 mr-6 border border-slate-200 py-4 pl-4 pr-10 cursor-pointer rounded-xl'>
+                    <img className='h-6 mx-3 my-2' src="/Images/newElipse.svg" alt="" />
+                    <h1 className='text-black text-1x1 font-semibold rounded-md border-slate-400' onClick={() => {setRole('Student')}}>Talent</h1>
+                </div>
+                <div className='flex flex-row m-6 border border-slate-200 py-4 pl-4 pr-10 cursor-pointer rounded-xl'>
+                    <img className='h-6 mx-3 my-2' src="/Images/newElipse.svg" alt="" />
+                    <h1 className='text-black text-1x1 font-semibold rounded-md border-slate-400 ' onClick={() => {setRole('Client')}}>Client</h1>
+                </div>
+                <div className='flex flex-row m-6 border border-slate-200 py-4 pl-4 pr-10 cursor-pointer rounded-xl'>
+                    <img className='h-6 mx-3 my-2' src="/Images/newElipse.svg" alt="" />
+                    <h1 className='text-black text-1x1 font-semibold rounded-md border-slate-400' onClick={() => {setOnUniversity(true)}}>University</h1>
+                </div>
             </div>
+            <h1 className='text-black text-2xl font-bold mb-5'>Top Performers</h1>
             <div id="controls-carousel" className="relative w-full" data-carousel="static">
-                <div className="relative h-56 overflow-hidden rounded-lg md:h-96">
-                    {users.map((user,index) => (
-                        <div
-                            key={index}
-                            className={`${index === activeIndex ? 'duration-700 ease-in-out' : 'hidden'
-                                }`}
-                            data-carousel-item={index === activeIndex ? 'active' : ''}
-                        >
-                            <div className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
-                                {/* Replace the image tag with your card component */}
-                                <div className="bg-white p-4 rounded-lg shadow-md">
-                                    <p>{user.name}</p>
-                                </div>
-                            </div>
-                        </div>
-                    ))}
+                <div className="relative h-auto rounded-lg md:h-96 mb-10">
+                    
+                    <Slider users = {filteredPeople}/>
+                    
                 </div>
 
-                <button
+                {/* <button
                     type="button"
                     className="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none bg-slate-300"
                     onClick={handlePrevClick}
                     data-carousel-prev
                 >
-                    {/* Your previous button content */}
+                    
                 </button>
                 <button
                     type="button"
@@ -127,16 +137,16 @@ const People = () => {
                     onClick={handleNextClick}
                     data-carousel-next
                 >
-                    {/* Your next button content */}
-                </button>
+                    
+                </button> */}
             </div>
 
-            <section className="bg-gray-50 dark:bg-gray-900 h-screen flex items-center">
-                <div className="flex-col flex">
-                    <section className="bg-gray-50 dark:bg-gray-900 h-screen flex items-center">
-                        <div className="max-w-screen-xl px-4 mx-auto lg:px-12 w-full">
+            <section className="dark:bg-gray-900 flex items-center w-full">
+                <div className="flex-col flex w-full">
+                    <section className=" dark:bg-gray-900 flex items-center w-full">
+                        <div className=" px-4 mx-auto lg:px-12 w-full">
                             <div className="relative bg-white shadow-md dark:bg-gray-800 sm:rounded-lg">
-                                <div className="flex flex-col items-center justify-between p-4 space-y-3 md:flex-row md:space-y-0 md:space-x-4">
+                                <div className="flex flex-col items-center justify-between p-4 space-y-3 md:flex-row md:space-y-0 md:space-x-4 w-full">
                                     <div className="w-full md:w-1/2">
                                         <form className="flex items-center">
                                             <div className="relative w-full">
@@ -164,8 +174,9 @@ const People = () => {
                                             </div>
                                         </form>
                                     </div>
+                                    <img src="/Images/Filter2_Icon_UIA.svg" alt="" />
                                     <div className="flex flex-col items-stretch justify-end flex-shrink-0 w-full space-y-2 md:w-auto md:flex-row md:space-y-0 md:items-center md:space-x-3">
-                                        <button
+                                        {/* <button
                                             type="button"
                                             className="flex items-center justify-center px-4 py-2 text-sm font-medium text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800"
                                         >
@@ -183,8 +194,52 @@ const People = () => {
                                                 />
                                             </svg>
                                             Add product
-                                        </button>
+                                        </button> */}
                                         <div className="flex items-center w-full space-x-3 md:w-auto">
+                                            <button
+                                                id="DomainDropdownButton"
+                                                data-dropdown-toggle="DomainDropdown"
+                                                className="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg md:w-auto focus:outline-none hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                                                type="button"
+                                                onClick={toggleDomainDropdown}
+                                            >
+                                                <svg
+                                                    className="-ml-1 mr-1.5 w-5 h-5"
+                                                    fill="currentColor"
+                                                    viewBox="0 0 20 20"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    aria-hidden="true"
+                                                >
+                                                    <path
+                                                        clipRule="evenodd"
+                                                        fillRule="evenodd"
+                                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                    />
+                                                </svg>
+                                                Type
+                                            </button>
+                                            <button
+                                                id="DomainDropdownButton"
+                                                data-dropdown-toggle="DomainDropdown"
+                                                className="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg md:w-auto focus:outline-none hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                                                type="button"
+                                                onClick={toggleDomainDropdown}
+                                            >
+                                                <svg
+                                                    className="-ml-1 mr-1.5 w-5 h-5"
+                                                    fill="currentColor"
+                                                    viewBox="0 0 20 20"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    aria-hidden="true"
+                                                >
+                                                    <path
+                                                        clipRule="evenodd"
+                                                        fillRule="evenodd"
+                                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                    />
+                                                </svg>
+                                                Sector
+                                            </button>
                                             <button
                                                 id="DomainDropdownButton"
                                                 data-dropdown-toggle="DomainDropdown"
@@ -236,26 +291,31 @@ const People = () => {
                     </section>
                 </div>
             </section>
-            <section className="bg-white dark:bg-gray-900">
-                <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
+            <section className="bg-white dark:bg-gray-900 mt-10">
+                <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-6 lg:px-6">
                     <div className="mx-auto max-w-screen-sm text-center mb-8 lg:mb-16">
                         <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Our Team</h2>
                         <p className="font-light text-gray-500 lg:mb-16 sm:text-xl dark:text-gray-400">
                             Explore the whole collection of open-source web components and elements built with the utility classes from Tailwind
                         </p>
                     </div>
-                    <div className="grid gap-8 mb-6 lg:mb-16 md:grid-cols-2">
-                        {filteredPeople.map((person, index) => (
-                            <div key={index} className="items-center bg-gray-50 rounded-lg shadow sm:flex dark:bg-gray-800 dark:border-gray-700">
-                                <a href="#">
-                                    <img className="w-60 h-40  rounded-lg sm:rounded-none sm:rounded-l-lg" src={person.avatarUrl} alt={`${person.name} Avatar`} />
-                                </a>
-                                <div className="p-5">
+                    <div className="grid gap-8 mb-6 lg:mb-16 md:grid-cols-3">
+                        {filteredPeople && filteredPeople.map((person, index) => {
+                            console.log("person is:",person)
+                            return <div key={index} className="items-center bg-white shadow sm:flex dark:bg-gray-800 dark:border-gray-700 border rounded-2xl border-slate-500 pr-6">
+                                <div className='flex flex-col ml-5 mr-6 top-0 items-center pt-6 h-full'>
+                                    <a href="#">
+                                        <img className="h-12 w-12 rounded-full m-0 p-0" src={person.avatarUrl} alt={`${person.name} Avatar`} />
+                                    </a>
+                                    <h1>Domain</h1>
+                                </div>
+                                <div className="p-5 mr-6">
                                     <h3 className="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
                                         <a href="#">{person.name}</a>
                                     </h3>
+                                    <h1>Automatic Ventures</h1>
                                     <span className="text-gray-500 dark:text-gray-400">{person.domain}</span>
-                                    <p className="mt-3 mb-4 font-light text-gray-500 dark:text-gray-400">{person.email}</p>
+                                    {/* <p className="mt-3 mb-4 font-light text-gray-500 dark:text-gray-400">{person.email}</p> */}
                                     <ul className="flex space-x-4 sm:mt-0">
                                         {person.socialMedia.map((social, socialIndex) => (
                                             <li key={socialIndex}>
@@ -267,13 +327,21 @@ const People = () => {
                                             </li>
                                         ))}
                                     </ul>
+                                    <button className='mt-5 py-1 px-6 rounded-full bg-blue-900 text-white font-semibold'>View Profile</button>
+                                </div>
+                                <div className='flex flex-col py-5 justify-between h-full'>
+                                    <h1>{person.rating}/5.0</h1>
+                                    <img src="/Images/Heart_Icon_UIA.svg" alt="" />
                                 </div>
                             </div>
-                        ))}
+                        })}
                     </div>
                 </div>
             </section>
         </div>
+        )}
+        {onUniversity && <University/>}
+        </>
     );
 };
 
