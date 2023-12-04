@@ -37,19 +37,25 @@ function Slider({users}) {
         {
           users && users.map((ele) => {
                 return <SwiperSlide>
-                    <div className='flex flex-col h-80' style={{border:'solid 1px black', borderRadius:'15%'}}>
+                    <div className='flex flex-col h-80 bg-white' style={{border:'solid 1px black', borderRadius:'15%'}}>
                         
-                        <img className='border' src="/Images/slideImage.png" alt="" />
-                        
-                        <div className='flex justify-center'>
-                            <div className='flex flex-col'>
-                                <h1 className='text-black text-1x1 font-semibold'>{ele.name}</h1>
-                                <h1 className=''>{ele.role}</h1>
-                                <h1 className='text-sm font-semibold'>{ele.institute}</h1>
-                            </div>
-                            <div>{ele.rating}</div>
+                        <div>
+                            <img className='border' src="/Images/slideImage.png" alt="" />
                         </div>
-                        <div className='justify-center items-center px-auto'>
+                        <div className='flex justify-between mt-6'>
+                          <img className='h-28 mx-4' src="/Images/newElipse.svg" alt="" />
+                          <div className='flex flex-col right-0 w-[60%]'>
+                              <div className='flex justify-between'>
+                                  <div>
+                                    <h1 className='text-black text-1x1 font-semibold'>{ele.name}</h1>
+                                    <h1 className=''>{ele.role}</h1>
+                                  </div>
+                                  <div className='mr-12'>{ele.rating}</div> 
+                              </div>
+                              <h1 className='text-sm font-semibold'>{ele.institute}</h1>
+                          </div>
+                        </div>
+                        <div className='flex justify-center items-center px-auto'>
                             <button className='py-1 px-6 rounded-full bg-blue-800'>View Profile</button>
                         </div>
                     </div>

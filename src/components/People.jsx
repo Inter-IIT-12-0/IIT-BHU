@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import University from './University';
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, EffectCoverflow } from 'swiper/modules';
 
@@ -15,7 +16,7 @@ const People = () => {
     const [users, setUser] = useState([]);
     const [domain, setDomain] = useState('');
     const [type, setType] = useState('');
-
+    const [role, setRole] = useState('Student');
 
     const [filteredPeople, setFilteredPeople] = useState(users);
     useEffect(() => {
@@ -23,8 +24,8 @@ const People = () => {
             .then(res => { // Log the response to the console
                 console.log("hello");
                 
-                setUser(res.data.filter(person => person.role === 'Student'));
-                setFilteredPeople(res.data.filter(person => person.role === 'Student'));
+                setUser(res.data.filter(person => person.role === role));
+                setFilteredPeople(res.data.filter(person => person.role === role));
 
             })
             .catch(err => console.log(err));
@@ -95,21 +96,23 @@ const People = () => {
     };
 
     console.log("users are :", filteredPeople);
+    const[onUniversity, setOnUniversity] = useState(false)
 
     return (
-        <div className='flex-col flex w-300 pt-8 px-6 overflow-x-hidden'>
+        <>
+        {!onUniversity && (<div className='flex-col flex w-300 pt-8 px-6 overflow-x-hidden'>
             <div className='flex flex-row'>
                 <div className='flex flex-row my-6 mr-6 border border-slate-200 py-4 pl-4 pr-10 cursor-pointer rounded-xl'>
                     <img className='h-6 mx-3 my-2' src="/Images/newElipse.svg" alt="" />
-                    <h1 className='text-black text-1x1 font-semibold rounded-md border-slate-400'>Talent</h1>
+                    <h1 className='text-black text-1x1 font-semibold rounded-md border-slate-400' onClick={() => {setRole('Student')}}>Talent</h1>
                 </div>
                 <div className='flex flex-row m-6 border border-slate-200 py-4 pl-4 pr-10 cursor-pointer rounded-xl'>
                     <img className='h-6 mx-3 my-2' src="/Images/newElipse.svg" alt="" />
-                    <h1 className='text-black text-1x1 font-semibold rounded-md border-slate-400'>Client</h1>
+                    <h1 className='text-black text-1x1 font-semibold rounded-md border-slate-400 ' onClick={() => {setRole('Client')}}>Client</h1>
                 </div>
                 <div className='flex flex-row m-6 border border-slate-200 py-4 pl-4 pr-10 cursor-pointer rounded-xl'>
                     <img className='h-6 mx-3 my-2' src="/Images/newElipse.svg" alt="" />
-                    <h1 className='text-black text-1x1 font-semibold rounded-md border-slate-400'>University</h1>
+                    <h1 className='text-black text-1x1 font-semibold rounded-md border-slate-400' onClick={() => {setOnUniversity(true)}}>University</h1>
                 </div>
             </div>
             <h1 className='text-black text-2xl font-bold mb-5'>Top Performers</h1>
@@ -138,7 +141,7 @@ const People = () => {
                 </button> */}
             </div>
 
-            <section className="dark:bg-gray-900 flex items-center w-full mt-6">
+            <section className="dark:bg-gray-900 flex items-center w-full">
                 <div className="flex-col flex w-full">
                     <section className=" dark:bg-gray-900 flex items-center w-full">
                         <div className=" px-4 mx-auto lg:px-12 w-full">
@@ -299,7 +302,7 @@ const People = () => {
                     <div className="grid gap-8 mb-6 lg:mb-16 md:grid-cols-3">
                         {filteredPeople && filteredPeople.map((person, index) => {
                             console.log("person is:",person)
-                            return <div key={index} className="items-center bg-white shadow sm:flex dark:bg-gray-800 dark:border-gray-700 border rounded-2xl border-slate-500">
+                            return <div key={index} className="items-center bg-white shadow sm:flex dark:bg-gray-800 dark:border-gray-700 border rounded-2xl border-slate-500 pr-6">
                                 <div className='flex flex-col ml-5 mr-6 top-0 items-center pt-6 h-full'>
                                     <a href="#">
                                         <img className="h-12 w-12 rounded-full m-0 p-0" src={person.avatarUrl} alt={`${person.name} Avatar`} />
@@ -336,6 +339,9 @@ const People = () => {
                 </div>
             </section>
         </div>
+        )}
+        {onUniversity && <University/>}
+        </>
     );
 };
 
