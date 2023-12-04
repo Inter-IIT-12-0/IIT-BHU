@@ -13,22 +13,27 @@ const handler = connectDb(NextAuth({
     ],
     secret: process.env.NEXTAUTH_SECRET,
     callbacks: {
-        async session({session}) {
-            const sessionUser = await User.findOne({email: session.user.email});
-            session.user = sessionUser
-            return session;
+        async session({ session }) {
+            try {
+                const sessionUser = await User.findOne({ email: session.user.email });
+                session.user = sessionUser
+                return session;
+            } catch (error) {
+                console.error(error)
+            }
         },
-        async signIn({profile}) {
+        async signIn({ profile }) {
             try {
                 console.log(profile)
-                const existingUser = await User.findOne({email: profile.email})
-                if(!existingUser) {
+                const existingUser = await User.findOne({ email: profile.email })
+                if (!existingUser) {
                     const user = await User.create({
                         email: profile.email,
                         name: profile.name,
                         avatarUrl: profile.picture
                     })
                 }
+                // this.session.user = existingUser
                 return true;
             } catch (error) {
                 console.log(error)
@@ -38,4 +43,4 @@ const handler = connectDb(NextAuth({
     }
 }))
 
-export { handler as GET, handler as POST}
+export { handler as GET, handler as POST }

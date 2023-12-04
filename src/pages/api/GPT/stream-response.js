@@ -40,7 +40,7 @@ export const generate = async (domain, tool, input, result, setResult) => {
       body: JSON.stringify({
         model: "gpt-3.5-turbo",
         messages: messages,
-        max_tokens: 100,
+        max_tokens: 200,
         stream: true, // For streaming responses
       }),
       signal, // Pass the signal to the fetch request

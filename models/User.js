@@ -16,11 +16,16 @@ const SocialMediaSchema = new mongoose.Schema({
     url: { type: String }
 });
 
+const aiToolsSchema = new mongoose.Schema({
+    name: { type: String, unique: true },
+    image: { type: String }
+})
+
 const UserSchema = new mongoose.Schema({
     name: { type: String },
     avatarUrl: { type: String },
     mobileNumber: { type: String },
-    email: { type: String, unique: true, required: true},
+    email: { type: String, unique: true, required: true },
     tagline: { type: String },
     workExperienceYears: { type: Number },
     workExperienceMonths: { type: Number },
@@ -55,12 +60,16 @@ const UserSchema = new mongoose.Schema({
         hourlyRate: { type: Number }
     },
     socialMedia: [SocialMediaSchema],
-    projects:[{type: mongoose.Schema.Types.ObjectId,
-        ref: 'Project'}],
+    projects: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Project'
+    }],
     lastLogin: { type: Date },
     paymentsCompleted: { type: Number, default: 0 },
-    projectsPosted: { type: Number, default: 0},
-    rating: { type: Number, default: 0 }
+    projectsPosted: { type: Number, default: 0 },
+    rating: { type: Number, default: 0 },
+    aiTools: [aiToolsSchema],
+    aiToolsLimit: { type: Number, default: 3 }
 }, { timestamps: true });
 
 export default mongoose.models.User || mongoose.model("User", UserSchema);

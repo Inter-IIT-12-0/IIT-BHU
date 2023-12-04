@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Bot from "./Bot";
-import ChatbotCard from "./ChatbotCard";
+import {ChatbotCard} from "./ChatbotCard";
 
 export default function Footer() {
     const [isOpen, setIsOpen] = useState(false);
