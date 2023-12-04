@@ -297,7 +297,7 @@ const People = () => {
                         </p>
                     </div>
                     <div className="grid gap-8 mb-6 lg:mb-16 md:grid-cols-3">
-                        {filteredPeople.map((person, index) => {
+                        {filteredPeople && filteredPeople.map((person, index) => {
                             console.log("person is:",person)
                             return <div key={index} className="items-center bg-white shadow sm:flex dark:bg-gray-800 dark:border-gray-700 border rounded-2xl border-slate-500">
                                 <div className='flex flex-col ml-5 mr-6 top-0 items-center pt-6 h-full'>

@@ -35,7 +35,7 @@ function Slider({users}) {
         className="swiper_container"
       >
         {
-            users.map((ele) => {
+          users && users.map((ele) => {
                 return <SwiperSlide>
                     <div className='flex flex-col h-80' style={{border:'solid 1px black', borderRadius:'15%'}}>
                         
