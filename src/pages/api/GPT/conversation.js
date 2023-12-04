@@ -38,7 +38,7 @@ export const generate = async (messages, result, setResult,setMessages) => {
       body: JSON.stringify({
         model: "gpt-3.5-turbo",
         messages: messages,
-        max_tokens: 100,
+        max_tokens: 200,
         stream: true, // For streaming responses
       }),
       signal, // Pass the signal to the fetch request
