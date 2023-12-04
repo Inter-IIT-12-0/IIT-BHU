@@ -131,7 +131,7 @@ const People = () => {
                 </button>
             </div>
 
-            <section class="bg-gray-50 dark:bg-gray-900 h-screen flex items-center">
+            <section className="bg-gray-50 dark:bg-gray-900 h-screen flex items-center">
                 <div className="flex-col flex">
                     <section className="bg-gray-50 dark:bg-gray-900 h-screen flex items-center">
                         <div className="max-w-screen-xl px-4 mx-auto lg:px-12 w-full">

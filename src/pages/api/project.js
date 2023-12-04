@@ -21,17 +21,16 @@ const handler = async (req, res) => {
         }
 
         try {
-            const projects = await Project.findById(id, '-_id -__v')
+            const projects = await Project.findById(id, '-__v')
                 .populate({
                     path: 'Team',
-                    select: '-_id -__v',
+                    select: '-__v',
                     populate: {
                         path: 'user',
-                        select: '-_id -__v'
+                        select: '-__v'
                     }
                 })
-                .populate('user', '-_id -__v');
-
+                .populate('user', '-__v')
             if (!projects) {
                 res.status(404).json({ error: 'Project not found' });
                 return;

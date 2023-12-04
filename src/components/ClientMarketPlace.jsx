@@ -1,88 +1,475 @@
-import React, {useState} from "react";
-import ClientMarketPlaceJson from './clientMarketPlace.json';
-import PercentageCircle from "./PercentageCircle";
+import React, { useState, useEffect } from 'react';
+import classNames from 'classnames';
 
-const ClientMarketPlace = () => {
+const Form1 = () => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const recommendedTalent = "Recommended Talent";
-    const recommendedTeams = "Recommnended Teams";
-    const almaMatter = "Alma matter";
-    const[heading, setHeading] = useState(recommendedTalent);
-    
+    useEffect(() => {
+        // Trigger the modal on component mount
+        setIsModalOpen(true);
+    }, []);
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
+
+    const[progress,setProgress] =useState(0);
+
+    const [formData, setFormData] = useState({
+        name: '',
+        brand: '',
+        price: '',
+        category: 'TV', // default category
+        description: '',
+    });
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prevData) => ({
+            ...prevData,
+            [name]: value,
+        }));
+    };
+
+    const handleSubmit = (e) => {
+        if(progress!=99)
+        {
+            setProgress(progress+33);
+        }
+        else
+        setProgress(0);
+        e.preventDefault();
+        // Handle form submission logic here
+        console.log('Form submitted:', formData);
+        // You can send the form data to your backend or perform other actions
+    };
+
     return (
-        <div className="flex flex-col p-8 w-full">
-            <h1 className="text-blue-700 font-semibold text-3xl m-6 mt-0">Create a Project</h1>
-            <div className="w-full h-3 rounded-full bg-blue-950"></div>
-            <div className="rounded-xl bg-blue-100 p-8 w-full mt-8 ml-3">
-                <h1 className="text-2xl font-semibold">Invite Bids</h1>
-                <div className="flex flex-row bg-white rounded-md mt-3">
-                    <img className="p-2" src="/Images/Search_Icon.svg" alt="" />
-                    <input className="h-10 w-full rounded m-2"></input>
-                </div>
-                <div className="mt-4 rounded-md bg-white px-8 py-2">
-                <div className="flex flex-row justify-self-start w-full my-3">
-                    <h2
-                        onClick={() => {
-                        setHeading(recommendedTalent);
-                        }}
-                        className={`font-semibold text-2xl mx-8 cursor-pointer ${
-                        heading === recommendedTalent ? 'text-blue-700' : 'text-black'
-                        }`}
-                    >
-                        {recommendedTalent}
-                    </h2>
-                    <h2
-                        onClick={() => {
-                        setHeading(recommendedTeams);
-                        }}
-                        className={`font-semibold text-2xl mx-8 cursor-pointer ${
-                        heading === recommendedTeams ? 'text-blue-700' : 'text-black'
-                        }`}
-                    >
-                        {recommendedTeams}
-                    </h2>
-                    <h2
-                        onClick={() => {
-                        setHeading(almaMatter);
-                        }}
-                        className={`font-semibold text-2xl mx-8 cursor-pointer ${
-                        heading === almaMatter ? ' text-blue-700' : 'text-black'
-                        }`}
-                    >
-                        {almaMatter}
-                    </h2>
-                    </div>
-                    <hr className="w-full"/>
-                    <div className="flex flex-col px-8 py-3">
-                    {ClientMarketPlaceJson[heading] && ClientMarketPlaceJson[heading].map((ele) => {
-                        return <div className="flex justify-between m-3">
-                            <div className="flex flex-row">
-                                <img className="mr-4" src={ele.profilePhoto} alt="" />
-                                <div className="flex flex-col pt-2">
-                                    <h1 className="text-2xl font-semibold">{ele.name}</h1>
-                                    <h2 className="text-1xl font-semibold">{ele.role}</h2>
+        <>
+            {/* Modal toggle */}
+            <div className="flex justify-center m-5">
+                <button
+                    onClick={() => setIsModalOpen(true)}
+                    className="block text-black bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                    type="button"
+                >
+                    Create product
+                </button>
+            </div>
+
+            {/* Main modal */}
+            {isModalOpen && (
+                <div
+                    tabIndex="-1"
+                    aria-hidden="true"
+                    className="fixed inset-0 overflow-y-auto overflow-x-hidden z-50 flex items-center justify-center"
+                >
+
+                    <div className=" p-4 w-full max-w-2xl">
+                        {/* Modal content */}
+                        <div className=" p-4 bg-white rounded-lg shadow sm:p-5">
+                            {/* Modal header */}
+                            <div className="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5">
+                                <h3 className="text-lg font-semibold text-gray-900">
+                                    Add Product
+                                </h3>
+                                <button
+                                    onClick={closeModal}
+                                    className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-black"
+                                >
+                                    <svg
+                                        aria-hidden="true"
+                                        className="w-5 h-5"
+                                        fill="currentColor"
+                                        viewBox="0 0 20 20"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <path
+                                            fillRule="evenodd"
+                                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                            clipRule="evenodd"
+                                        ></path>
+                                    </svg>
+                                    <span className="sr-only">Close modal</span>
+                                </button>
+                                
+                            </div>
+                            <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+                                <div
+                                    className="bg-blue-600 h-2.5 rounded-full"
+                                    style={{ width: `${progress}%` }}
+                                ></div>
+                            </div>
+                            <div className='justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5'>
+                                <div
+                                    id="defaultModal"
+                                    tabIndex="-1"
+                                    aria-hidden="true"
+                                    className=" overflow-y-auto overflow-x-hidden justify-center items-center w-full md:inset-0 h-modal md:h-full"
+                                >
+                                    <div className={classNames({ "hidden": progress !== 0 }, "relative p-4 w-full max-w-2xl h-full md:h-auto")}>
+                                        <div className="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
+                                            <form onSubmit={handleSubmit}>
+                                                <div className="grid gap-4 mb-4 sm:grid-cols-2">
+                                                    <div>
+                                                        <label
+                                                            htmlFor="name"
+                                                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                        >
+                                                            Name
+                                                        </label>
+                                                        <input
+                                                            type="text"
+                                                            name="name"
+                                                            id="name"
+                                                            value={formData.name}
+                                                            onChange={handleInputChange}
+                                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            placeholder="Type product name"
+                                                            required
+                                                        />
+                                                    </div>
+                                                    <div>
+                                                        <label
+                                                            htmlFor="brand"
+                                                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                        >
+                                                            Brand
+                                                        </label>
+                                                        <input
+                                                            type="text"
+                                                            name="brand"
+                                                            id="brand"
+                                                            value={formData.brand}
+                                                            onChange={handleInputChange}
+                                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            placeholder="Product brand"
+                                                            required
+                                                        />
+                                                    </div>
+                                                    <div>
+                                                        <label
+                                                            htmlFor="price"
+                                                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                        >
+                                                            Price
+                                                        </label>
+                                                        <input
+                                                            type="number"
+                                                            name="price"
+                                                            id="price"
+                                                            value={formData.price}
+                                                            onChange={handleInputChange}
+                                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            placeholder="$2999"
+                                                            required
+                                                        />
+                                                    </div>
+                                                    <div>
+                                                        <label
+                                                            htmlFor="category"
+                                                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                        >
+                                                            Category
+                                                        </label>
+                                                        <select
+                                                            id="category"
+                                                            name="category"
+                                                            value={formData.category}
+                                                            onChange={handleInputChange}
+                                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                        >
+                                                            <option value="TV">TV/Monitors</option>
+                                                            <option value="PC">PC</option>
+                                                            <option value="GA">Gaming/Console</option>
+                                                            <option value="PH">Phones</option>
+                                                        </select>
+                                                    </div>
+                                                    <div className="sm:col-span-2">
+                                                        <label
+                                                            htmlFor="description"
+                                                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                        >
+                                                            Description
+                                                        </label>
+                                                        <textarea
+                                                            id="description"
+                                                            name="description"
+                                                            rows="4"
+                                                            value={formData.description}
+                                                            onChange={handleInputChange}
+                                                            className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            placeholder="Write product description here"
+                                                        ></textarea>
+                                                    </div>
+                                                </div>
+                                                <button
+                                                    type="submit"
+                                                    className="text-white inline-flex items-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                                                >
+                                                    <svg
+                                                        className="mr-1 -ml-1 w-6 h-6"
+                                                        fill="currentColor"
+                                                        viewBox="0 0 20 20"
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                    >
+                                                        <path
+                                                            fill-rule="evenodd"
+                                                            d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                                                            clip-rule="evenodd"
+                                                        ></path>
+                                                    </svg>
+                                                    Add new product
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div className={classNames({ "hidden": progress !== 33 }, "relative p-4 w-full max-w-2xl h-full md:h-auto")}>
+                                        <div className="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
+                                            <form onSubmit={handleSubmit}>
+                                                <div className="grid gap-4 mb-4 sm:grid-cols-2">
+                                                    <div>
+                                                        <label
+                                                            htmlFor="name"
+                                                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                        >
+                                                            Bhai
+                                                        </label>
+                                                        <input
+                                                            type="text"
+                                                            name="name"
+                                                            id="name"
+                                                            value={formData.name}
+                                                            onChange={handleInputChange}
+                                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            placeholder="Type product name"
+                                                            required
+                                                        />
+                                                    </div>
+                                                    <div>
+                                                        <label
+                                                            htmlFor="brand"
+                                                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                        >
+                                                            Brand
+                                                        </label>
+                                                        <input
+                                                            type="text"
+                                                            name="brand"
+                                                            id="brand"
+                                                            value={formData.brand}
+                                                            onChange={handleInputChange}
+                                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            placeholder="Product brand"
+                                                            required
+                                                        />
+                                                    </div>
+                                                    <div>
+                                                        <label
+                                                            htmlFor="price"
+                                                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                        >
+                                                            Price
+                                                        </label>
+                                                        <input
+                                                            type="number"
+                                                            name="price"
+                                                            id="price"
+                                                            value={formData.price}
+                                                            onChange={handleInputChange}
+                                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            placeholder="$2999"
+                                                            required
+                                                        />
+                                                    </div>
+                                                    <div>
+                                                        <label
+                                                            htmlFor="category"
+                                                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                        >
+                                                            Category
+                                                        </label>
+                                                        <select
+                                                            id="category"
+                                                            name="category"
+                                                            value={formData.category}
+                                                            onChange={handleInputChange}
+                                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                        >
+                                                            <option value="TV">TV/Monitors</option>
+                                                            <option value="PC">PC</option>
+                                                            <option value="GA">Gaming/Console</option>
+                                                            <option value="PH">Phones</option>
+                                                        </select>
+                                                    </div>
+                                                    <div className="sm:col-span-2">
+                                                        <label
+                                                            htmlFor="description"
+                                                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                        >
+                                                            Description
+                                                        </label>
+                                                        <textarea
+                                                            id="description"
+                                                            name="description"
+                                                            rows="4"
+                                                            value={formData.description}
+                                                            onChange={handleInputChange}
+                                                            className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            placeholder="Write product description here"
+                                                        ></textarea>
+                                                    </div>
+                                                </div>
+                                                <button
+                                                    type="submit"
+                                                    className="text-white inline-flex items-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                                                >
+                                                    <svg
+                                                        className="mr-1 -ml-1 w-6 h-6"
+                                                        fill="currentColor"
+                                                        viewBox="0 0 20 20"
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                    >
+                                                        <path
+                                                            fill-rule="evenodd"
+                                                            d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                                                            clip-rule="evenodd"
+                                                        ></path>
+                                                    </svg>
+                                                    Add new product
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div className={classNames({ "hidden": progress !== 66 }, "relative p-4 w-full max-w-2xl h-full md:h-auto")}>
+                                        <div className="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
+                                            <form onSubmit={handleSubmit}>
+                                                <div className="grid gap-4 mb-4 sm:grid-cols-2">
+                                                    <div>
+                                                        <label
+                                                            htmlFor="name"
+                                                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                        >
+                                                            Okay
+                                                        </label>
+                                                        <input
+                                                            type="text"
+                                                            name="name"
+                                                            id="name"
+                                                            value={formData.name}
+                                                            onChange={handleInputChange}
+                                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            placeholder="Type product name"
+                                                            required
+                                                        />
+                                                    </div>
+                                                    <div>
+                                                        <label
+                                                            htmlFor="brand"
+                                                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                        >
+                                                            Brand
+                                                        </label>
+                                                        <input
+                                                            type="text"
+                                                            name="brand"
+                                                            id="brand"
+                                                            value={formData.brand}
+                                                            onChange={handleInputChange}
+                                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            placeholder="Product brand"
+                                                            required
+                                                        />
+                                                    </div>
+                                                    <div>
+                                                        <label
+                                                            htmlFor="price"
+                                                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                        >
+                                                            Price
+                                                        </label>
+                                                        <input
+                                                            type="number"
+                                                            name="price"
+                                                            id="price"
+                                                            value={formData.price}
+                                                            onChange={handleInputChange}
+                                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            placeholder="$2999"
+                                                            required
+                                                        />
+                                                    </div>
+                                                    <div>
+                                                        <label
+                                                            htmlFor="category"
+                                                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                        >
+                                                            Category
+                                                        </label>
+                                                        <select
+                                                            id="category"
+                                                            name="category"
+                                                            value={formData.category}
+                                                            onChange={handleInputChange}
+                                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                        >
+                                                            <option value="TV">TV/Monitors</option>
+                                                            <option value="PC">PC</option>
+                                                            <option value="GA">Gaming/Console</option>
+                                                            <option value="PH">Phones</option>
+                                                        </select>
+                                                    </div>
+                                                    <div className="sm:col-span-2">
+                                                        <label
+                                                            htmlFor="description"
+                                                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                        >
+                                                            Description
+                                                        </label>
+                                                        <textarea
+                                                            id="description"
+                                                            name="description"
+                                                            rows="4"
+                                                            value={formData.description}
+                                                            onChange={handleInputChange}
+                                                            className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            placeholder="Write product description here"
+                                                        ></textarea>
+                                                    </div>
+                                                </div>
+                                                <button
+                                                    type="submit"
+                                                    className="text-white inline-flex items-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                                                >
+                                                    <svg
+                                                        className="mr-1 -ml-1 w-6 h-6"
+                                                        fill="currentColor"
+                                                        viewBox="0 0 20 20"
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                    >
+                                                        <path
+                                                            fill-rule="evenodd"
+                                                            d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                                                            clip-rule="evenodd"
+                                                        ></path>
+                                                    </svg>
+                                                    Add new product
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div className="flex flex-row">
-                                <img src="/Images/star.svg" alt="" />
-                                <h1 className="pt-5 pl-4 text-1xl font-semibold">{ele.rating}</h1>
-                            </div>
-                            <h1 className="pt-5 text-1xl font-semibold">{ele.projects} projects</h1>
-                            <div className="pt-3">
-                                <PercentageCircle percentage={ele.percentage}/>
-                            </div>
-                            <h2 className="pt-5 text-1xl font-semibold text-green-700">Invite</h2>
-                            <div className="flex flex-row">
-                                <h1 className="pt-5 pr-3 text-1xl font-semibold">Chat</h1>
-                                <img src="/Images/send-2.svg" alt="" />
-                            </div>
+                            
+
+                            
+
                         </div>
-                        })}
                     </div>
                 </div>
-            </div>
-        </div>
-    )
-}
+            )}
+        </>
+    );
+};
 
-export default ClientMarketPlace; 
+export default Form1;

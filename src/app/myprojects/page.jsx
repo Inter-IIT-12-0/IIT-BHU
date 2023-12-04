@@ -114,7 +114,7 @@ const MyProjects = () => {
 				<div className='flex w-full h-full'>
 					<StudentSidebar />
 					<div className='w-full h-full flex flex-col'>
-						<div className='h-full p-8'>
+						<div className='h-full p-8 flex'>
 							{
 								Projects.map(project => {
 									return <MyProjectCard key={project._id} project={project} />

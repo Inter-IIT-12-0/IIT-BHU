@@ -2,7 +2,8 @@
 import React from "react";
 import Navbar from "../../components/Navbar";
 import StudentSidebar from "../../components/StudentSidebar";
-import ClientMarketPlaceComponent from "../../components/ClientMarketPlace";
+import ClientMarketPlaceComponent from "../../components/ClientMarketPlaceComp";
+// import ClientMarketPlaceComponent from "../../components/ClientMarketPlace";
 
 const ClientMarketPlace = () => {
     return (

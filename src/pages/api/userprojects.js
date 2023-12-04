@@ -11,32 +11,33 @@ const handler = async (req, res) => {
             return res.status(403).json({ error: 'Login First' });
         }
 
-        const userId = session.user.id;
+        const userId = session.user._id;
 
         try {
-            const user = await User.findOne({ _id: userId }).populate({
-                path: 'projects',
-                select: '-__v',
-                populate: {
-                    path: 'assignedTeam',
-                    select: '-_id -__v',
-                    populate: {
-                        path: 'teamUserMap.user',
-                        select: '-_id -__v'
-                    }
-                },
-                populate: {
-                    path: 'assignedBy',
-                    select: '-_id -__v',
-                }
-
-            });
-
+            const user = await User.findOne({ _id: userId })
+                .populate({
+                    path: 'projects',
+                    select: '-__v',
+                    populate: [
+                        {
+                            path: 'assignedTeam',
+                            select: '-__v',
+                            populate: {
+                                path: 'teamUserMap.user',
+                                select: '-__v'
+                            }
+                        },
+                        {
+                            path: 'assignedBy',
+                            select: '-__v',
+                        }
+                    ]
+                });
+            
             if (!user) {
                 res.status(404).json({ error: 'User not found' });
                 return;
             }
-
             res.status(200).json(user.projects);
         } catch (error) {
             console.error(error);

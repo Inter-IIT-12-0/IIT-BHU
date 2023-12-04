@@ -26,7 +26,6 @@ import People from "../components/People";
 
 export default function Home() {
   const { data: session } = useSession();
-
   return (
     <main className="flex overflow-x-hidden">
       <People />
