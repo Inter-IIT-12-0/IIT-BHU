@@ -3,10 +3,14 @@
 import { useState } from "react";
 import { generate, stop } from "../pages/api/GPT/stream-response";
 import React from "react";
+import { useSession } from "next-auth/react";
+import Link from "next/link";
 
-const Subdomain = ({ domain, subdomain, onSubmit, result, setResult }) => {
+const Subdomain = ({ domain, subdomain }) => {
     const [formValues, setFormValues] = useState({});
     const [controller, setController] = useState(null);
+    const [isSubmitted, setIsSubmitted] = useState(false)
+    const [result, setResult] = useState("")
 
     const handleGenerate = async (domain, subdomain, formValues, result, setResult) => {
         await generate(domain, subdomain, formValues, result, setResult);
@@ -25,42 +29,61 @@ const Subdomain = ({ domain, subdomain, onSubmit, result, setResult }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
+        setIsSubmitted(true);
         handleGenerate(domain, subdomain.name, formValues, result, setResult);
     };
 
     return (
         <div className="p-4 border rounded shadow">
-            <h3 className="text-xl font-semibold mb-4">{subdomain.name}</h3>
-            <form onSubmit={handleSubmit} className="space-y-4">
-                {subdomain.formFields.map((field) => (
-                    <label key={field.name} className="block">
-                        {field.label}:
-                        <input
-                            type={field.type}
-                            value={formValues[field.name] || ''}
-                            onChange={(e) => handleInputChange(field.name, e.target.value)}
-                            className="border p-2 rounded mt-1"
-                        />
-                    </label>
-                ))}
-                <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">
-                    Submit
-                </button>
-            </form>
+            <h3 className="text-xl font-semibold mb-4 border-b border-gray-300 pb-3">{subdomain.name}</h3>
+            {
+                isSubmitted ?
+                    (result && (
+                        <div className="mt-4">
+                            <div className="p-4 rounded bg-gray-100">
+                                <pre className="whitespace-pre-line">
+                                    <code>
+                                    {result}
+                                    </code>
+                                </pre>
+                            </div>
+                        </div>
+                    ))
+                    :
+                    <form onSubmit={handleSubmit} className="space-y-4">
+                        {subdomain.formFields.map((field) => (
+                            <label key={field.name} className="block mr-4 text-sm text-neutral-600">
+                                {field.label}:
+                                <input
+                                    type={field.type}
+                                    value={formValues[field.name] || ''}
+                                    onChange={(e) => handleInputChange(field.name, e.target.value)}
+                                    className="p-2 w-11/12 outline-none border-2 border-gray-400 ml-4 rounded-lg mt-1"
+                                    required="true"
+                                />
+                            </label>
+                        ))}
+                        <div className="flex justify-center items-center">
+                            <button type="submit" className="bg-sky-600 text-white px-4 py-2 hover:bg-sky-700 transition-all duration-500 w-1/3 rounded-xl">
+                                Generate
+                            </button>
+                        </div>
+                    </form>
+            }
         </div>
     );
 };
 
-const GptAi = ({setAiOpen}) => {
+const GptAi = ({ setAiOpen }) => {
     const [result, setResult] = useState("");
-    const [selectedDomain, setSelectedDomain] = useState('');
+    const [selectedDomain, setSelectedDomain] = useState('select');
     const [selectedSubdomain, setSelectedSubdomain] = useState(null);
     const [submittedData, setSubmittedData] = useState(null);
+    const { data: session } = useSession()
 
     const domains = [
         /* case "Write Technical Specifications":
-          return `Provide detailed technical specifications based on the given requirements (${input.businessRequirements}), systems involved (${input.systemsInvolved}), and best practices (${input.bestPractices}).`;
+        return `Provide detailed technical specifications based on the given requirements (${input.businessRequirements}), systems involved (${input.systemsInvolved}), and best practices (${input.bestPractices}).`;
     
         case "Bug Report":
           return `Describe the bug you encountered. Include any context (${input.context}) or steps to reproduce the issue if available.`; */
@@ -70,29 +93,50 @@ const GptAi = ({setAiOpen}) => {
                 {
                     name: 'Generate Code Snippet',
                     formFields: [
-                        { name: 'codeTask', label: 'codeTask', type: 'text' },
-                        { name: 'codeLanguage', label: 'codeLanguage', type: 'text' },
+                        { name: 'codeTask', label: 'Code task', type: 'text' },
+                        { name: 'codeLanguage', label: 'Code language', type: 'text' },
                     ],
                 },
                 {
                     name: 'Bug Report',
                     formFields: [
-                        { name: 'context', label: 'context', type: 'text' },
+                        { name: 'context', label: 'Your Context', type: 'text' },
 
                     ],
                 },
                 {
                     name: 'Write Technical specifications',
                     formFields: [
-                        { name: 'businessRequirements', label: 'businessRequirements', type: 'text' },
-                        { name: 'systemsInvolved', label: 'systemsInvolved', type: 'text' },
-                        { name: 'bestPractices', label: 'bestPractices', type: 'text' },
-
-
+                        { name: 'businessRequirements', label: 'Business requirements', type: 'text' },
+                        { name: 'systemsInvolved', label: 'Systems involved', type: 'text' },
+                        { name: 'bestPractices', label: 'Best practices', type: 'text' },
                     ],
                 },
-
-                // Add more subdomains for Domain 1 if needed
+                {
+                    name: 'Penetration Test Report',
+                    formFields: [
+                        { name: 'testScope', label: 'Test scope', type: 'text' },
+                        { name: 'systemArchitecture', label: 'System architecture', type: 'text' },
+                        { name: 'testResults', label: 'Test results', type: 'text' },
+                    ],
+                },
+                {
+                    name: 'Help Documentation',
+                    formFields: [
+                        { name: 'feature', label: 'Feature', type: 'text' },
+                        { name: 'product', label: 'Product', type: 'text' },
+                    ],
+                },
+                {
+                    name: 'Test Plan',
+                    formFields: [
+                        { name: 'businessRequirements', label: 'Business requirements', type: 'text' },
+                        { name: 'systemsInvolved', label: 'Systems involved', type: 'text' },
+                        { name: 'technicalDesign', label: 'Technical design', type: 'text' },
+                        { name: 'outputCategory', label: 'Output category', type: 'text' },
+                        { name: 'testingType', label: 'Testing type', type: 'text' },
+                    ],
+                }
             ],
         },
         {
@@ -101,10 +145,15 @@ const GptAi = ({setAiOpen}) => {
                 {
                     name: 'Summarizes Text',
                     formFields: [
-                        { name: 'text', label: 'text', type: 'text' },
+                        { name: 'text', label: 'Text', type: 'text' },
                     ],
                 },
-                // Add more subdomains fSummarizes Textor Domain 2 if needed
+                {
+                    name: 'Analyses and Finds Resources',
+                    formFields: [
+                        { name: 'useCase', label: 'Use case', type: 'text' },
+                    ],
+                },
             ],
         },
         // Add more domains if needed
@@ -120,76 +169,74 @@ const GptAi = ({setAiOpen}) => {
         setSubmittedData(null);
     };
 
-    const handleFormSubmit = (formData) => {
-        setSubmittedData(formData);
-        setSelectedDomain('');
-        setSelectedSubdomain(null);
-    };
-
     return (
-        <main className="absolute right-0 z-20 w-full h-full bg-slate-700 bg-opacity-50">
-            <p className="w-10 h-10 relative top-5 left-10 cursor-pointer bg-white rounded-full flex justify-center items-center" onClick={() => setAiOpen(false)}>X</p>
-            <div className="p-8 max-w-lg mx-auto">
-                <h2 className="text-2xl font-semibold mb-6">Card with Subdomains and Forms</h2>
-                <label className="block mb-2">Select Domain:</label>
-                <select
-                    value={selectedDomain}
-                    onChange={(e) => handleDomainSelect(e.target.value)}
-                    className="border p-2 rounded"
-                >
-                    <option value="" disabled>Select an option</option>
-                    {domains.map((domain) => (
-                        <option key={domain.name} value={domain.name}>
-                            {domain.name}
-                        </option>
-                    ))}
-                </select>
-
-                {selectedDomain && (
-                    <div className="mt-4">
-                        <h3 className="text-lg font-semibold mb-2">Subdomains for {selectedDomain}:</h3>
-                        {domains
-                            .find((domain) => domain.name === selectedDomain)
-                            .subdomains.map((subdomain) => (
-                                <button
-                                    key={subdomain.name}
-                                    onClick={() => handleSubdomainSelect(subdomain)}
-                                    className="bg-gray-200 text-gray-800 px-4 py-2 rounded mr-2 mb-2 hover:bg-gray-300"
-                                >
-                                    {subdomain.name}
-                                </button>
-                            ))}
+        <main className="absolute right-0 top-0 z-20 w-full h-[100vh] bg-gray-800 bg-opacity-50 flex justify-center"> 
+            <div className="w-8 h-8 flex justify-center items-center absolute top-10 right-20 cursor-pointer bg-black rounded-full text-white" onClick={() => setAiOpen(false)}> X </div>
+            <div className="mx-auto relative top-24 w-[600px]">
+                <div className="w-full h-16 bg-gray-100 rounded-xl grid grid-cols-4" >
+                    <div className="flex justify-center items-center bg-gray-300">
+                        <img src="/Images/ChatbotLogo.png" alt="" className="h-12 w-24 rounded-full" />
                     </div>
-                )}
-
-                {selectedSubdomain && (
-                    <div className="mt-4">
-                        <h3 className="text-lg font-semibold mb-2">Form for {selectedSubdomain.name}:</h3>
-                        <Subdomain
-                            domain={selectedDomain}
-                            subdomain={selectedSubdomain}
-                            onSubmit={handleFormSubmit}
-                            result={result}
-                            setResult={setResult}
-                        />
-                    </div>
-                )}
-
-                {submittedData && (
-                    <div className="mt-4">
-                        <h3 className="text-lg font-semibold mb-2">Submitted Data:</h3>
-                        <pre className="border p-4 rounded bg-gray-100">{JSON.stringify(submittedData, null, 2)}</pre>
-                    </div>
-                )}
-
-                {result && (
-                    <div className="mt-4">
-                        <h3 className="text-lg font-semibold mb-2">Result:</h3>
-                        <div className="border p-4 rounded bg-gray-100">
-                            <pre className="whitespace-pre-line">{result}</pre>
+                    {
+                        session && session.user.aiTools.map(tool => (
+                            <div className="flex justify-center items-center">
+                                <Link href="#" className="flex items-center justify-center w-12 h-12" target="_blank">
+                                    <img src={tool.image} alt={tool.name} className="flex justify-center items-center w-12 h-12 rounded-full" />
+                                </Link>
+                            </div>
+                        ))
+                    }
+                    {
+                        session && session.user.aiTools.length < 3 &&
+                        <div className="flex items-center justify-center">
+                            <div className="bg-sky-600 hover:bg-sky-700 transition-all duration-500 text-white rounded-md px-2 py-1 cursor-pointer">Add tool</div>
                         </div>
-                    </div>
-                )}
+                    }
+                </div>
+                <div className="bg-gray-100 w-full max-h-[500px] my-8 rounded-xl overflow-scroll overflow-y-auto overflow-x-hidden px-6 flex flex-col">
+                    {selectedSubdomain ?
+                        (
+                            <div className="p-4 relative">
+                                <div className="w-8 h-8 flex justify-center items-center absolute top-3 right-3 cursor-pointer bg-black rounded-full text-white" onClick={() => setSelectedSubdomain(null)}> X </div>
+                                <Subdomain
+                                    domain={selectedDomain}
+                                    subdomain={selectedSubdomain}
+                                />
+                            </div>
+                        ) :
+                        <>
+                            <div>
+                                <select
+                                    value={selectedDomain}
+                                    onChange={(e) => handleDomainSelect(e.target.value)}
+                                    className="bg-indigo-50 border-gray-300 border-2 p-1 rounded-md my-2 outline-none"
+                                >
+                                    <option value="select" className="text-neutral-300" >Select a domain</option>
+                                    {domains.map((domain) => (
+                                        <option key={domain.name} value={domain.name}>
+                                            {domain.name}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                            {selectedDomain !== 'select' && (
+                                <div className="mt-4 grid grid-cols-3">
+                                    {domains
+                                        .find((domain) => domain.name === selectedDomain)
+                                        .subdomains.map((subdomain) => (
+                                            <button
+                                                key={subdomain.name}
+                                                onClick={() => handleSubdomainSelect(subdomain)}
+                                                className="bg-gray-200 text-gray-800 px-4 py-2 rounded mr-2 mb-2 hover:bg-gray-300 text-sm"
+                                            >
+                                                {subdomain.name}
+                                            </button>
+                                        ))}
+                                </div>
+                            )}
+                        </>
+                    }
+                </div>
             </div>
         </main>
     );

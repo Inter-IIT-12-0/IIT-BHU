@@ -2,6 +2,7 @@
 import connectDb from "../../../middlewares/mongoose";
 import User from "../../../models/User";
 
+
 const handler = async (req, res) => {
   switch (req.method) {
     case 'POST':

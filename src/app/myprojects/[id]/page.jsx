@@ -9,37 +9,6 @@ import MilestonesTimeline from "../../../components/MilestonesTimeline";
 import SubMilestoneCard from "../../../components/SubMilestoneCard";
 
 const Project = ({ params }) => {
-  // const project = {
-  //   "id": 2,
-  //   "title": "Project2",
-  //   "statement": "This is a sample project statement.",
-  //   "logo": "https://i.gadgets360cdn.com/products/large/vivo-t2-5g-db-709x800-1681200173.jpg",
-  //   "startDate": "2023-12-01T00:00:00.000Z",
-  //   "endDate": "2023-12-05T00:00:00.000Z",
-  //   "clientName": "Facebook",
-  //   "milestones": [
-  //     {
-  //       "dueDate": "2023-12-01T00:00:00.000Z",
-  //       "heading": "Milestone 1",
-  //       "submissionLink": "https://sample-submission-link.com",
-  //       "feedbackLink": "https://sample-feedback-link.com",
-  //       "subMilestones": [
-  //         {
-  //           "heading": "SubMilestone 1",
-  //           "isCompleted": false
-  //         },
-  //         {
-  //           "heading": "SubMilestone 2",
-  //           "isCompleted": true
-  //         }
-  //       ],
-  //       "isCompleted": false,
-  //       "status": "Not Started"
-  //     }
-  //   ],
-  //   "userAgreement": {},
-  //   "assignedTeam": "60a72b7c56f18a53bce5a0c1"
-  // }
 
   const [project, setProject] = useState({})
   const { id } = params;
@@ -64,7 +33,7 @@ const Project = ({ params }) => {
       {AiOpen && (
         <GptAi setAiOpen={setAiOpen} />
       )}
-      <main className={`w-full ${AiOpen ? 'blur-xl' : ''} `}>
+      <main className={`w-full  `}>
         <div className={` ${timelineOpen ? 'w-[1120px]' : 'w-full'} transition-all duration-1000`}>
           <div className='flex flex-col w-full h-full'>
             <Navbar />
@@ -75,20 +44,20 @@ const Project = ({ params }) => {
                   <StudentSidebar />
                   <div className="w-full flex flex-col px-20 py-5">
                     <div className="flex justify-between mt-5">
-                      <div className={`${AiOpen ? 'hidden' : ''}`}>
+                      <div>
                         <h3 className="font-bold text-3xl"> {project.title} </h3>
                       </div>
-                      <div className={`${AiOpen ? 'hidden' : ''}`}>
+                      <div>
                         <span className="text-blue-500 underline underline-offset-2 mx-5 cursor-pointer">Team Chat</span>
                         {
                           timelineOpen ? <></> : <span onClick={() => setTimelineOpen(true)} className="text-blue-500 underline underline-offset-2 mx-5 cursor-pointer">Milestone Timeline</span>
                         }
                       </div>
                     </div>
-                    <div className="my-5">
+                    <div className="my-5 max-h-[70vh] overflow-scroll overflow-y-auto overflow-x-hidden">
 
                       {
-                        Object.keys(project).length !== 0 ? <ProjectDashboard project={project} setAiOpen={setAiOpen} AiOpen={AiOpen} setSelectedSubmilestone={setSelectedSubmilestone} /> : <></>
+                        Object.keys(project).length !== 0 ? <ProjectDashboard project={project} setSelectedSubmilestone={setSelectedSubmilestone} /> : <></>
                       }
                     </div>
                   </div>
