@@ -1,21 +1,73 @@
-{
+{    
     "Domains": [
         {
-            "name": "Engineering"
+            "name":"domain1"
         },
         {
-            "name": "Research Documentation"
+            "name":"domain2"
+        },
+        {
+            "name":"domain3"
         }
     ],
-    "aiTools": [
+    "myTools":[
         {
-            "name": "ChatGpt"
+            "name":"Tool1"
         },
         {
-            "name": "Bard"
+            "name":"Tool2"
         },
         {
-            "name": "Copilot"
+            "name":"Tool3"
         }
-    ]
+    ],
+    "aiTools":[
+        {
+            "name":"ChatGpt"
+        },
+        {
+            "name":"bard"
+        },
+        {
+            "name":"copilot"
+        },
+        {
+            "name":"new One"
+        }
+    ],
+    "specs":{
+        "domain1":[
+            {
+                "name":"spec1"
+            },
+            {
+                "name":"spce2"
+            },
+            {
+                "name":"spec3"
+            }
+        ],
+        "domain2":[
+            {
+                "name":"spec4"
+            },
+            {
+                "name":"spec5"
+            },
+            {
+                "name":"spec6"
+            }
+        ],
+        "domain3":[
+            {
+                "name":"spec7"
+            },
+            {
+                "name":"spec8"
+            },
+            {
+                "name":"spec9"
+            }
+        ]
+    }
 }

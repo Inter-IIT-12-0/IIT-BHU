@@ -3,6 +3,7 @@ import React from "react"
 import People from "../../components/People"
 import Navbar from "../../components/Navbar"
 import StudentSidebar from "../../components/StudentSidebar"
+import University from "../../components/University"
 
 const PeoplePage = () => {
     return (
@@ -10,7 +11,8 @@ const PeoplePage = () => {
             <Navbar/>
                 <div className="flex flex-row">
                 <StudentSidebar/>
-                <People/>
+                <University/>
+                {/* <People/> */}
             </div>
         </div>
     )

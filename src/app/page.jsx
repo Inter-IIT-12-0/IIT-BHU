@@ -22,13 +22,14 @@ import StudentSidebar from "../components/StudentSidebar";
 import Navbar from "../components/Navbar";
 import SidebarUpskilling from "../components/SidebarUpskilling";
 // import Slider from "../components/Slider";
+import Slider from "../components/slider";
 import People from "../components/People";
 
 export default function Home() {
   const { data: session } = useSession();
   return (
     <main className="flex overflow-x-hidden">
-      <People />
+      <Slider />
     </main>
   );
 }

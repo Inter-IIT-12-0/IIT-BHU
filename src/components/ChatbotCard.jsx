@@ -4,28 +4,18 @@ import Send_Icon from "../../public/Images/Send_Icon.svg"
 import React, { useState, useEffect } from "react";
 import { generate, stop } from "../pages/api/GPT/conversation";
 import aiToolUserPrompt from "../pages/api/GPT/ai-tool-user-prompt";
-import recommendProject from "../pages/api/recommendation/projectRecommend";
 import recommend from "../pages/api/recommendation/recommend";
 import axios from "axios";
-import Yellow_Star from "../../public/Images/Yellow_Star.svg"
-import Link from "next/link";
 
-export const ChatbotCard = ({ isOpen }) => {
+const ChatbotCard = ({ isOpen }) => {
   const [messages, setMessages] = useState([]);
   const [chat, setChat] = useState("")
   const [toggler, setToggler] = useState(true);
-  const [mode, setMode] = useState("General");
+  const [mode, setMode] = useState(1);
   const [result, setResult] = useState("");
   const [userFilter, setUserFilter] = useState("");
   const [user, setUser] = useState([]);
   const [filtered, setFiltered] = useState([]);
-  const [projectFilter, setProjectFilter] = useState('');
-  const [projects, setProjects] = useState([]);
-  const [filteredProjects, setFilteredProjects] = useState([]);
-  const [userChat, setUserChat] = useState("")
-  const [projectChat, setProjectChat] = useState("")
-  const [gotResponse, setGotResponse] = useState(false)
-
   useEffect(() => {
     axios.get('/api/allusers/')
       .then(res => { // Log the response to the console
@@ -36,20 +26,15 @@ export const ChatbotCard = ({ isOpen }) => {
       })
       .catch(err => console.log(err));
 
-    axios.get('/api/allprojects/')
-      .then(res => {
-        setProjects(res.data);
-      });
-
   }, []);
   const submitHandler = (e) => {
     e.preventDefault()
-    if (mode === 'General')
+    if (mode == 1)
       handleGenerate();
-    if (mode === 'User')
+    if (mode == 2)
       handleGenerate2();
-    if(mode === 'Project' ) 
-      handleGenerate3();
+
+
   }
 
   const handleGenerate = async () => {
@@ -67,51 +52,26 @@ export const ChatbotCard = ({ isOpen }) => {
       chat,
       messages, setMessages
     );
-    console.log(messages);
     await generate(messages, result, setResult, setMessages);
+    console.log(messages);
     setChat("");
   };
   const handleGenerate2 = async () => {
-    setUserChat(chat);
-    setChat("");
-    setFiltered([])
-    setGotResponse(false)
     const obj = await recommend(chat);
-    setGotResponse(false)
-    console.log(obj);
-    if (obj) {
-      console.log(user.filter(person => person.domain === obj[0]))
-      setFiltered(user.filter(person => person.domain === obj[0]));
-    }
+    console.log("object",obj);
+    setFiltered(user.filter(person => person.domain === obj[0]));
+    console.log(filtered);
+    console.log(user);
   }
-
-  const handleGenerate3 = async () => {
-    setProjectChat(chat);
-    setChat("");
-    setFilteredProjects([])
-    setGotResponse(false)
-    const obj = await recommendProject(chat);
-    setGotResponse(true)
-    console.log(obj);
-    if (obj) {
-      setFilteredProjects(projects.filter(project => project.domain === obj[0]));
-    }
-  }
-
   return (
-    <div className={`${isOpen ? 'w-[350px] h-96 opacity-100' : 'w-0 h-0 opacity-0'} bg-sky-100 rounded-3xl flex flex-col items-center absolute bottom-20 -right-9 -z-10 transition-all duration-1000`}>
-      <div className="flex w-full justify-around py-3 bg-sky-600 rounded-t-3xl">
-        <button className={`px-3 py-1 rounded-lg ${mode === 'General' ? 'bg-zinc-400 text-white' : 'bg-white text-sky-600'} `} onClick={() => setMode("General")}> General </button>
-        <button className={`px-3 py-1  rounded-lg ${mode === 'User' ? 'bg-zinc-400 text-white' : 'bg-white text-sky-600'}`} onClick={() => setMode("User")}> User </button>
-        <button className={`px-3 py-1 rounded-lg ${mode === 'Project' ? 'bg-zinc-400 text-white' : 'bg-white text-sky-600'}`} onClick={() => setMode("Project")}> Project </button>
-      </div>
-      <div className='w-full h-full bg-sky-100 relative rounded-2xl'>
-        {mode == "General" &&
-          <div className='h-[270px] overflow-scroll overflow-y-auto overflow-x-hidden mx-3 rounded-xl px-2'>
+    <div className={`${isOpen ? 'w-96 h-96 opacity-100' : 'w-0 h-0 opacity-0'}  bg-gradient-to-l from-emerald-200 to-emerald-100 rounded-3xl flex flex-col items-center pb-6 absolute bottom-20 -right-9 -z-10 transition-all duration-1000`}>
+      <div className='w-full h-full bg-gradient-to-l from-emerald-200 to-emerald-100 relative rounded-2xl'>
+        {mode == 1 &&
+          <div className='h-2/3 overflow-scroll overflow-y-auto overflow-x-hidden relative top-5 mx-3 rounded-xl px-5'>
             {messages &&
-              messages.slice(2).map((msgJson, index) => (
-                <div className={`w-full flex ${msgJson.role === 'user' ? 'justify-end' : 'justify-start'}`} key={index}>
-                  <div className={`px-3 py-1 my-5 rounded-lg ${msgJson.role === 'user' ? 'bg-sky-500 text-indigo-50' : 'border-sky-500 border-2 text-sky-600'}`}>
+              messages.slice(2).map(msgJson => (
+                <div className={`w-full flex ${msgJson.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                  <div className={`px-6 py-2 my-5 rounded-lg ${msgJson.role === 'user' ? 'bg-sky-500 text-indigo-50' : 'border-sky-500 border-2 text-sky-600'}`}>
                     {msgJson.content}
                   </div>
                 </div>
@@ -120,74 +80,21 @@ export const ChatbotCard = ({ isOpen }) => {
           </div>
         }
         {
-          mode == "User" && <div className='h-[270px] overflow-scroll overflow-y-auto overflow-x-hidden mx-3 rounded-xl px-2'>
-            {userChat && <div className="flex justify-end">
-              <div className="px-3 py-1 my-5 rounded-lg bg-sky-500 text-indigo-50">
-                {userChat} </div>
-            </div>}
-            {
-              gotResponse && userChat && filtered.length === 0 && <div className="px-3 py-1 w-40 my-5 rounded-lg border-sky-500 border-2 text-sky-600">
-                No User found
-              </div>
-            }
-            { filtered && filtered.sort((a, b) => b.rating - a.rating).slice(0, 5).map((user, index) => (
+          mode == 2 && <div>
+            <h1>hello</h1>
+            {filtered.map((user, index) => (
               <div
                 key={index}
-                className="flex px-2 py-1 border-sky-500 border my-2 rounded-lg"
               >
-                <div className="flex flex-col w-7/12">
-                  <div className="text-base text-sky-800 font-semibold flex w-full">
-                    <div className="w-full"> {user.name} ({user.rating} ) </div>
-                  </div>
-                  <div> {user.domain} </div>
-                </div>
-                <div className="text-sky-500 flex items-center">
-                  <Link href={`/profile/${user._id}`} target="_blank">
-                    View profile
-                  </Link>
-                </div>
+                <p>{user.name}</p>
               </div>
             ))}
 
           </div>
         }
-
-
-        {
-          mode == "Project" && <div className='h-[270px] overflow-scroll overflow-y-auto overflow-x-hidden mx-3 rounded-xl px-2'>
-            {projectChat && <div className="flex justify-end">
-              <div className="px-3 py-1 my-5 rounded-lg bg-sky-500 text-indigo-50">
-                {projectChat} </div>
-            </div>}
-            {
-              gotResponse && projectChat && filteredProjects.length === 0 &&  <div className="px-3 py-1 w-40 my-5 rounded-lg border-sky-500 border-2 text-sky-600">
-                No Project found
-              </div>
-            }
-            {filteredProjects && filteredProjects.sort((a, b) => b.assignedBy.rating - a.assignedBy.rating).slice(0, 5).map((project, index) => (
-              <div
-                key={index}
-                className="flex px-2 py-1 border-sky-500 border my-2 rounded-lg"
-              >
-                <div className="flex flex-col w-7/12">
-                  <div className="text-base text-sky-800 font-semibold flex w-full">
-                    <div className="w-full"> {project.title} </div>
-                  </div>
-                  <div> {project.domain} </div>
-                </div>
-                <div className="text-sky-500 flex items-center">
-                  <Link href={`/marketplace/${project._id}`} target="_blank">
-                    View Project
-                  </Link>
-                </div>
-              </div>
-            ))}
-
-          </div>
-        }
-        <form className='absolute bottom-0 right-0 w-full flex items-center' onSubmit={submitHandler}>
-          <input type="text" placeholder='Enter your message...' className='outline-none placeholder-sky-700 bg-sky-100 w-full px-2 py-2 pb-4 border-t border-zinc-300' value={chat} onChange={e => setChat(e.target.value)} />
-          <button className='px-4 py-2 pb-4 cursor-pointer bg-sky-100 border-t border-zinc-300' type='submit' > <Send_Icon /> </button>
+        <form className='absolute bottom-5 right-20 w-3/4' onSubmit={submitHandler}>
+          <input type="text" placeholder='Write a message' className='rounded-xl outline-none w-3/4 px-2 py-4' value={chat} onChange={e => setChat(e.target.value)} />
+          <button className='rounded-xl px-2 py-2 bg-white ml-4 cursor-pointer' type='submit' > Send </button>
         </form>
       </div>
       <Triangle className="absolute right-4 -bottom-[50px] " />
@@ -195,3 +102,4 @@ export const ChatbotCard = ({ isOpen }) => {
   );
 }
 
+export default ChatbotCard;

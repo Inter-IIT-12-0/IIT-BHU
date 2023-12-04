@@ -43,7 +43,7 @@ const ProjectTimeline = ({ project, setIsOpen, isOpen, setSelectedSubmilestone }
       {/* {selectedSubmilestone && (
         <SubMilestoneCard submilestone={selectedSubmilestone} setSelectedSubmilestone={setSelectedSubmilestone} project={project}/>
       )} */}
-      <div className={`flex flex-col w-11/12 mt-8`}>
+      <div className={`flex flex-col w-11/12 mt-8 ${isOpen ? 'blur-xl' : ''} `}>
         <ul className="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400">
           <li className="me-2">
             <a
