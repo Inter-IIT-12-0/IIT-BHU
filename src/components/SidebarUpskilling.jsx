@@ -16,7 +16,7 @@ import Settings_Icon from "../../public/Images/Settings_Icon.svg"
 export default function SidebarUpskilling() {
 
     return (
-        <div className="w-60 h-full bg-white shadow-2xl pb-3 flex flex-col pl-5 z-20">
+        <div className="w-60 bg-white shadow-2xl pb-3 flex flex-col pl-5 z-20 h-[91vh]">
             {/* <div className=" justify-start items-center gap-4 inline-flex">
                 <Trumio_logo />
                 <div>
