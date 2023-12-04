@@ -89,6 +89,11 @@ const People = () => {
 
     return (
         <div className='flex-col flex'>
+            <div className='flex flex-row'>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
             <div id="controls-carousel" className="relative w-full" data-carousel="static">
                 <div className="relative h-56 overflow-hidden rounded-lg md:h-96">
                     {users.map((user,index) => (

@@ -1,11 +1,7 @@
 import React, { useEffect } from "react";
 
 const ClientProjectsRightSidebar = ({mtdata}) => {
-    const name = mtdata.map((ele) => {
-        return ele.map((ele2) => {
-            return ele2
-        })
-    })
+    console.log("mt data is:", mtdata);
     const myData = [
         {
             "user": {
@@ -185,24 +181,26 @@ const ClientProjectsRightSidebar = ({mtdata}) => {
             <div className="bg-white rounded-md p-4 mt-8">
                 <h1 className="text-black font-semibold text-2xl">Team Members</h1>
                 <div className="rounded-full bg-black w-full h-px my-3"></div>
-                {myData && myData.map((ele) => {
-                    console.log("element is:",ele.user.name)
+                {mtdata && mtdata.map((ele) => {
+                    console.log("element is:",ele.user)
                     return <div>
-                        <div className="flex justify-between p-3">
-                        <div className="flex flex-row">
-                            <img src="/Images/newProf.svg" alt="" />
-                            <div className="flex flex-col ml-5">
-                                <h1 className="text-black text-1x1 font-semibold">{ele.user.name}</h1>
-                                <h2>{ele.role}</h2>
+                         {ele.map((ele) => {
+                            return <div className="flex justify-between p-3">
+                            <div className="flex flex-row">
+                                <img src="/Images/newProf.svg" alt="" />
+                                <div className="flex flex-col ml-5">
+                                    <h1 className="text-black text-1x1 font-semibold">{ele.user.name}</h1>
+                                    <h2>{ele.role}</h2>
+                                </div>
+                            </div>
+                            <div>
+                                <div className="bg-yellow-400 bg-opacity-40 flex flex-row p-2 rounded-md mt-2">
+                                    <img src="/Images/star.svg" alt="" />
+                                    <h1 className="text-black text-1x1 font-semibold ml-3">{ele.user.rating}</h1>
+                                </div>
                             </div>
                         </div>
-                        <div>
-                            <div className="bg-yellow-400 bg-opacity-40 flex flex-row p-2 rounded-md mt-2">
-                                <img src="/Images/star.svg" alt="" />
-                                <h1 className="text-black text-1x1 font-semibold ml-3">{ele.user.rating}</h1>
-                            </div>
-                        </div>
-                    </div>
+                         })} 
                     </div>
                 })}
             </div>
