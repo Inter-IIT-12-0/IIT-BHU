@@ -1,8 +1,16 @@
 import React, { useEffect } from "react";
 
-const ClientProjectsRightSidebar = ({mtdata}) => {
-    console.log("mt data is:", mtdata);
-    
+const ClientProjectsRightSidebar = ({myData}) => {
+    // console.log("mt data is:", mtdata);
+    myData = [
+        {
+            user: {
+                name: 'John',
+                rating: 5
+            },
+            role: 'admin'
+        }
+    ]
     const newData = myData.map((ele) => {
         return ele.user.name
     })
@@ -22,7 +30,7 @@ const ClientProjectsRightSidebar = ({mtdata}) => {
     }, []);
 
     console.log("new name is:",newData)
-    console.log("new name is 2:",mtdata)
+    // console.log("new name is 2:",mtdata)
     return (
         <div className="p-4 bg-blue-100 w-[25%]">
             
@@ -31,7 +39,7 @@ const ClientProjectsRightSidebar = ({mtdata}) => {
             <div className="bg-white rounded-md p-4 mt-8">
                 <h1 className="text-black font-semibold text-2xl">Team Members</h1>
                 <div className="rounded-full bg-black w-full h-px my-3"></div>
-                {mtdata && mtdata.map((ele) => {
+                {myData && myData.map((ele) => {
                     console.log("element is:",ele.user)
                     return <div>
                          {ele.map((ele) => {

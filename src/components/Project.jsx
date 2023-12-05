@@ -259,7 +259,12 @@ const Project = ({ project, setOpenedProj }) => {
 
                     <div className={`bg-white rounded shadow-lg ${isFullOpen ? 'w-full' : 'w-80'}`}>
                         <div className="text-center  border-b-2 flex items-center flex-col pt-5 pb-5">
-                            <button className="w-48 h-12 bg-blue-400 rounded-lg shadow mb-5 text-xl font-bold font-sans tracking-tight" onClick={handleCreateBid} >Create Bid </button>
+                            {
+                                session && (session.user.role === "Student" ?
+                                <button className="w-48 h-12 bg-blue-400 rounded-lg shadow mb-5 text-xl font-bold font-sans tracking-tight" onClick={handleCreateBid} >Create Bid </button> :
+                                <Link href={`/viewBids/${project._id}`} className="w-48 h-12 bg-blue-400 rounded-lg shadow mb-5 text-xl font-bold font-sans tracking-tight flex items-center justify-center" >View Bid </Link>
+                                )
+                            }
                             <button className="w-48 h-12 rounded-lg shadow border text-xl border-blue-400 flex justify-center items-center cursor-pointer" >
                                 <Hand className="scale-75" />
                                 <span> Interested </span>

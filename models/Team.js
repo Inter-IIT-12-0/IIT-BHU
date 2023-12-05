@@ -103,7 +103,8 @@ const teamSchema = new mongoose.Schema({
   proposal: proposalSchema,
   teamUserMap: [teamUserMap],
   project: { type: mongoose.Schema.Types.ObjectId, ref: 'Project', required: true },
-  status: { type: String, enum: ['In Proposal', 'Pending', 'Accepted'], default: 'In Proposal' },
+  status: { type: String, enum: ['In Proposal', 'Pending', 'Accepted', 'Reviewed'], default: 'In Proposal' },
+  rating: {type: Number}
 });
 
 const Team =  mongoose.models.Team || mongoose.model('Team', teamSchema);

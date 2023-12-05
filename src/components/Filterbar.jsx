@@ -1,6 +1,7 @@
 import React from 'react'
 import SearchIcon from "../../public/Images/SearchIcon.svg"
 import { useSession } from 'next-auth/react'
+import Link from 'next/link'
 
 const Filterbar = ({ location, setLocation, status, setStatus, payment, setPayment, domain, setDomain, search, setSearch, domains, selected, setSelected }) => {
     const { data: session } = useSession()
@@ -19,9 +20,9 @@ const Filterbar = ({ location, setLocation, status, setStatus, payment, setPayme
                 </div>
                 {
                     session.user.role === 'Client' &&
-                    <button className='bg-sky-700 py-2 px-3 text-white mx-8 rounded-3xl'>
+                    <Link href={"/createProject"} className='bg-sky-700 py-2 px-3 text-white mx-8 rounded-3xl'>
                         Create a Project
-                    </button>
+                    </Link>
                 }
             </div>
             <div className='flex'>

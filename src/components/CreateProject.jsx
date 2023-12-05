@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import classNames from 'classnames';
+import ClientMarketPlaceComponent from './ClientMarketPlaceComp';
+import BackArrowIcon from "../../public/Images/BackArrow_Icon.svg"
+import { useSession } from 'next-auth/react';
+import toast from 'react-hot-toast';
+import axios from 'axios';
 
 const Form1 = () => {
+    const { data: session } = useSession()
     const [progress, setProgress] = useState(33);
 
     const [formData, setFormData] = useState({
@@ -10,10 +16,15 @@ const Form1 = () => {
         to: '',
         description: '',
         industry: '',
-        skills: '',
+        Skill1: '',
+        Skill2: '',
+        Skill3: '',
         files: [],
         location: 'Remote',
         workdays: [],
+        aiDescription: '',
+        payment: 0,
+        paymentType: 'Fixed'
     });
 
     const handleInputChange = (e) => {
@@ -34,20 +45,50 @@ const Form1 = () => {
 
 
     const handleSubmit = (e) => {
-        if (progress != 99) {
-            setProgress(progress + 33);
-        }
-        else
-            setProgress(0);
         e.preventDefault();
-        // Handle form submission logic here
-        console.log('Form submitted:', formData);
-        // You can send the form data to your backend or perform other actions
+        if (progress != 99) {
+            setProgress(prev => prev + 33);
+        }
+        else {
+            console.log(formData)
+            // const file = formData.files[0];
+            // const formData = new FormData();
+            // formData.append('file', file);
+            const data = {
+                title: formData.title,
+                statement: formData.aiDescription,
+                startDate: (new Date(formData.from)).toISOString(),
+                endDate: (new Date(formData.to)).toISOString(),
+                assignedBy: session.user._id,
+                clientRequirements: {
+                    paymentType: formData.paymentType,
+                    payment: formData.payment,
+                    workdays: formData.workdays,
+                    requiredTools: [
+                        formData.Skill1,
+                        formData.Skill2,
+                        formData.Skill3
+                    ]
+                    // files: formData.files
+                },
+                duration: ((new Date(formData.to)) - (new Date(formData.from))) / (1000 * 60 * 60 * 24 * 7),
+                domain: formData.industry,
+                location: formData.location
+            }
+            axios.post('/api/project', data).then(res => {
+                toast.success('Project created successfully')
+            }).catch(err => {
+                toast.error(err.response.data.error)
+            })
+        }
     };
 
     const handleWorkdays = e => {
-        if (e.target.value) {
+        if (e.target.checked) {
             formData.workdays.push(e.target.name)
+        }
+        else {
+            formData.workdays = formData.workdays.filter(day => day !== e.target.name)
         }
     }
 
@@ -68,10 +109,16 @@ const Form1 = () => {
             <div
                 tabIndex="-1"
                 aria-hidden="true"
-                className="inset-0 overflow-y-auto overflow-x-hidden flex items-center justify-center w-full"
+                className="relative inset-0 overflow-y-auto overflow-x-hidden flex items-center justify-center w-full"
             >
+                {
+                    progress > 33 && <BackArrowIcon className="absolute top-3 left-6 cursor-pointer" onClick={() => {
+                        if (progress > 33)
+                            setProgress(prev => prev - 33)
+                    }} />
+                }
 
-                <div className=" p-4 w-full">
+                <div className=" p-4 w-full mt-3">
                     {/* Modal content */}
                     <div className=" p-4 bg-white rounded-lg shadow sm:p-5 w-full">
                         {/* Modal header */}
@@ -111,9 +158,9 @@ const Form1 = () => {
                                 id="defaultModal"
                                 tabIndex="-1"
                                 aria-hidden="true"
-                                className=" overflow-y-auto overflow-x-hidden justify-center items-center w-full md:inset-0 h-modal md:h-full"
+                                className="justify-center items-center w-full md:inset-0 h-modal md:h-full"
                             >
-                                <div className={classNames({ "hidden": progress !== 0 }, "relative p-4 w-full h-full md:h-auto")}>
+                                <div className={classNames({ "hidden": progress !== 33 }, "relative p-4 w-full h-full md:h-auto")}>
                                     <div className="relative p-4 bg-indigo-100 rounded-lg shadow sm:p-5 w-full">
                                         <form onSubmit={handleSubmit}>
                                             <div className="grid gap-4 mb-4 sm:grid-cols-2">
@@ -226,9 +273,9 @@ const Form1 = () => {
                                                             htmlFor="skills"
                                                             className="block mb-2 text-sm font-medium text-gray-900 "
                                                         >
-                                                            Top Skills Required
+                                                            Top 3 Skills Required
                                                         </label>
-                                                        <input
+                                                        {/* <input
                                                             type="text"
                                                             id="skills"
                                                             name='skills'
@@ -236,7 +283,12 @@ const Form1 = () => {
                                                             onChange={handleInputChange}
                                                             className="bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg block w-full p-2.5 outline-none"
                                                             required
-                                                        />
+                                                        /> */}
+                                                        <div className='bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg w-full p-2.5 outline-none flex justify-around'>
+                                                            <input type="text" placeholder='Skill 1' onChange={handleInputChange} name='Skill1' className='outline-none border border-gray-300 w-16 rounded-lg text-center py-1' />
+                                                            <input type="text" placeholder='Skill 2' onChange={handleInputChange} name='Skill2' className='outline-none border border-gray-300 w-16 rounded-lg text-center py-1' />
+                                                            <input type="text" placeholder='Skill 3' onChange={handleInputChange} name='Skill3' className='outline-none border border-gray-300 w-16 rounded-lg text-center py-1' />
+                                                        </div>
                                                     </div>
                                                 </div>
 
@@ -253,7 +305,7 @@ const Form1 = () => {
 
 
 
-                                <div className={classNames({ "hidden": progress !== 33 }, "relative p-4 w-full h-full md:h-auto")}>
+                                <div className={classNames({ "hidden": progress !== 66 }, "relative p-4 w-full h-full md:h-auto")}>
                                     <div className="relative p-4 bg-indigo-100 rounded-lg shadow sm:p-5 w-full">
                                         <form onSubmit={handleSubmit}>
                                             <div className="grid gap-4 mb-4 sm:grid-cols-2">
@@ -280,7 +332,7 @@ const Form1 = () => {
                                                     >
                                                         Payment Type
                                                     </label>
-                                                    <select name="paymentType" id="paymentType" onChange={handleInputChange} className="bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg block w-full p-2.5 outline-none" required>
+                                                    <select name="paymentType" id="paymentType" value={formData.paymentType} onChange={handleInputChange} className="bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg block w-full p-2.5 outline-none" required>
                                                         <option value="fixed">Fixed</option>
                                                         <option value="installment">Installment</option>
                                                     </select>
@@ -372,122 +424,14 @@ const Form1 = () => {
                                         </form>
                                     </div>
                                 </div>
-                                <div className={classNames({ "hidden": progress !== 66 }, "relative p-4 w-full max-w-2xl h-full md:h-auto")}>
-                                    <div className="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
-                                        <form onSubmit={handleSubmit}>
-                                            <div className="grid gap-4 mb-4 sm:grid-cols-2">
-                                                <div>
-                                                    <label
-                                                        htmlFor="name"
-                                                        className="block mb-2 text-sm font-medium text-gray-900 "
-                                                    >
-                                                        Okay
-                                                    </label>
-                                                    <input
-                                                        type="text"
-                                                        name="name"
-                                                        id="name"
-                                                        value={formData.name}
-                                                        onChange={handleInputChange}
-                                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                        placeholder="Type product name"
-                                                        required
-                                                    />
-                                                </div>
-                                                <div>
-                                                    <label
-                                                        htmlFor="brand"
-                                                        className="block mb-2 text-sm font-medium text-gray-900 "
-                                                    >
-                                                        Brand
-                                                    </label>
-                                                    <input
-                                                        type="text"
-                                                        name="brand"
-                                                        id="brand"
-                                                        value={formData.brand}
-                                                        onChange={handleInputChange}
-                                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                        placeholder="Product brand"
-                                                        required
-                                                    />
-                                                </div>
-                                                <div>
-                                                    <label
-                                                        htmlFor="price"
-                                                        className="block mb-2 text-sm font-medium text-gray-900 "
-                                                    >
-                                                        Price
-                                                    </label>
-                                                    <input
-                                                        type="number"
-                                                        name="price"
-                                                        id="price"
-                                                        value={formData.price}
-                                                        onChange={handleInputChange}
-                                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                        placeholder="$2999"
-                                                        required
-                                                    />
-                                                </div>
-                                                <div>
-                                                    <label
-                                                        htmlFor="category"
-                                                        className="block mb-2 text-sm font-medium text-gray-900 "
-                                                    >
-                                                        Category
-                                                    </label>
-                                                    <select
-                                                        id="category"
-                                                        name="category"
-                                                        value={formData.category}
-                                                        onChange={handleInputChange}
-                                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                    >
-                                                        <option value="TV">TV/Monitors</option>
-                                                        <option value="PC">PC</option>
-                                                        <option value="GA">Gaming/Console</option>
-                                                        <option value="PH">Phones</option>
-                                                    </select>
-                                                </div>
-                                                <div className="sm:col-span-2">
-                                                    <label
-                                                        htmlFor="description"
-                                                        className="block mb-2 text-sm font-medium text-gray-900 "
-                                                    >
-                                                        Description
-                                                    </label>
-                                                    <textarea
-                                                        id="description"
-                                                        name="description"
-                                                        rows="4"
-                                                        value={formData.description}
-                                                        onChange={handleInputChange}
-                                                        className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                        placeholder="Write product description here"
-                                                    ></textarea>
-                                                </div>
-                                            </div>
-                                            <button
-                                                type="submit"
-                                                className="text-white inline-flex items-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                                            >
-                                                <svg
-                                                    className="mr-1 -ml-1 w-6 h-6"
-                                                    fill="currentColor"
-                                                    viewBox="0 0 20 20"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                >
-                                                    <path
-                                                        fill-rule="evenodd"
-                                                        d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                                                        clip-rule="evenodd"
-                                                    ></path>
-                                                </svg>
-                                                Add new product
-                                            </button>
-                                        </form>
-                                    </div>
+                                <div className={classNames({ "hidden": progress !== 99 }, "relative p-4 w-full h-full md:h-auto flex flex-col items-center justify-between")}>
+                                    <ClientMarketPlaceComponent />
+                                    <button
+                                        className="bg-sky-500 px-4 py-2 rounded-xl w-1/4 text-white mt-5"
+                                        onClick={handleSubmit}
+                                    >
+                                        Save and List project
+                                    </button>
                                 </div>
                             </div>
                         </div>
