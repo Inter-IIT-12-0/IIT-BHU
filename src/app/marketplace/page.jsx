@@ -5,14 +5,25 @@ import Navbar from "../../components/Navbar"
 import ProjectCard from "../../components/ProjectCard"
 import Project from '../../components/Project'
 import axios from 'axios'
+import Filterbar from '../../components/Filterbar'
+import { projectSearch } from '../../lib/SearchAlgo'
+import { useSession } from 'next-auth/react'
+import StudentMarketplace from '../../components/StudentMarketplace'
+import ClientMarketPlace from '../../components/ClientMarketPlace'
 
 const Projects = () => {
+    const {data:session} = useSession()
     const [projects, setProjects] = useState([])
     const [openedProj, setOpenedProj] = useState({})
+    const [availDomains, setAvailDomains] = useState([])
+    const [selected, setSelected] = useState("All")
 
     useEffect(() => {
         axios.get('/api/allprojects')
-        .then(res => setProjects(res.data))
+        .then(res => {
+            setAvailDomains(Array.from(new Set(res.data.map(proj => proj.domain))))
+            setProjects(res.data)
+        })
         .catch(err => console.log(err))
     }, [])
     return (
@@ -28,18 +39,10 @@ const Projects = () => {
                     <Navbar />
                     <div className='flex w-full h-full'>
                         <StudentSidebar />
-                        <div className='w-full h-full flex flex-col'>
-                            <div className='h-40 bg-black'>
-
-                            </div>
-                            <div className='h-full p-8'>
-                                {
-                                    projects.map(project => {
-                                        return <ProjectCard key={project._id} project={project} setOpenedProj={setOpenedProj} />
-                                    })
-                                }
-                            </div>
-                        </div>
+                        {
+                            session && 
+                            ( session.user.role === 'Student' ? <StudentMarketplace projects={projects} setOpenedProj={setOpenedProj} availDomains={availDomains} selected={selected} setSelected={setSelected} /> : <ClientMarketPlace projects={projects} setOpenedProj={setOpenedProj} availDomains={availDomains} selected={selected} setSelected={setSelected}/>)
+                        }
                     </div>
                 </div>
             </main>

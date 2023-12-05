@@ -341,7 +341,7 @@ const ProjectNameComp = () => {
                     }
                 ],
                 "project": "65684d682dd359919a8da9af",
-                "status": "In Proposal",
+                "status": "Pending",
                 "teamRating": "4.5"
             }
         ]
@@ -371,14 +371,14 @@ const ProjectNameComp = () => {
         fetchData(); // Call the async function
     }, []);
 
-    const mtdata = allTeamsData && allTeamsData
+    const myData = allTeamsData && allTeamsData
         .filter((ele) => ele.teamName === teamName) // Filter by teamName
         .map((ele) => {
             return ele.teamUserMap
         });
         
 
-    console.log("team name is", mtdata);
+    console.log("team name is", myData);
 
 
     const Recieved = allTeamsData && allTeamsData.length;
@@ -450,7 +450,7 @@ const ProjectNameComp = () => {
             {
                 insideTeam && <div className="flex flex-row w-full">
                     <ClientProjectComponent teamName = {teamName} bidAmount = {bidAmount}/>
-                    <ClientProjectsRightSidebar mtdata = {mtdata} />
+                    <ClientProjectsRightSidebar mydata = {myData} />
                 </div>
             }
         </>

@@ -1,7 +1,7 @@
 // import { getSession } from "next-auth/react";
-import connectDb from "../../../middlewares/mongoose";
-import User from "../../../models/User";
-import { authOptions } from "../../app/api/auth/[...nextauth]/route";
+import connectDb from "../../../../middlewares/mongoose";
+import User from "../../../../models/User";
+import { authOptions } from "../../../app/api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth";
 
 const handler = async (req, res) => {
@@ -10,27 +10,21 @@ const handler = async (req, res) => {
         return res.status(403).json({ error: 'Login First' });
     }
     const userId = session.user._id;
-    if (req.method === "POST") {
-        const {name, image} = req.body;
+    if (req.method === "DELETE") {
+        const {name} = req.query
         let user = await User.findOne({_id: userId})
         .select('aiTools aiToolsLimit')
         let presentAiTools = user.aiTools
-        if (presentAiTools.length >= user.aiToolsLimit) {
-            return res.status(400).json({ error: "AiTools exceeded. Go to Arcade to unlock more!" });
-        }
         const toolsExist = presentAiTools.filter(tool => tool.name === name)
-        if(toolsExist.length !== 0) {
+        if(toolsExist.length === 0) {
             return res.status(400).json({
-                error: "Tool already exists"
+                error: "Tool does not exist"
             })
         }
-        presentAiTools.push({
-            name,
-            image
-        })
-        user.aiTools = presentAiTools
+        const toolAfterDeletion = presentAiTools.filter(tool => tool.name !== name)
+        user.aiTools = toolAfterDeletion
         await user.save()
-        res.status(201).json(user)
+        res.status(200).json(user)
     }
 };
 

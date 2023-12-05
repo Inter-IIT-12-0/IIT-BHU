@@ -6,18 +6,18 @@ const ClientMarketPlaceComponent = () => {
 
     const recommendedTalent = "Recommended Talent";
     const recommendedTeams = "Recommnended Teams";
-    const almaMatter = "Alma matter";
+    const almaMatter = "Alma Mater";
     const[heading, setHeading] = useState(recommendedTalent);
     
     return (
-        <div className="flex flex-col p-8 w-full">
-            <h1 className="text-blue-700 font-semibold text-3xl m-6 mt-0">Create a Project</h1>
-            <div className="w-full h-3 rounded-full bg-blue-950"></div>
-            <div className="rounded-xl bg-blue-100 p-8 w-full mt-8 ml-3">
+        <div className="flex flex-col w-full mb-3 max-h-[55vh] overflow-scroll overflow-y-auto overflow-x-hidden">
+            {/* <h1 className="text-blue-700 font-semibold text-3xl m-6 mt-0">Create a Project</h1>
+            <div className="w-full h-3 rounded-full bg-blue-950"></div> */}
+            <div className="rounded-xl bg-blue-100 p-8 w-full">
                 <h1 className="text-2xl font-semibold">Invite Bids</h1>
                 <div className="flex flex-row bg-white rounded-md mt-3">
                     <img className="p-2" src="/Images/Search_Icon.svg" alt="" />
-                    <input className="h-10 w-full rounded m-2"></input>
+                    <input className="h-10 w-full rounded m-2 outline-none"></input>
                 </div>
                 <div className="mt-4 rounded-md bg-white px-8 py-2">
                 <div className="flex flex-row justify-self-start w-full my-3">

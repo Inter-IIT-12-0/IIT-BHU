@@ -1,5 +1,6 @@
 "use client";
 
+import { signIn } from "next-auth/react";
 // components/GlassyCard.js
 
 import { useState } from "react";
@@ -10,8 +11,14 @@ const OnBoarding = () => {
     setSelectedCard(cardNumber);
   };
 
+  const handleCreateAccount = () => {
+    let role = (selectedCard === 1 ? 'Student' : selectedCard === 2 ? 'Client': 'Professor')
+    console.log(role);
+    signIn('google', null, {role: role} )
+  }
+
   return (
-    <div class="bg-cover bg-center h-screen" style={{"background-image": "url('./Rectangle.png')"}}>
+    <div className="bg-cover bg-center h-screen" style={{"backgroundImage": "url('./Rectangle.png')"}}>
     <div className="flex justify-center items-center w-100 ">
       <div className="glass-card bg-white bg-opacity-80 rounded-md p-8 shadow-lg mt-20">
         <h1 className="text-2xl font-medium leading-normal text-black-600 font-helvetica-neue text-center mb-12">
@@ -85,7 +92,7 @@ const OnBoarding = () => {
           </label>
         </div>
         <div className="flex flex-col justify-center items-center p-4">
-        <button className="w-44 bg-gradient-to-br from-blue-500 via-blue-500 to-aqua-700 text-white py-2 px-4 rounded shadow-md hover:shadow-lg focus:outline-none focus:ring focus:border-blue-300 transition-all duration-300 mb-4">
+        <button className="w-44 bg-gradient-to-br from-blue-500 via-blue-500 to-aqua-700 text-white py-2 px-4 rounded shadow-md hover:shadow-lg focus:outline-none focus:ring focus:border-blue-300 transition-all duration-300 mb-4" onClick={handleCreateAccount}>
           Create Account
         </button>
         <div className="flex ">

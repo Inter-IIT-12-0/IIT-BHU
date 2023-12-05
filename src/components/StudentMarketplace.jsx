@@ -5,19 +5,19 @@ import { useSession } from 'next-auth/react'
 import { projectSearch } from '../lib/SearchAlgo'
 import axios from 'axios'
 
-const ClientMarketplace = ({projects, setOpenedProj, availDomains, selected, setSelected}) => {
+const StudentMarketplace = ({projects, setOpenedProj, availDomains, selected, setSelected}) => {
     const {data:session} = useSession()
     const [location, setLocation] = useState("select")
     const [status, setStatus] = useState("select")
     const [payment, setPayment] = useState("select")
     const [domain, setDomain] = useState("select")
     const [search, setSearch] = useState("")
-    const [myProjects, setMyProjects] = useState([])
+    const [myBids, setMyBids] = useState([])
 
     useEffect(() => {
-        axios.get(`/api/clientprojects`)
+        axios.get(`/api/userprojects`)
         .then(res => {
-            setMyProjects(res.data)
+            setMyBids(res.data)
         }).catch(console.log)
     }, [])
     return (
@@ -31,7 +31,7 @@ const ClientMarketplace = ({projects, setOpenedProj, availDomains, selected, set
                         }).map(project => {
                             return <ProjectCard key={project._id} project={project} setOpenedProj={setOpenedProj} />
                         }) : 
-                        myProjects && myProjects.filter(bid => {
+                        myBids && myBids.filter(bid => {
                             return projectSearch(search, location, status, payment, domain, bid)
                         }).map(bid => {
                             return <ProjectCard key={bid._id} project={bid} setOpenedProj={setOpenedProj} />
@@ -43,4 +43,4 @@ const ClientMarketplace = ({projects, setOpenedProj, availDomains, selected, set
     )
 }
 
-export default ClientMarketplace
+export default StudentMarketplace
