@@ -68,30 +68,31 @@ const ClientProjectComponent = ({ team }) => {
             <div className="flex flex-col bg-blue-100 rounded-md p-8 mt-6 w-full">
                 <h1 className=" text-black text-2xl font-semibold">Milestone Details</h1>
                 {/* <div className="flex flex-col mt-4 w-full"> */}
-                <table className="px-5 py-3 ">
-                    <thead className="bg-blue-900 w-full">
+                <table className="min-w-full bg-white border border-blue-900">
+                    <thead className="bg-blue-900 text-white">
                         <tr>
-                            <th className="text-white text-1xl font-semibold px-6 py-2">Sr. No</th>
-                            <th className="text-white text-1xl font-semibold px-6 py-2">Milestone Name</th>
-                            <th className="text-white text-1xl font-semibold px-6 py-2">Milestone Amount</th>
-                            <th className="text-white text-1xl font-semibold px-6 py-2">Duration</th>
-                            <th className="text-white text-1xl font-semibold px-6 py-2">View</th>
+                            <th className="py-2 px-6 font-semibold">Sr. No</th>
+                            <th className="py-2 px-6 font-semibold">Milestone Name</th>
+                            <th className="py-2 px-6 font-semibold">Milestone Amount</th>
+                            <th className="py-2 px-6 font-semibold">Duration</th>
+                            <th className="py-2 px-6 font-semibold">View</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {
-                            team.proposal.milestones.map((milestone, index) => (
-                                <tr className="flex justify-between py-5 px-9 bg-white w-full">
-                                    <td className="text-black text-1xl font-semibold px-10 py-2"> {index + 1} </td>
-                                    <td className="text-black text-1xl font-semibold px-10 py-2">{milestone.name}</td>
-                                    <td className="text-black text-1xl font-semibold px-10 py-2"> {milestone.bidAmount} </td>
-                                    <td className="text-black text-1xl font-semibold px-10 py-2"> {milestone.duration} </td>
+                        {team.proposal.milestones.map((milestone, index) => (
+                            <tr key={index} className="border-t">
+                                <td className="py-2 px-6">{index + 1}</td>
+                                <td className="py-2 px-6">{milestone.name}</td>
+                                <td className="py-2 px-6">{milestone.bidAmount}</td>
+                                <td className="py-2 px-6">{milestone.duration}</td>
+                                <td className="py-2 px-6">
                                     <img src="/Images/eye.svg" alt="" />
-                                </tr>
-                            ))
-                        }
+                                </td>
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
+
                 <hr className="w-[100%]" />
                 {/* </div> */}
             </div>

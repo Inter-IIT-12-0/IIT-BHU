@@ -10,8 +10,8 @@ import axios from 'axios';
 const login = () => {
     const { data: session } = useSession();
     
-    useEffect(() => {
-    },[])
+    // useEffect(() => {
+    // },[])
     return (
         <main className="flex">
             {session ? (
@@ -29,7 +29,10 @@ const login = () => {
                     }>Sign Out</button>
                 </>
             ) : (
-                <button onClick={() => signIn('google')} > Sign In </button>
+                <button onClick={() => {
+                    console.log("CLicked")
+                    signIn('google')
+                }} > Sign in </button>
             )}
         </main>
     )
