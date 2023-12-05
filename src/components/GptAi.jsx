@@ -180,7 +180,7 @@ const GptAi = ({ setAiOpen }) => {
                     {
                         session && session.user.aiTools.map(tool => (
                             <div className="flex justify-center items-center">
-                                <Link href="#" className="flex items-center justify-center w-12 h-12" target="_blank">
+                                <Link href={`/customTool/${tool.name}`} className="flex items-center justify-center w-12 h-12" target="_blank">
                                     <img src={tool.image} alt={tool.name} className="flex justify-center items-center w-12 h-12 rounded-full" />
                                 </Link>
                             </div>
@@ -188,12 +188,12 @@ const GptAi = ({ setAiOpen }) => {
                     }
                     {
                         session && session.user.aiTools.length < 3 &&
-                        <div className="flex items-center justify-center">
+                        <Link href="/toolsPage" className="flex items-center justify-center">
                             <div className="bg-sky-600 hover:bg-sky-700 transition-all duration-500 text-white rounded-md px-2 py-1 cursor-pointer">Add tool</div>
-                        </div>
+                        </Link>
                     }
                 </div>
-                <div className="bg-gray-100 w-full max-h-[500px] my-8 rounded-xl overflow-scroll overflow-y-auto overflow-x-hidden px-6 flex flex-col">
+                <div className="bg-gray-100 w-full max-h-[400px] my-8 rounded-xl overflow-scroll overflow-y-auto overflow-x-hidden px-6 flex flex-col">
                     {selectedSubdomain ?
                         (
                             <div className="p-4 relative">

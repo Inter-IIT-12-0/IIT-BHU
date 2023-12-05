@@ -3,8 +3,7 @@ import GoogleProvider from "next-auth/providers/google";
 import connectDb from "../../../../../middlewares/mongoose";
 import User from "../../../../../models/User"
 
-
-const handler = connectDb(NextAuth({
+export const authOptions = {
     providers: [
         GoogleProvider({
             clientId: process.env.GOOGLE_ID,
@@ -41,6 +40,8 @@ const handler = connectDb(NextAuth({
             }
         }
     }
-}))
+}
+
+const handler = connectDb(NextAuth(authOptions))
 
 export { handler as GET, handler as POST }

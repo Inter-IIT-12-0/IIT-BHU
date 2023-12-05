@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import PlusIcon from "../../public/Images/PlusIcon.svg"
-import SearchAlgo from '../lib/SearchAlgo'
+import {simpleSearch} from '../lib/SearchAlgo'
 
 const FriendsSearchPopup = ({users, setPopup, plusFunction}) => {
     const [search, setSearch] = useState("")
@@ -13,7 +13,7 @@ const FriendsSearchPopup = ({users, setPopup, plusFunction}) => {
             <div className='w-11/12 h-48 overflow-scroll overflow-y-auto overflow-x-hidden'>
                 {
                     users.filter(user => {
-                        return SearchAlgo(search, user.name) || (user.institute? SearchAlgo(search, user.institute) : false)
+                        return simpleSearch(search, user.name) || (user.institute? simpleSearch(search, user.institute) : false)
                     }).map((user, index) => (
                         <div className='flex justify-between h-16 pb-2 border-zinc-200 border-b-2 w-11/12 px-5 items-center' key={index}>
                             <img src={user.avatarUrl} alt={(user.name)[0].toLocaleUpperCase()} className='rounded-full w-7 h-7 mr-4'/>

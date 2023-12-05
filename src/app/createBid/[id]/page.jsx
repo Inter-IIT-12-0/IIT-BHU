@@ -8,7 +8,7 @@ import Search_Icon from "../../../../public/Images/SearchIcon.svg"
 import PlusIcon from "../../../../public/Images/PlusIcon.svg"
 import axios from 'axios';
 import { useSession } from 'next-auth/react'
-import SearchAlgo from '../../../lib/SearchAlgo'
+import {simpleSearch} from '../../../lib/SearchAlgo'
 import FriendsSearchPopup from '../../../components/FriendsSearchPopup'
 import BackArrow_Icon from "../../../../public/Images/BackArrow_Icon.svg"
 import Folder_Icon from "../../../../public/Images/Folder_Icon.svg"
@@ -208,7 +208,7 @@ const CreateBid = ({ params }) => {
                                                     session ?
                                                         filter === 'Past' && pastTeamMembers ?
                                                             pastTeamMembers.filter(member => {
-                                                                return (member.email !== session.user.email) && ((SearchAlgo(search, member.name) || (SearchAlgo(search, member.institute))) || (SearchAlgo(search, member.domain)))
+                                                                return (member.email !== session.user.email) && ((simpleSearch(search, member.name) || (simpleSearch(search, member.institute))) || (simpleSearch(search, member.domain)))
                                                             }).map((member, index) => (
                                                                 <div className='ml-2 pb-2 my-5 bg-white border-gray-200 border-b-2 w-11/12 px-5 flex items-center' key={index}>
                                                                     <img src={member.avatarUrl} alt={member.name} className='rounded-full w-7 h-7 mr-4' />
