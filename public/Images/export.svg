@@ -1,9 +1,9 @@
-<svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g id="vuesax/linear/export">
 <g id="export">
-<path id="Vector" d="M6.3999 1.32617C3.85822 1.32617 1.79541 3.38898 1.79541 5.93066C1.79541 8.47234 3.85822 10.5352 6.3999 10.5352C8.94158 10.5352 11.0044 8.47234 11.0044 5.93066" stroke="#292D32" stroke-width="0.920898" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-<path id="Vector_2" d="M6.86035 5.4702L10.636 1.69452" stroke="#292D32" stroke-width="0.920898" stroke-linecap="round" stroke-linejoin="round"/>
-<path id="Vector_3" d="M11.0044 3.55014V1.32617H8.7804" stroke="#292D32" stroke-width="0.920898" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector" d="M21.6667 18.3346L35.3334 4.66797" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_2" d="M36.6667 11.332V3.33203H28.6667" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_3" d="M18.3333 3.33203H14.9999C6.66659 3.33203 3.33325 6.66536 3.33325 14.9987V24.9987C3.33325 33.332 6.66659 36.6654 14.9999 36.6654H24.9999C33.3333 36.6654 36.6666 33.332 36.6666 24.9987V21.6654" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 </g>
 </svg>
