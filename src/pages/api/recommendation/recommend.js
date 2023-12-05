@@ -37,7 +37,7 @@ export async function GPT(messages) {
       body: JSON.stringify({
         model: "gpt-3.5-turbo",
         messages: messages,
-        max_tokens: 200,
+        max_tokens: 500,
       }),
     });
 
