@@ -30,6 +30,9 @@ const handler = async (req, res) => {
                         {
                             path: 'assignedBy',
                             select: '-__v',
+                        },
+                        {
+                            path: 'milestones.subMilestones.assignedTo'
                         }
                     ]
                 });

@@ -4,6 +4,7 @@ import { useSession, signIn, signOut } from "next-auth/react";
 
 // import { CometChatUIKit } from "@cometchat/chat-uikit-react";
 import axios from 'axios';
+import { deleteCookie } from 'cookies-next';
 // import { CometChat } from "@cometchat/chat-sdk-javascript";
 
 
@@ -23,6 +24,8 @@ const login = () => {
                         //     console.log("Logged Out");
                         //     // signOut();
                         // })
+                        deleteCookie("role")
+                        deleteCookie("newUser")
                         signOut()
                         // Comet
                     }

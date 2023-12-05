@@ -6,6 +6,7 @@ import CalendarIcon from '../../public/Images/Calendar2.svg'
 
 
 const MilestoneTable = ({ project, setSelectedSubmilestone }) => {
+  console.log(project)
 
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -65,7 +66,7 @@ const MilestoneTable = ({ project, setSelectedSubmilestone }) => {
                     })}
                   </td>
                   <td className="px-6 py-4">
-                    {submilestone.assignedTo.name}
+                    {/* {submilestone.assignedTo.name} */}
                   </td>
                   <td className="px-6 py-4">
                     N/A
