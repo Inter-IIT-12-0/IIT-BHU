@@ -35,13 +35,13 @@ const University = () => {
             "__v": 0
         }
     ]
-    const test_university_id = "656d99de953f85d0a7b7a02a";
+    
     const[universityData, setUniversityData] = useState(null);
     
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`http://localhost:3000/api/university?id=${test_university_id}`);
+                const response = await axios.get(`http://localhost:3000/api/alluniversities/`);
                 setUniversityData(response.data);
                 console.log(`Data is:`, response.data);
             } catch (error) {

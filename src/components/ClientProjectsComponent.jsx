@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 
-const ClientProjectComponent = ({teamName, bidAmount}) => {
-
+const ClientProjectComponent = ({teamId, bidAmount}) => {
+    console.log("the data that I wanted is:",teamId,bidAmount);
     const test_client_Id = "65684b792dd359919a8da979";
     const[projectData, setProjectData] = useState(null);
     useEffect(() => {
@@ -18,12 +18,19 @@ const ClientProjectComponent = ({teamName, bidAmount}) => {
         fetchData(); // Call the async function
     }, []);
 
-    const duration = projectData && projectData.filter((ele) => ele.assignedTeam.teamName === teamName)
+    console.log("project data is:",projectData);
+
+    const duration = projectData && projectData.filter((ele) => ele.assignedTeam._id === teamId)
     .map((ele) => {
         return ele.duration
     })
 
-    const milestone = projectData && projectData.filter((ele) => ele.assignedTeam.teamName === teamName).map((ele) => {
+    const teamName = projectData && projectData.filter((ele) => ele.assignedTeam._id === teamId)
+    .map((ele) => {
+        return ele.assignedTeam.teamName
+    })
+
+    const milestone = projectData && projectData.filter((ele) => ele.assignedTeam._id === teamId).map((ele) => {
         return ele.assignedTeam.proposal && ele.assignedTeam.proposal.milestones.map((ele2) => {
             return ele2
         })
@@ -31,7 +38,7 @@ const ClientProjectComponent = ({teamName, bidAmount}) => {
 
     console.log("milestones are:",milestone);
 
-    console.log("my team name is:", duration)
+    console.log("my duration name is:", duration)
 
     return (
         <div className="p-8 w-[75%]">
@@ -89,11 +96,9 @@ const ClientProjectComponent = ({teamName, bidAmount}) => {
                                     <img src="/Images/eye.svg" alt="" />
                                 </div>
                                 })}
-                             
                             </div>
                         })
                     }
-                    
                     <hr className="w-[100%]"/>
                 </div>
             </div>

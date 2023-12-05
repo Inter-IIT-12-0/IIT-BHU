@@ -1,51 +1,18 @@
 import React from "react";
 
-const Achievements = () => {
+const Achievements = ({achievements}) => {
     return (
         <div className="mt-8 p-8 bg-blue-100 rounded">
             <h1 className="font-semibold text-2xl m-3">Achievements</h1>
-            <div className="flex justify-between">
+            <div className="flex justify-row">
             
-                <div className="bg-white rounded flex flex-col justify-center items-center w-48">
-                    <img src="/Images/medal.png" alt="" />
-                    <h1>Learner of the week</h1>
-                    <h2>certified</h2>
-                </div>
-            
-            
-                <div className="bg-white rounded flex flex-col justify-center items-center w-48">
-                    <img src="/Images/certified.png" alt="" />
-                    <h1>Apollo.io</h1>
-                    <h2>certified</h2>
-                </div>
-            
-            
-                <div className="bg-white rounded flex flex-col justify-center items-center w-48">
-                    <img src="/Images/PPE.png" alt="" />
-                    <h1>Pro Prompt Engineer</h1>
-                    <h2>certified</h2>
-                </div>
-            
-            
-                <div className="bg-slate-300 rounded flex flex-col justify-center items-center w-48">
-                    <img src="/Images/midjourney.png" alt="" />
-                    <h1>MidJourney</h1>
-                    <h2>Incomplete</h2>
-                </div>
-            
-            
-                <div className="bg-slate-300 rounded flex flex-col justify-center items-center w-48">
-                    <img src="/Images/armorTick.png" alt="" />
-                    <h1>ChatGPT</h1>
-                    <h2>Incomplete</h2>
-                </div>
-            
-            
-                <div className="bg-slate-300 rounded flex flex-col justify-center items-center w-48">
-                    <img src="/Images/medal.png" alt="" />
-                    <h1>Learner of the Month</h1>
-                    <h2>Incomplete</h2>
-                </div>
+                {achievements.map((ele) => {
+                        return <div className={`${ele.status !== 'Incomplete' ? 'bg-white' : 'bg-gray-400'} rounded-xl flex flex-col justify-center items-center w-48 p-6 mr-5`}>
+                        <img className="h-20" src={ele.badgeImage} alt="" />
+                        <h1>{ele.badgeName}</h1>
+                        <h2>{ele.status}</h2>
+                    </div>
+                })}      
             
             </div>
         </div>

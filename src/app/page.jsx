@@ -24,12 +24,14 @@ import SidebarUpskilling from "../components/SidebarUpskilling";
 // import Slider from "../components/Slider";
 import Slider from "../components/slider";
 import People from "../components/People";
+import PostCard from "../components/postsCard";
 
 export default function Home() {
   const { data: session } = useSession();
   return (
     <main className="flex overflow-x-hidden">
-      <Slider />
+      <PostCard/>
+      {/* <Slider /> */}
     </main>
   );
 }

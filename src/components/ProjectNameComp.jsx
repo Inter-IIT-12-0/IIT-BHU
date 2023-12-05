@@ -348,7 +348,7 @@ const ProjectNameComp = () => {
 
     const [insideTeam, setInsideTeam] = useState(false);
 
-    const [teamName, setTeamName] = useState("Tech Innovators")
+    const [teamId, setTeamId] = useState(null)
     // const teamname = data.map((ele) => {
     //     return ele.teamName + " " + ele.proposal.bidAmount + "" + ele.status;
     // })
@@ -372,7 +372,7 @@ const ProjectNameComp = () => {
     }, []);
 
     const mtdata = allTeamsData && allTeamsData
-        .filter((ele) => ele.teamName === teamName) // Filter by teamName
+        .filter((ele) => ele._id === teamId) // Filter by teamName
         .map((ele) => {
             return ele.teamUserMap
         });
@@ -429,17 +429,17 @@ const ProjectNameComp = () => {
                                 <h1 className="text-white text-1x1 font-semibold">Status</h1>
                                 <h1 className="text-white text-1x1 font-semibold">View</h1>
                             </div>
-                            {allTeamsData && allTeamsData.map((ele) => {
+                            {allTeamsData && allTeamsData.map((ele, index) => {
                                 return <div className="flex justify-between px-6 py-4 bg-white">
-                                    <h1 className="text-black font-semibold pt-1">1</h1>
+                                    <h1 className="text-black font-semibold pt-1">{index+1}</h1>
                                     <div className="flex flex-row">
                                         <img className="h-9 mr-4" src="/Images/newElipse.svg" alt="" />
                                         <h1 className="text-black font-semibold pt-1">{ele.teamName ? ele.teamName : 'not found'}</h1>
                                     </div>
-                                    <h1 className="text-black font-semibold pt-1 mr-10">$1{ele.proposal && ele.proposal.bidAmount ? ele.proposal.bidAmount : '500'}</h1>
+                                    <h1 className="text-black font-semibold pt-1 mr-10">${ele.proposal && ele.proposal.bidAmount ? ele.proposal.bidAmount : '500'}</h1>
                                     <h1 className="text-black font-semibold pt-1">{ele.teamRating ? ele.teamRating : '4.8'}/5.0</h1>
                                     <div className="text-black font-semibold pt-1 rounded-md">New</div>
-                                    <img onClick={() => { setTeamName(ele.teamName); setInsideTeam(true); setBidAmount(ele.proposal && ele.proposal.bidAmount) }} className="cursor-pointer" src="/Images/eye.svg" alt="" />
+                                    <img onClick={() => { setTeamId(ele._id); setInsideTeam(true); setBidAmount(ele.proposal && ele.proposal.bidAmount) }} className="cursor-pointer" src="/Images/eye.svg" alt="" />
                                 </div>
                             })}
                             <hr className="w-full" />
@@ -449,7 +449,7 @@ const ProjectNameComp = () => {
             }
             {
                 insideTeam && <div className="flex flex-row w-full">
-                    <ClientProjectComponent teamName = {teamName} bidAmount = {bidAmount}/>
+                    <ClientProjectComponent teamId = {teamId} bidAmount = {bidAmount}/>
                     <ClientProjectsRightSidebar mtdata = {mtdata} />
                 </div>
             }
