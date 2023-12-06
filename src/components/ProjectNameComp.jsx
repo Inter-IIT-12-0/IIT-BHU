@@ -371,13 +371,8 @@ const ProjectNameComp = () => {
         fetchData(); // Call the async function
     }, []);
 
-<<<<<<< HEAD
     const mtdata = allTeamsData && allTeamsData
         .filter((ele) => ele._id === teamId) // Filter by teamName
-=======
-    const myData = allTeamsData && allTeamsData
-        .filter((ele) => ele.teamName === teamName) // Filter by teamName
->>>>>>> c52a28ba0400ee482742a160032b82f0f7f9d9cb
         .map((ele) => {
             return ele.teamUserMap
         });
@@ -454,13 +449,8 @@ const ProjectNameComp = () => {
             }
             {
                 insideTeam && <div className="flex flex-row w-full">
-<<<<<<< HEAD
                     <ClientProjectComponent teamId = {teamId} bidAmount = {bidAmount}/>
                     <ClientProjectsRightSidebar mtdata = {mtdata} />
-=======
-                    <ClientProjectComponent teamName = {teamName} bidAmount = {bidAmount}/>
-                    <ClientProjectsRightSidebar mydata = {myData} />
->>>>>>> c52a28ba0400ee482742a160032b82f0f7f9d9cb
                 </div>
             }
         </>

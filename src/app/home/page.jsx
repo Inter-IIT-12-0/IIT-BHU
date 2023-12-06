@@ -135,8 +135,14 @@ const Home = () => {
                                     </div>
                                     })}
                                     {taskName === "MEETINGS" && <div>
-                                        <div></div>
-                                        <div></div>
+                                        <div className="flex flex-row">
+                                            <div className="rounded-full font-semibold py-1 px-3 border-gray-400 border my-4 mr-4">Today</div>
+                                            <div className="rounded-full font-semibold py-1 px-3 border-gray-400 border my-4 mr-4">Tommorow</div>
+                                        </div>
+                                        <div className="flex flex-row">
+                                            <div className="py-1 px-6 rounded-full my-4 mr-4" style={{backgroundColor:'#F9DDA2'}}>Standup 9:00 AM - 45 Mins</div>
+                                            <div className="py-1 px-6 rounded-full my-4 mr-4" style={{backgroundColor:'#ECD0FA'}}>Standup 9:00 AM - 45 Mins</div>
+                                        </div>
                                         </div>}
                                 </div>
                             </div>
