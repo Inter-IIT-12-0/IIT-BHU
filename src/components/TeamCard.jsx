@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from "next/link"
 
 const TeamCard = ({ project }) => {
   console.log({ project });
@@ -26,7 +27,7 @@ const TeamCard = ({ project }) => {
                 aria-label="GitHub"
                 className="p-2 rounded-md dark:text-gray-100 hover:dark:text-violet-400"
               >
-                <button className='border border-white py-1 px-2 rounded-md'>Go to Profile</button>
+                <Link href={`/profile/${Member.user._id}`} className='border border-white py-1 px-2 rounded-md'>Go to Profile</Link>
               </a>
             </div>
           </div>

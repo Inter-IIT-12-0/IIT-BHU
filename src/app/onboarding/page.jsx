@@ -38,7 +38,7 @@ const OnBoarding = () => {
     const isNewUser = getCookie("newUser")
     console.log(isNewUser)
     if (isNewUser === "false") {
-      router.push('/home')
+      router.push('/')
     }
     else if (isNewUser === "true") {
       router.push("/onboarding2")

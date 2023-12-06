@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { subMilestoneSchema } from './Project';
 
 const serviceEnum = ['Service1', 'Service2', 'Service3', 'Service4', 'Service5'];
 const skillsEnum = ['Skill1', 'Skill2', 'Skill3', 'Skill4', 'Skill5'];
@@ -11,7 +12,8 @@ const milestoneSchema = new mongoose.Schema({
   files: {type: String},
   title: { type: String },
   description: { type: String },
-  deliverables: { type: String }
+  deliverables: { type: String },
+  submilestones: [subMilestoneSchema]
 });
 
 const proposalSchema = new mongoose.Schema({

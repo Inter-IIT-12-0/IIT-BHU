@@ -6,7 +6,7 @@ const PerformanceWidget = ({progress}) => {
   const [percent] = useState(progress);
 
   return (
-      <div className="flex items-center justify-center ">
+      <div className="flex items-center justify-center relative">
         <svg className="w-32 h-32 transform translate-x-1 translate-y-1 scale-150" aria-hidden="true">
           <circle
             className="text-gray-300"

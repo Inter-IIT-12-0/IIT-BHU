@@ -6,6 +6,7 @@ import Script from 'next/script';
 import { useState, useEffect } from "react";
 import PostCard from '../../../components/postsCard';
 import axios from 'axios';
+import StudentSidebar from '../../../components/StudentSidebar';
 
 const obj = {
   "url": "https://tse1.mm.bing.net/th?id=OIP.3l2nfzcHhMemSZooiH3B3AHaFj&pid=Api&rs=1&c=1&qlt=95&w=157&h=117",
@@ -45,7 +46,7 @@ const Cards = ({ setOpenPostCard, tabName, ele, setDetails }) => {
 
 }
 
-const Upskilling = () => {
+const University = ({params}) => {
 
   const data = [
     {
@@ -77,14 +78,14 @@ const Upskilling = () => {
     },
   ];
 
-  const test_id = "656ec391dd9fcbf216ae1b03"
+  const {id} = params
   const [uniData, setUniData] = useState(null);
   const [details, setDetails] = useState(null);
 
   useEffect(() => {
     const fetchdata = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/university?id=${test_id}`);
+        const response = await axios.get(`http://localhost:3000/api/university?id=${id}`);
         setUniData(response.data);
         console.log("fetched data is:", response.data);
       } catch (error) {
@@ -103,7 +104,7 @@ const Upskilling = () => {
     <div>
       <Navbar />
       <div className="flex">
-        <SidebarUpskilling />
+        <StudentSidebar />
         {uniData && uniData.map((ele) => {
           return <div className="max-h-[90vh] overflow-scroll overflow-y-auto overflow-x-hidden ml-4 mt-8" >
 
@@ -179,4 +180,4 @@ const Upskilling = () => {
   );
 }
 
-export default Upskilling;
+export default University;

@@ -71,7 +71,7 @@ const Form1 = () => {
                     ]
                     // files: formData.files
                 },
-                duration: ((new Date(formData.to)) - (new Date(formData.from))) / (1000 * 60 * 60 * 24 * 7),
+                duration: Math.floor(((new Date(formData.to)) - (new Date(formData.from))) / (1000 * 60 * 60 * 24 * 7)),
                 domain: formData.industry,
                 location: formData.location
             }

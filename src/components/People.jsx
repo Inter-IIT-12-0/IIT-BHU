@@ -152,11 +152,11 @@ const People = () => {
                 </button> */}
             </div>
 
-            <section className="dark:bg-gray-900 flex items-center w-full">
+            <section className=" flex items-center w-full">
                 <div className="flex-col flex w-full">
-                    <section className=" dark:bg-gray-900 flex items-center w-full">
+                    <section className="  flex items-center w-full">
                         <div className=" px-4 mx-auto lg:px-12 w-full">
-                            <div className="relative bg-white shadow-md dark:bg-gray-800 sm:rounded-lg">
+                            <div className="relative bg-white shadow-md sm:rounded-lg">
                                 <div className="flex flex-col items-center justify-between p-4 space-y-3 md:flex-row md:space-y-0 md:space-x-4 w-full">
                                     <div className="w-full md:w-1/2">
                                         <form className="flex items-center">
@@ -181,7 +181,7 @@ const People = () => {
                                                     value={searchQuery}
                                                     onChange={handleInputChange}
                                                     id="simple-search"
-                                                    className="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"></input>
+                                                    className="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-blue-50 focus:ring-primary-500 focus:border-primary-500 dark:bg-blue-200 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"></input>
                                             </div>
                                         </form>
                                     </div>
@@ -210,7 +210,7 @@ const People = () => {
                                             <button
                                                 id="DomainDropdownButton"
                                                 data-dropdown-toggle="DomainDropdown"
-                                                className="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg md:w-auto focus:outline-none hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                                                className="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg md:w-auto focus:outline-none hover:bg-blue-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-blue-200 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-blue-200"
                                                 type="button"
                                                 onClick={toggleDomainDropdown}
                                             >
@@ -232,7 +232,7 @@ const People = () => {
                                             <button
                                                 id="DomainDropdownButton"
                                                 data-dropdown-toggle="DomainDropdown"
-                                                className="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg md:w-auto focus:outline-none hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                                                className="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg md:w-auto focus:outline-none hover:bg-blue-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-blue-200 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-blue-200"
                                                 type="button"
                                                 onClick={toggleDomainDropdown}
                                             >
@@ -254,7 +254,7 @@ const People = () => {
                                             <button
                                                 id="DomainDropdownButton"
                                                 data-dropdown-toggle="DomainDropdown"
-                                                className="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg md:w-auto focus:outline-none hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                                                className="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg md:w-auto focus:outline-none hover:bg-blue-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-blue-200 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-blue-200"
                                                 type="button"
                                                 onClick={toggleDomainDropdown}
                                             >
@@ -275,18 +275,18 @@ const People = () => {
                                             </button>
                                             <div
                                                 id="DomainDropdown"
-                                                className={`z-10 ${showDomainDropdown ? 'block' : 'hidden'} bg-white divide-y divide-gray-100 rounded shadow w-44 dark:bg-gray-700 dark:divide-gray-600`}
+                                                className={`z-10 ${showDomainDropdown ? 'block' : 'hidden'} bg-white divide-y divide-gray-100 rounded shadow w-44 dark:bg-blue-200 dark:divide-gray-600`}
                                             >
                                                 <ul className="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="DomainDropdownButton">
                                                     <li>
-                                                        <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" onClick={() => handleDomainClick('Domain 1')}>
+                                                        <a href="#" className="block px-4 py-2 hover:bg-blue-100 dark:hover:bg-blue-600 dark:hover:text-white" onClick={() => handleDomainClick('Domain 1')}>
                                                             Domain 1
                                                         </a>
                                                     </li>
                                                     <li>
                                                         <a
                                                             href="#"
-                                                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white" onClick={() => handleDomainClick('UX/UI Designer')}
+                                                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-100 dark:hover:bg-blue-600 dark:text-gray-200 dark:hover:text-white" onClick={() => handleDomainClick('UX/UI Designer')}
                                                         >
                                                             UX/UI Designer
                                                         </a>
@@ -302,7 +302,7 @@ const People = () => {
                     </section>
                 </div>
             </section>
-            <section className="bg-white dark:bg-gray-900 mt-10">
+            <section className="bg-white  mt-10">
                 <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-6 lg:px-6">
                     <div className="mx-auto max-w-screen-sm text-center mb-8 lg:mb-16">
                         <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Our Team</h2>
@@ -313,7 +313,7 @@ const People = () => {
                     <div className="grid gap-8 mb-6 lg:mb-16 md:grid-cols-3">
                         {filteredPeople && filteredPeople.map((person, index) => {
                             console.log("person is:",person)
-                            return <div key={index} className="items-center bg-white shadow sm:flex dark:bg-gray-800 dark:border-gray-700 border rounded-2xl border-slate-500 pr-6">
+                            return <div key={index} className="items-center bg-white shadow sm:flex dark:bg-blue-200 dark:border-gray-700 border rounded-2xl border-slate-500 pr-6">
                                 <div className='flex flex-col ml-5 mr-6 top-0 items-center pt-6 h-full'>
                                     <a href="#">
                                         <img className="h-12 w-12 rounded-full m-0 p-0" src={person.avatarUrl} alt={`${person.name} Avatar`} />
@@ -338,7 +338,7 @@ const People = () => {
                                             </li>
                                         ))}
                                     </ul>
-                                    <button className='mt-5 py-1 px-6 rounded-full bg-blue-900 text-white font-semibold'>View Profile</button>
+                                    <button className='mt-5 py-1 px-6 rounded-full bg-sky-500 text-white font-semibold'>View Profile</button>
                                 </div>
                                 <div className='flex flex-col py-5 justify-between h-full'>
                                     <h1>{person.rating}/5.0</h1>
