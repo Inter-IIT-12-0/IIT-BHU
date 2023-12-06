@@ -378,7 +378,7 @@ const ProjectNameComp = () => {
         });
         
 
-    console.log("team name is", myData);
+    // console.log("team name is", myData);
 
 
     const Recieved = allTeamsData && allTeamsData.length;
