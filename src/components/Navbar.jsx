@@ -3,11 +3,14 @@ import SearchIcon from "../../public/Images/SearchIcon.svg"
 import NotificationsIcon from "../../public/Images/NotificationsIcon.svg"
 import Trumio_logo from "../../public/Images/Trumio_Logo.svg"
 import Trumio_text from "../../public/Images/Trumio_text.svg"
+import { useSession } from "next-auth/react"
+import Link from "next/link"
 
 const Navbar = () => {
+  const { data: session } = useSession()
   return (
     <div className="w-full h-16 shadow-md flex justify-between items-center border-b-2 opacity-100">
-      <div className="justify-start items-center inline-flex gap-4 ml-4 scale-75">
+      <Link href={"/"} className="justify-start items-center inline-flex gap-4 ml-4 scale-75">
         <Trumio_logo />
         <div>
           <Trumio_text />
@@ -15,11 +18,17 @@ const Navbar = () => {
             UNIK
           </div>
         </div>
-      </div>
+      </Link>
       <div className="flex">
         <SearchIcon className="mx-5" />
         <NotificationsIcon className="mx-5" />
-        <div className="w-8 h-8 rounded-full bg-slate-400 mx-5"></div>
+        {
+          session && 
+          <Link href={`/profile/${session.user._id}`} >
+          <img className="w-8 h-8 rounded-full bg-slate-400 mx-5" src={session.user.avatarUrl}>
+
+          </img></Link>
+        }
       </div>
     </div>
   )

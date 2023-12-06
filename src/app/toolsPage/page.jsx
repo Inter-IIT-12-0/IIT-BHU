@@ -4,6 +4,7 @@ import React from "react";
 import ToolMaker from "../../components/ToolMaker";
 import Navbar from "../../components/Navbar";
 import SidebarUpskilling from "../../components/SidebarUpskilling";
+import StudentSidebar from "../../components/StudentSidebar";
 
 const ToolsPage = () => {
     return (
@@ -14,7 +15,7 @@ const ToolsPage = () => {
                 </div>
                 <div className="flex flex-row">
                     <div>
-                    <SidebarUpskilling/>
+                    <StudentSidebar />
                     </div>
                     <ToolMaker/>
                 </div>

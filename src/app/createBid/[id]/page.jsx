@@ -15,10 +15,13 @@ import Folder_Icon from "../../../../public/Images/Folder_Icon.svg"
 import createSubMilestones from "../../../pages/api/GPT/subMilestones"
 import GeneratedSubmilestones from '../../../components/GeneratedSubmilestones'
 import recommend from '../../../pages/api/recommendation/recommend'
+import toast from 'react-hot-toast'
+import {useRouter} from "next/navigation"
 
 const CreateBid = ({ params }) => {
     // const num = 0
     const { id } = params
+    const router = useRouter()
 
     const { data: session } = useSession();
     const [filter, setFilter] = useState('Past')
@@ -31,7 +34,7 @@ const CreateBid = ({ params }) => {
     const [allUsers, setAllUsers] = useState([])
     const [popup, setPopup] = useState(false)
     const [nonApprovals, setNonApprovals] = useState(0)
-    const [presentPage, setPresentPage] = useState(3)
+    const [presentPage, setPresentPage] = useState(1)
     const [files, setFiles] = useState([])
     const [project, setProject] = useState()
     const [startDate, setStartDate] = useState("")
@@ -46,40 +49,7 @@ const CreateBid = ({ params }) => {
         }
     ])
     const [selectedMilestone, setSelectedMilestone] = useState(1)
-    const [aiGenerated, setAiGenerated] = useState({
-        "Milestone 0": {
-            "Submilestones": [
-                {
-                    "work": "Develop a secure, efficient, and scalable backend infrastructure to support the overall functionality of the application.",
-                    "IsCompleted": false
-                },
-                {
-                    "work": "Scalability",
-                    "IsCompleted": false
-                },
-                {
-                    "work": "Secure backend",
-                    "IsCompleted": false
-                }
-            ]
-        },
-        // "Milestone 1": {
-        //     "Submilestones": [
-        //         {
-        //             "work": "Develop an aesthetically pleasing and responsive frontend that aligns with the project's design goals and user expectations.",
-        //             "IsCompleted": false
-        //         },
-        //         {
-        //             "work": "UI/UX",
-        //             "IsCompleted": false
-        //         },
-        //         {
-        //             "work": "Development",
-        //             "IsCompleted": false
-        //         }
-        //     ]
-        // }
-    })
+    const [aiGenerated, setAiGenerated] = useState(null)
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -153,12 +123,13 @@ const CreateBid = ({ params }) => {
             startDate: new Date(startDate),
             milestones: modifiedMilestones
         }
-        // console.log(proposal)
-        // axios.put(`/api/team/?teamId=${presentTeam._id}`, {
-        //     ...presentTeam,
-        //     proposal
-        // }).then(res => console.log(res.data))
-        // sessionStorage.removeItem("page")
+        axios.put(`/api/team/?teamId=${presentTeam._id}`, {
+            ...presentTeam,
+            proposal
+        }).then(res => {
+            toast.success("Your Bid is submitted")
+            router.push("/marketplace")
+        })
 
 
     }
@@ -223,7 +194,7 @@ const CreateBid = ({ params }) => {
         // fetchFilter();
 
 
-    }, [noOfTeams, milestones])
+    }, [noOfTeams])
 
     const addToTeam = (member) => {
         try {
@@ -529,7 +500,7 @@ const CreateBid = ({ params }) => {
                                         {/* <div> {aiGenerated['Milestone 0'].Submilestones[0].work} hi </div> */}
                                         {
                                             aiGenerated && milestones &&
-                                            <GeneratedSubmilestones aiGenerated={aiGenerated} milestones={milestones} setAiGenerated={setAiGenerated} handleSubmit={handleSubmit} />
+                                            <GeneratedSubmilestones aiGenerated={aiGenerated} milestones={milestones} setAiGenerated={setAiGenerated} handleSubmit={handleSubmit} setPresentPage={setPresentPage}/>
                                         }
                                     </>
                         }
