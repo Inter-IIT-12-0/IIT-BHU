@@ -16,7 +16,10 @@ const handler = async (req, res) => {
     try {
       const teams = await Team.find({"_id":req.query.id}, '-__v')
         .populate('proposal', '-__v')
-        .populate('teamUserMap.user', '-__v');
+        .populate({
+            path: 'teamUserMap.user',
+            model: 'User'
+        });
 
       res.status(200).json(teams);
     } catch (error) {

@@ -1,37 +1,44 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const ClientProjectComponent = ({ team }) => {
-    console.log(team)
+const ClientProjectComponent = ({teamId, bidAmount}) => {
+    console.log("the data that I wanted is:",teamId,bidAmount);
+    const test_client_Id = "65684b792dd359919a8da979";
+    const[projectData, setProjectData] = useState(null);
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get(`http://localhost:3000/api/clientprojects?clientId=${test_client_Id}`);
+                setProjectData(response.data);
+                console.log(`Data is:`, response.data);
+            } catch (error) {
+                console.error("Error is:", error);
+            }
+        };
+        fetchData(); // Call the async function
+    }, []);
 
-    const duration = 5
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         try {
-    //             const response = await axios.get(`http://localhost:3000/api/clientprojects?clientId=${test_client_Id}`);
-    //             setProjectData(response.data);
-    //             console.log(`Data is:`, response.data);
-    //         } catch (error) {
-    //             console.error("Error is:", error);
-    //         }
-    //     };
-    //     fetchData(); // Call the async function
-    // }, []);
+    console.log("project data is:",projectData);
 
-    // const duration = projectData && projectData.filter((ele) => ele.assignedTeam.teamName === teamName)
-    // .map((ele) => {
-    //     return ele.duration
-    // })
+    const duration = projectData && projectData.filter((ele) => ele.assignedTeam._id === teamId)
+    .map((ele) => {
+        return ele.duration
+    })
 
-    // const milestone = projectData && projectData.filter((ele) => ele.assignedTeam.teamName === teamName).map((ele) => {
-    //     return ele.assignedTeam.proposal && ele.assignedTeam.proposal.milestones.map((ele2) => {
-    //         return ele2
-    //     })
-    // });
+    const teamName = projectData && projectData.filter((ele) => ele.assignedTeam._id === teamId)
+    .map((ele) => {
+        return ele.assignedTeam.teamName
+    })
+
+    const milestone = projectData && projectData.filter((ele) => ele.assignedTeam._id === teamId).map((ele) => {
+        return ele.assignedTeam.proposal && ele.assignedTeam.proposal.milestones.map((ele2) => {
+            return ele2
+        })
+    });
 
     // console.log("milestones are:",milestone);
 
-    // console.log("my team name is:", duration)
+    console.log("my duration name is:", duration)
 
     return (
         <div className="p-8 w-[75%]">
