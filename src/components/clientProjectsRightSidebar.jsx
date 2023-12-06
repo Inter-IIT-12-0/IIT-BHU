@@ -1,18 +1,10 @@
 import React, { useEffect } from "react";
 
-const ClientProjectsRightSidebar = ({myData}) => {
-    // console.log("mt data is:", mtdata);
-    myData = [
-        {
-            user: {
-                name: 'John',
-                rating: 5
-            },
-            role: 'admin'
-        }
-    ]
-    const newData = myData.map((ele) => {
-        return ele.user.name
+const ClientProjectsRightSidebar = ({mtdata}) => {
+    console.log("mt data is:", mtdata);
+    
+    const newData = mtdata.map((ele) => {
+        return ele.user && ele.user.name
     })
 
     useEffect(() => {
@@ -47,14 +39,14 @@ const ClientProjectsRightSidebar = ({myData}) => {
                             <div className="flex flex-row">
                                 <img src="/Images/newProf.svg" alt="" />
                                 <div className="flex flex-col ml-5">
-                                    <h1 className="text-black text-1x1 font-semibold">{ele.user.name}</h1>
+                                    <h1 className="text-black text-1x1 font-semibold">{ele.user && ele.user.name}</h1>
                                     <h2>{ele.role}</h2>
                                 </div>
                             </div>
                             <div>
                                 <div className="bg-yellow-400 bg-opacity-40 flex flex-row p-2 rounded-md mt-2">
                                     <img src="/Images/star.svg" alt="" />
-                                    <h1 className="text-black text-1x1 font-semibold ml-3">{ele.user.rating}</h1>
+                                    <h1 className="text-black text-1x1 font-semibold ml-3">{ele.user && ele.user.rating}</h1>
                                 </div>
                             </div>
                         </div>

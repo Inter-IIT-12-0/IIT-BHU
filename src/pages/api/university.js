@@ -8,6 +8,7 @@ const handler = async (req, res) => {
       try {
         const university = new University(req.body);
         const savedUniversity = await university.save();
+        
         res.status(201).json(savedUniversity);
       } catch (error) {
         console.error(error); 
@@ -19,7 +20,7 @@ const handler = async (req, res) => {
         try {
           if (req.query.id) {
             console.log("hello");
-            const university = await University.find({ "_id": req.query.id }, '-_id -__v').populate('members', '-__v').populate('professors', '-__v').populate('projects', '-__v')
+            const university = await University.find({ "_id": req.query.id }, '-_id -__v').populate('members', '-__v').populate('professors', '-__v').populate('projects', '-__v').populate('alumni','-__v').populate('student','-__v')
             res.status(200).json(university);
           }
         } catch (error) {

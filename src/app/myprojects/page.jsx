@@ -106,6 +106,9 @@ const MyProjects = () => {
 				console.log(err);
 			})
 	}, [])
+
+	console.log("projects are:",Projects);
+
 	return (
 
 		<main className='w-[100vw]'>

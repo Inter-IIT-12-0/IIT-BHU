@@ -4,6 +4,7 @@ const LanguageEnum = ['English', 'Spanish', 'French', 'German'];
 const DomainEnum = ['UX/UI Designer', 'Developer'];
 const RoleEnum = ['Student', 'Client'];
 const DaysEnum = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+const statusEnum = ['certified', 'Incomplete']
 import Project from "./Project";
 
 const EducationSchema = new mongoose.Schema({
@@ -21,6 +22,18 @@ const aiToolsSchema = new mongoose.Schema({
     image: { type: String }
 })
 
+const AchievementSchema = new mongoose.Schema({
+    badgeImage:{ type: String },
+    badgeName:{ type: String },
+    status:{ type: String, enum:statusEnum }
+})
+
+const EarningStatsSchema = new mongoose.Schema({
+    image:{ type: String },
+    name:{ type: String },
+    data:{ type: Number }
+})
+
 const UserSchema = new mongoose.Schema({
     name: { type: String },
     avatarUrl: { type: String },
@@ -36,6 +49,7 @@ const UserSchema = new mongoose.Schema({
     companyName: { type: String },
     sectorName: { type: String },
     institute: { type: String },
+    occupation: { type: String },
     currentAddress: {
         streetAddress: { type: String },
         houseNumber: { type: String },
@@ -69,7 +83,9 @@ const UserSchema = new mongoose.Schema({
     projectsPosted: { type: Number, default: 0 },
     rating: { type: Number, default: 0 },
     aiTools: [aiToolsSchema],
-    aiToolsLimit: { type: Number, default: 3 }
+    aiToolsLimit: { type: Number, default: 3 },
+    achievements: [AchievementSchema],
+    earningStats: [EarningStatsSchema]
 }, { timestamps: true });
 
 export default mongoose.models.User || mongoose.model("User", UserSchema);

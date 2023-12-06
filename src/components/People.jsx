@@ -117,7 +117,7 @@ const People = () => {
             </div>
             <h1 className='text-black text-2xl font-bold mb-5'>Top Performers</h1>
             <div id="controls-carousel" className="relative w-full" data-carousel="static">
-                <div className="relative h-auto rounded-lg md:h-96 mb-10">
+                <div className="relative h-auto rounded-lg md:h-96">
                     
                     <Slider users = {filteredPeople}/>
                     
