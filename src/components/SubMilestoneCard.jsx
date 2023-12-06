@@ -4,12 +4,72 @@ import Share_Icon from '../../public/Images/Share_Icon.svg';
 import Notes_Icon from '../../public/Images/Notes_Icon.svg';
 import ActivityBar from './ActivityBar';
 import Notes from './Notes';
+import axios from 'axios';
+import { useEffect } from 'react';
+import {useSession} from "next-auth/react"
 
 const SubMilestoneCard = ({ submilestone, setSelectedSubmilestone, project, setTimelineOpen }) => {
-  const [selectedFiles, setSelectedFiles] = useState([]);
+  const {data:session} = useSession()
+  const [tool, setTool] = useState('');
+  const [url, setUrl] = useState('');
+  const [nam,setName] = useState('');
+  const [link,setLink] = useState('');
+
+  const [connectedApps, setConnectedApps] = useState(0);
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    if (name === 'tool') {
+      setTool(value);
+    } else if (name === 'url') {
+      setUrl(value);
+    }
+    else if(name=='link')
+    {
+      setLink(value);
+    }
+    else
+    {
+      setName(value);
+    }
+  };
+  const [isOpen, setOpen] = useState(0);
+  const [isOpen2, setOpen2] = useState(1);
   const handleFileChange = (e) => {
-    const files = Array.from(e.target.files);
-    setSelectedFiles((prevFiles) => [...prevFiles, ...files]);
+    const files = Array.from(e.target);
+    console.log(files);
+    setSelectedFiles((prevFiles) => [...prevFiles,files]);
+  };
+  useEffect(() => {
+    console.log(project.activities);
+  }, []);
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const { data: existingProject } = await axios.get(`/api/project/${project._id}`);
+      existingProject.connectedApps.push({ tool, url });
+      existingProject.activities.push({submilestone,type:'CREATE',timestamp:Date.now(),user:session.user._id,message:"Linked a tool by providing its endpoint in the milestone"});
+      const response = await axios.put(`/api/project/${project._id}`, existingProject);
+      
+    } catch (error) {
+      console.error('Error submitting data:', error.message);
+    }
+
+    setOpen(0);
+  };
+  const handleWorkSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const { data: existingProject } = await axios.get(`/api/project/${project._id}`);
+      existingProject.work.push({ nam,link });
+      existingProject.activities.push({submilestone,type:'CREATE',timestamp:Date.now(),user:session.user._id,message:"Added the file" + nam +"in the submilestone by giving its URL"});
+      const response = await axios.put(`/api/project/${project._id}`, existingProject);
+    } catch (error) {
+      console.error('Error submitting data:', error.message);
+    }
+
+    setOpen(0);
   };
 
   const getInitialLetter = (fileName) => {
@@ -67,35 +127,71 @@ const SubMilestoneCard = ({ submilestone, setSelectedSubmilestone, project, setT
                 </a>
               </div>
             ))}
+            <div>
+              <label>Add App</label>
+              <img src='https://tse1.mm.bing.net/th?id=OIP.vBI68bb1Br5UZGT52X58xgHaHa&pid=Api&rs=1&c=1&qlt=95&w=121&h=121' onClick={() => setOpen(1)}></img>
+            </div>
+            <div>
+              {isOpen && <div>
+                <form onSubmit={handleFormSubmit}>
+                  <label>
+                    Tool
+                    <input
+                      type="text"
+                      name="tool"
+                      value={tool}
+                      onChange={handleInputChange}
+                    />
+                  </label>
+                  <br />
+                  <label>
+                    Url
+                    <input
+                      type="text"
+                      name="url"
+                      value={url}
+                      onChange={handleInputChange}
+                    />
+                  </label>
+                  <br />
+                  <button type="submit">Submit</button>
+                </form>
+
+              </div>}
+            </div>
           </div>
 
           {/* File Upload */}
           <h1 className="text-black font-Lato text-2xl font-medium leading-normal tracking-tight mt-8" style={{ "letterSpacing": 0.7 }}>UPLOAD WORK</h1>
-          <div className="mt-8">
-            <input
-              id="fileInput"
-              type="file"
-              multiple
-              onChange={handleFileChange}
-              className="hidden"
-            />
+          <div className='mt-8'>
+          <div>
+              {isOpen2 && <div>
+                <form onSubmit={handleWorkSubmit}>
+                  <label>
+                    Tool
+                    <input
+                      type="text"
+                      name="nam"
+                      value={nam}
+                      onChange={handleInputChange}
+                    />
+                  </label>
+                  <br />
+                  <label>
+                    Url
+                    <input
+                      type="text"
+                      name="link"
+                      value={link}
+                      onChange={handleInputChange}
+                    />
+                  </label>
+                  <br />
+                  <button type="submit">Submit</button>
+                </form>
 
-
-
-            {/* Display Uploaded File Names in Flex-Row Container */}
-            {(
-
-              <div className="mt-4 border p-2 flex flex-row">
-                <label htmlFor="fileInput" className="cursor-pointer border p-2">
-                  <img src="https://img.icons8.com/external-anggara-basic-outline-anggara-putra/24/external-upload-button-user-interface-anggara-basic-outline-anggara-putra.png" alt="external-upload-button-user-interface-anggara-basic-outline-anggara-putra"></img>{/* Adjust size based on your icon */}
-                </label>
-                {selectedFiles.map((file, index) => (
-                  <div key={index} className="mx-4 bg-slate-200 rounded-md p-2">
-                    {file.name}
-                  </div>
-                ))}
-              </div>
-            )}
+              </div>}
+            </div>
           </div>
         </div>
       </div>
@@ -109,7 +205,7 @@ const SubMilestoneCard = ({ submilestone, setSelectedSubmilestone, project, setT
             <span>Activity</span>
           </div>
           {
-            selectedOption === 'Activity' && <ActivityBar activities={project.activities}/>
+            selectedOption === 'Activity' && <ActivityBar activities={project.activities} />
           }
         </div>
         <div className={`flex flex-col justify-center items-center py-2 mb-4 cursor-pointer ${selectedOption === 'Share' && 'bg-indigo-50'}`}>

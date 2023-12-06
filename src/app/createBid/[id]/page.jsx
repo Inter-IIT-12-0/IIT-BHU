@@ -22,7 +22,7 @@ const CreateBid = ({ params }) => {
     const { data: session } = useSession();
     const [filter, setFilter] = useState('Past')
     const [pastTeamMembers, setPastTeamMembers] = useState([])
-    const [recommended, setRecommended] = useState()
+    const [recommended, setRecommended] = useState([])
     const [presentTeam, setPresentTeam] = useState({})
     const [teamName, setTeamName] = useState("")
     const [noOfTeams, setNoOfTeams] = useState(1)
@@ -191,13 +191,40 @@ const CreateBid = ({ params }) => {
                 setTeamName(res.data.teamName ? res.data.teamName : '')
             }).catch(console.log)
 
-        axios.get('/api/allusers')
-            .then(res => {
-                setAllUsers(res.data)
-            }).catch(console.log)
+        
+        const fetchProject = async () => {
+            try {
+                const res1 = await axios.get(`/api/project/${id}`)
+                const res2 = await axios.get('/api/allusers')
+                
+                setProject(res1.data);
+                setAllUsers(res2.data);
+                fetchFilter(res1.data, res2.data);
+            }
+            catch {
+                console.error("Error fetching data");
+            }
+        }
+        fetchProject();
 
-        axios.get(`/api/project/${id}`).then(res => setProject(res.data))
-        axios.get('/api/allusers').then(res => setRecommended(res.data)).catch(console.log)
+        const fetchFilter = async (project, recommended) => {
+            try {
+                console.log(project, recommended)
+                if (project && recommended) {
+                    console.log(project.statement);
+                    const obj = await recommend(project.statement);
+                    setRecommended(recommended.filter(person => obj.includes(person.domain)));
+                }
+
+            }
+            catch (error) {
+                console.log("Error", error);
+            }
+        }
+
+        // fetchFilter();
+
+
     }, [noOfTeams, milestones])
 
     const addToTeam = (member) => {

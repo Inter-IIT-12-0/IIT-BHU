@@ -12,22 +12,10 @@ const ApplicationSchema = new mongoose.Schema({
 
 })
 const workSchema = new mongoose.Schema({
-  fileType: {
-    type: String,
-    enum: ['file', 'link']
-  },
-  link: {
-    type: String,
-    required: function () {
-      return this.fileType == 'link';
-    }
-  },
-  file: {
-    type: Buffer,
-    required: function () {
-      return this.fileType == 'file';
-    }
-  }
+
+  title:{type:String},
+  url:{type:String}
+  
 });
 
 const clientRequirementsSchema = new mongoose.Schema({
@@ -103,7 +91,7 @@ const projectSchema = new mongoose.Schema({
   endDate: { type: Date },
   activities: [activitySchema],
   clientRequirements: clientRequirementsSchema,
-  work: workSchema,
+  work: [workSchema],
   duration: { type: Number, required: true },
   domain: { type: String, required: true},
   postedOn: {type: Date, default: Date.now},
