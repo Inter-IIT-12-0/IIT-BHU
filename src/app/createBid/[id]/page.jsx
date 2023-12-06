@@ -14,6 +14,7 @@ import BackArrow_Icon from "../../../../public/Images/BackArrow_Icon.svg"
 import Folder_Icon from "../../../../public/Images/Folder_Icon.svg"
 import createSubMilestones from "../../../pages/api/GPT/subMilestones"
 import GeneratedSubmilestones from '../../../components/GeneratedSubmilestones'
+import recommend from '../../../pages/api/recommendation/recommend'
 
 const CreateBid = ({ params }) => {
     // const num = 0
@@ -30,7 +31,7 @@ const CreateBid = ({ params }) => {
     const [allUsers, setAllUsers] = useState([])
     const [popup, setPopup] = useState(false)
     const [nonApprovals, setNonApprovals] = useState(0)
-    const [presentPage, setPresentPage] = useState(1)
+    const [presentPage, setPresentPage] = useState(3)
     const [files, setFiles] = useState([])
     const [project, setProject] = useState()
     const [startDate, setStartDate] = useState("")
@@ -163,9 +164,6 @@ const CreateBid = ({ params }) => {
     }
 
     useEffect(() => {
-        if (sessionStorage.getItem("page")) {
-            setPresentPage(sessionStorage.getItem("page"))
-        }
         axios.get('/api/userprojects')
             .then(res => {
                 let pastMembers = []
@@ -270,7 +268,6 @@ const CreateBid = ({ params }) => {
         newTeam.teamName = teamName
         axios.put(`/api/team/?teamId=${presentTeam._id}`, newTeam).then(res => console.log(res.data)).catch(console.log)
         setPresentPage(prev => prev + 1)
-        sessionStorage.setItem("page", presentPage + 1)
     }
 
     // const removeMilesone = () => {
@@ -419,7 +416,6 @@ const CreateBid = ({ params }) => {
                                         <div className='border-b-2 w-full border-zinc-300 py-4 px-10 items-center font-sans flex justify-between'>
                                             <div className='flex items-center font-bold text-2xl'>
                                                 <BackArrow_Icon onClick={() => {
-                                                    sessionStorage.setItem("page", page - 1)
                                                     setPresentPage(prev => prev - 1)
                                                 }} className="cursor-pointer" />
                                                 <span className='ml-3'>Marketing Asset Creations</span>
@@ -524,7 +520,7 @@ const CreateBid = ({ params }) => {
                                             </div>
 
                                             <div className='w-full flex justify-end px-10 text-white'>
-                                                <button className='bg-sky-700 px-2 py-3 rounded-3xl w-40 text-xl' onClick={handleGenerate}> Generate Submilestones </button>
+                                                <button className='bg-sky-700 px-2 py-3 rounded-3xl w-72 text-xl' onClick={handleGenerate}> Generate Submilestones </button>
                                             </div>
                                         </div>
 

@@ -1,10 +1,12 @@
 import React from 'react'
 import PlusIcon from "../../public/Images/PlusIcon.svg"
-const GeneratedSubmilestones = ({ aiGenerated, milestones, setAiGenerated, handleSubmit }) => {
+import BackArrow_Icon from "../../public/Images/BackArrow_Icon.svg"
+const GeneratedSubmilestones = ({ aiGenerated, milestones, setAiGenerated, handleSubmit, setPresentPage }) => {
   // console.log(milestones)
   return (
 
     <div className=' w-full py-4 px-10 font-sans '>
+      <BackArrow_Icon onClick={() => setPresentPage(prev => prev - 1)} className="cursor-pointer"/>
       <div className='max-h-[70vh] overflow-scroll overflow-y-auto overflow-x-hidden'>
         {
           Object.values(aiGenerated).map((milestone, index1) => (
