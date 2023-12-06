@@ -21,8 +21,34 @@ const handler = async (req, res) => {
           // Check if a specific user ID is provided in the query
           if (req.query.id) {
             console.log("hello");
-            const users = await User.find({ "_id": req.query.id }, '-_id -__v');
-            res.status(200).json(users);
+            const userWithProjects = await User.findById(req.query.id)
+                                                .populate({
+                                                  path: 'projects',
+                                                  populate: {
+                                                    path: 'assignedBy',
+                                                    model: 'User'
+                                                  }
+                                                })
+                                                .populate({
+                                                  path: 'projects',
+                                                  populate: {
+                                                    path: 'assignedTeam',
+                                                    model: 'Team'
+                                                  }
+                                                })
+                                                .populate({
+                                                  path: 'projects',
+                                                  populate: {
+                                                    path: 'assignedTeam',
+                                                    populate: {
+                                                      path: 'teamUserMap.user',
+                                                      model: 'User'
+                                                    }
+                                                  }
+                                                })
+                                                .select('-_id -__v');
+
+          res.status(200).json(userWithProjects);
           } else {
             // If no specific user ID, fetch all users
             

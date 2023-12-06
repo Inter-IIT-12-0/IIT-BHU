@@ -30,7 +30,7 @@ export default function Home() {
   const { data: session } = useSession();
   return (
     <main className="flex overflow-x-hidden">
-      <PostCard/>
+      {/* <PostCard/> */}
       {/* <Slider /> */}
     </main>
   );

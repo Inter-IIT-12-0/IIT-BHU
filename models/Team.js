@@ -106,6 +106,6 @@ const teamSchema = new mongoose.Schema({
   status: { type: String, enum: ['In Proposal', 'Pending', 'Accepted'], default: 'In Proposal' },
 });
 
-const Team =  mongoose.models.Team || mongoose.model('Team', teamSchema);
+const Team =  mongoose.models.Team || mongoose.model("Team", teamSchema);
 
 export default Team;

@@ -22,15 +22,26 @@ const handler = async (req, res) => {
 
         try {
             const projects = await Project.findById(id, '-__v')
-                .populate({
-                    path: 'Team',
-                    select: '-__v',
+            .populate({
+                path:'assignedTeam',
+                populate: {
+                    path: 'teamUserMap',
                     populate: {
                         path: 'user',
                         select: '-__v'
                     }
-                })
-                .populate('user', '-__v')
+                }
+            })
+                // .populate({
+                //     path: 'Team',
+                //     select: '-__v',
+                //     populate: {
+                //         path: 'user',
+                //         select: '-__v'
+                //     }
+                // })
+                // .populate('user', '-__v')
+                .populate('assignedBy','-__v').populate('assignedTeam','-__v')
             if (!projects) {
                 res.status(404).json({ error: 'Project not found' });
                 return;

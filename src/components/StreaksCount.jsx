@@ -7,7 +7,7 @@ const StreaksCount = () => {
   return (
     <div className='p-8 bg-blue-100 rounded mt-8'>
         <div className="container mx-auto">
-            <h1 className="text-2xl font-bold mb-4">GitHub Contribution Counter</h1>
+            <h1 className="text-2xl font-bold mb-4">User Streaks Counter</h1>
             <div className='flex flex-col bg-white rounded p-4'>
                 <div className='flex flex-row justify-between ml-10 mr-2 mb-2'>
                     <h1>Jan</h1>
