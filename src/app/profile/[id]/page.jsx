@@ -8,16 +8,17 @@ import Projects from "../../../components/Projects"
 import StreaksCount from "../../../components/StreaksCount"
 import Achievements from "../../../components/Achievements"
 
-const ProfilePage = () => {
+const ProfilePage = ({params}) => {
     // http://localhost:3000/api/user?id=656f65c9429f3743911ceb14
 
-    const test_user_id = "656ff14b85ccd18b3fd73a5d";
+    // const test_user_id = "656ff14b85ccd18b3fd73a5d";
+    const user_id = params.id
     const[userData, setUserData] = useState(null);
 
     useEffect(() => {
         const fetchdata = async () => {
             try {
-                const response = await axios.get(`http://localhost:3000/api/user?id=${test_user_id}`);
+                const response = await axios.get(`http://localhost:3000/api/user?id=${user_id}`);
                 setUserData(response.data);
             } catch (error) {
                 console.log("error is:",error);
@@ -42,7 +43,7 @@ const ProfilePage = () => {
                     <div>
                         <ProfileSidebar key={userData.email + "user"} name={userData.name} occupation = {userData.occupation} institute = {userData.institute} tools = {userData.expertise.tools} skills = {userData.expertise.skills} professionalInto = {userData.professionalIntroduction} />
                     </div>
-                    <div className="flex flex-col p-8">
+                    <div className="flex flex-col p-8 ">
                         <EarningStats EarningStats = {userData.earningStats}/>
                         <Achievements achievements = {userData.achievements} />
                         <Projects projects = {userData.projects} />
