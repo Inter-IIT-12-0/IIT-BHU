@@ -15,7 +15,9 @@ const Filterbar = ({ location, setLocation, status, setStatus, payment, setPayme
                     </button>
                     <button className={`flex justify-around items-center rounded-2xl ${selected === 'My' ? 'border border-sky-700 bg-sky-100' : 'border border-neutral-400'} px-3 py-1 mr-5`} onClick={() => setSelected('My')}>
                         <div className={`${selected === 'My' ? 'bg-sky-700' : 'border-2 border-gray-300 '} rounded-full w-4 h-4 mx-2`}></div>
-                        <span className={`${selected === 'My' ? 'text-sky-700' : 'text-neutral-600'}`}> My Listings </span>
+                        <span className={`${selected === 'My' ? 'text-sky-700' : 'text-neutral-600'}`}> {
+                            session && session.user.role === 'Student' ? "My Bids" : session.user.role === "Client" ? "My Listings" : ""
+                        } </span>
                     </button>
                 </div>
                 {

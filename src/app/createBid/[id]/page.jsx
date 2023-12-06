@@ -8,13 +8,13 @@ import Search_Icon from "../../../../public/Images/SearchIcon.svg"
 import PlusIcon from "../../../../public/Images/PlusIcon.svg"
 import axios from 'axios';
 import { useSession } from 'next-auth/react'
-import {simpleSearch} from '../../../lib/SearchAlgo'
+import { simpleSearch } from '../../../lib/SearchAlgo'
 import FriendsSearchPopup from '../../../components/FriendsSearchPopup'
 import BackArrow_Icon from "../../../../public/Images/BackArrow_Icon.svg"
 import Folder_Icon from "../../../../public/Images/Folder_Icon.svg"
 
-
 const CreateBid = ({ params }) => {
+    // const num = 0
     const { id } = params
 
     const { data: session } = useSession();
@@ -22,9 +22,7 @@ const CreateBid = ({ params }) => {
     const [pastTeamMembers, setPastTeamMembers] = useState([])
     const [recommended, setRecommended] = useState()
     const [presentTeam, setPresentTeam] = useState({})
-    const [sessionData, setSessionData] = useState({})
     const [teamName, setTeamName] = useState("")
-    const [team, setTeam] = useState({});
     const [noOfTeams, setNoOfTeams] = useState(1)
     const [search, setSearch] = useState("");
     const [allUsers, setAllUsers] = useState([])
@@ -33,8 +31,77 @@ const CreateBid = ({ params }) => {
     const [presentPage, setPresentPage] = useState(1)
     const [files, setFiles] = useState([])
     const [project, setProject] = useState()
+    const [startDate, setStartDate] = useState("")
+    const [milestones, setMilestones] = useState([
+        {
+            cost: '',
+            duration: '',
+            title: '',
+            description: '',
+            deliverables: ''
+        }
+    ])
+    const [selectedMilestone, setSelectedMilestone] = useState(1)
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        let prevMilestones = [...milestones]
+        prevMilestones[selectedMilestone-1][name] = value
+        setMilestones(prevMilestones);
+    };
+    const handleFileChange2 = (e) => {
+        const files = Array.from(e.target.files);
+        let prevMilestones = milestones
+        prevMilestones[selectedMilestone-1].files = files
+        setMilestones(prevMilestones);
+    };
+
+    const handleAddMilestone = () => {
+        setMilestones([
+            ...milestones,
+            {
+                cost: '',
+                duration: '',
+                title: '',
+                description: '',
+                deliverables: ''
+            }
+        ])
+    }
+
+    const handleSubmit = () => {
+        // const [year, month, day] = startDate.split("-");
+        // console.log(milestones, new Date(year, month-1, day))
+        console.log(presentTeam)
+        let modifiedMilestones = [...milestones]
+        modifiedMilestones = modifiedMilestones.map(milestone => (
+            {
+                ...milestone,
+                cost: Number(milestone.cost),
+                duration: Number(milestone.duration)
+            }
+        ))
+        // console.log(modifiedMilestones)
+        let proposal = {
+            proposalScore: 0,
+            acceptanceProbability: 78,
+            bidAmount: milestones.reduce((acc, milestone) => acc + milestone.cost,0),
+            startDate: new Date(startDate),
+            milestones: modifiedMilestones
+        }
+        console.log(proposal)
+        axios.put(`/api/team/?teamId=${presentTeam._id}`, {
+            ...presentTeam,
+            proposal
+        }).then(res => console.log(res.data))
+        sessionStorage.removeItem("page")
+
+    }
 
     useEffect(() => {
+        if (sessionStorage.getItem("page")) {
+            setPresentPage(sessionStorage.getItem("page"))
+        }
         axios.get('/api/userprojects')
             .then(res => {
                 let pastMembers = []
@@ -57,6 +124,7 @@ const CreateBid = ({ params }) => {
                 })
                 setNonApprovals(nonApprov);
                 setPresentTeam(res.data)
+                setTeamName( res.data.teamName ? res.data.teamName : '' )
             }).catch(console.log)
 
         axios.get('/api/allusers')
@@ -66,7 +134,7 @@ const CreateBid = ({ params }) => {
 
         axios.get(`/api/project/${id}`).then(res => setProject(res.data))
         axios.get('/api/allusers').then(res => setRecommended(res.data)).catch(console.log)
-    }, [noOfTeams])
+    }, [noOfTeams, milestones])
 
     const addToTeam = (member) => {
         try {
@@ -110,7 +178,17 @@ const CreateBid = ({ params }) => {
         let newTeam = presentTeam
         newTeam.teamName = teamName
         axios.put(`/api/team/?teamId=${presentTeam._id}`, newTeam).then(res => console.log(res.data)).catch(console.log)
+        setPresentPage(prev => prev + 1)
+        sessionStorage.setItem("page", 2)
     }
+
+    // const removeMilesone = () => {
+    //     let newMilestones = [...milestones]
+    //     newMilestones.pop()
+    //     console.log(newMilestones)
+    //     if(selectedMilestone === milestones.length) setSelectedMilestone(prev => prev - 1)
+    //     // setMilestones(newMilestones)
+    // }
 
     return (
         <main className='w-[100vw] h-[100vh]'>
@@ -171,12 +249,14 @@ const CreateBid = ({ params }) => {
                                                     {
                                                         popup && <FriendsSearchPopup users={allUsers} setPopup={setPopup} plusFunction={addToTeam} />
                                                     }
-                                                    <div className='mx-4 border-2 border-dotted border-zinc-500 flex justify-center items-center py-1 rounded-lg w-[40%] cursor-pointer' onClick={() => setPopup(prev => !prev)}>
-                                                        <Invitation_Icon className="scale-75" /> <span>Invite Friends</span> </div>
+                                                    {/* <div className='mx-4 border-2 border-dotted border-zinc-500 flex justify-center items-center py-1 rounded-lg w-[40%] cursor-pointer' onClick={() => setPopup(prev => !prev)}>
+                                                        <Invitation_Icon className="scale-75" /> <span>Invite Friends</span> </div> */}
                                                 </div>
                                             </div>
                                             <div className='mb-3 flex justify-end px-8 text-white'>
-                                                <div className={`${nonApprovals !== 0 || teamName.length === 0 ? 'disbaled bg-slate-400' : 'bg-sky-700 cursor-pointer'} w-32 text-center px-2 py-2 rounded-xl`} onClick={handleContinue}>Continue</div>
+                                                {
+                                                    Object.keys(presentTeam).length !== 0 && <div className={`${nonApprovals !== 0 || teamName.length === 0 ? 'disabled bg-slate-400' : 'bg-sky-700 cursor-pointer'} w-32 text-center px-2 py-2 rounded-xl`} onClick={handleContinue}>Continue</div>
+                                                }
                                             </div>
                                         </div>
                                         <div className='flex flex-col w-5/12 border-l-2 border-gray-200'>
@@ -251,7 +331,7 @@ const CreateBid = ({ params }) => {
                                         </div>
                                         <div className='flex text-lg'>
                                             <div className='bg-blue-100 h-10 flex justify-center items-center rounded-xl border-b-2 border-sky-800 w-24 px-2 mx-4'>
-                                                {teamName}
+                                                {presentTeam.teamName}
                                             </div>
                                             <div className='bg-blue-100 h-10 flex justify-center items-center rounded-xl border-b-2 border-sky-800 px-2 mx-4'>
                                                 80%
@@ -284,59 +364,75 @@ const CreateBid = ({ params }) => {
                                     </div>
                                     <div className='px-6 mt-4 font-semibold flex'>
                                         <span className='mx-4'>Start Date <span className='text-red-500'> * </span> </span>
-                                        <input type="text" className='border-2 border-zinc-400 rounded-lg' />
+                                        <input type="date" className='outline-none px-2 border-2 border-zinc-400 rounded-lg' required value={startDate} onChange={(e) => setStartDate(e.target.value)}/>
                                     </div>
                                     <div className='flex flex-col w-full h-full px-6 my-3'>
                                         <div className='flex'>
-                                            <span className='bg-indigo-50 h-full pt-2 px-3'>
-                                                Milestone 1 <span className='text-red-500'> * </span>
+                                            {
+                                                milestones.map((milestone, index) => (
+                                                    <div key={index} className='pb-2 flex items-center' onClick={() => setSelectedMilestone(index+1)}>
+                                                        <span className={`h-full pt-2 cursor-pointer mx-3 px-3 ${selectedMilestone === index + 1 && 'bg-indigo-50'} `}>
+                                                Milestone {index + 1} {
+                                                    index === 0 && <span className='text-red-500'> * </span>
+                                                }
+                                                {/* {
+                                                    index === milestones.length - 1 && index !== 0 && <span className='bg-gray-300 rounded-full px-1' onClick={removeMilesone}> x </span>
+                                                } */}
                                             </span>
-                                            <PlusIcon className="ml-3"/>
+                                                    </div>
+                                                ))
+                                            }
+                                            <PlusIcon className="ml-3 cursor-pointer" onClick={handleAddMilestone} />
                                         </div>
 
-                                        <div className='h-full bg-indigo-50 flex flex-col pb-8'>
-                                            <div className='flex w-full pt-4'>
-                                                <input type="text" placeholder='Enter cost' className='mx-3 w-32 py-1 px-1 italic rounded-lg outline-none' />
-                                                <input type="text" placeholder='Enter duration' className='mx-3 w-32 py-1 px-1 italic rounded-lg outline-none' />
-                                                <div className='flex bg-white p-2 text-neutral-600 rounded-lg'>
-                                                    <Folder_Icon className="mr-1" />
-                                                    {
-                                                        files.length !== 0 ? 
-                                                        files.map((file, index) => (
-                                                            <span key={index}> {file.name} </span>
-                                                        )) :
-                                                        <>
-                                                        <input
-                                                        id="fileInput"
-                                                        type="file"
-                                                        multiple
-                                                        onChange={handleFileChange}
-                                                        className="hidden"
-                                                    />
-                                                    <label htmlFor='fileInput' className='cursor-pointer'>Add Attachment</label></>
-                                                    }
+
+                                        
+                                                <div className='h-full bg-indigo-50 flex flex-col pb-8 max-h-72 overflow-scroll overflow-y-auto overflow-x-hidden'>
+                                                    <div className='flex w-full pt-4'>
+                                                        <input type="number" name='cost' value={milestones[selectedMilestone-1]['cost']} onChange={handleInputChange} placeholder='Expected cost &#8377;' className='mx-3 w-32 py-1 px-1 italic rounded-lg outline-none' required/>
+                                                        <input name='duration' value={milestones[selectedMilestone-1]['duration']} onChange={handleInputChange} type="number" placeholder='Enter duration' className='mx-3 w-32 py-1 px-1 italic rounded-lg outline-none' required/> <span className='-ml-3'> Weeks </span>
+                                                        {/* <div className='flex bg-white p-2 text-neutral-600 rounded-lg'>
+                                                            <Folder_Icon className="mr-1" />
+                                                            {
+                                                                milestones[selectedMilestone-1].files.length !== 0 ?
+                                                                    files.map((file, index) => (
+                                                                        <span key={index}> {file.name} </span>
+                                                                    )) :
+                                                                    <>
+                                                                        <input
+                                                                            id="fileInput"
+                                                                            type="file"
+                                                                            multiple
+                                                                            onChange={handleFileChange2}
+                                                                            className="hidden"
+                                                                        />
+                                                                        <label htmlFor='fileInput' className='cursor-pointer'>Add Attachment</label></>
+                                                            }
+                                                        </div> */}
+
+                                                    </div>
+                                                    <div className='flex flex-col px-6 my-4 '>
+                                                        <div className='flex items-center'>
+                                                            <span>Milestone Title</span>
+                                                            <input name='title' value={milestones[selectedMilestone-1]['title']} onChange={handleInputChange} type="text" placeholder='Enter Milestone title' className='w-2/3 mx-10 my-4 h-8 px-4 rounded-xl py-6 outline-none' required/>
+                                                        </div>
+                                                        <div className='flex items-center'>
+                                                            <span>Description</span>
+                                                            <input name='description' value={milestones[selectedMilestone-1]['description']} onChange={handleInputChange} type="text" placeholder='Enter Description' className='w-2/3 mx-10 my-4 h-8 px-4 rounded-xl py-9 outline-none'/>
+                                                        </div>
+                                                        <div className='flex items-center'>
+                                                            <span>Deliverables</span>
+                                                            <input name='deliverables' value={milestones[selectedMilestone-1]['deliverables']} onChange={handleInputChange} type="text" placeholder='Enter Deliverables' className='w-2/3 mx-10 my-4 h-8 px-4 rounded-xl py-9 outline-none' required />
+                                                        </div>
+                                                    </div>
+
                                                 </div>
-                                                
-                                            </div>
-                                            <div className='flex flex-col px-6 my-4 '>
-                                                <div className='flex items-center'>
-                                                    <span>Milestone Title</span>
-                                                    <input type="text" placeholder='Enter Milestone title' className='w-2/3 mx-10 my-4 h-8 px-4 rounded-xl py-6'/>
-                                                </div>
-                                                <div className='flex items-center'>
-                                                    <span>Description</span>
-                                                    <input type="text" placeholder='Enter Description' className='w-2/3 mx-10 my-4 h-8 px-4 rounded-xl py-9'/>
-                                                </div>
-                                                <div className='flex items-center'>
-                                                    <span>Deliverables</span>
-                                                    <input type="text" placeholder='Enter Deliverables' className='w-2/3 mx-10 my-4 h-8 px-4 rounded-xl py-9'/>
-                                                </div>
-                                            </div>
-                                            <div className='w-full flex justify-end px-10 text-white'>
-                                                <button className='bg-sky-700 px-2 py-3 rounded-3xl w-40 text-xl'>Submit</button>
-                                            </div>
+
+                                        <div className='w-full flex justify-end px-10 text-white'>
+                                            <button className='bg-sky-700 px-2 py-3 rounded-3xl w-40 text-xl' onClick={handleSubmit} >Submit</button>
                                         </div>
                                     </div>
+
                                 </>
                         }
 

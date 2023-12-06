@@ -38,7 +38,7 @@ const OnBoarding = () => {
     const isNewUser = getCookie("newUser")
     console.log(isNewUser)
     if (isNewUser === "false") {
-      router.push('/marketplace')
+      router.push('/home')
     }
     else if (isNewUser === "true") {
       router.push("/onboarding2")
@@ -126,7 +126,7 @@ const OnBoarding = () => {
         <div className="flex ">
           <h1 className="text-base font-normal text-black font-inter">
             Already have an account  ?
-            <span className="text-blue-600 font-semibold p-2" onClick={handleCreateAccount}>Log In</span>
+            <span className="text-blue-600 font-semibold p-2 cursor-pointer" onClick={handleCreateAccount}>Log In</span>
           </h1>
         </div>
       </div>
