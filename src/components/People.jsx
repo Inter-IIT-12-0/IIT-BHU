@@ -22,7 +22,6 @@ const People = () => {
     useEffect(() => {
         axios.get('/api/allusers/')
             .then(res => { // Log the response to the console
-                console.log("hello");
                 
                 setUser(res.data.filter(person => person.role === role));
                 setFilteredPeople(res.data.filter(person => person.role === role));

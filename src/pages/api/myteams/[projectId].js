@@ -16,10 +16,10 @@ const handler = async (req, res) => {
             select: '-__v',
             populate: {
                 path: 'assignedBy',
-                select: '-__v'
+                select: '-email -role -fees -aiTools -aiToolsLimit'
             }
         })
-        .populate('teamUserMap.user', '-__v');
+        .populate('teamUserMap.user', '-email -role -fees -projects -aiTools -aiToolsLimit');
         return res.status(200).json(teams);
     } else {
         res.status(405).json({ error: 'Method Not Allowed' });

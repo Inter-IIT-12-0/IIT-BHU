@@ -35,20 +35,11 @@ const handler = async (req, res) => {
                     path: 'teamUserMap',
                     populate: {
                         path: 'user',
-                        select: '-__v'
+                        select: '-__v -email -role -fees -sectorName -companyName -aiTools -aiToolsLimit'
                     }
                 }
             })
-                // .populate({
-                //     path: 'Team',
-                //     select: '-__v',
-                //     populate: {
-                //         path: 'user',
-                //         select: '-__v'
-                //     }
-                // })
-                // .populate('user', '-__v')
-                .populate('assignedBy','-__v').populate('assignedTeam','-__v')
+                .populate('assignedBy','-email -role -fees -projects -aiTools -aiToolsLimit')
             if (!projects) {
                 res.status(404).json({ error: 'Project not found' });
                 return;

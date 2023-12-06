@@ -19,7 +19,6 @@ const handler = async (req, res) => {
       case 'GET':
         try {
           if (req.query.id) {
-            console.log("hello");
             const university = await University.find({ "_id": req.query.id }, '-_id -__v').populate('members', '-__v').populate('professors', '-__v').populate('projects', '-__v').populate('alumni','-__v').populate('student','-__v')
             res.status(200).json(university);
           }

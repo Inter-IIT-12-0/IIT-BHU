@@ -5,6 +5,7 @@ import Trumio_logo from "../../public/Images/Trumio_Logo.svg"
 import Trumio_text from "../../public/Images/Trumio_text.svg"
 import { useSession } from "next-auth/react"
 import Link from "next/link"
+import Footer from "./Footer"
 
 const Navbar = () => {
   const { data: session } = useSession()
@@ -29,6 +30,7 @@ const Navbar = () => {
 
           </img></Link>
         }
+        <Footer />
       </div>
     </div>
   )
