@@ -353,6 +353,30 @@ const ProjectNameComp = () => {
     //     return ele.teamName + " " + ele.proposal.bidAmount + "" + ele.status;
     // })
 
+    // Sample projects
+// Sample projects
+// Sample projects
+const projects = [
+    { teamUserMap: [{_id: '62357d6sa76'}, {_id: '45357d6sa76'}, {_id: '56357d6sa76'}] },
+    { teamUserMap: [{_id: '12357d6sa76'}, {_id: '22357d6sa76'}, {_id: '32357d6sa76'}] },
+    { teamUserMap: [{_id: '42357d6sa76'}, {_id: '52357d6sa76'}, {_id: '62357d6sa76'}] },
+    { teamUserMap: [{_id: '72357d6sa76'}, {_id: '82357d6sa76'}, {_id: '92357d6sa76'}] },
+    { teamUserMap: [{_id: '32357d6sa76'}, {_id: '22357d6sa76'}, {_id: '12357d6sa76'}] }
+  ];
+  
+  // Target userId to search
+//   const targetUserId = '62357d6sa76';
+  
+//   // Filter projects containing the target userId
+//   const projectsContainingUserId = projects.filter(project =>
+//     project.teamUserMap.some(user => user._id === targetUserId)
+//   );
+  
+//   console.log(projectsContainingUserId);
+  
+  
+  
+
 
     const [allTeamsData, setAllTeamsData] = useState(null);
     const [bidAmount, setBidAmount] = useState(null);
@@ -371,17 +395,24 @@ const ProjectNameComp = () => {
         fetchData(); // Call the async function
     }, []);
 
-    const mtdata = allTeamsData && allTeamsData
+    const test_user_id = '656af2a4acba1f116ca953e6';
+  
+    // Filter teams containing the target userId
+    const teams = allTeamsData && allTeamsData.filter(project =>
+      project.teamUserMap.some(ele => ele.user._id === test_user_id)
+    );
+
+    const mtdata = teams && teams
         .filter((ele) => ele._id === teamId) // Filter by teamName
         .map((ele) => {
             return ele.teamUserMap
         });
         
-
+        console.log("recieved teams are:",teams);
     // console.log("team name is", myData);
 
 
-    const Recieved = allTeamsData && allTeamsData.length;
+    const Recieved = teams && teams.length;
 
     return (
         <>
@@ -421,7 +452,7 @@ const ProjectNameComp = () => {
                             <img src="/Images/refresh-2.svg" className="mt-10" alt="" />
                         </div>
                         <div className="flex flex-col mt-6">
-                            <div className="w-full px-4 py-3 bg-blue-900 flex justify-between">
+                            <div className="w-full px-4 py-3 bg-blue-900 grid grid-cols-6">
                                 <h1 className="text-white text-1x1 font-semibold">Ranking</h1>
                                 <h1 className="text-white text-1x1 font-semibold">Team Name</h1>
                                 <h1 className="text-white text-1x1 font-semibold">Bid Amount</h1>
@@ -429,8 +460,8 @@ const ProjectNameComp = () => {
                                 <h1 className="text-white text-1x1 font-semibold">Status</h1>
                                 <h1 className="text-white text-1x1 font-semibold">View</h1>
                             </div>
-                            {allTeamsData && allTeamsData.map((ele, index) => {
-                                return <div className="flex justify-between px-6 py-4 bg-white">
+                            {teams && teams.map((ele, index) => {
+                                return <div className="grid grid-cols-6 px-6 py-4 bg-white">
                                     <h1 className="text-black font-semibold pt-1">{index+1}</h1>
                                     <div className="flex flex-row">
                                         <img className="h-9 mr-4" src="/Images/newElipse.svg" alt="" />

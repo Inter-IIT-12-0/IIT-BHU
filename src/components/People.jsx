@@ -19,16 +19,27 @@ const People = () => {
     const [role, setRole] = useState('Student');
 
     const [filteredPeople, setFilteredPeople] = useState(users);
-    useEffect(() => {
-        axios.get('/api/allusers/')
-            .then(res => { // Log the response to the console
-                console.log("hello");
+    
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('/api/allusers/');
+                setUser(response.data.filter(person => person.role === role));
+                setFilteredPeople(response.data.filter(person => person.role === role));
+            } catch (error) {
+                console.log("error is:",error);
+            }
+        }
+        // axios.get('/api/allusers/')
+        //     .then(res => { // Log the response to the console
+        //         console.log("hello");
                 
-                setUser(res.data.filter(person => person.role === role));
-                setFilteredPeople(res.data.filter(person => person.role === role));
+        //         setUser(res.data.filter(person => person.role === role));
+        //         setFilteredPeople(res.data.filter(person => person.role === role));
 
-            })
-            .catch(err => console.log(err));
+        //     })
+        //     .catch(err => console.log(err));
+    useEffect(() => {
+        fetchData();
 
     }, []);
 
@@ -102,15 +113,15 @@ const People = () => {
         <>
         {!onUniversity && (<div className='flex-col flex w-300 pt-8 px-6 overflow-x-hidden'>
             <div className='flex flex-row'>
-                <div className='flex flex-row my-6 mr-6 border border-slate-200 py-4 pl-4 pr-10 cursor-pointer rounded-xl'>
+                <div className={`flex flex-row my-6 mr-6 border border-slate-200 py-4 pl-4 pr-10 cursor-pointer rounded-xl ${role === 'Student' ? 'bg-blue-200' : ''}`}>
                     <img className='h-6 mx-3 my-2' src="/Images/newElipse.svg" alt="" />
-                    <h1 className='text-black text-1x1 font-semibold rounded-md border-slate-400' onClick={() => {setRole('Student')}}>Talent</h1>
+                    <h1 className='text-black text-1x1 font-semibold rounded-md border-slate-400' onClick={() => {setRole('Student'); fetchData()}}>Talent</h1>
                 </div>
-                <div className='flex flex-row m-6 border border-slate-200 py-4 pl-4 pr-10 cursor-pointer rounded-xl'>
+                <div className={`flex flex-row my-6 mr-6 border border-slate-200 py-4 pl-4 pr-10 cursor-pointer rounded-xl ${role === 'Client' ? 'bg-blue-200' : ''}`}>
                     <img className='h-6 mx-3 my-2' src="/Images/newElipse.svg" alt="" />
-                    <h1 className='text-black text-1x1 font-semibold rounded-md border-slate-400 ' onClick={() => {setRole('Client')}}>Client</h1>
+                    <h1 className='text-black text-1x1 font-semibold rounded-md border-slate-400 ' onClick={() => {setRole('Client'); fetchData();}}>Client</h1>
                 </div>
-                <div className='flex flex-row m-6 border border-slate-200 py-4 pl-4 pr-10 cursor-pointer rounded-xl'>
+                <div className={`flex flex-row my-6 mr-6 border border-slate-200 py-4 pl-4 pr-10 cursor-pointer rounded-xl ${role === 'University' ? 'bg-blue-200' : ''}`}>
                     <img className='h-6 mx-3 my-2' src="/Images/newElipse.svg" alt="" />
                     <h1 className='text-black text-1x1 font-semibold rounded-md border-slate-400' onClick={() => {setOnUniversity(true)}}>University</h1>
                 </div>
