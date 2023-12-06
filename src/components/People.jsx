@@ -39,7 +39,14 @@ const People = () => {
         //     })
         //     .catch(err => console.log(err));
     useEffect(() => {
-        fetchData();
+        axios.get('/api/allusers/')
+            .then(res => { // Log the response to the console
+                
+                setUser(res.data.filter(person => person.role === role));
+                setFilteredPeople(res.data.filter(person => person.role === role));
+
+            })
+            .catch(err => console.log(err));
 
     }, []);
 

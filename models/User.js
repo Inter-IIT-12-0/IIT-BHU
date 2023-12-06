@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const LanguageEnum = ['English', 'Spanish', 'French', 'German'];
 const DomainEnum = ['UX/UI Designer', 'Developer'];
-const RoleEnum = ['Student', 'Client'];
+const RoleEnum = ['Student', 'Client', 'Professor'];
 const DaysEnum = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 const statusEnum = ['certified', 'Incomplete']
 import Project from "./Project";
@@ -37,35 +37,18 @@ const EarningStatsSchema = new mongoose.Schema({
 const UserSchema = new mongoose.Schema({
     name: { type: String },
     avatarUrl: { type: String },
-    mobileNumber: { type: String },
     email: { type: String, unique: true, required: true },
-    tagline: { type: String },
-    workExperienceYears: { type: Number },
-    workExperienceMonths: { type: Number },
-    professionalIntroduction: { type: String },
-    domain: { type: String, enum: DomainEnum },
+    domain: { type: [String], enum: DomainEnum, default: [] },
     role: { type: String, enum: RoleEnum },
-    languages: [{ type: String, enum: LanguageEnum }],
     companyName: { type: String },
     sectorName: { type: String },
     institute: { type: String },
-    occupation: { type: String },
-    currentAddress: {
-        streetAddress: { type: String },
-        houseNumber: { type: String },
-        zipCode: { type: String },
-        country: { type: String },
-        state: { type: String },
-        city: { type: String }
-    },
-    educationDetails: [EducationSchema],
     expertise: {
         tools: [{ type: String }],
         certificates: [{ type: String }],
         skills: [{ type: String }]
     },
     preferredTimeZone: { type: String },
-    daysAvailable: { type: String, enum: ['Weekdays', 'Weekends'] },
     availableDays: { type: [{ type: String, enum: DaysEnum }] },
     startTime: { type: String },
     endTime: { type: String },
@@ -78,7 +61,6 @@ const UserSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Project'
     }],
-    lastLogin: { type: Date },
     paymentsCompleted: { type: Number, default: 0 },
     projectsPosted: { type: Number, default: 0 },
     rating: { type: Number, default: 0 },

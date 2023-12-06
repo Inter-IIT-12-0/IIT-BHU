@@ -40,7 +40,7 @@ const Milestone = () => {
           >
             <div
               className={`absolute w-3 h-3 ${
-                milestone.isCompleted ? "bg-green-500" : "bg-red-600"
+                milestone.status === "Completed" ? "bg-green-500" : "bg-red-600"
               } rounded-full mt-1.5 -start-1.5 border border-white dark:border-gray-900 dark:bg-gray-700 ${
                 hoveredIndex === index ? "hovered" : ""
               }`}
@@ -72,7 +72,7 @@ const Milestone = () => {
                     {subMilestone.heading}
                   </h3>
                   <time className=" text-xs font-normal leading-none text-gray-400 dark:text-gray-500">
-                    {subMilestone.isCompleted
+                    {subMilestone.status === "Completed"
                       ? `Completed`
                       : `Not Completed`}
                   </time>

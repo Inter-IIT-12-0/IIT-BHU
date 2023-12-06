@@ -98,17 +98,6 @@ const SubMilestoneCard = ({ submilestone, setSelectedSubmilestone, project, setT
           </p>
 
           <h1 className="text-black font-Lato text-xl font-medium leading-normal tracking-tight mt-4" style={{ "letterSpacing": 0.7 }}>Dates</h1>
-          <p className="text-zinc-500 font-Lato text-xl leading-normal tracking-tight" style={{ letterSpacing: '0.7px' }}>
-            {(new Date(submilestone.startDate)).toLocaleDateString('en-US', {
-              day: 'numeric',
-              month: 'long',
-              year: 'numeric'
-            })} - {(new Date(submilestone.endDate)).toLocaleDateString('en-US', {
-              day: 'numeric',
-              month: 'long',
-              year: 'numeric'
-            })}
-          </p>
 
           <h1 className="text-black mt-6 mb-5 font-Lato text-2xl font-medium leading-normal tracking-tight " style={{ "letterSpacing": 0.7 }}>CONNECTED APPS</h1>
           {/* Cards */}
