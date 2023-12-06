@@ -1,7 +1,29 @@
 import React from 'react'
 import Send_Icon from "../../public/Images/Send_Icon.svg"
-
+import summariseActivity from "../../src/pages/api/GPT/summariseActivity"
+import { useEffect } from 'react'
 const ActivityBar = ({ activities }) => {
+
+
+    const modifiedActivityArray = activities.map((activity) => ({
+        type: activity.type,
+        user: activity.user,
+        message: activity.message,
+        subMilestoneTitle: activity.submilestone.title,
+      }));
+
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const response =await summariseActivity(modifiedActivityArray);
+            console.log(response);
+            
+          } catch (error) {
+            console.error('Error fetching data:', error);
+          }
+        };
+        fetchData();
+      }, []);
     return (
         <div className='w-96 h-[82vh] bg-indigo-50 flex flex-col absolute right-[94px] -mr-3 top-0 justify-between pb-4 rounded-bl-3xl'>
             <div className='pl-8'>

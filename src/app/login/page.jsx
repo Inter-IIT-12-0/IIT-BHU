@@ -4,14 +4,15 @@ import { useSession, signIn, signOut } from "next-auth/react";
 
 // import { CometChatUIKit } from "@cometchat/chat-uikit-react";
 import axios from 'axios';
+import { deleteCookie } from 'cookies-next';
 // import { CometChat } from "@cometchat/chat-sdk-javascript";
 
 
 const login = () => {
     const { data: session } = useSession();
     
-    useEffect(() => {
-    },[])
+    // useEffect(() => {
+    // },[])
     return (
         <main className="flex">
             {session ? (
@@ -23,13 +24,18 @@ const login = () => {
                         //     console.log("Logged Out");
                         //     // signOut();
                         // })
+                        deleteCookie("role")
+                        deleteCookie("newUser")
                         signOut()
                         // Comet
                     }
                     }>Sign Out</button>
                 </>
             ) : (
-                <button onClick={() => signIn('google')} > Sign In </button>
+                <button onClick={() => {
+                    console.log("CLicked")
+                    signIn('google')
+                }} > Sign in </button>
             )}
         </main>
     )

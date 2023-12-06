@@ -6,9 +6,12 @@ const toolsEnum = ['Tool1', 'Tool2', 'Tool3', 'Tool4', 'Tool5'];
 const languagesEnum = ['English', 'French', 'Spanish', 'German', 'Other'];
 
 const milestoneSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  deliverableDetails: { type: String, required: true },
-  description: { type: String }
+  cost: {type: Number},
+  duration: {type: Number},
+  files: {type: String},
+  title: { type: String },
+  description: { type: String },
+  deliverables: { type: String }
 });
 
 const proposalSchema = new mongoose.Schema({
@@ -16,10 +19,7 @@ const proposalSchema = new mongoose.Schema({
   acceptanceProbability: { type: Number },
   bidAmount: { type: Number },
   startDate: { type: Date },
-  milestones: [milestoneSchema],
-  files: {
-    type: [Buffer]
-  }
+  milestones: [milestoneSchema]
 });
 
 const teamUserMap = new mongoose.Schema({
@@ -103,7 +103,8 @@ const teamSchema = new mongoose.Schema({
   proposal: proposalSchema,
   teamUserMap: [teamUserMap],
   project: { type: mongoose.Schema.Types.ObjectId, ref: 'Project', required: true },
-  status: { type: String, enum: ['In Proposal', 'Pending', 'Accepted'], default: 'In Proposal' },
+  status: { type: String, enum: ['In Proposal', 'Pending', 'Accepted', 'Reviewed'], default: 'In Proposal' },
+  rating: {type: Number}
 });
 
 const Team =  mongoose.models.Team || mongoose.model("Team", teamSchema);

@@ -5,8 +5,15 @@ import Project from "../../../models/Project";
 const handler = async (req, res) => {
     if (req.method === 'POST') {
         try {
-            const project = new Project(req.body);
-            const savedProject = await project.save();
+            let data = req.body
+            if (req.files && req.files.file) {
+                const fileBuffer = Buffer.from(req.files.file.data);
+                data.clientRequirements.files = [];
+                data.clientRequirements.files.push(fileBuffer);
+            }
+            const project = new Project(data);
+            console.log(data, project)
+            // const savedProject = await project.save();
             res.status(201).json(savedProject);
         } catch (error) {
             console.error(error);

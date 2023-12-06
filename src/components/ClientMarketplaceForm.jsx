@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Form1 from './ClientMarketPlace';
+import Form1 from './ClientMarketplace';
 
 const ClientForm = () => {
     const [form,setForm] = useState(1);

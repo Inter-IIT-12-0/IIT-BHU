@@ -1,25 +1,61 @@
 "use client";
 
+import axios from "axios";
+import { signIn } from "next-auth/react";
+import { getCookie, setCookie } from "cookies-next"
 // components/GlassyCard.js
+import { useRouter } from 'next/navigation'
 
-import { useState } from "react";
+
+import { useEffect, useState } from "react";
 
 const OnBoarding = () => {
+  const router = useRouter()
   const [selectedCard, setSelectedCard] = useState(1);
   const handleCardClick = (cardNumber) => {
     setSelectedCard(cardNumber);
   };
+  const [loggedIn, setLoggedin] = useState(false)
+
+  const handleCreateAccount = async () => {
+    let role = (selectedCard === 1 ? 'Student' : selectedCard === 2 ? 'Client': 'Professor')
+    setCookie("role", role);
+    signIn('google', {role: role} )
+    // setTimeout(() => {
+    //   const isNewUser = getCookie("newUser")
+    //   if (isNewUser) {
+    //     router.push('/onboarding2')
+    //   }
+    //   else {
+    //     router.push('/home')
+    //   }
+    // }, 5000)
+
+    // axios.get('/api/auth/signin/google').then(res => console.log(res)).catch(console.log)
+  }
+
+  useEffect(() => {
+    const isNewUser = getCookie("newUser")
+    console.log(isNewUser)
+    if (isNewUser === "false") {
+      router.push('/home')
+    }
+    else if (isNewUser === "true") {
+      router.push("/onboarding2")
+    }
+  }, [])
 
   return (
-    <div className="flex justify-center items-center w-100">
-      <div className="glass-card bg-white bg-opacity-80 rounded-md p-8 shadow-lg">
+    <div className="bg-cover bg-center h-screen" style={{"backgroundImage": "url('./Rectangle.png')"}}>
+    <div className="flex justify-center items-center w-100 ">
+      <div className="glass-card bg-white bg-opacity-80 rounded-md p-8 shadow-lg mt-20">
         <h1 className="text-2xl font-medium leading-normal text-black-600 font-helvetica-neue text-center mb-12">
           You are Joining in as
         </h1>
         <div className="flex space-x-4">
           {/* Subcard 1 */}
           <label
-            className={`flex-1 cursor-pointer relative p-4 m-2 rounded-lg hover:shadow-md w-30  transition ${
+            className={`flex-1 cursor-pointer relative p-4 m-2 rounded-lg hover:shadow-md w-64  transition ${
               selectedCard === 1 ? "border-2 border-blue-500" : ""
             }`}
             onClick={() => handleCardClick(1)}
@@ -34,20 +70,20 @@ const OnBoarding = () => {
                 readOnly
               />
             </div>
-            <h1 className="text-2xl font-medium leading-normal text-blue-600 font-helvetica-neue mb-6">
-              Your Heading Text
+            <h1 className="text-2xl font-medium leading-normal text-black font-helvetica-neue mb-6">
+              Learner, here to upskill myself
             </h1>
           </label>
 
           {/* Subcard 2 */}
           <label
-            className={`flex-1 cursor-pointer relative p-4 m-2 rounded-lg hover:shadow-md w-30  transition ${
+            className={`flex-1 cursor-pointer relative p-4 m-2 rounded-lg hover:shadow-md w-64  transition ${
               selectedCard === 2 ? "border-2 border-blue-500" : ""
             }`}
             onClick={() => handleCardClick(2)}
           >
             <div className="flex">
-              <img src="/Learner.svg" className="mr-6"></img>
+              <img src="/24.png" className="mr-6"></img>
               <input
                 type="radio"
                 name="subcard"
@@ -56,20 +92,20 @@ const OnBoarding = () => {
                 readOnly
               />
             </div>
-            <h1 className="text-2xl font-medium leading-normal text-blue-600 font-helvetica-neue">
-              Your Heading Text
+            <h1 className="text-2xl font-medium leading-normal text-black font-helvetica-neue">
+              Industry, scouting talent for a project
             </h1>
           </label>
 
           {/* Subcard 3 */}
           <label
-            className={`flex-1 cursor-pointer relative p-4 m-2 rounded-lg hover:shadow-md w-30 mr-16 transition ${
+            className={`flex-1 cursor-pointer relative p-4 m-2 rounded-lg hover:shadow-md w-64 mr-16 transition ${
               selectedCard === 3 ? "border-2 border-blue-500" : ""
             }`}
             onClick={() => handleCardClick(3)}
           >
             <div className="flex">
-              <img src="/Learner.svg" className="mr-6"></img>
+              <img src="/young.png" className="mr-6"></img>
               <input
                 type="radio"
                 name="subcard"
@@ -78,23 +114,24 @@ const OnBoarding = () => {
                 readOnly
               />
             </div>
-            <h1 className="text-2xl font-medium leading-normal text-blue-600 font-helvetica-neue">
-              Your Heading Text
+            <h1 className="text-2xl font-medium leading-normal text-black font-helvetica-neue">
+              University, willing to work
             </h1>
           </label>
         </div>
         <div className="flex flex-col justify-center items-center p-4">
-        <button className="w-44 bg-gradient-to-br from-blue-500 via-blue-400 to-aqua-500 text-white py-2 px-4 rounded shadow-md hover:shadow-lg focus:outline-none focus:ring focus:border-blue-300 transition-all duration-300 mb-4">
-          Click me
+        <button className="w-44 bg-gradient-to-br from-blue-500 via-blue-500 to-aqua-700 text-white py-2 px-4 rounded shadow-md hover:shadow-lg focus:outline-none focus:ring focus:border-blue-300 transition-all duration-300 mb-4" onClick={handleCreateAccount}>
+          Create Account
         </button>
         <div className="flex ">
           <h1 className="text-base font-normal text-black font-inter">
             Already have an account  ?
-            <span className="text-blue-600 font-semibold p-2">Log In</span>
+            <span className="text-blue-600 font-semibold p-2 cursor-pointer" onClick={handleCreateAccount}>Log In</span>
           </h1>
         </div>
       </div>
       </div>
+    </div>
     </div>
   );
 };
