@@ -206,8 +206,8 @@ const Project = ({ project, setOpenedProj }) => {
                                 <div className="w-72 h-16 bg-zinc-300 flex justify-evenly items-center mt-3 ml-3" >
                                     {
                                         days.map(day => (
-                                            <div className='flex flex-col items-center' key={day}>
-                                                <div className={`w-3.5 h-3.5 rounded-full ${project.clientRequirements.workDays.includes(day) ? 'bg-white border border-gray-400' : 'bg-red-500'}`} />
+                                            <div className={`flex flex-col items-center ${day === "Fri" && "pr-4 border-r-2 border-zinc-400"}`} key={day}>
+                                                <div className={`w-3.5 h-3.5 rounded-full ${project.clientRequirements.workDays.includes(day) ? 'bg-white border border-gray-400' : 'bg-green-500'}`} />
                                                 {day}
                                             </div>
                                         ))

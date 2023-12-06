@@ -1,21 +1,49 @@
 "use client";
 
+import axios from "axios";
 import { signIn } from "next-auth/react";
+import { getCookie, setCookie } from "cookies-next"
 // components/GlassyCard.js
+import { useRouter } from 'next/navigation'
 
-import { useState } from "react";
+
+import { useEffect, useState } from "react";
 
 const OnBoarding = () => {
+  const router = useRouter()
   const [selectedCard, setSelectedCard] = useState(1);
   const handleCardClick = (cardNumber) => {
     setSelectedCard(cardNumber);
   };
+  const [loggedIn, setLoggedin] = useState(false)
 
-  const handleCreateAccount = () => {
+  const handleCreateAccount = async () => {
     let role = (selectedCard === 1 ? 'Student' : selectedCard === 2 ? 'Client': 'Professor')
-    console.log(role);
-    signIn('google', null, {role: role} )
+    setCookie("role", role);
+    signIn('google', {role: role} )
+    // setTimeout(() => {
+    //   const isNewUser = getCookie("newUser")
+    //   if (isNewUser) {
+    //     router.push('/onboarding2')
+    //   }
+    //   else {
+    //     router.push('/home')
+    //   }
+    // }, 5000)
+
+    // axios.get('/api/auth/signin/google').then(res => console.log(res)).catch(console.log)
   }
+
+  useEffect(() => {
+    const isNewUser = getCookie("newUser")
+    console.log(isNewUser)
+    if (isNewUser === "false") {
+      router.push('/home')
+    }
+    else if (isNewUser === "true") {
+      router.push("/onboarding2")
+    }
+  }, [])
 
   return (
     <div className="bg-cover bg-center h-screen" style={{"backgroundImage": "url('./Rectangle.png')"}}>
@@ -98,7 +126,7 @@ const OnBoarding = () => {
         <div className="flex ">
           <h1 className="text-base font-normal text-black font-inter">
             Already have an account  ?
-            <span className="text-blue-600 font-semibold p-2">Log In</span>
+            <span className="text-blue-600 font-semibold p-2 cursor-pointer" onClick={handleCreateAccount}>Log In</span>
           </h1>
         </div>
       </div>

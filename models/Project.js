@@ -40,7 +40,7 @@ const clientRequirementsSchema = new mongoose.Schema({
   },
   workDays: { type: [String] },
   requiredTools: { type: [String] },
-  files: { type: [(String, Buffer)] }
+  files: { type: Buffer }
 });
 const subMilestoneSchema = new mongoose.Schema({
   title: { type: String, required: true },
