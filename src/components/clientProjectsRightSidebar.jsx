@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import axios from "axios";
 
 const ClientProjectsRightSidebar = ({mtdata}) => {
     console.log("mt data is:", mtdata);
@@ -11,7 +12,7 @@ const ClientProjectsRightSidebar = ({mtdata}) => {
         const fetchData = async () => {
             try {
                 const response = await axios.get('http://localhost:3000/api/allteams/');
-                setAllTeamsData(response.data);
+                // setAllTeamsData(response.data);
                 console.log(`Data is:`, response.data);
             } catch (error) {
                 console.error("Error is:", error);
@@ -31,7 +32,7 @@ const ClientProjectsRightSidebar = ({mtdata}) => {
             <div className="bg-white rounded-md p-4 mt-8">
                 <h1 className="text-black font-semibold text-2xl">Team Members</h1>
                 <div className="rounded-full bg-black w-full h-px my-3"></div>
-                {myData && myData.map((ele) => {
+                {mtdata && mtdata.map((ele) => {
                     console.log("element is:",ele.user)
                     return <div>
                          {ele.map((ele) => {
