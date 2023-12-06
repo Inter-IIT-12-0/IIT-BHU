@@ -69,7 +69,7 @@ const ClientProjectComponent = ({ teamId, bidAmount }) => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {ele.proposal.milestones.map((milestone, index) => (
+                                {ele.assignedTeam.proposal.milestones.map((milestone, index) => (
                                     <tr key={index} className="border-t">
                                         <td className="py-2 px-6">{index + 1}</td>
                                         <td className="py-2 px-6">{milestone.name}</td>
