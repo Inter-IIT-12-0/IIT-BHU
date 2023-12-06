@@ -56,7 +56,7 @@ function Slider({users}) {
                           </div>
                         </div>
                         <div className='flex justify-center items-center px-auto'>
-                            <button className='py-1 px-6 rounded-full bg-blue-800'>View Profile</button>
+                            <button className='py-1 px-6 rounded-full bg-sky-400 text-white'>View Profile</button>
                         </div>
                     </div>
                     

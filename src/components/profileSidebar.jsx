@@ -6,7 +6,7 @@ const ProfileSidebar = ({name, occupation, institute, tools, skills, professiona
     // <ProfileSidebar key={ele.email + "user"} name={ele.name} occupation = {ele.occupation} institute = {ele.institute} tools = {ele.tools} skills = {ele.skills} professionalInto = {ele.professionalIntroduction} />
 
     return (
-        <div className="h-[100%] w-72 bg-white shadow-2xl pb-3 flex flex-col z-20 pt-28">
+        <div className="h-[80vh] overflow-scroll overflow-y-auto overflow-x-hidden w-72 bg-white shadow-2xl pb-3 flex flex-col z-20 pt-28">
             <div>
             <div className="justify-center items-center text-center">
                 <h1 className="text-center font-Lato text-Text-Black text-3xl font-semibold mt-8">{name}</h1>
