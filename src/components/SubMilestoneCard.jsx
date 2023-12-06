@@ -52,7 +52,7 @@ const SubMilestoneCard = ({ submilestone, setSelectedSubmilestone, project, setT
 
           <h1 className="text-black mt-6 mb-5 font-Lato text-2xl font-medium leading-normal tracking-tight" style={{ "letterSpacing": 0.7 }}>CONNECTED APPS</h1>
           {/* Cards */}
-          <div className="flex space-x-4 pl-5">
+          <div className="flex space-x-4 pl-5 max-w-[1300px] overflow-scroll overflow-x-auto overflow-y-hidden">
             {project.connectedApps.map((connectedApp, index) => (
               <div key={index} className="flex-shrink-0 w-1/3 bg-gray-200 p-8" style={{ "width": "200px", borderRadius: 28 }}>
                 {/* Card Image */}

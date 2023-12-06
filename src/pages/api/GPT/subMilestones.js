@@ -8,19 +8,18 @@ async function generateMessages(milestones) {
   const messages = [
     {
       role: "system",
-      content: `Divide the given milestones into multiple sub-tasks to be done, to be used as a checklist. Milestone 0 is "Start of the Project". Return your response as a JSON containing Milestone, its description, under it, submilestone with its description and iscompleted property for each submilestone, set to false. 
+      content: `Divide the provided milestones into detailed sub-tasks to create a comprehensive checklist. Produce a JSON response containing each milestone, accompanied by its description. For each milestone, include a list of submilestones with their descriptive descriptions and an "iscompleted" property set to false for each submilestone. Ensure that the number of milestones in the output matches the number of unique milestones provided by the user and does not exceed that count. The response should strictly adhere to the JSON format, and no other text should be included.
       No text other than JSON. Return JSON structure is as follows:
       
       {
         "Milestone 0": {
-          "Description": "....,",
           "Submilestones": [
             {
-              "Description": "....",
+              "work": "....",
               "IsCompleted": false
             },
             {
-              "Description": "....",
+              "work": "....",
               "IsCompleted": false
             },
             ]

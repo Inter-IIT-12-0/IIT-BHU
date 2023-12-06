@@ -42,12 +42,11 @@ const clientRequirementsSchema = new mongoose.Schema({
   requiredTools: { type: [String] },
   files: { type: Buffer }
 });
-const subMilestoneSchema = new mongoose.Schema({
+export const subMilestoneSchema = new mongoose.Schema({
   title: { type: String, required: true },
   isCompleted: { type: Boolean, default: false },
   status: { type: String, enum: statusEnum },
-  dueDate: { type: Date, required: true },
-  assignedTo: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  assignedTo: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required:false },
   description: { type: String, required: true },
   startDate: { type: Date },
   endDate: { type: Date },
