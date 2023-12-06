@@ -30,7 +30,7 @@ const clientRequirementsSchema = new mongoose.Schema({
   requiredTools: { type: [String] },
   files: { type: [workSchema] }
 });
-const subMilestoneSchema = new mongoose.Schema({
+export const subMilestoneSchema = new mongoose.Schema({
   title: { type: String, required: true },
   status: { type: String, enum: statusEnum, default: 'Not Started' },
   description: { type: String, required: true },
