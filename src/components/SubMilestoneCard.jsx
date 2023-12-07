@@ -64,7 +64,7 @@ const SubMilestoneCard = ({ submilestone, setSelectedSubmilestone, project, setT
       const { data: existingProject } = await axios.get(`/api/project/${project._id}`);
       existingProject.work.push({ nam,link });
       existingProject.activities.push({submilestone,type:'CREATE',timestamp:Date.now(),user:session.user._id,message:"Added the file" + nam +"in the submilestone by giving its URL"});
-      const response = await axios.put(`/api/project/${project._id}`, existingProject);
+      const response = await axios.patch(`/api/project/${project._id}`, existingProject);
     } catch (error) {
       console.error('Error submitting data:', error.message);
     }

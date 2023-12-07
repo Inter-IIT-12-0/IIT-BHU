@@ -1,6 +1,7 @@
 import React from "react";
 import Navbar from "../../components/Navbar";
 import StudentSidebar from "../../components/StudentSidebar";
+import SidebarUpskilling from "../../components/SidebarUpskilling";
 
 const Mentorship = () => {
 
@@ -15,8 +16,8 @@ const Mentorship = () => {
         <div>
             <Navbar />
             <div className="flex flex-row">
-                <StudentSidebar />
-                <div className="flex flex-col w-[100%] p-8">
+                <SidebarUpskilling page={"courses"} />
+                <div className="flex flex-col w-[100%] p-8 max-h-[90vh] overflow-scroll overflow-y-auto overflow-x-hidden">
                     <div className="flex flex-col w-[100%]">
                         <div className="relative w-[40%]">
                             <div className="absolute inset-y-0 top-2 flex pl-3 pointer-events-none">
@@ -44,7 +45,6 @@ const Mentorship = () => {
                     <div className="flex flex-row mt-6">
                         <div className="py-2 px-6 rounded-xl shadow-lg mr-4 bg-blue-300">All</div>
                         <div className="py-2 px-6 rounded-xl shadow-lg mr-4 bg-white">Recommended</div>
-                        <div className="py-2 px-6 rounded-xl shadow-lg mr-4 bg-white">College</div>
                         <div className="py-2 px-6 rounded-xl shadow-lg mr-4 bg-white">Domains</div>
                     </div>
                     <div className="flex flex-row flex-wrap">
