@@ -13,41 +13,37 @@ import Slider from './slider';
 
 const People = () => {
     const [activeIndex, setActiveIndex] = useState(0);
-    const [users, setUser] = useState([]);
+    const [users, setUser] = useState(null);
     const [domain, setDomain] = useState('');
     const [type, setType] = useState('');
-    const [role, setRole] = useState('Student');
+    const [role, setRole] = useState('Client');
+    const[state, setState] = useState(true);
 
     const [filteredPeople, setFilteredPeople] = useState(users);
     
+    const fetchData2 = async () => {
+        try {
+            const response = await axios.get('/api/allusers/');
+            console.log("role is:",role);
+            setUser(response.data.filter(person => person.role === role));
+            setFilteredPeople(response.data.filter(person => person.role === role));
+        } catch (error) {
+            console.log("error is:",error);
+        }
+    }
+
+    useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await axios.get('/api/allusers/');
-                setUser(response.data.filter(person => person.role === role));
-                setFilteredPeople(response.data.filter(person => person.role === role));
+                console.log("role is:",role);
+                setUser(response.data.filter(person => person.role === 'Student'));
+                setFilteredPeople(response.data.filter(person => person.role === 'Student'));
             } catch (error) {
                 console.log("error is:",error);
             }
         }
-        // axios.get('/api/allusers/')
-        //     .then(res => { // Log the response to the console
-        //         console.log("hello");
-                
-        //         setUser(res.data.filter(person => person.role === role));
-        //         setFilteredPeople(res.data.filter(person => person.role === role));
-
-        //     })
-        //     .catch(err => console.log(err));
-    useEffect(() => {
-        axios.get('/api/allusers/')
-            .then(res => { // Log the response to the console
-                
-                setUser(res.data.filter(person => person.role === role));
-                setFilteredPeople(res.data.filter(person => person.role === role));
-
-            })
-            .catch(err => console.log(err));
-
+        fetchData();
     }, []);
 
     const [showDomainDropdown, setShowDomainDropdown] = useState(false);
@@ -73,7 +69,6 @@ const People = () => {
             setFilteredPeople(usersWithTargetDomain);
 
         }
-        // Perform any other actions based on the selected option
     };
 
     const handlePrevClick = () => {
@@ -120,13 +115,13 @@ const People = () => {
         <>
         {!onUniversity && (<div className='flex-col flex w-300 pt-8 px-6 overflow-x-hidden'>
             <div className='flex flex-row'>
-                <div className={`flex flex-row my-6 mr-6 border border-slate-200 py-4 pl-4 pr-10 cursor-pointer rounded-xl ${role === 'Student' ? 'bg-blue-200' : ''}`}>
+                <div className={`flex flex-row my-6 mr-6 border border-slate-200 py-4 pl-4 pr-10 cursor-pointer rounded-xl ${!state ? 'bg-blue-200' : ''}`}>
                     <img className='h-6 mx-3 my-2' src="/Images/newElipse.svg" alt="" />
-                    <h1 className='text-black text-1x1 font-semibold rounded-md border-slate-400' onClick={() => {setRole('Student'); fetchData()}}>Talent</h1>
+                    <h1 className='text-black text-1x1 font-semibold rounded-md border-slate-400' onClick={() => {setRole('Student'); fetchData2();  setFilteredPeople(null);  setState(false)}}>Client</h1>
                 </div>
-                <div className={`flex flex-row my-6 mr-6 border border-slate-200 py-4 pl-4 pr-10 cursor-pointer rounded-xl ${role === 'Client' ? 'bg-blue-200' : ''}`}>
+                <div className={`flex flex-row my-6 mr-6 border border-slate-200 py-4 pl-4 pr-10 cursor-pointer rounded-xl ${state ? 'bg-blue-200' : ''}`}>
                     <img className='h-6 mx-3 my-2' src="/Images/newElipse.svg" alt="" />
-                    <h1 className='text-black text-1x1 font-semibold rounded-md border-slate-400 ' onClick={() => {setRole('Client'); fetchData();}}>Client</h1>
+                    <h1 className='text-black text-1x1 font-semibold rounded-md border-slate-400 ' onClick={() => {setRole('Client'); setFilteredPeople(null); fetchData2(); setState(true)}}>Talent</h1>
                 </div>
                 <div className={`flex flex-row my-6 mr-6 border border-slate-200 py-4 pl-4 pr-10 cursor-pointer rounded-xl ${role === 'University' ? 'bg-blue-200' : ''}`}>
                     <img className='h-6 mx-3 my-2' src="/Images/newElipse.svg" alt="" />
@@ -331,7 +326,7 @@ const People = () => {
                                     <h3 className="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
                                         <a href="#">{person.name}</a>
                                     </h3>
-                                    <h1>Automatic Ventures</h1>
+                                    <h1>{role === 'Student' ? person.companyName : person.institute}</h1>
                                     <span className="text-gray-500 dark:text-gray-400">{person.domain}</span>
                                     {/* <p className="mt-3 mb-4 font-light text-gray-500 dark:text-gray-400">{person.email}</p> */}
                                     <ul className="flex space-x-4 sm:mt-0">
@@ -349,7 +344,7 @@ const People = () => {
                                 </div>
                                 <div className='flex flex-col py-5 justify-between h-full'>
                                     <h1>{person.rating}/5.0</h1>
-                                    <img src="/Images/Heart_Icon_UIA.svg" alt="" />
+                                    <img className='h-8' src="/Images/Heart_Icon_UIA.svg" alt="" />
                                 </div>
                             </div>
                         })}

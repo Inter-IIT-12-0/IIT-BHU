@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 
 const LanguageEnum = ['English', 'Spanish', 'French', 'German'];
-const DomainEnum = ['UX/UI Designer', 'Developer'];
-const RoleEnum = ['Student', 'Client', 'Professor'];
+const DomainEnum = ['UX/UI Designer', 'Developer', 'Product Management'];
+const RoleEnum = ['Student', 'Client'];
 const DaysEnum = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 const statusEnum = ['certified', 'Incomplete']
 import Project from "./Project";
@@ -64,6 +64,9 @@ const UserSchema = new mongoose.Schema({
     paymentsCompleted: { type: Number, default: 0 },
     projectsPosted: { type: Number, default: 0 },
     rating: { type: Number, default: 0 },
+    skillRating: { type: Number, default: 0},
+    collabRating: { type: Number, default: 0 },
+    numberOfFeedbacks: { type: Number },
     aiTools: [aiToolsSchema],
     aiToolsLimit: { type: Number, default: 3 },
     achievements: [AchievementSchema],
