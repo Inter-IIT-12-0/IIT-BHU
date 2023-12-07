@@ -69,7 +69,6 @@ const People = () => {
             setFilteredPeople(usersWithTargetDomain);
 
         }
-        // Perform any other actions based on the selected option
     };
 
     const handlePrevClick = () => {
@@ -327,7 +326,7 @@ const People = () => {
                                     <h3 className="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
                                         <a href="#">{person.name}</a>
                                     </h3>
-                                    <h1>Automatic Ventures</h1>
+                                    <h1>{role === 'Student' ? person.companyName : person.institute}</h1>
                                     <span className="text-gray-500 dark:text-gray-400">{person.domain}</span>
                                     {/* <p className="mt-3 mb-4 font-light text-gray-500 dark:text-gray-400">{person.email}</p> */}
                                     <ul className="flex space-x-4 sm:mt-0">
