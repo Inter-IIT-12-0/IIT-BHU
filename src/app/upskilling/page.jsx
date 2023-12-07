@@ -11,7 +11,6 @@ import Plus from "../../../public/Images/Plus.svg";
 import Link from "next/link";
 import Footer from "../../components/Footer";
 import RightCard from "../../components/RightCard";
-import StudentSidebar from "../../components/StudentSidebar"
 
 const Upskilling = () => {
   return (
@@ -19,7 +18,7 @@ const Upskilling = () => {
       <div className='flex flex-col w-full h-full'>
         <Navbar />
         <div className='flex w-full h-full'>
-          <StudentSidebar />
+          <SidebarUpskilling page="dashboard"/>
           <div className="flex flex-col max-h-[85vh] overflow-scroll overflow-y-auto overflow-x-hidden">
             <div className="w-[1200px] h-full bg-white rounded-2xl border border-zinc-300 relative top-24 pl-12 pt-4 flex flex-col justify-evenly pb-4 mx-5">
               <div className="text-black text-4xl font-medium font-['Helvetica Neue'] tracking-wide mb-3">

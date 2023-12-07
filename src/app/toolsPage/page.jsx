@@ -15,7 +15,7 @@ const ToolsPage = () => {
                 </div>
                 <div className="flex flex-row">
                     <div>
-                    <StudentSidebar />
+                    <SidebarUpskilling page="tools"/>
                     </div>
                     <ToolMaker/>
                 </div>

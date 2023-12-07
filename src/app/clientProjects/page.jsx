@@ -12,9 +12,9 @@ const clientProjects = () => {
         <div>
             <Navbar/>
             <div className="flex flex-row">
-                <StudentSidebar/>
-                <ProjectNameComp/>
-                {/* <ClientProjectComponent/> */}
+                <StudentSidebar page={"dashboard"}/>
+                {/* <ProjectNameComp/> */}
+                <ClientProjectComponent teamId={"6570f721da1fb728a85dea5f"} />
                 {/* <ClientProjectsRightSidebar/> */}
             </div>
         </div>

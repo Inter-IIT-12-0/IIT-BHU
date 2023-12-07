@@ -10,7 +10,7 @@ const ClientMarketPlace = () => {
         <div>
             <Navbar/>
             <div className="flex flex-row">
-            <StudentSidebar/>
+            <StudentSidebar page={"marketplace"}/>
             <ClientMarketPlaceComponent/>
             </div>
         </div>

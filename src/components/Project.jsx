@@ -148,7 +148,7 @@ const Project = ({ project, setOpenedProj }) => {
             }).then(res => {
                 console.log(res.data)
                 changedProject.assignedTeam = res.data._id
-                axios.put(`/api/project/${project._id}`, changedProject).then(res => console.log(res.data)).catch(console.log)
+                axios.patch(`/api/project/${project._id}`, changedProject).then(res => console.log(res.data)).catch(console.log)
                 router.push(`createBid/${project._id}`)
             })
         } catch (error) {

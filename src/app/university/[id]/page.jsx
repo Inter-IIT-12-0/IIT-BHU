@@ -104,7 +104,7 @@ const University = ({params}) => {
     <div>
       <Navbar />
       <div className="flex">
-        <StudentSidebar />
+        <StudentSidebar page={"people"}/>
         {uniData && uniData.map((ele) => {
           return <div className="max-h-[90vh] overflow-scroll overflow-y-auto overflow-x-hidden ml-4 mt-8" >
 

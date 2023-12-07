@@ -9,7 +9,7 @@ async function generateMessages(statement) {
     {
       role: "system",
       content: `The given statement is a problem statement given by a client so in order to allow the Talents to better understand the statement and the flow of the requirements elaborate the problem statement accordingly and provide the new problem statement which can include some technnical specifications as well, in JSON format only
-      No text other than JSON. Return JSON structure is as follows:
+      No text other than JSON. JSON should only contain the newstatement. And newstatement should be of string type only. Return JSON structure is as follows:
       {
         "newstatement":".........",
       }

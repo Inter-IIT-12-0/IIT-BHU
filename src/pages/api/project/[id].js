@@ -44,7 +44,7 @@ const handler = async (req, res) => {
             console.error(error);
             res.status(500).json({ error: 'Error retrieving projects' });
         }
-    } else if (req.method === 'PUT') {
+    } else if (req.method === 'PATCH') {
         const { id } = req.query;
 
         if (!id) {

@@ -5,10 +5,15 @@ import BackArrowIcon from "../../public/Images/BackArrow_Icon.svg"
 import { useSession } from 'next-auth/react';
 import toast from 'react-hot-toast';
 import axios from 'axios';
+import createStatement from '../pages/api/GPT/statementBreakdown';
+import Loading from './Loading';
+import {useRouter} from "next/navigation"
 
 const Form1 = () => {
     const { data: session } = useSession()
     const [progress, setProgress] = useState(33);
+    const [loading, setLoading] = useState(false)
+    const router = useRouter()
 
     const [formData, setFormData] = useState({
         title: '',
@@ -44,16 +49,24 @@ const Form1 = () => {
     };
 
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (progress != 99) {
+            if (progress === 33) {
+                setLoading(true);
+                const aiGen = await createStatement(JSON.stringify({
+                    title: formData.title,
+                    description: formData.description,
+                    skills:[formData.Skill1, formData.Skill2, formData.Skill3]
+                }))
+                let newFormData = {...formData}
+                newFormData.aiDescription = aiGen.newstatement
+                setFormData(newFormData)
+                setLoading(false);
+            }
             setProgress(prev => prev + 33);
         }
         else {
-            console.log(formData)
-            // const file = formData.files[0];
-            // const formData = new FormData();
-            // formData.append('file', file);
             const data = {
                 title: formData.title,
                 statement: formData.aiDescription,
@@ -77,6 +90,7 @@ const Form1 = () => {
             }
             axios.post('/api/project', data).then(res => {
                 toast.success('Project created successfully')
+                router.push("/marketplace")
             }).catch(err => {
                 toast.error(err.response.data.error)
             })
@@ -106,6 +120,9 @@ const Form1 = () => {
             </div> */}
 
             {/* Main modal */}
+            {
+                loading ? <Loading /> :
+            
             <div
                 tabIndex="-1"
                 aria-hidden="true"
@@ -285,9 +302,9 @@ const Form1 = () => {
                                                             required
                                                         /> */}
                                                         <div className='bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg w-full p-2.5 outline-none flex justify-around'>
-                                                            <input type="text" placeholder='Skill 1' onChange={handleInputChange} name='Skill1' className='outline-none border border-gray-300 w-16 rounded-lg text-center py-1' />
-                                                            <input type="text" placeholder='Skill 2' onChange={handleInputChange} name='Skill2' className='outline-none border border-gray-300 w-16 rounded-lg text-center py-1' />
-                                                            <input type="text" placeholder='Skill 3' onChange={handleInputChange} name='Skill3' className='outline-none border border-gray-300 w-16 rounded-lg text-center py-1' />
+                                                            <input type="text" placeholder='Skill 1' onChange={handleInputChange} name='Skill1' className='outline-none border border-gray-300 w-16 rounded-lg text-center py-1' value={formData.Skill1}/>
+                                                            <input type="text" placeholder='Skill 2' onChange={handleInputChange} name='Skill2' className='outline-none border border-gray-300 w-16 rounded-lg text-center py-1' value={formData.Skill2}/>
+                                                            <input type="text" placeholder='Skill 3' onChange={handleInputChange} name='Skill3' className='outline-none border border-gray-300 w-16 rounded-lg text-center py-1' value={formData.Skill3}/>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -438,6 +455,7 @@ const Form1 = () => {
                     </div>
                 </div>
             </div>
+}
         </>
     );
 };
