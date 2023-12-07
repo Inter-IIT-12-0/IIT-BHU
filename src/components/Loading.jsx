@@ -35,7 +35,7 @@ const Loading = () => {
   `;
 
     return (
-        <div className="loading-screen flex flex-col w-[100vw] h-[100vh] justify-center items-center absolute top-0 left-0">
+        <div className="loading-screen flex flex-col w-full h-full justify-center items-center absolute top-0 left-0">
             <style>{keyframesStyle}</style>
             <div className="flex">
                 <div className="dot" style={{ ...dotStyle, backgroundColor: '#ffcf8c' }}>

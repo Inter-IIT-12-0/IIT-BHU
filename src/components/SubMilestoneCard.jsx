@@ -101,7 +101,7 @@ const SubMilestoneCard = ({ submilestone, setSelectedSubmilestone, project, setT
 
           <h1 className="text-black mt-6 mb-5 font-Lato text-2xl font-medium leading-normal tracking-tight " style={{ "letterSpacing": 0.7 }}>CONNECTED APPS</h1>
           {/* Cards */}
-          <div className="grid grid-cols-7 flex-wrap space-x-4 pl-5 bg-blue-100 p-8 rounded-3xl">
+          <div className="grid grid-cols-6 flex-wrap space-x-4 pl-5 bg-blue-100 p-8 rounded-3xl">
             {project.connectedApps.map((connectedApp, index) => (
               <div key={index} className="flex-shrink-0 w-1/3 mb-5 shadow-xl cursor-pointer bg-gray-200 p-8" style={{ "width": "200px", borderRadius: 28 }}>
                 {/* Card Image */}
@@ -222,7 +222,7 @@ const SubMilestoneCard = ({ submilestone, setSelectedSubmilestone, project, setT
           </div>
           <span>Notes</span>
           {
-            selectedOption === 'Notes' && <Notes submilestone={submilestone} />
+            selectedOption === 'Notes' && <Notes submilestone={submilestone} project={project} />
           }
         </div>
       </div>

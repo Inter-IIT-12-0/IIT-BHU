@@ -15,7 +15,7 @@ export default function StudentSidebar({page}) {
             <div className="pl-5">
                 <Link
                     href={"/"}
-                    className="justify-start items-center inline-flex mt-8 gap-6 hover-background transition-all duration-1000"
+                    className={`justify-start items-center inline-flex mt-8 gap-6 hover-background transition-all duration-1000 ${page === "dashboard" && 'bg-sky-100'}`}
                 >
                     <div className="w-6 h-6 justify-center items-center flex">
                         <Projects_Icon />
@@ -26,7 +26,7 @@ export default function StudentSidebar({page}) {
                 </Link>
                 <Link
                     href={"/marketplace"}
-                    className="justify-start items-center inline-flex hover-background mt-8 gap-6 transition-all duration-1000"
+                    className={`justify-start items-center inline-flex mt-8 gap-6 hover-background transition-all duration-1000 ${page === "marketplace" && 'bg-sky-100'}`}
                 >
                     <div className="w-6 h-6 justify-center items-center flex">
                         <div className="w-6 h-6 relative">
@@ -39,7 +39,7 @@ export default function StudentSidebar({page}) {
                 </Link>
                 <Link
                     href={"/myprojects"}
-                    className="justify-start items-center inline-flex mt-8 gap-6 hover-background transition-all duration-1000"
+                    className={`justify-start items-center inline-flex mt-8 gap-6 hover-background transition-all duration-1000 ${page === "myprojects" && 'bg-sky-100'}`}
                 >
                     <div className="w-6 h-6 justify-center items-center flex">
                         <div className="w-6 h-6 relative">
@@ -54,7 +54,7 @@ export default function StudentSidebar({page}) {
                     session && session.user.role === "Student" &&
                     <Link
                     href={"/toolsPage"}
-                    className="justify-start items-center inline-flex mt-8 gap-6 hover-background transition-all duration-1000"
+                    className={`justify-start items-center inline-flex mt-8 gap-6 hover-background transition-all duration-1000 ${page === "tools" && 'bg-sky-100'}`}
                 >
                     <div className="w-6 h-6 justify-center items-center flex">
                         <div className="w-6 h-6 relative">
@@ -68,7 +68,7 @@ export default function StudentSidebar({page}) {
                 }
                 <Link
                     href={"/people"}
-                    className="justify-start items-center inline-flex mt-8 gap-6 hover-background transition-all duration-1000"
+                    className={`justify-start items-center inline-flex mt-8 gap-6 hover-background transition-all duration-1000 ${page === "people" && 'bg-sky-100'}`}
                 >
                     <div className="w-6 h-6 justify-center items-center flex">
                         <div className="w-6 h-6 relative">
@@ -79,7 +79,7 @@ export default function StudentSidebar({page}) {
                         People
                     </div>
                 </Link>
-                <div className="justify-start items-center inline-flex mt-8 gap-6 hover-background transition-all duration-1000 cursor-pointer">
+                <div className={`justify-start items-center inline-flex mt-8 gap-6 hover-background transition-all duration-1000 ${page === "chat" && 'bg-sky-100'}`}>
                     <div className="w-6 h-6 justify-center items-center flex">
                         <div className="w-6 h-6 relative">
                             <Skill_Test_Icon />
