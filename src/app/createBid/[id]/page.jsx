@@ -17,7 +17,7 @@ import GeneratedSubmilestones from '../../../components/GeneratedSubmilestones'
 import recommend from '../../../pages/api/recommendation/recommend'
 import toast from 'react-hot-toast'
 import {useRouter} from "next/navigation"
-import Loading from '../../../components/loading'
+import Loading from '../../../components/Loading'
 
 const CreateBid = ({ params }) => {
     // const num = 0

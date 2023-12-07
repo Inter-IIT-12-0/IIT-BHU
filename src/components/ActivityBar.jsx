@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import Send_Icon from "../../public/Images/Send_Icon.svg"
 import summariseActivity from "../../src/pages/api/GPT/summariseActivity"
 import { useEffect } from 'react'
-import Loading from './loading'
 const ActivityBar = ({ activities }) => {
     const [openSummarized, setOpenSummarized] = useState(false)
     const [loading, setLoading] = useState(false)
