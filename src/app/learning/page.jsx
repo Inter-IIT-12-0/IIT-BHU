@@ -129,9 +129,9 @@ const Learning = () => {
                         }
                     </div>
                     <div className="bg-gray-600 w-[35%] h-full p-3 ml-3 ax-h-[90vh] overflow-y-scroll rounded-3xl mt-2">
-                        <SyntaxHighlighter key={language} language={language} style={docco}>
+                        {/* <SyntaxHighlighter key={language} language={language} style={docco}>
                             {code}
-                        </SyntaxHighlighter>
+                        </SyntaxHighlighter> */}
                         <textarea
                             value={code}
                             className="w-[100%] h-[93%] rounded-2xl p-4 font-mono whitespace-pre-wrap bg-black text-white"
