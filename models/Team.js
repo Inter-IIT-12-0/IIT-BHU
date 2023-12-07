@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { subMilestoneSchema } from './Project';
+import { subMilestoneSchema, workSchema } from './Project';
 
 const serviceEnum = ['Service1', 'Service2', 'Service3', 'Service4', 'Service5'];
 const skillsEnum = ['Skill1', 'Skill2', 'Skill3', 'Skill4', 'Skill5'];
@@ -21,7 +21,8 @@ const proposalSchema = new mongoose.Schema({
   acceptanceProbability: { type: Number },
   bidAmount: { type: Number },
   startDate: { type: Date },
-  milestones: [milestoneSchema]
+  milestones: [milestoneSchema],
+  file: { type: String }
 });
 
 const teamUserMap = new mongoose.Schema({

@@ -32,7 +32,7 @@ const ClientMarketplace = ({projects, setOpenedProj, availDomains, selected, set
                             return <ProjectCard key={project._id} project={project} setOpenedProj={setOpenedProj} />
                         }) : 
                         myProjects && myProjects.filter(bid => {
-                            return !bid.assignedTeam && projectSearch(search, location, status, payment, domain, bid)
+                            return !!!bid.assignedTeam && projectSearch(search, location, status, payment, domain, bid)
                         }).map(bid => {
                             return <ProjectCard key={bid._id} project={bid} setOpenedProj={setOpenedProj} />
                         })

@@ -157,7 +157,7 @@ const Project = ({ project, setOpenedProj }) => {
     }
 
     return (
-        <main className="w-[100vw] h-[100vh] z-10 absolute top-0 right-0 overflow-y-hidden">
+        <main className="w-[100vw] h-[100vh] z-50 absolute top-0 right-0 overflow-y-hidden">
             {/* <div className='absolute top-10 right-96 bg-black text-white w-10 h-10 rounded-full flex justify-center items-center z-40 cursor-pointer' onClick={() => setIsOpen(!isOpen)}> X </div> */}
             <div className='w-[100vw] h-[100vh] absolute top-0 right-0 opacity-50 transition-all duration-1000 bg-zinc-800'></div>
             <div className={`absolute right-0 top-0 flex flex-col h-full bg-white rounded-l-3xl animate-[appear_1s_ease-in-out] ${isFullOpen ? 'w-full' : ''} transition-all duration-500`}>
@@ -287,7 +287,7 @@ const Project = ({ project, setOpenedProj }) => {
                                 </div>
                             </div>
                             <div className="px-4 py-2 flex flex-col">
-                                <div className="text-neutral-700 text-base font-normal font-sans tracking-wide">Sector: {project.assignedBy.sectorName} </div>
+                                <div className="text-neutral-700 text-base font-normal font-sans tracking-wide">Sector: {project.assignedBy.domain} </div>
                                 <div className="text-neutral-700 text-base font-normal font-sans tracking-wide">Payments Completed: &#8377; {project.assignedBy.paymentsCompleted} </div>
                                 <div className="text-neutral-700 text-base font-normal font-sans tracking-wide">Projects Posted: {project.assignedBy.projectsPosted} </div>
                             </div>

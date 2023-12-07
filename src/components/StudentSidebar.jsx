@@ -12,10 +12,10 @@ export default function StudentSidebar({page}) {
     const {data:session} = useSession()
     return (
         <div className="w-60 bg-white shadow-2xl pb-3 flex flex-col h-[91vh] justify-between items-center">
-            <div className="pl-5">
+            <div className="pr-5">
                 <Link
                     href={"/"}
-                    className={`justify-start items-center inline-flex mt-8 gap-6 hover-background transition-all duration-1000 ${page === "dashboard" && 'bg-sky-100'}`}
+                    className={`justify-start items-center inline-flex mt-8 gap-6 hover-background transition-all duration-1000 ${page === "dashboard" && 'bg-sky-100'} rounded-r-2xl pl-5`}
                 >
                     <div className="w-6 h-6 justify-center items-center flex">
                         <Projects_Icon />
@@ -26,7 +26,7 @@ export default function StudentSidebar({page}) {
                 </Link>
                 <Link
                     href={"/marketplace"}
-                    className={`justify-start items-center inline-flex mt-8 gap-6 hover-background transition-all duration-1000 ${page === "marketplace" && 'bg-sky-100'}`}
+                    className={`justify-start items-center inline-flex mt-8 gap-6 hover-background transition-all duration-1000 ${page === "marketplace" && 'bg-sky-100'} rounded-r-2xl pl-5`}
                 >
                     <div className="w-6 h-6 justify-center items-center flex">
                         <div className="w-6 h-6 relative">
@@ -39,7 +39,7 @@ export default function StudentSidebar({page}) {
                 </Link>
                 <Link
                     href={"/myprojects"}
-                    className={`justify-start items-center inline-flex mt-8 gap-6 hover-background transition-all duration-1000 ${page === "myprojects" && 'bg-sky-100'}`}
+                    className={`justify-start items-center inline-flex mt-8 gap-6 hover-background transition-all duration-1000 ${page === "myprojects" && 'bg-sky-100'} rounded-r-2xl pl-5`}
                 >
                     <div className="w-6 h-6 justify-center items-center flex">
                         <div className="w-6 h-6 relative">
@@ -54,7 +54,7 @@ export default function StudentSidebar({page}) {
                     session && session.user.role === "Student" &&
                     <Link
                     href={"/toolsPage"}
-                    className={`justify-start items-center inline-flex mt-8 gap-6 hover-background transition-all duration-1000 ${page === "tools" && 'bg-sky-100'}`}
+                    className={`justify-start items-center inline-flex mt-8 gap-6 hover-background transition-all duration-1000 ${page === "tools" && 'bg-sky-100'} rounded-r-2xl pl-5`}
                 >
                     <div className="w-6 h-6 justify-center items-center flex">
                         <div className="w-6 h-6 relative">
@@ -68,7 +68,7 @@ export default function StudentSidebar({page}) {
                 }
                 <Link
                     href={"/people"}
-                    className={`justify-start items-center inline-flex mt-8 gap-6 hover-background transition-all duration-1000 ${page === "people" && 'bg-sky-100'}`}
+                    className={`justify-start items-center inline-flex mt-8 gap-6 hover-background transition-all duration-1000 ${page === "people" && 'bg-sky-100'} rounded-r-2xl pl-5`}
                 >
                     <div className="w-6 h-6 justify-center items-center flex">
                         <div className="w-6 h-6 relative">
@@ -79,7 +79,7 @@ export default function StudentSidebar({page}) {
                         People
                     </div>
                 </Link>
-                <div className={`justify-start items-center inline-flex mt-8 gap-6 hover-background transition-all duration-1000 ${page === "chat" && 'bg-sky-100'}`}>
+                <div className={`justify-start items-center inline-flex mt-8 gap-6 hover-background transition-all duration-1000 ${page === "chat" && 'bg-sky-100'} rounded-r-2xl pl-5`}>
                     <div className="w-6 h-6 justify-center items-center flex">
                         <div className="w-6 h-6 relative">
                             <Skill_Test_Icon />
@@ -91,13 +91,11 @@ export default function StudentSidebar({page}) {
                 </div>
             </div>
 
-            {
-                session && session.user.role === "Student" &&
                 <Link href={"/upskilling"}>
                 <button className="px-6 hover:bg-sky-700 transition-all duration-500 mb-2 py-2 rounded-2xl text-center bg-sky-900 text-white">
                     Switch to Learn
                 </button>
-            </Link>}
+            </Link>
         </div>
     );
 }

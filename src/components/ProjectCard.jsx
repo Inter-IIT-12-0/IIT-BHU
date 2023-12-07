@@ -84,7 +84,7 @@ const ProjectCard = ({ project, setOpenedProj }) => {
                     </div>
                 </div>
                 <div className='mt-2'>
-                    <span className='font-semibold'> Sector: </span> {project.assignedBy.sectorName}
+                    <span className='font-semibold'> Sector: </span> {project.assignedBy.domain}
                 </div>
                 <div className='mt-2'>
                     <span className='font-semibold'> &#8377; {project.assignedBy.paymentsCompleted} </span> spent so far

@@ -76,10 +76,11 @@ export const ChatbotCard = ({ isOpen }) => {
     setFiltered([])
     setGotResponse(false)
     const obj = await recommend(chat);
-    setGotResponse(false)
+    setGotResponse(true)
     console.log(obj);
+    console.log(user)
     if (obj) {
-      console.log(user.filter(person => person.domain === obj[0]))
+      console.log(user.filter(person => obj.includes(person.domain[0])))
       setFiltered(user.filter(person => person.domain === obj[0]));
     }
   }

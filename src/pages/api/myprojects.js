@@ -8,29 +8,40 @@ const handler = async (req, res) => {
         if (!session) {
             return res.status(403).json({ error: 'Login First' });
         }
-        const userId = session.user._id;
+        const id = session.user._id;
 
         try {
-            const user = await User.findOne({ _id: userId })
+            const user = await User.findOne({ _id: id })
                 .populate({
                     path: 'projects',
-                    select: '-__v',
+                    select: '_id title startDate endDate',
                     populate: [
                         {
                             path: 'assignedTeam',
-                            select: '-__v',
+                            select: "-_id -teamName -teamTagline -teamIntroduction -service -languagesSupported -tools -skills -availability -teamUrl -proposal ",
                             populate: {
                                 path: 'teamUserMap.user',
-                                select: '-__v -email -role -fees -sectorName -companyName -aiTools -aiToolsLimit'
-                            }
-                        },
-                        {
-                            path: 'assignedBy',
-                            select: '-email -role -fees -projects -aiTools -aiToolsLimit',
-                        }
-                    ]
+                                select: '_id avatarUrl',
+                            },
+                        },]
+                    //     {
+                    //         path: 'assignedBy',
+                    //         select: 'name',
+                    //     },
+                    //     {
+                    //         path: 'milestones',
+                    //         match: {
+                    //             status: { $ne: 'Completed' },
+                    //         },
+                    //         options: {
+                    //             sort: { dueDate: 1 },
+                    //             limit: 1,
+                    //         },
+                    //     }
+                    // ],
                 });
-            
+
+
             if (!user) {
                 res.status(404).json({ error: 'User not found' });
                 return;

@@ -54,8 +54,8 @@ const ClientMarketPlaceComponent = () => {
                     </div>
                     <hr className="w-full"/>
                     <div className="flex flex-col px-8 py-3">
-                    {ClientMarketPlaceJson[heading] && ClientMarketPlaceJson[heading].map((ele) => {
-                        return <div className="flex justify-between m-3">
+                    {ClientMarketPlaceJson[heading] && ClientMarketPlaceJson[heading].map((ele, index) => {
+                        return <div className="flex justify-between m-3" key={index}>
                             <div className="flex flex-row">
                                 <img className="mr-4" src={ele.profilePhoto} alt="" />
                                 <div className="flex flex-col pt-2">

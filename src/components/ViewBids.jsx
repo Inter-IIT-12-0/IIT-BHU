@@ -23,7 +23,7 @@ const ViewBids = ({ project_id }) => {
   }, [])
 
   const handleView = (team) => {
-    axios.put(`/api/team/?teamId=${team._id}`, {
+    axios.patch(`/api/team/?teamId=${team._id}`, {
       ...team,
       status: 'Reviewed'
     })

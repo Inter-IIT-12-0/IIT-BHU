@@ -11,7 +11,7 @@ const ApplicationSchema = new mongoose.Schema({
   connectedBy:{type: mongoose.Schema.Types.ObjectId, ref: 'User'}
 
 })
-const workSchema = new mongoose.Schema({
+export const workSchema = new mongoose.Schema({
 
   title:{type:String},
   url:{type:String}
@@ -26,9 +26,9 @@ const clientRequirementsSchema = new mongoose.Schema({
   payment: {
     type: Number
   },
-  workDays: { type: [String] },
+  workDays: { type: [String], enum: ['Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun'] },
   requiredTools: { type: [String] },
-  files: { type: [workSchema] }
+  file: { type: workSchema }
 });
 export const subMilestoneSchema = new mongoose.Schema({
   title: { type: String, required: true },
@@ -71,7 +71,6 @@ const projectSchema = new mongoose.Schema({
   milestones: [milestoneSchema],
   assignedTeam: { type: mongoose.Schema.Types.ObjectId, ref: 'Team' },
   assignedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-  logo: { type: String },
   health: healthSchema,
   startDate: { type: Date },
   endDate: { type: Date },
