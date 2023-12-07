@@ -2,7 +2,7 @@
 import React from "react"
 import Navbar from "../../components/Navbar"
 import StudentSidebar from "../../components/StudentSidebar"
-import ProjectNameComp from "../../components/ProjectNameComp"
+import ClientProjectComponent from "../../components/ClientProjectsComponent"
 
 const clientProjects = () => {
       
