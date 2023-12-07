@@ -8,14 +8,14 @@ import ClientProjectComponent from "../../components/ClientProjectsComponent"
 import ClientProjectsRightSidebar from "../../components/clientProjectsRightSidebar"
 
 const clientProjects = () => {
-    
+      
     return (
         <div>
             <Navbar/>
             <div className="flex flex-row">
                 <StudentSidebar/>
-                {/* <FeedbackForm/> */}
-                <ProjectNameComp/>
+                <FeedbackForm/>
+                {/* <ProjectNameComp/> */}
 
                 {/* <ClientProjectComponent/> */}
                 {/* <ClientProjectsRightSidebar/> */}

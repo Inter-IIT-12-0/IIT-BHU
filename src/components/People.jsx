@@ -29,15 +29,6 @@ const People = () => {
                 console.log("error is:",error);
             }
         }
-        // axios.get('/api/allusers/')
-        //     .then(res => { // Log the response to the console
-        //         console.log("hello");
-                
-        //         setUser(res.data.filter(person => person.role === role));
-        //         setFilteredPeople(res.data.filter(person => person.role === role));
-
-        //     })
-        //     .catch(err => console.log(err));
     useEffect(() => {
         fetchData();
 

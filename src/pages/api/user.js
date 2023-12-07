@@ -64,6 +64,55 @@ const handler = async (req, res) => {
     case 'PUT':
       try {
         const { userId } = req.query;
+        const { user_id, collabRating, skillRating } = req.body;
+
+        if ((collabRating !== undefined || skillRating !== undefined) && (user_id !== undefined)) {
+          // Case: Someone is giving feedback, update ratings
+          console.log('collabRating:', collabRating);
+          console.log('skillRating:', skillRating);
+          
+          const user = await User.findById(user_id);
+
+          if (user.collabRating === undefined) {
+            user.collabRating = 0; // Set a default value or handle as needed
+          }
+          
+          if (user.skillRating === undefined) {
+            user.skillRating = 0; // Set a default value or handle as needed
+          }
+
+          if (user.numberOfFeedbacks === undefined) {
+            user.numberOfFeedbacks = 0; // Set a default value or handle as needed
+          }
+    
+          if (!user) {
+            res.status(404).json({ error: 'User not found' });
+            return;
+          }
+    
+          if (collabRating !== undefined && user.collabRating !== undefined) {
+            user.collabRating = (user.collabRating * user.numberOfFeedbacks + collabRating) / (user.numberOfFeedbacks + 1);
+          }
+    
+          if (skillRating !== undefined && user.skillRating !== undefined) {
+            user.skillRating = (user.skillRating * user.numberOfFeedbacks + skillRating) / (user.numberOfFeedbacks + 1);
+          }
+          
+          if(user.numberOfFeedbacks !== undefined){
+            user.numberOfFeedbacks += 1;
+          } else {
+            user.numberOfFeedbacks = 1;
+          }
+    
+          // Calculate average of collabRating and skillRating and update rating
+          const totalRating = (user.collabRating + user.skillRating) / 4;
+          user.rating = totalRating;
+    
+          // Save the changes
+          await user.save();
+    
+          res.status(200).json(user);
+        }
 
         if (!userId) {
           res.status(400).json({ error: 'User ID is required for update' });
