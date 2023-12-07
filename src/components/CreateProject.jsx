@@ -6,7 +6,7 @@ import { useSession } from 'next-auth/react';
 import toast from 'react-hot-toast';
 import axios from 'axios';
 import createStatement from '../pages/api/GPT/statementBreakdown';
-import Loading from './loading';
+import Loading from './Loading';
 import {useRouter} from "next/navigation"
 
 const Form1 = () => {
