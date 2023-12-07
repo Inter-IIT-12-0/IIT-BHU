@@ -10,7 +10,7 @@ const ClientMarketPlaceComponent = () => {
     const[heading, setHeading] = useState(recommendedTalent);
     
     return (
-        <div className="flex flex-col w-full mb-3 max-h-[55vh] overflow-scroll overflow-y-auto overflow-x-hidden">
+        <div className="flex flex-col w-full mb-3 max-h-[90vh] overflow-scroll overflow-y-auto overflow-x-hidden">
             {/* <h1 className="text-blue-700 font-semibold text-3xl m-6 mt-0">Create a Project</h1>
             <div className="w-full h-3 rounded-full bg-blue-950"></div> */}
             <div className="rounded-xl bg-blue-100 p-8 w-full">
