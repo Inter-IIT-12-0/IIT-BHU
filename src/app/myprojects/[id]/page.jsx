@@ -41,7 +41,7 @@ const Project = ({ params }) => {
               selectedSubmilestone && (Object.keys(project).length !== 0) ?
                 <SubMilestoneCard submilestone={selectedSubmilestone} setSelectedSubmilestone={setSelectedSubmilestone} project={project} setTimelineOpen={setTimelineOpen} /> :
                 <div className='flex w-full h-full'>
-                  <StudentSidebar />
+                  <StudentSidebar page={"myprojects"}/>
                   <div className="w-full flex flex-col px-20 py-5">
                     <div className="flex justify-between mt-5">
                       <div>

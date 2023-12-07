@@ -11,7 +11,7 @@ const createProject = () => {
             <div className='flex flex-col w-full h-full'>
                 <Navbar />
                 <div className='flex w-full h-full'>
-                    <StudentSidebar />
+                    <StudentSidebar page={"marketplace"}/>
                     <Form1 />
                 </div>
             </div>

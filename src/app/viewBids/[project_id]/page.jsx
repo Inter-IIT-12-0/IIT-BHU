@@ -17,7 +17,7 @@ const viewBids = ({params}) => {
                 <div className='flex flex-col w-full h-full'>
                     <Navbar />
                     <div className='flex w-full h-full'>
-                        <StudentSidebar />
+                        <StudentSidebar page={"marketplace"}/>
                         <ViewBids project_id={project_id}/>
                     </div>
                 </div>

@@ -10,7 +10,7 @@ const PeoplePage = () => {
         <div>
             <Navbar/>
                 <div className="flex flex-row">
-                <StudentSidebar/>
+                <StudentSidebar page={"people"}/>
                 {/* <University/> */}
                 <People/>
             </div>

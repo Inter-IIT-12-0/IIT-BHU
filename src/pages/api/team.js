@@ -18,7 +18,8 @@ const handler = async (req, res) => {
         .populate('proposal', '-__v')
         .populate({
             path: 'teamUserMap.user',
-            model: 'User'
+            model: 'User',
+            select: '-__v -email -role -fees -sectorName -companyName -aiTools -aiToolsLimit'
         });
 
       res.status(200).json(teams);

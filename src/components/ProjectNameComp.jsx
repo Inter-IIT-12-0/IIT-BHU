@@ -27,10 +27,10 @@ const ProjectNameComp = () => {
     }, []);
 
     const test_user_id = '656af2a4acba1f116ca953e6';
-  
+
     // Filter teams containing the target userId
     const teams = allTeamsData && allTeamsData.filter(project =>
-      project.teamUserMap.some(ele => ele.user._id === test_user_id)
+        project.teamUserMap.some(ele => ele.user._id === test_user_id)
     );
 
     const mtdata = teams && teams
@@ -38,9 +38,7 @@ const ProjectNameComp = () => {
         .map((ele) => {
             return ele.teamUserMap
         });
-        
-        console.log("recieved teams are:",teams);
-    // console.log("team name is", myData);
+
 
 
     const Recieved = teams && teams.length;
@@ -82,37 +80,61 @@ const ProjectNameComp = () => {
                             </div>
                             <img src="/Images/refresh-2.svg" className="mt-10" alt="" />
                         </div>
-                        <div className="flex flex-col mt-6">
-                            <div className="w-full px-4 py-3 bg-blue-900 grid grid-cols-6">
-                                <h1 className="text-white text-1x1 font-semibold">Ranking</h1>
-                                <h1 className="text-white text-1x1 font-semibold">Team Name</h1>
-                                <h1 className="text-white text-1x1 font-semibold">Bid Amount</h1>
-                                <h1 className="text-white text-1x1 font-semibold">Team Rating</h1>
-                                <h1 className="text-white text-1x1 font-semibold">Status</h1>
-                                <h1 className="text-white text-1x1 font-semibold">View</h1>
-                            </div>
-                            {teams && teams.map((ele, index) => {
-                                return <div className="grid grid-cols-6 px-6 py-4 bg-white">
-                                    <h1 className="text-black font-semibold pt-1">{index+1}</h1>
-                                    <div className="flex flex-row">
-                                        <img className="h-9 mr-4" src="/Images/newElipse.svg" alt="" />
-                                        <h1 className="text-black font-semibold pt-1">{ele.teamName ? ele.teamName : 'not found'}</h1>
-                                    </div>
-                                    <h1 className="text-black font-semibold pt-1 mr-10">${ele.proposal && ele.proposal.bidAmount ? ele.proposal.bidAmount : '500'}</h1>
-                                    <h1 className="text-black font-semibold pt-1">{ele.teamRating ? ele.teamRating : '4.8'}/5.0</h1>
-                                    <div className="text-black font-semibold pt-1 rounded-md">New</div>
-                                    <img onClick={() => { setTeamId(ele._id); setInsideTeam(true); setBidAmount(ele.proposal && ele.proposal.bidAmount) }} className="cursor-pointer" src="/Images/eye.svg" alt="" />
-                                </div>
-                            })}
+                        <div className="mt-6">
+                            <table className="w-full border-collapse">
+                                <thead>
+                                    <tr className="bg-blue-900 text-white">
+                                        <th className="px-4 py-3 text-center">Ranking</th>
+                                        <th className="px-4 py-3 text-center">Team Name</th>
+                                        <th className="px-4 py-3 text-center">Bid Amount</th>
+                                        <th className="px-4 py-3 text-center">Team Rating</th>
+                                        <th className="px-4 py-3 text-center">Status</th>
+                                        <th className="px-4 py-3 text-center">View</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {teams && teams.map((ele, index) => (
+                                        <tr key={ele._id} className="bg-white border-t">
+                                            <td className="px-6 py-4 flex justify-center">
+                                                <span className='flex justify-center items-center rounded-full p-1 border-2 border-gray-400 w-8 h-8 relative bottom-2'>
+                                                    {index + 1}
+                                                </span>
+                                            </td>
+                                            <td className="px-6 py-4">
+                                                <div className="flex items-center justify-center">
+                                                    <img className="h-9 mr-4" src="/Images/newElipse.svg" alt="" />
+                                                    <span className="font-semibold">{ele.teamName ? ele.teamName : 'not found'}</span>
+                                                </div>
+                                            </td>
+                                            <td className="px-6 py-4 text-center">${ele.proposal && ele.proposal.bidAmount ? ele.proposal.bidAmount : '500'}</td>
+                                            <td className="px-6 py-4 text-center">{ele.teamRating ? ele.teamRating : '4.8'}/5.0</td>
+                                            <td className="px-6 py-4 text-center rounded-md">New</td>
+                                            <td className="px-6 py-4 flex justify-center">
+                                                <img
+                                                    onClick={() => {
+                                                        setTeamId(ele._id);
+                                                        setInsideTeam(true);
+                                                        setBidAmount(ele.proposal && ele.proposal.bidAmount);
+                                                    }}
+                                                    className="cursor-pointer"
+                                                    src="/Images/eye.svg"
+                                                    alt=""
+                                                />
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
                             <hr className="w-full" />
                         </div>
+
                     </div>
                 </div>
             }
             {
                 insideTeam && <div className="flex flex-row w-full">
-                    <ClientProjectComponent teamId = {teamId} bidAmount = {bidAmount}/>
-                    <ClientProjectsRightSidebar mtdata = {mtdata} />
+                    <ClientProjectComponent teamId={teamId} bidAmount={bidAmount} />
+                    <ClientProjectsRightSidebar mtdata={mtdata} />
                 </div>
             }
         </>

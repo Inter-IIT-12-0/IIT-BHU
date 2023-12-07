@@ -17,6 +17,7 @@ import GeneratedSubmilestones from '../../../components/GeneratedSubmilestones'
 import recommend from '../../../pages/api/recommendation/recommend'
 import toast from 'react-hot-toast'
 import {useRouter} from "next/navigation"
+import Loading from '../../../components/Loading'
 
 const CreateBid = ({ params }) => {
     // const num = 0
@@ -123,12 +124,13 @@ const CreateBid = ({ params }) => {
             startDate: new Date(startDate),
             milestones: modifiedMilestones
         }
-        axios.put(`/api/team/?teamId=${presentTeam._id}`, {
-            ...presentTeam,
-            proposal
-        }).then(res => {
+        let newTeam = {...presentTeam}
+        newTeam.proposal = proposal
+        newTeam.status = 'Pending'
+        console.log(newTeam)
+        axios.put(`/api/team/?teamId=${presentTeam._id}`, newTeam).then(res => {
             toast.success("Your Bid is submitted")
-            router.push("/marketplace")
+            // router.push("/marketplace")
         })
 
 
@@ -254,7 +256,7 @@ const CreateBid = ({ params }) => {
             <div className='flex flex-col w-full h-full'>
                 <Navbar />
                 <div className='flex w-full h-full'>
-                    <StudentSidebar />
+                    <StudentSidebar page={"marketplace"}/>
                     <div className='w-full h-full flex flex-col'>
                         {
                             presentPage === 1 ?
@@ -383,7 +385,7 @@ const CreateBid = ({ params }) => {
                                     </div> : <></>
                                 </> :
                                 presentPage === 2 ?
-                                    (loading ? 'Loading...' : <>
+                                    (loading ? <Loading /> : <>
                                         <div className='border-b-2 w-full border-zinc-300 py-4 px-10 items-center font-sans flex justify-between'>
                                             <div className='flex items-center font-bold text-2xl'>
                                                 <BackArrow_Icon onClick={() => {

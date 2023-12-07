@@ -5,11 +5,12 @@ import Trumio_logo from "../../public/Images/Trumio_Logo.svg"
 import Trumio_text from "../../public/Images/Trumio_text.svg"
 import { useSession } from "next-auth/react"
 import Link from "next/link"
+import Footer from "./Footer"
 
 const Navbar = () => {
   const { data: session } = useSession()
   return (
-    <div className="w-full h-16 shadow-md flex justify-between items-center border-b-2 opacity-100">
+    <div className="w-full h-16 shadow-md flex justify-between items-center border-b-2 opacity-100 z-50">
       <Link href={"/"} className="justify-start items-center inline-flex gap-4 ml-4 scale-75">
         <Trumio_logo />
         <div>
@@ -29,6 +30,7 @@ const Navbar = () => {
 
           </img></Link>
         }
+        <Footer />
       </div>
     </div>
   )

@@ -24,15 +24,12 @@ const handler = async (req, res) => {
                             select: '-__v',
                             populate: {
                                 path: 'teamUserMap.user',
-                                select: '-__v'
+                                select: '-__v -email -role -fees -sectorName -companyName -aiTools -aiToolsLimit'
                             }
                         },
                         {
                             path: 'assignedBy',
-                            select: '-__v',
-                        },
-                        {
-                            path: 'milestones.subMilestones.assignedTo'
+                            select: '-email -role -fees -projects -aiTools -aiToolsLimit',
                         }
                     ]
                 });

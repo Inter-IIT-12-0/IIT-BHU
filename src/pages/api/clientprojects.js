@@ -20,11 +20,12 @@ const handler = async (req, res) => {
                     select: '-__v',
                     populate: {
                         path: 'teamUserMap',
-                        select: '-__v'
+                        select: '-__v -email -role -fees -sectorName -companyName -aiTools -aiToolsLimit'
                     }
                 })
                 .populate({
-                    path: 'assignedBy'
+                    path: 'assignedBy',
+                    select: '-__v -email -role -fees -projects -aiTools -aiToolsLimit'
                 })
 
             res.status(200).json(projects);

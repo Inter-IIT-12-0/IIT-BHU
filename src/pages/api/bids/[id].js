@@ -24,7 +24,7 @@ const handler = async (req, res) => {
             status: { $in: ['Pending', 'Reviewed'] }
         })
         .populate('proposal', '-__v')
-        .populate('teamUserMap.user', '-__v');
+        .populate('teamUserMap.user', '-email -role -fees -projects -aiTools -aiToolsLimit');
         return res.status(200).json({
             teams,
             projectTitle: project.title

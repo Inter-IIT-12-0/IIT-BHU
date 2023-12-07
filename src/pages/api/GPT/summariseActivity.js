@@ -8,10 +8,10 @@ async function generateMessages(object) {
   const messages = [
     {
       role: "system",
-      content: `I am providing you an Activity associated with some Milestones and task of a project which contains an array of any updates on any of the subTask/subMilestones so i want a summarised report for each subTask in JSON format as
+      content: `I am providing you an Activity associated with some sub Milestones and task of a project which contains an array of any updates on any of the subTask/subMilestones. I want a summarised report for each subTask in JSON format as
       {
-        "subMilestone1" : "....",
-        "subMilestone2" : ".....",
+        "subMilestone1" : Summary of submilestone1,
+        "subMilestone2" : Summary of submilestone2,
         ......
 
       }

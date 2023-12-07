@@ -27,16 +27,12 @@ const handler = async (req, res) => {
                     select: '-__v',
                     populate: {
                         path: 'teamUserMap.user',
-                        select: '-__v'
+                        select: '-__v -email -role -fees -sectorName -companyName -aiTools -aiToolsLimit'
                     }
                 })
-                .populate('assignedBy', '-__v')
-                .populate({
-                    path: 'milestones.subMilestones.assignedTo',
-                    select: '-__v'
-                })
+                .populate('assignedBy', '-email -role -fees -projects -aiTools -aiToolsLimit')
                 .populate('connectedApps.connectedBy', 'avatarUrl')
-                .populate('activities.user', '-__v')
+                .populate('activities.user', '-email -role -fees -projects -aiTools -aiToolsLimit')
 
             if (!projects) {
                 res.status(404).json({ error: 'Project not found' });
@@ -48,7 +44,7 @@ const handler = async (req, res) => {
             console.error(error);
             res.status(500).json({ error: 'Error retrieving projects' });
         }
-    } else if (req.method === 'PUT') {
+    } else if (req.method === 'PATCH') {
         const { id } = req.query;
 
         if (!id) {

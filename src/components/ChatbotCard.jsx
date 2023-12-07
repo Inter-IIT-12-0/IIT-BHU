@@ -29,7 +29,6 @@ export const ChatbotCard = ({ isOpen }) => {
   useEffect(() => {
     axios.get('/api/allusers/')
       .then(res => { // Log the response to the console
-        console.log("hello");
 
         setUser(res.data);
 
@@ -139,7 +138,13 @@ export const ChatbotCard = ({ isOpen }) => {
                   <div className="text-base text-sky-800 font-semibold flex w-full">
                     <div className="w-full"> {user.name} ({user.rating} ) </div>
                   </div>
-                  <div> {user.domain} </div>
+                  <div className="flex">
+                    {
+                      user.domains.map(domain => (
+                        <span className="mx-2"> {domain} </span>
+                      ))
+                    }
+                  </div>
                 </div>
                 <div className="text-sky-500 flex items-center">
                   <Link href={`/profile/${user._id}`} target="_blank">

@@ -46,7 +46,7 @@ const Home = () => {
     <div>
       <Navbar />
       <div className="flex flex-row">
-        <StudentSidebar />
+        <StudentSidebar page={"dashboard"}/>
         {session && <div className="flex flex-col w-[100%] p-8 max-h-[90vh] overflow-scroll overflow-y-auto overflow-x-hidden">
           <div className="relative w-[40%]">
             <div className="absolute inset-y-0 top-2 flex pl-3 pointer-events-none">
@@ -185,7 +185,7 @@ const Home = () => {
                         <h1 className="text text-2xl font-semibold"></h1>
                       </div>
                       <div className="flex justify-between">
-                        <h1 className="text text-1xl font-semibold">{ele.assignedTeam.teamName}</h1>
+                        <h1 className="text text-1xl font-semibold">{ele.assignedTeam?.teamName}</h1>
                         <h1 className="text text-1xl font-semibold">{ele.domain}</h1>
                       </div>
                       <div className="w-[100%] bg-blue-100 rounded-lg h-6">

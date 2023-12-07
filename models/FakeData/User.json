@@ -1,11 +1,7 @@
 {
     "name": "John Doe",
     "avatarUrl": "https://sample-avatar-url.com",
-    "mobileNumber": "123-456-7890",
     "email": "john.doe@example.com",
-    "tagline": "Passionate Developer",
-    "workExperienceYears": 5,
-    "workExperienceMonths": 6,
     "professionalIntroduction": "Experienced developer with a passion for creating innovative solutions.",
     "role": "Developer",
     "languages": [

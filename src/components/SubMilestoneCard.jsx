@@ -64,7 +64,7 @@ const SubMilestoneCard = ({ submilestone, setSelectedSubmilestone, project, setT
       const { data: existingProject } = await axios.get(`/api/project/${project._id}`);
       existingProject.work.push({ nam,link });
       existingProject.activities.push({submilestone,type:'CREATE',timestamp:Date.now(),user:session.user._id,message:"Added the file" + nam +"in the submilestone by giving its URL"});
-      const response = await axios.put(`/api/project/${project._id}`, existingProject);
+      const response = await axios.patch(`/api/project/${project._id}`, existingProject);
     } catch (error) {
       console.error('Error submitting data:', error.message);
     }
@@ -98,21 +98,10 @@ const SubMilestoneCard = ({ submilestone, setSelectedSubmilestone, project, setT
           </p>
 
           <h1 className="text-black font-Lato text-xl font-medium leading-normal tracking-tight mt-4" style={{ "letterSpacing": 0.7 }}>Dates</h1>
-          <p className="text-zinc-500 font-Lato text-xl leading-normal tracking-tight" style={{ letterSpacing: '0.7px' }}>
-            {(new Date(submilestone.startDate)).toLocaleDateString('en-US', {
-              day: 'numeric',
-              month: 'long',
-              year: 'numeric'
-            })} - {(new Date(submilestone.endDate)).toLocaleDateString('en-US', {
-              day: 'numeric',
-              month: 'long',
-              year: 'numeric'
-            })}
-          </p>
 
           <h1 className="text-black mt-6 mb-5 font-Lato text-2xl font-medium leading-normal tracking-tight " style={{ "letterSpacing": 0.7 }}>CONNECTED APPS</h1>
           {/* Cards */}
-          <div className="grid grid-cols-7 flex-wrap space-x-4 pl-5 bg-blue-100 p-8 rounded-3xl">
+          <div className="grid grid-cols-6 flex-wrap space-x-4 pl-5 bg-blue-100 p-8 rounded-3xl">
             {project.connectedApps.map((connectedApp, index) => (
               <div key={index} className="flex-shrink-0 w-1/3 mb-5 shadow-xl cursor-pointer bg-gray-200 p-8" style={{ "width": "200px", borderRadius: 28 }}>
                 {/* Card Image */}
@@ -233,7 +222,7 @@ const SubMilestoneCard = ({ submilestone, setSelectedSubmilestone, project, setT
           </div>
           <span>Notes</span>
           {
-            selectedOption === 'Notes' && <Notes submilestone={submilestone} />
+            selectedOption === 'Notes' && <Notes submilestone={submilestone} project={project} />
           }
         </div>
       </div>

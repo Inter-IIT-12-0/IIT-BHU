@@ -28,19 +28,13 @@ const clientRequirementsSchema = new mongoose.Schema({
   },
   workDays: { type: [String] },
   requiredTools: { type: [String] },
-  files: { type: Buffer }
+  files: { type: [workSchema] }
 });
 export const subMilestoneSchema = new mongoose.Schema({
   title: { type: String, required: true },
-  isCompleted: { type: Boolean, default: false },
-  status: { type: String, enum: statusEnum },
-  assignedTo: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required:false },
+  status: { type: String, enum: statusEnum, default: 'Not Started' },
   description: { type: String, required: true },
-  startDate: { type: Date },
-  endDate: { type: Date },
-  Aitools: [ApplicationSchema],
-  work: { type: workSchema },
-  stickyNotes: { type: [String] }
+  stickyNotes: { type: [String], default: [] }
 });
 
 const activitySchema = new mongoose.Schema({
@@ -57,18 +51,11 @@ const milestoneSchema = new mongoose.Schema({
   dueDate: { type: Date, required: true },
   heading: { type: String, required: true },
   description: { type: String },
-  submissionLink: { type: String },
-  feedbackLink: { type: String },
   subMilestones: [subMilestoneSchema],
-  isCompleted: { type: Boolean, default: false },
   status: { type: String, enum: statusEnum, default: 'Not Started' },
   payment: { type: Number, required: true },
   paymentDate: { type: Date },
   deliverables : { type: String }
-});
-
-const userAgreementSchema = new mongoose.Schema({
-  // Define user agreement fields as needed
 });
 
 const healthSchema = new mongoose.Schema({
@@ -82,7 +69,6 @@ const projectSchema = new mongoose.Schema({
   title: { type: String, required: true },
   statement: { type: String, required: true },
   milestones: [milestoneSchema],
-  userAgreement: userAgreementSchema,
   assignedTeam: { type: mongoose.Schema.Types.ObjectId, ref: 'Team' },
   assignedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   logo: { type: String },

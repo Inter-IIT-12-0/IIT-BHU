@@ -38,7 +38,7 @@ const Projects = () => {
                 <div className='flex flex-col w-full h-full'>
                     <Navbar />
                     <div className='flex w-full h-full'>
-                        <StudentSidebar />
+                        <StudentSidebar page={"marketplace"}/>
                         {
                             session && 
                             ( session.user.role === 'Student' ? <StudentMarketplace projects={projects} setOpenedProj={setOpenedProj} availDomains={availDomains} selected={selected} setSelected={setSelected} /> : <ClientMarketPlace projects={projects} setOpenedProj={setOpenedProj} availDomains={availDomains} selected={selected} setSelected={setSelected}/>)

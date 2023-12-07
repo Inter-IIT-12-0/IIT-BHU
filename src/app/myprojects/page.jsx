@@ -115,11 +115,20 @@ const MyProjects = () => {
 			<div className='flex flex-col w-full h-full'>
 				<Navbar />
 				<div className='flex w-full h-full'>
-					<StudentSidebar />
-					<div className='w-full h-full flex flex-col'>
+					<StudentSidebar page={"myprojects"}/>
+					<div className='w-full max-h-[90vh] overflow-scroll overflow-y-auto overflow-x-hidden flex flex-col'>
+						<h2 className="font-semibold text-xl pl-20 my-3"> In Bidding </h2>
 						<div className='h-full p-8 flex'>
 							{
-								Projects.map(project => {
+								Projects.filter(project => !!project.assignedTeam).map(project => {
+									return <MyProjectCard key={project._id} project={project} />
+								})
+							}
+						</div>
+						<h2 className="font-semibold text-xl pl-20 my-3"> Live Projects </h2>
+						<div className='h-full p-8 flex'>
+							{
+								Projects.filter(project => !!!project.assignedTeam).map(project => {
 									return <MyProjectCard key={project._id} project={project} />
 								})
 							}

@@ -20,7 +20,6 @@ const handler = async (req, res) => {
         try {
           // Check if a specific user ID is provided in the query
           if (req.query.id) {
-            console.log("hello");
             const userWithProjects = await User.findById(req.query.id)
                                                 .populate({
                                                   path: 'projects',
