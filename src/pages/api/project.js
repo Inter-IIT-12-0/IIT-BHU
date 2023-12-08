@@ -28,7 +28,7 @@ const handler = async (req, res) => {
                     path: 'teamUserMap',
                     populate: {
                         path: 'user',
-                        select: '-__v -email -role -fees -sectorName -companyName -aiTools -aiToolsLimit'
+                        select: '-__v -role -fees -sectorName -companyName -aiTools -aiToolsLimit'
                     }
                 }
             })
@@ -43,7 +43,7 @@ const handler = async (req, res) => {
             console.error(error);
             res.status(500).json({ error: 'Error retrieving projects' });
         }
-    } else if (req.method === 'PUT') {
+    } else if (req.method === 'PATCH') {
         const { id } = req.query;
 
         if (!id) {

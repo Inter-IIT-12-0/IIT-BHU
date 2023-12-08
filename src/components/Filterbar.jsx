@@ -7,7 +7,7 @@ const Filterbar = ({ location, setLocation, status, setStatus, payment, setPayme
     const { data: session } = useSession()
     return (
         <div className='flex flex-col'>
-            <div className='flex justify-between w-full pt-3'>
+            <div className='flex justify-between w-full pt-3 my-3'>
                 <div className='flex justify-around ml-6'>
                     <button className={`flex justify-around items-center rounded-2xl ${selected === 'All' ? 'border border-sky-700 bg-sky-100' : 'border border-neutral-400'} px-3 py-1  mr-5`} onClick={() => setSelected('All')}>
                         <div className={`${selected === 'All' ? 'bg-sky-700' : 'border-2 border-gray-300 '} rounded-full w-4 h-4 mx-2`}></div>
@@ -27,39 +27,39 @@ const Filterbar = ({ location, setLocation, status, setStatus, payment, setPayme
                     </Link>
                 }
             </div>
-            <div className='flex'>
+            <div className='flex xl:my-1 my-3'>
                 <div className='flex items-center mt-5 mx-6 bg-gray-100 w-72 px-3 rounded-2xl py-1'>
                     <SearchIcon className="scale-75" />
                     <input type="text" name="" placeholder='Search for Projects or Users' className='mx-3 outline-none w-full h-full bg-gray-100' value={search} onChange={e => setSearch(e.target.value)} />
                 </div>
-                <div className='flex flex-col mx-6'>
+                <div className='flex flex-col xl:mx-6'>
                     <span> Location </span>
-                    <select value={location} onChange={e => setLocation(e.target.value)} className='outline-none border-2 border-gray-300 px-2 py-1 rounded-lg'>
-                        <option value="select">Select Type</option>
+                    <select value={location} onChange={e => setLocation(e.target.value)} className='outline-none border-2 border-gray-300 px-2 w-2/3 xl:w-full py-1 rounded-lg'>
+                        <option value="select">Select</option>
                         <option value="Remote">Remote</option>
                         <option value="Non Remote">Non Remote</option>
                     </select>
                 </div>
-                <div className='flex flex-col mx-6'>
+                <div className='flex flex-col  xl:mx-6'>
                     <span> Status </span>
-                    <select value={status} onChange={e => setStatus(e.target.value)} className='outline-none border-2 border-gray-300 px-2 py-1 rounded-lg'>
-                        <option value="select">Select Type</option>
+                    <select value={status} onChange={e => setStatus(e.target.value)} className='outline-none border-2 border-gray-300 px-2 py-1 rounded-lg w-2/3 xl:w-full'>
+                        <option value="select">Select</option>
                         <option value="Open">Open</option>
                         <option value="In Review">In Review</option>
                     </select>
                 </div>
-                <div className='flex flex-col mx-6'>
+                <div className='flex flex-col xl:mx-6'>
                     <span> Payment </span>
-                    <select value={payment} onChange={e => setPayment(e.target.value)} className='outline-none border-2 border-gray-300 px-2 py-1 rounded-lg'>
-                        <option value="select">Select Type</option>
+                    <select value={payment} onChange={e => setPayment(e.target.value)} className='outline-none border-2 border-gray-300 px-2 py-1 rounded-lg w-2/3 xl:w-full'>
+                        <option value="select">Select</option>
                         <option value="Fixed">Fixed</option>
                         <option value="Installment">Installment</option>
                     </select>
                 </div>
-                <div className='flex flex-col mx-6'>
+                <div className='flex flex-col xl:mx-6'>
                     <span> Domain </span>
-                    <select value={domain} onChange={e => setDomain(e.target.value)} className='outline-none border-2 border-gray-300 px-2 py-1 rounded-lg'>
-                        <option value="select">Select Type</option>
+                    <select value={domain} onChange={e => setDomain(e.target.value)} className='outline-none border-2 border-gray-300 px-2 py-1 rounded-lg w-2/3 xl:w-full'>
+                        <option value="select">Select</option>
                         {
                             domains.map((domain, index) => (
                                 <option key={index} value={domain}> {domain} </option>

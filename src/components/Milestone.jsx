@@ -64,7 +64,7 @@ const Milestone = () => {
                 <ul>
                 
                 
-                  {milestone.subMilestones.map((subMilestone, subIndex) => (
+                  {milestone.submilestones.map((subMilestone, subIndex) => (
                 <ol className="relative border-s ml-4 border-gray-200 dark:border-gray-700">
                 <li className=" ms-4">
                   <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>

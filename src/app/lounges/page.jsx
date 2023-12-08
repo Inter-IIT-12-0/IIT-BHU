@@ -1,6 +1,4 @@
 "use client"
-import Navbar from "../../../components/Navbar";
-import StudentSidebar from "../../../components/StudentSidebar";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useSession } from "next-auth/react";
@@ -41,8 +39,11 @@ const Lounges = ({}) => {
   
   const recommendation = async () => {
     try {
-      const res = await recommendLounge(alldomains,session.user.domain);
+      if(session) {
+        const res = await recommendLounge(alldomains,session.user.domain);
       setRecommendation(filterAndRankLounges(lounges,res.data));
+      }
+      
 
     } catch (err) {
       console.error(err);
@@ -59,7 +60,7 @@ const Lounges = ({}) => {
     }
   };
 
-  useEffect(() => {
+  useEffect(async () => {
     fetchData();
     recommendation();
   }, []);
@@ -73,4 +74,4 @@ const Lounges = ({}) => {
 
 };
 
-export default Project;
+export default Lounges;

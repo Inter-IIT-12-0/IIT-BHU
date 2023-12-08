@@ -2,18 +2,19 @@ import React, { useState } from 'react';
 import Activity_Icon from '../../public/Images/Activity_Icon.svg';
 import Share_Icon from '../../public/Images/Share_Icon.svg';
 import Notes_Icon from '../../public/Images/Notes_Icon.svg';
+import PlusIcon from '../../public/Images/PlusIcon.svg';
 import ActivityBar from './ActivityBar';
 import Notes from './Notes';
 import axios from 'axios';
 import { useEffect } from 'react';
-import {useSession} from "next-auth/react"
+import { useSession } from "next-auth/react"
 
 const SubMilestoneCard = ({ submilestone, setSelectedSubmilestone, project, setTimelineOpen }) => {
-  const {data:session} = useSession()
+  const { data: session } = useSession()
   const [tool, setTool] = useState('');
   const [url, setUrl] = useState('');
-  const [nam,setName] = useState('');
-  const [link,setLink] = useState('');
+  const [nam, setName] = useState('');
+  const [link, setLink] = useState('');
 
   const [connectedApps, setConnectedApps] = useState(0);
   const handleInputChange = (e) => {
@@ -23,12 +24,10 @@ const SubMilestoneCard = ({ submilestone, setSelectedSubmilestone, project, setT
     } else if (name === 'url') {
       setUrl(value);
     }
-    else if(name=='link')
-    {
+    else if (name == 'link') {
       setLink(value);
     }
-    else
-    {
+    else {
       setName(value);
     }
   };
@@ -37,7 +36,7 @@ const SubMilestoneCard = ({ submilestone, setSelectedSubmilestone, project, setT
   const handleFileChange = (e) => {
     const files = Array.from(e.target);
     console.log(files);
-    setSelectedFiles((prevFiles) => [...prevFiles,files]);
+    setSelectedFiles((prevFiles) => [...prevFiles, files]);
   };
   useEffect(() => {
     console.log(project.activities);
@@ -48,9 +47,9 @@ const SubMilestoneCard = ({ submilestone, setSelectedSubmilestone, project, setT
     try {
       const { data: existingProject } = await axios.get(`/api/project/${project._id}`);
       existingProject.connectedApps.push({ tool, url });
-      existingProject.activities.push({submilestone,type:'CREATE',timestamp:Date.now(),user:session.user._id,message:"Linked a tool by providing its endpoint in the milestone"});
-      const response = await axios.put(`/api/project/${project._id}`, existingProject);
-      
+      existingProject.activities.push({ submilestone, type: 'CREATE', timestamp: Date.now(), user: session.user._id, message: "Linked a tool by providing its endpoint in the milestone" });
+      const response = await axios.patch(`/api/project/${project._id}`, existingProject);
+
     } catch (error) {
       console.error('Error submitting data:', error.message);
     }
@@ -62,8 +61,8 @@ const SubMilestoneCard = ({ submilestone, setSelectedSubmilestone, project, setT
 
     try {
       const { data: existingProject } = await axios.get(`/api/project/${project._id}`);
-      existingProject.work.push({ nam,link });
-      existingProject.activities.push({submilestone,type:'CREATE',timestamp:Date.now(),user:session.user._id,message:"Added the file" + nam +"in the submilestone by giving its URL"});
+      existingProject.work.push({ nam, link });
+      existingProject.activities.push({ submilestone, type: 'CREATE', timestamp: Date.now(), user: session.user._id, message: "Added the file" + nam + "in the submilestone by giving its URL" });
       const response = await axios.patch(`/api/project/${project._id}`, existingProject);
     } catch (error) {
       console.error('Error submitting data:', error.message);
@@ -78,7 +77,7 @@ const SubMilestoneCard = ({ submilestone, setSelectedSubmilestone, project, setT
 
   const [selectedOption, setSelectedOption] = useState("");
   return (
-    <main className='bg-white flex w-full h-full'>
+    <main className='bg-white flex w-screen overflow-hidden h-screen'>
       <div className='flex flex-col px-10 pb-20 w-full'>
         <div className='w-full flex justify-center items-center mt-3'> <span className='flex justify-center items-center rounded-full h-10 w-10 bg-black text-white cursor-pointer' onClick={() => setSelectedSubmilestone(null)}>X </span>  </div>
         <div>
@@ -116,16 +115,18 @@ const SubMilestoneCard = ({ submilestone, setSelectedSubmilestone, project, setT
                 </a>
               </div>
             ))}
-            <div className='rounded-3xl cursor-pointer shadow-lg bg-gray-200 p-8' style={{height:'230px'}}>
-              <label>Add App</label>
-              <img src='https://tse1.mm.bing.net/th?id=OIP.vBI68bb1Br5UZGT52X58xgHaHa&pid=Api&rs=1&c=1&qlt=95&w=121&h=121' onClick={() => setOpen(1)}></img>
+            <div className='rounded-3xl flex justify-center items-center cursor-pointer shadow-lg bg-gray-200 p-8' style={{ height: '230px' }}>
+              <div onClick={() => setOpen(1)}>
+                <label>Add App</label>
+                <PlusIcon className="cursor-pointer ml-3" ></PlusIcon>
+              </div>
             </div>
             <div>
               {isOpen && <div>
                 <form onSubmit={handleFormSubmit} className='rounded-3xl shadow-lg p-8 flex flex-col justify-center w-72 bg-white'>
                   <div className='flex flex-row mt-4'>
-                  <label className='mr-2 font-bold'>
-                    Tool
+                    <label className='mr-2 font-bold'>
+                      Tool
                     </label>
                     <input
                       type="text"
@@ -135,8 +136,8 @@ const SubMilestoneCard = ({ submilestone, setSelectedSubmilestone, project, setT
                     />
                   </div>
                   <div className='flex flex-row mt-4'>
-                  <label className='mr-2 font-bold'>
-                    Url</label>
+                    <label className='mr-2 font-bold'>
+                      Url</label>
                     <input
                       type="text"
                       name="url"
@@ -144,10 +145,10 @@ const SubMilestoneCard = ({ submilestone, setSelectedSubmilestone, project, setT
                       onChange={handleInputChange}
                     />
                   </div>
-                  
+
                   <br />
                   <div>
-                  <button className='py-2 px-5 rounded-full bg-blue-900 text-white font-semibold' type="submit">Submit</button>
+                    <button className='py-2 px-5 rounded-full bg-blue-900 text-white font-semibold' type="submit">Submit</button>
                   </div>
                 </form>
 
@@ -158,7 +159,7 @@ const SubMilestoneCard = ({ submilestone, setSelectedSubmilestone, project, setT
           {/* File Upload */}
           <h1 className="text-black font-Lato text-2xl font-medium leading-normal tracking-tight mt-8" style={{ "letterSpacing": 0.7 }}>UPLOAD WORK</h1>
           <div className='mt-8'>
-          <div>
+            <div>
               {isOpen2 && <div>
                 <form onSubmit={handleWorkSubmit} className='rounded-3xl shadow-lg p-8 flex flex-col justify-center w-72'>
                   <div className='flex flex-row mt-4'>
@@ -172,8 +173,8 @@ const SubMilestoneCard = ({ submilestone, setSelectedSubmilestone, project, setT
                     />
                   </div>
                   <div className='flex flex-row mt-4'>
-                  <label className='mr-2 font-bold'>
-                    Url</label>
+                    <label className='mr-2 font-bold'>
+                      Url</label>
                     <input
                       type="text"
                       name="link"
@@ -182,7 +183,7 @@ const SubMilestoneCard = ({ submilestone, setSelectedSubmilestone, project, setT
                     />
                   </div>
                   <div>
-                  <button className='py-2 px-5 rounded-full bg-blue-900 text-white font-semibold mt-4'  type="submit">Submit</button>
+                    <button className='py-2 px-5 rounded-full bg-blue-900 text-white font-semibold mt-4' type="submit">Submit</button>
                   </div>
                 </form>
 

@@ -17,8 +17,8 @@ import Link from "next/link"
 export default function SidebarUpskilling({ page }) {
 
     return (
-        <div className="w-60 bg-white shadow-2xl pb-3 flex flex-col z-20 h-[91vh] justify-between items-center">
-            <div className="pl-5">
+        <div className="w-60 bg-white shadow-2xl pb-3 flex flex-col h-[94vh] justify-between items-center">
+            <div className="pr-5">
                 <Link href={"/upskilling"} className={` justify-start items-center gap-8 inline-flex hover-background ${page === "dashboard" && "bg-sky-100"} rounded mt-6`}>
                     <div className="w-6 h-6 justify-center items-center flex">
                         <Dashboard_Icon />

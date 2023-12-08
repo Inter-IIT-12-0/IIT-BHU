@@ -11,12 +11,13 @@ const ApplicationSchema = new mongoose.Schema({
   connectedBy:{type: mongoose.Schema.Types.ObjectId, ref: 'User'}
 
 })
-const workSchema = new mongoose.Schema({
+export const workSchema = new mongoose.Schema({
 
   title:{type:String},
   url:{type:String}
   
 });
+
 
 const clientRequirementsSchema = new mongoose.Schema({
   paymentType: {
@@ -28,7 +29,7 @@ const clientRequirementsSchema = new mongoose.Schema({
   },
   workDays: { type: [String] },
   requiredTools: { type: [String] },
-  files: { type: [workSchema] }
+  file: { type: workSchema }
 });
 export const subMilestoneSchema = new mongoose.Schema({
   title: { type: String, required: true },
@@ -47,15 +48,17 @@ const activitySchema = new mongoose.Schema({
 
 
 
-const milestoneSchema = new mongoose.Schema({
+export const milestoneSchema = new mongoose.Schema({
   dueDate: { type: Date, required: true },
   heading: { type: String, required: true },
   description: { type: String },
-  subMilestones: [subMilestoneSchema],
+  submilestones: [subMilestoneSchema],
   status: { type: String, enum: statusEnum, default: 'Not Started' },
   payment: { type: Number, required: true },
   paymentDate: { type: Date },
-  deliverables : { type: String }
+  deliverables : { type: String },
+  duration: { type: Number },
+  files: [String]
 });
 
 const healthSchema = new mongoose.Schema({
@@ -71,7 +74,6 @@ const projectSchema = new mongoose.Schema({
   milestones: [milestoneSchema],
   assignedTeam: { type: mongoose.Schema.Types.ObjectId, ref: 'Team' },
   assignedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-  logo: { type: String },
   health: healthSchema,
   startDate: { type: Date },
   endDate: { type: Date },

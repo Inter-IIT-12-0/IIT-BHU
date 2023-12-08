@@ -20,7 +20,7 @@ const OnBoarding = () => {
   const handleDomainSubmit = () => {
     let user = session.user
     user.domain.push(selectedCard)
-    axios.put(`/api/user/?userId=${session.user._id}`, user).then(res => router.push("/")).catch(console.log)
+    axios.patch(`/api/user/?userId=${session.user._id}`, user).then(res => router.push("/")).catch(console.log)
 
   }
 

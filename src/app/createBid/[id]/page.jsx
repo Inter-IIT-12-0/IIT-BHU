@@ -16,8 +16,10 @@ import createSubMilestones from "../../../pages/api/GPT/subMilestones"
 import GeneratedSubmilestones from '../../../components/GeneratedSubmilestones'
 import recommend from '../../../pages/api/recommendation/recommend'
 import toast from 'react-hot-toast'
-import {useRouter} from "next/navigation"
+import { useRouter } from "next/navigation"
 import Loading from '../../../components/Loading'
+import validator from 'validator';
+
 
 const CreateBid = ({ params }) => {
     // const num = 0
@@ -40,11 +42,12 @@ const CreateBid = ({ params }) => {
     const [project, setProject] = useState()
     const [startDate, setStartDate] = useState("")
     const [loading, setLoading] = useState(false)
+    const [docUrl, setDocUrl] = useState("")
     const [milestones, setMilestones] = useState([
         {
-            cost: '',
+            payment: '',
             duration: '',
-            title: '',
+            heading: '',
             description: '',
             deliverables: ''
         }
@@ -64,14 +67,17 @@ const CreateBid = ({ params }) => {
         prevMilestones[selectedMilestone - 1].files = files
         setMilestones(prevMilestones);
     };
+    const isValidUrl = (url) => {
+        return validator.isURL(url, { require_protocol: true });
+    };
 
     const handleAddMilestone = () => {
         setMilestones([
             ...milestones,
             {
-                cost: '',
+                payment: '',
                 duration: '',
-                title: '',
+                heading: '',
                 description: '',
                 deliverables: ''
             }
@@ -79,6 +85,10 @@ const CreateBid = ({ params }) => {
     }
 
     const handleGenerate = async () => {
+        if (!isValidUrl(docUrl)) {
+            toast.error("Please enter a valid url");
+            return
+        }
         setLoading(true);
         const res = await createSubMilestones(milestones)
         setLoading(false)
@@ -90,7 +100,7 @@ const CreateBid = ({ params }) => {
         const submilestones = Object.values(aiGenerated).map((milestone, index1) => (
             milestone.Submilestones.map((submilestone, index2) => (
                 {
-                    title: `Submilestone ${index2}`,
+                    heading: `Submilestone ${index2}`,
                     isCompleted: false,
                     status: 'Not Started',
                     assignedTo: null,
@@ -111,26 +121,28 @@ const CreateBid = ({ params }) => {
         modifiedMilestones = modifiedMilestones.map((milestone, index) => (
             {
                 ...milestone,
-                cost: Number(milestone.cost),
+                payment: Number(milestone.payment),
                 duration: Number(milestone.duration),
                 submilestones: submilestones[index]
             }
         ))
-        console.log(modifiedMilestones)
+        // console.log(modifiedMilestones)
         let proposal = {
             proposalScore: 0,
             acceptanceProbability: 78,
-            bidAmount: milestones.reduce((acc, milestone) => acc + milestone.cost, 0),
+            bidAmount: milestones.reduce((acc, milestone) => acc + Number(milestone.payment), 0),
             startDate: new Date(startDate),
-            milestones: modifiedMilestones
+            milestones: modifiedMilestones,
+            file: docUrl
         }
-        let newTeam = {...presentTeam}
+        console.log(proposal)
+        let newTeam = { ...presentTeam }
         newTeam.proposal = proposal
         newTeam.status = 'Pending'
         console.log(newTeam)
-        axios.put(`/api/team/?teamId=${presentTeam._id}`, newTeam).then(res => {
+        axios.patch(`/api/team/?teamId=${presentTeam._id}`, newTeam).then(res => {
             toast.success("Your Bid is submitted")
-            // router.push("/marketplace")
+            router.push("/marketplace")
         })
 
 
@@ -162,12 +174,12 @@ const CreateBid = ({ params }) => {
                 setTeamName(res.data.teamName ? res.data.teamName : '')
             }).catch(console.log)
 
-        
+
         const fetchProject = async () => {
             try {
                 const res1 = await axios.get(`/api/project/${id}`)
                 const res2 = await axios.get('/api/allusers')
-                
+
                 setProject(res1.data);
                 setAllUsers(res2.data);
                 fetchFilter(res1.data, res2.data);
@@ -195,22 +207,22 @@ const CreateBid = ({ params }) => {
 
         // fetchFilter();
 
-
     }, [noOfTeams])
 
     const addToTeam = (member) => {
         try {
             if (presentTeam.teamUserMap.map(map => map.user.email).includes(member.email)) return console.log("Member already added")
             let newTeam = presentTeam;
-            const teamUserMapNew = [...presentTeam.teamUserMap, {
+            const teamUserMapNew = [...newTeam.teamUserMap, {
                 user: member._id,
                 role: "Member",
                 status: "Pending"
             }]
+            console.log(teamUserMapNew)
             newTeam.teamUserMap = teamUserMapNew
-            axios.put(`/api/team/?teamId=${presentTeam._id}`, newTeam)
+            axios.patch(`/api/team/?teamId=${presentTeam._id}`, newTeam)
                 .then(res => {
-                    // console.log(res.data)
+                    setPresentTeam(res.data)
                 }).catch(console.log)
             setNoOfTeams(prev => prev + 1)
         } catch (error) {
@@ -222,9 +234,10 @@ const CreateBid = ({ params }) => {
         const newArr = presentTeam.teamUserMap.filter(map => {
             return map.user.email !== member.email
         })
+        console.log(presentTeam.teamUserMap)
         let newTeam = presentTeam
         newTeam.teamUserMap = newArr
-        axios.put(`/api/team/?teamId=${presentTeam._id}`, newTeam)
+        axios.patch(`/api/team/?teamId=${presentTeam._id}`, newTeam)
             .then(res => {
                 console.log(res.data)
             }).catch(console.log)
@@ -239,7 +252,7 @@ const CreateBid = ({ params }) => {
     const handleContinue = () => {
         let newTeam = presentTeam
         newTeam.teamName = teamName
-        axios.put(`/api/team/?teamId=${presentTeam._id}`, newTeam).then(res => console.log(res.data)).catch(console.log)
+        axios.patch(`/api/team/?teamId=${presentTeam._id}`, newTeam).then(res => console.log(res.data)).catch(console.log)
         setPresentPage(prev => prev + 1)
     }
 
@@ -252,11 +265,11 @@ const CreateBid = ({ params }) => {
     // }
 
     return (
-        <main className='w-[100vw] h-[100vh]'>
+        <main className='w-[100vw] h-[100vh] overflow-hidden'>
             <div className='flex flex-col w-full h-full'>
                 <Navbar />
                 <div className='flex w-full h-full'>
-                    <StudentSidebar page={"marketplace"}/>
+                    <StudentSidebar page={"marketplace"} />
                     <div className='w-full h-full flex flex-col'>
                         {
                             presentPage === 1 ?
@@ -426,9 +439,15 @@ const CreateBid = ({ params }) => {
                                         <div className='w-full flex items-center font-semibold pl-6 pt-3 text-xl'>
                                             Create Milestones that will make it easier to work on this project
                                         </div>
-                                        <div className='px-6 mt-4 font-semibold flex'>
-                                            <span className='mx-4'>Start Date <span className='text-red-500'> * </span> </span>
-                                            <input type="date" className='outline-none px-2 border-2 border-zinc-400 rounded-lg' required value={startDate} onChange={(e) => setStartDate(e.target.value)} />
+                                        <div className='flex items-center'>
+                                            <div className='px-6 mt-4 font-semibold flex'>
+                                                <span className='mx-4'>Start Date <span className='text-red-500'> * </span> </span>
+                                                <input type="date" className='outline-none px-2 border-2 border-zinc-400 rounded-lg' required value={startDate} onChange={(e) => setStartDate(e.target.value)} />
+                                            </div>
+                                            <div className='mt-5'>
+                                                <span className='mx-4'> Proposal Doc Url: <span className='text-red-500'> * </span> </span>
+                                                <input type="text" className='outline-none px-2 border-2 border-zinc-400 rounded-lg' required value={docUrl} onChange={(e) => setDocUrl(e.target.value)} />
+                                            </div>
                                         </div>
                                         <div className='flex flex-col w-full h-full px-6 my-3'>
                                             <div className='flex'>
@@ -453,7 +472,7 @@ const CreateBid = ({ params }) => {
 
                                             <div className='h-full bg-indigo-50 flex flex-col pb-8 max-h-72 overflow-scroll overflow-y-auto overflow-x-hidden'>
                                                 <div className='flex w-full pt-4'>
-                                                    <input type="number" name='cost' value={milestones[selectedMilestone - 1]['cost']} onChange={handleInputChange} placeholder='Expected cost &#8377;' className='mx-3 w-32 py-1 px-1 italic rounded-lg outline-none' required />
+                                                    <input type="number" name='payment' value={milestones[selectedMilestone - 1]['payment']} onChange={handleInputChange} placeholder='Expected payment &#8377;' className='mx-3 w-32 py-1 px-1 italic rounded-lg outline-none' required />
                                                     <input name='duration' value={milestones[selectedMilestone - 1]['duration']} onChange={handleInputChange} type="number" placeholder='Enter duration' className='mx-3 w-32 py-1 px-1 italic rounded-lg outline-none' required /> <span className='-ml-3'> Weeks </span>
                                                     {/* <div className='flex bg-white p-2 text-neutral-600 rounded-lg'>
                                                         <Folder_Icon className="mr-1" />
@@ -477,8 +496,8 @@ const CreateBid = ({ params }) => {
                                                 </div>
                                                 <div className='flex flex-col px-6 my-4 '>
                                                     <div className='flex items-center'>
-                                                        <span>Milestone Title</span>
-                                                        <input name='title' value={milestones[selectedMilestone - 1]['title']} onChange={handleInputChange} type="text" placeholder='Enter Milestone title' className='w-2/3 mx-10 my-4 h-8 px-4 rounded-xl py-6 outline-none' required />
+                                                        <span>Milestone heading</span>
+                                                        <input name='heading' value={milestones[selectedMilestone - 1]['heading']} onChange={handleInputChange} type="text" placeholder='Enter Milestone heading' className='w-2/3 mx-10 my-4 h-8 px-4 rounded-xl py-6 outline-none' required />
                                                     </div>
                                                     <div className='flex items-center'>
                                                         <span>Description</span>
@@ -502,7 +521,7 @@ const CreateBid = ({ params }) => {
                                         {/* <div> {aiGenerated['Milestone 0'].Submilestones[0].work} hi </div> */}
                                         {
                                             aiGenerated && milestones &&
-                                            <GeneratedSubmilestones aiGenerated={aiGenerated} milestones={milestones} setAiGenerated={setAiGenerated} handleSubmit={handleSubmit} setPresentPage={setPresentPage}/>
+                                            <GeneratedSubmilestones aiGenerated={aiGenerated} milestones={milestones} setAiGenerated={setAiGenerated} handleSubmit={handleSubmit} setPresentPage={setPresentPage} />
                                         }
                                     </>
                         }
