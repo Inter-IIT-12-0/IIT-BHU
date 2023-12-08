@@ -3,7 +3,7 @@ import React from "react";
 
 const RightCard = () => {
   return (
-    <div className="flex max-w-md h-32 mx-auto bg-white shadow-md rounded-2xl overflow-hidden ">
+    <div className="flex w-3/4 xl:max-w-md h-32 mx-auto bg-white shadow-md rounded-2xl overflow-hidden ">
       {/* Left side with text */}
       <div className="p-4 flex-1">
         <h2 className="text-xl font-semibold mb-2">Rewards & Badges</h2>

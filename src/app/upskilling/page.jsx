@@ -19,28 +19,28 @@ const Upskilling = () => {
         <Navbar />
         <div className='flex w-full h-full'>
           <SidebarUpskilling page="dashboard"/>
-          <div className="flex flex-col max-h-[85vh] overflow-scroll overflow-y-auto overflow-x-hidden">
-            <div className="w-[1200px] h-full bg-white rounded-2xl border border-zinc-300 relative top-24 pl-12 pt-4 flex flex-col justify-evenly pb-4 mx-5">
+          <div className="flex flex-col max-h-[85vh] overflow-scroll overflow-y-auto overflow-x-hidden w-full" >
+            <div className="h-full bg-white rounded-2xl border border-zinc-300 relative top-24 pl-12 pt-4 flex flex-col justify-evenly pb-4 mx-5">
               <div className="text-black text-4xl font-medium font-['Helvetica Neue'] tracking-wide mb-3">
                 Let's get started!{" "}
               </div>
               <div className="text-neutral-400 text-2xl font-normal font-['Helvetica Neue'] tracking-wide my-5">
                 To start your learning journey select any one{" "}
               </div>
-              <div className="w-full flex justify-between pr-32 pl-8">
+              <div className="w-full flex justify-between xl:pr-32 px-8">
                 <UpskillingCard
                   heading="Table of Tools"
-                  image={<TableOfTools />}
+                  image={<TableOfTools  className="xl:scale-100 scale-75" />}
                   content="Explore and use different AI Tools"
                 />
                 <UpskillingCard
                   heading="AI Arcade"
-                  image={<AIArcade />}
+                  image={<AIArcade  className="xl:scale-100 scale-75" />}
                   content="Learn AI tools through fun games"
                 />
                 <UpskillingCard
                   heading="Mentorship"
-                  image={<Mentorship />}
+                  image={<Mentorship className="xl:scale-100 scale-75" />}
                   content="Get one on one mentorship from AI experts"
                 />
               </div>
@@ -50,9 +50,9 @@ const Upskilling = () => {
                 Continue Learning{" "}
               </div>
               <div className="flex">
-                <div className="w-[600px] h-96 bg-white bg-opacity-50 rounded-2xl border-2 border-sky-800 border-dotted mt-5 flex flex-col justify-center items-center">
-                  <Plus />
-                  <div className="text-black text-2xl font-semibold font-['HelveticaNeueLTW06-97BlkCnObl'] tracking-wide">
+                <div className="xl:w-[600px] w-[400px] h-96 bg-white bg-opacity-50 rounded-2xl border-2 border-sky-800 border-dotted mt-5 flex flex-col justify-center items-center px-6">
+                  <Plus className="scale-75 xl:scale-100" />
+                  <div className="text-black text-base xl:text-2xl font-semibold font-['HelveticaNeueLTW06-97BlkCnObl'] tracking-wide">
                     You don't have any active courses yet{" "}
                   </div>
                   <Link
@@ -62,7 +62,7 @@ const Upskilling = () => {
                     Explore Resources{" "}
                   </Link>
                 </div>
-                <div className="flex flex-col justify-evenly ml-28">
+                <div className="flex flex-col justify-evenly ml-2 xl:ml-28">
                   <RightCard />
                   <RightCard />
                   <RightCard />
@@ -75,7 +75,8 @@ const Upskilling = () => {
                 Recommended Courses For You
               </div>
 
-              <div className="flex mt-8 -ml-16 justify-normal">
+              <div className="grid grid-cols-2 xl:grid-cols-3 grid-flow-row w-[80vw] mt-8 ">
+                <GlossyCard />
                 <GlossyCard />
                 <GlossyCard />
               </div>

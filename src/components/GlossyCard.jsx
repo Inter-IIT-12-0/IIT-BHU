@@ -3,10 +3,10 @@ import React from "react";
 
 const GlossyCard = () => {
   return (
-    <div className="max-w-sm mx-auto overflow-hidden bg-white rounded-[38px] shadow-lg cursor-pointer hover:scale-110 transition-all duration-500">
+    <div className="xl:max-w-sm w-[35vw] mx-auto overflow-hidden bg-white rounded-[38px] shadow-lg cursor-pointer hover:scale-110 transition-all duration-500 mb-5">
       {/* Image section */}
-      <div className="bg-cover bg-center">
-        <img src="/GlossyRectangle.jpg"></img>
+      <div className="w-full">
+        <img src="/GlossyRectangle.jpg" className="w-full"></img>
       </div>
       {/* Text content section */}
       <div className="p-4">
