@@ -11,7 +11,7 @@ import { useSession } from "next-auth/react";
 export default function StudentSidebar({page}) {
     const {data:session} = useSession()
     return (
-        <div className="w-60 bg-white shadow-2xl pb-3 flex flex-col h-[94vh] justify-between items-center">
+        <div className="w-60 bg-white shadow-2xl pb-6 flex flex-col h-[94vh] justify-between items-center">
             <div className="pr-5">
                 <Link
                     href={"/"}

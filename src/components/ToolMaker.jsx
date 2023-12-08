@@ -49,13 +49,13 @@ const ToolMaker = () => {
 
     return (
         <div className="tool-maker-container rounded-lg flex flex-col w-[100%] pb-8 overflow-y-auto overflow-scroll overflow-x-hidden max-h-[90vh]">
-            <div className="section-1  items-center justify-between py-10 px-40 border-b border-gray-300 rounded-xl m-8" style={{ "backgroundColor": "#E8E8E8" }}>
+            <div className="section-1 items-center justify-between py-10 xl:px-40 px-10 border-b border-gray-300 rounded-xl m-8" style={{ "backgroundColor": "#E8E8E8" }}>
                 <h1 className="text-Text-Black text-center font-Lato text-3xl font-bold leading-normal tracking-tight">
                     Create your very own Personalized AI tool with Trumio
                 </h1>
                 <div className="w-full h-[30vh] flex space-x-4 flex-1 mb-10 mt-8" >
 
-                    <div className={`flex-1  p-4 rounded-md bg-white cursor-pointer ${showDomain && 'border-2 border-gray-400'}`} onClick={() => { setShowAiTools(false); setShowDomain(true) }}>
+                    <div className={`flex-1 w-80 p-4 rounded-md bg-white cursor-pointer ${showDomain && 'border-2 border-gray-400'}`} onClick={() => { setShowAiTools(false); setShowDomain(true) }}>
                         <div className="text-Text text-center font-Lato text-xl font-normal leading-normal tracking-wider opacity-50 mt-20">
                             {domainName}
                         </div>
@@ -64,7 +64,7 @@ const ToolMaker = () => {
                     <img className='h-12 w-12 mt-20 rounded-full' src="https://trumio.ai/wp-content/uploads/2023/07/Real-World-Expereinces-student.png"></img>
 
                     {/* Second Card */}
-                    <div className={`flex-1 bg-white rounded-md  p-4 cursor-pointer ${showAiTools && 'border-2 border-gray-400'}`} onClick={() => { setShowDomain(false); setShowAiTools(true) }}>
+                    <div className={`flex-1 w-72 bg-white rounded-md  p-4 cursor-pointer ${showAiTools && 'border-2 border-gray-400'}`} onClick={() => { setShowDomain(false); setShowAiTools(true) }}>
 
                         <div className={`text-Text text-center font-Lato text-xl font-normal leading-normal tracking-wider opacity-50 mt-20`} >
                             {aiToolName}

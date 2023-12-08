@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const LanguageEnum = ['English', 'Spanish', 'French', 'German'];
 const DomainEnum = ['UX/UI Designer', 'Developer', 'Product Management'];
-const RoleEnum = ['Student', 'Client'];
+const RoleEnum = ['Student', 'Client', 'Professor'];
 const DaysEnum = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 const statusEnum = ['certified', 'Incomplete']
 import Project from "./Project";
