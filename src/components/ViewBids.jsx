@@ -114,9 +114,9 @@ const ViewBids = ({ project_id }) => {
 
             </div>
           </div> :
-          <div className="flex flex-col py-5 px-16 w-full">
+          <div className="flex py-5 px-16 w-full">
             <Bid team={openingTeam} setOpenBid={setOpenBid}/>
-            {/* <ClientProjectsRightSidebar  /> */}
+            <ClientProjectsRightSidebar  mtdata={openingTeam.teamUserMap}/>
           </div>
       }
     </>

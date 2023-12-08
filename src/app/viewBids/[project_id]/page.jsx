@@ -10,7 +10,7 @@ const viewBids = ({params}) => {
     const {data:session} = useSession()
     return (
 
-        <main className='w-[100vw]'>
+        <main className='w-[100vw] h-[100vh] overflow-hidden'>
             {
                 session &&
                 session.user.role === 'Client' && 

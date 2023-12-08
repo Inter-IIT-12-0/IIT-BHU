@@ -77,7 +77,7 @@ const SubMilestoneCard = ({ submilestone, setSelectedSubmilestone, project, setT
 
   const [selectedOption, setSelectedOption] = useState("");
   return (
-    <main className='bg-white flex w-full h-full'>
+    <main className='bg-white flex w-screen overflow-hidden h-screen'>
       <div className='flex flex-col px-10 pb-20 w-full'>
         <div className='w-full flex justify-center items-center mt-3'> <span className='flex justify-center items-center rounded-full h-10 w-10 bg-black text-white cursor-pointer' onClick={() => setSelectedSubmilestone(null)}>X </span>  </div>
         <div>

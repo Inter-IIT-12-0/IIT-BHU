@@ -10,7 +10,7 @@ import Footer from "./Footer"
 const Navbar = () => {
   const { data: session } = useSession()
   return (
-    <div className="w-full h-16 shadow-md flex justify-between items-center border-b-2 opacity-100 z-40">
+    <div className="w-[100vw] h-16 shadow-md flex justify-between items-center border-b-2 opacity-100 z-40">
       <Link href={"/"} className="justify-start items-center inline-flex gap-4 ml-4 scale-75">
         <Trumio_logo />
         <div>

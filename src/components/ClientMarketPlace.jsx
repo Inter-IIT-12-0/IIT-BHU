@@ -21,7 +21,7 @@ const ClientMarketplace = ({projects, setOpenedProj, availDomains, selected, set
         }).catch(console.log)
     }, [])
     return (
-        <div className='w-full h-full flex flex-col'>
+        <div className='h-full overflow-x-hidden flex flex-col'>
             <Filterbar location={location} setLocation={setLocation} status={status} setStatus={setStatus} payment={payment} setPayment={setPayment} domain={domain} setDomain={setDomain} setSearch={setSearch} search={search} domains={availDomains} selected={selected} setSelected={setSelected} />
             <div className='h-full p-8 max-h-[70vh] overflow-scroll overflow-y-auto overflow-x-hidden'>
                 {

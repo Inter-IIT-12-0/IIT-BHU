@@ -8,7 +8,7 @@ import {useRouter} from "next/navigation"
 
 const ConfirmationModal = ({setModalOpen, teamName, handleAccept}) => {
     return (
-        <main className='w-[100vw] h-[100vh] absolute top-0 left-0 z-20 bg-gray-600 bg-opacity-60 flex justify-center items-center'>
+        <main className='w-[100vw] h-[100vh] overflow-hidden absolute top-0 left-0 z-20 bg-gray-600 bg-opacity-60 flex justify-center items-center'>
             <div className='w-72 flex flex-col justify-around items-center bg-gray-200 p-5 rounded-xl'>
                 <h2 className='font-bold text-lg my-2'> Confirm Bid </h2>
                 <p className='text-zinc-600 my-2'>
@@ -31,7 +31,7 @@ const Bid = ({team, setOpenBid}) => {
             milestones: team.proposal.milestones,
             assignedTeam: team._id
         }).then(res => {
-            axios.patch(`/api/team/${team._id}`, {
+            axios.patch(`/api/team/?teamId=${team._id}`, {
                 status: 'Accepted'
             }).then(res => {
                 toast.success("Bid Accepted Successfully")

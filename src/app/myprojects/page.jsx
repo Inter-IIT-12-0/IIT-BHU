@@ -29,7 +29,7 @@ const MyProjects = () => {
 
 	return (
 
-		<main className='w-[100vw]'>
+		<main className='w-[100vw] h-[100vh] overflow-hidden'>
 			<div className='flex flex-col w-full h-full'>
 				<Navbar />
 				<div className='flex w-full h-full'>
@@ -53,9 +53,9 @@ const MyProjects = () => {
 									{
 										selectedOption === 'Current' && <h2 className="font-semibold text-xl ml-8 mt-8"> In Bidding </h2>
 									}
-									<div className='pl-8 flex w-full'>
+									<div className='pl-8 flex w-full flex-wrap'>
 										{
-											Projects.filter(project => (selectedOption === "Completed" ? project.status === "Completed" : true) && !!!project.assignedTeam).map(project => {
+											Projects.filter(project => (selectedOption === "Completed" ? project.status === "Completed" : true) && !!!project.assignedTeam).length === 0 ? "None" : Projects.filter(project => (selectedOption === "Completed" ? project.status === "Completed" : true) && !!!project.assignedTeam).map(project => {
 												return <MyBidsCard key={project._id} project={project} />
 											})
 										}
@@ -64,7 +64,7 @@ const MyProjects = () => {
 										selectedOption === 'Current' &&
 										<>
 											<h2 className="font-semibold text-xl ml-8 mt-8"> Live Projects </h2>
-											<div className=' pl-8 flex'>
+											<div className=' pl-8 flex flex-wrap '>
 												{
 													Projects.filter(project => !!project.assignedTeam).map(project => {
 														return <MyProjectCard key={project._id} project={project} />
