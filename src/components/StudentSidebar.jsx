@@ -89,14 +89,13 @@ export default function StudentSidebar({page}) {
                         My Chats
                     </div>
                 </div>
-                <Link href={"/upskilling"}>
-                    <button className="px-6 hover:bg-sky-700 transition-all duration-500 mb-2 py-2 rounded-2xl text-center bg-sky-900 text-white">
-                        Switch to Learn
-                    </button>
-                </Link>
-            </div>
-
                 
+            </div>
+            <Link href={"/upskilling"}>
+                <button className="px-6 hover:bg-sky-700 transition-all duration-500 mb-2 py-2 rounded-2xl text-center bg-sky-900 text-white">
+                    Switch to Learn
+                </button>
+            </Link>   
         </div>
     );
 }

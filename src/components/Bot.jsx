@@ -11,7 +11,7 @@ const Bot = ({ isOpen, setIsOpen }) => {
     setIsOpen(isOpen => !isOpen);
   }
   return (
-      <div className="rounded-full w-12 h-12 overflow-hidden" onClick={handleClick}>
+      <div className="rounded-full w-12 h-12 overflow-hidden z-50" onClick={handleClick}>
         <video id="globeVideo" src="/Videos/globe.mp4" autoPlay loop muted playsInline />
       </div>
   );
