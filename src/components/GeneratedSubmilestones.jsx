@@ -1,7 +1,7 @@
 import React from 'react'
 import PlusIcon from "../../public/Images/PlusIcon.svg"
 import BackArrow_Icon from "../../public/Images/BackArrow_Icon.svg"
-const GeneratedSubmilestones = ({ aiGenerated, milestones, setAiGenerated, handleSubmit, setPresentPage }) => {
+const GeneratedSubmilestones = ({ aiGenerated, milestones, setAiGenerated, setPresentPage }) => {
   // console.log(milestones)
   return (
 
@@ -44,7 +44,7 @@ const GeneratedSubmilestones = ({ aiGenerated, milestones, setAiGenerated, handl
         }
       </div>
       <div className='w-full flex justify-end px-10 text-white'>
-        <button className='bg-sky-700 px-2 py-3 rounded-3xl w-40 text-xl' onClick={handleSubmit}> Submit Bid</button>
+        <button className='bg-sky-700 px-2 py-3 rounded-3xl w-40 text-xl' onClick={() => setPresentPage(prev => prev + 1)}> Create Proposal </button>
       </div>
     </div>
   )

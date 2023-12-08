@@ -39,7 +39,7 @@ const UserSchema = new mongoose.Schema({
     name: { type: String },
     avatarUrl: { type: String },
     email: { type: String, unique: true, required: true },
-    domain: [{ type: String, enum: domainEnum }],
+    domain: { type: [String], enum: domainEnum },
     role: { type: String, enum: RoleEnum },
     companyName: { type: String },
     sectorName: { type: String },
