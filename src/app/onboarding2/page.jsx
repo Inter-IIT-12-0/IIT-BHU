@@ -15,7 +15,20 @@ const OnBoarding = () => {
   const handleCardClick = (domain) => {
     setSelectedCard(domain);
   };
-  const domains = ["UI/UX Designing", "Engineering", "Product Management", "Data Analysis", "Consultancy", "Research"]
+  const domains  = [
+    "UI/UX Designing",
+    "Engineering",
+    "Product Management",
+    "Data Analysis",
+    "Consultancy",
+    "Research",
+    "Software Development",
+    "Marketing and Branding",
+    "Business Development",
+    "Project Management",
+    "Sustainability",
+    "AI/ML"
+  ];
 
   const handleDomainSubmit = () => {
     let user = session.user

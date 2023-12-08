@@ -9,11 +9,11 @@ function simpleSearch(query, word) {
 
 
 function projectSearch(query, location, status, payment, domain, project) {
-    const queryOk = simpleSearch(query, project.title) || simpleSearch(query, project.domain) 
+    const queryOk = simpleSearch(query, project.title) || simpleSearch(query, project.domain[0]) 
     const locationOk = location === 'select' || (location === "Remote" ? project.location === "Remote" : project.location !== "Remote")
     const statusOk = status === 'select' || (project.status === status)
     const paymentOk = payment === 'select' || (project.clientRequirements.paymentType === payment)
-    const domainOk = domain === 'select' || (project.domain === domain)
+    const domainOk = domain === 'select' || (project.domain[0] === domain)
     return queryOk && locationOk && statusOk && paymentOk && domainOk
 }
 

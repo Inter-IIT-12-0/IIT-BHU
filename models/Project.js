@@ -3,7 +3,20 @@ import mongoose from 'mongoose';
 const statusEnum = ['In Progress', 'Completed','Not Started'];
 const appsEnum = [('Figma', 'http://figma.com')];
 const toolsEnum = ['Engineering', 'Design'];
-
+const domainEnum  = [
+  "UI/UX Designing",
+  "Engineering",
+  "Product Management",
+  "Data Analysis",
+  "Consultancy",
+  "Research",
+  "Software Development",
+  "Marketing and Branding",
+  "Business Development",
+  "Project Management",
+  "Sustainability",
+  "AI/ML"
+];
 const ApplicationSchema = new mongoose.Schema({
   tool:{type:String},
   url:{type:String},
@@ -81,7 +94,7 @@ const projectSchema = new mongoose.Schema({
   clientRequirements: clientRequirementsSchema,
   work: [workSchema],
   duration: { type: Number, required: true },
-  domain: { type: String, required: true},
+  domain: [{ type: String, required: true ,enum:domainEnum}],
   postedOn: {type: Date, default: Date.now},
   status: {type: String, enum: ['Open', 'In Review', 'Completed'], default: 'In Review'},
   location: { type: String, required: true},

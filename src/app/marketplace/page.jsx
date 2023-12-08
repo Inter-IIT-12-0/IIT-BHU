@@ -21,7 +21,7 @@ const Projects = () => {
     useEffect(() => {
         axios.get('/api/allprojects')
         .then(res => {
-            setAvailDomains(Array.from(new Set(res.data.map(proj => proj.domain))))
+            setAvailDomains(Array.from(new Set(res.data.flatMap(proj => proj.domain))));
             setProjects(res.data)
         })
         .catch(err => console.log(err))

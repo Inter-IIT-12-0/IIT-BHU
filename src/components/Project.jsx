@@ -285,7 +285,7 @@ const Project = ({ project, setOpenedProj }) => {
                                 </div>
                             </div>
                             <div className="px-4 py-2 flex flex-col">
-                                <div className="text-neutral-700 text-base font-normal font-sans tracking-wide">Sector: {project.assignedBy.domain} </div>
+                                <div className="text-neutral-700 text-base font-normal font-sans tracking-wide">Sector: {project.assignedBy.domain[0]} </div>
                                 <div className="text-neutral-700 text-base font-normal font-sans tracking-wide">Payments Completed: &#8377; {project.assignedBy.paymentsCompleted} </div>
                                 <div className="text-neutral-700 text-base font-normal font-sans tracking-wide">Projects Posted: {project.assignedBy.projectsPosted} </div>
                             </div>
