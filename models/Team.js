@@ -7,12 +7,11 @@ const toolsEnum = ['Tool1', 'Tool2', 'Tool3', 'Tool4', 'Tool5'];
 const languagesEnum = ['English', 'French', 'Spanish', 'German', 'Other'];
 
 const proposalSchema = new mongoose.Schema({
-  proposalScore: { type: Number },
   acceptanceProbability: { type: Number },
   bidAmount: { type: Number },
   startDate: { type: Date },
   milestones: [milestoneSchema],
-  file: { type: String }
+  text: { type: String }
 });
 
 const teamUserMap = new mongoose.Schema({
