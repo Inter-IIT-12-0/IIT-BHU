@@ -38,7 +38,7 @@ const ClientProjectsRightSidebar = ({mtdata}) => {
                          {ele.map((ele) => {
                             return <div className="flex justify-between p-3">
                             <div className="flex flex-row">
-                                <img src="/Images/newProf.svg" alt="" />
+                                <img className="rounded-full h-12 w-12" src={ele.user && ele.user.avatarUrl} alt="" />
                                 <div className="flex flex-col ml-5">
                                     <h1 className="text-black text-1x1 font-semibold">{ele.user && ele.user.name}</h1>
                                     <h2>{ele.role}</h2>
@@ -62,7 +62,7 @@ const ClientProjectsRightSidebar = ({mtdata}) => {
                 <div className="rounded-full bg-black w-full h-px my-3"></div>
                 <div className="flex justify-between p-3">
                     <div className="flex flex-row">
-                        <img src="/Images/newProf.svg" alt="" />
+                        <img className="h-12 w-12 rounded-full" src="/Images/newProf.svg" alt="" />
                         <div className="flex flex-col ml-5">
                             <h1 className="text-black text-1x1 font-semibold">Aditya Rai</h1>
                             <h2>Buissness Analyst</h2>

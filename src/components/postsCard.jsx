@@ -13,8 +13,9 @@ const PostCard = ({tabName, ele, details}) => {
             
                 <div className="flex flex-col pb-8 px-5 w-[80%]">
                 <h1 className="my-5 text-black text-2xl font-semibold">About</h1>
-                <div className="">
+                <div className="rounded-3xl shadow-xl border border-gray-600 p-6 w-[53vw] flex flex-col gap-6 font-semibold">
                     {tabName === 'posts' ? description : details.about}
+                    {tabName !== 'posts' && <img className="w-[50vw] h-[40vh] rounded-3xl" src={details.avatarUrl} alt="" />}
                 </div>
                 {
                     tabName !== 'startup' && <>
@@ -79,7 +80,7 @@ const PostCard = ({tabName, ele, details}) => {
                             <div className="flex flex-row">
                             {ele.alumni.map((ele) => {
                                 return <div className="flex flex-row">
-                                <img src={ele.avatarUrl?ele.avatarUrl:"/Images/newElipse.svg"} className="h-10 ml-3" alt="" />
+                                <img src={ele.avatarUrl?ele.avatarUrl:"/Images/newElipse.svg"} className="h-10 w-10 rounded-full ml-3" alt="" />
                             </div>
                             })}
                             </div>
@@ -88,7 +89,7 @@ const PostCard = ({tabName, ele, details}) => {
                             <h1 className="text-2xl font-semibold m-1">Labs</h1>
                             <div className="flex flex-row">
                                 {ele.labs.map((ele) => {
-                                    return <img src={ele.avatarUrl?ele.avatarUrl:"/Images/newElipse.svg"} className="h-10 mx-2" alt="" />
+                                    return <img src={ele.avatarUrl?ele.avatarUrl:"/Images/newElipse.svg"} className="h-10 w-10 rounded-full mx-2" alt="" />
                                 })}
                             </div>
                         </div>

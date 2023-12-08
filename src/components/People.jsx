@@ -67,7 +67,6 @@ const People = () => {
         else {
             const usersWithTargetDomain = users.filter(person => person.domain === option);
             setFilteredPeople(usersWithTargetDomain);
-
         }
     };
 
@@ -90,7 +89,6 @@ const People = () => {
 
         {
             if (domain) {
-
                 const filteredPeopleResult = users.filter(person =>
                     person.name.toLowerCase().includes(inputValue.toLowerCase())
                 ).filter(person => person.domain === domain);
