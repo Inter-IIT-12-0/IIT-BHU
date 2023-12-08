@@ -106,7 +106,7 @@ const University = ({params}) => {
       <div className="flex">
         <StudentSidebar page={"people"}/>
         {uniData && uniData.map((ele) => {
-          return <div className="max-h-[90vh] overflow-scroll overflow-y-auto overflow-x-hidden ml-4 mt-8" >
+          return <div className="max-h-[87vh] overflow-scroll overflow-y-auto overflow-x-hidden ml-4 mt-8" >
 
             <div className="bg-white rounded-md shadow-lg w-screen">
               <div className="md:flex px-4 leading-none max-w-full mt-6 bg-blue-100 rounded-md">

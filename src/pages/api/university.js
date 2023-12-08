@@ -19,7 +19,23 @@ const handler = async (req, res) => {
       case 'GET':
         try {
           if (req.query.id) {
-            const university = await University.find({ "_id": req.query.id }, '-_id -__v').populate('members', '-__v').populate('professors', '-__v').populate('projects', '-__v').populate('alumni','-__v').populate('student','-__v')
+            const university = await University.find({ "_id": req.query.id }, '-_id -__v').populate('members', '-__v').populate('professors', '-__v').populate('projects', '-__v').populate('alumni','-__v').populate('student','-__v').populate({
+              path:'labs',
+              populate: {
+                path: 'projects',
+                model: 'Project'
+              }
+            })
+            .populate({
+              path: 'labs',
+              populate: {
+                path: 'projects',
+                populate: {
+                  path: 'assignedBy',
+                  model: 'User'
+                }
+              }
+            })
             res.status(200).json(university);
           }
         } catch (error) {
@@ -32,13 +48,13 @@ const handler = async (req, res) => {
       try {
         const { universityId } = req.query;
 
-        if (!universityrId) {
+        if (!universityId) {
           res.status(400).json({ error: 'University ID is required for update' });
           return;
         }
 
         const updatedUniversity = await University.findByIdAndUpdate(
-          universityIdrId,
+          universityId,
           { $set: req.body },
           { new: true }
         );
