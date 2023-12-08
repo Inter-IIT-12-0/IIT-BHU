@@ -29,47 +29,31 @@ const MilestoneTable = ({ project, setSelectedSubmilestone }) => {
             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:text-gray-400">
               <tr>
                 <th scope="col" className="px-6 py-3">
-                  Submilestone Name
+                  Submilestone
                 </th>
                 <th scope="col" className="px-6 py-3">
                   Status
                 </th>
                 <th scope="col" className="px-6 py-3">
-                  Due Date
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Assigned to
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Comments
+                  Description
                 </th>
               </tr>
             </thead>
             <tbody>
-              {milestone.subMilestones.map((submilestone) => (
+              {milestone.submilestones.map((submilestone, index) => (
                 <tr
-                  key={submilestone.id}
+                  key={submilestone._id}
                   className="bg-white border-y dark:border-gray-200 cursor-pointer"
                   onClick={() => setSelectedSubmilestone(submilestone)}
                 >
-                  <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                    {submilestone.title}
+                  <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap">
+                    <span className='ml-8'>{index + 1}</span>
                   </th>
                   <td className="px-6 py-4">
                     {submilestone.status}
                   </td>
                   <td className="px-6 py-4">
-                    {(new Date(submilestone.dueDate)).toLocaleDateString('en-US', {
-                      day: 'numeric',
-                      month: 'long',
-                      year: 'numeric'
-                    })}
-                  </td>
-                  <td className="px-6 py-4">
-                    {/* {submilestone.assignedTo.name} */}
-                  </td>
-                  <td className="px-6 py-4">
-                    N/A
+                    {submilestone.description}
                   </td>
                 </tr>
               ))}

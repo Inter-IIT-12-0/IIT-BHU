@@ -1,0 +1,29 @@
+<svg width="151" height="122" viewBox="0 0 151 122" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Group 33676">
+<g id="Group 33669">
+<path id="Vector 96" d="M7.10031 47.4316H6.31718C3.76999 47.4316 1.70508 49.4965 1.70508 52.0437V70.7115C1.70508 73.2586 3.76999 75.3236 6.31718 75.3236H7.10031" stroke="#005FA5" stroke-width="1.61424" stroke-linecap="round"/>
+<rect id="Rectangle 3744" opacity="0.6" x="4.29492" y="49.7031" width="23.5424" height="23.5424" rx="3.45907" fill="#005FA5"/>
+</g>
+<g id="Group 33670">
+<path id="Vector 96_2" d="M144.433 47.4316H145.216C147.763 47.4316 149.828 49.4965 149.828 52.0437V70.7115C149.828 73.2586 147.763 75.3236 145.216 75.3236H144.433" stroke="#005FA5" stroke-width="1.61424" stroke-linecap="round"/>
+<rect id="Rectangle 3744_2" opacity="0.6" width="23.5424" height="23.5424" rx="3.45907" transform="matrix(-1 0 0 1 147.238 49.7031)" fill="#005FA5"/>
+</g>
+<g id="Group 33671">
+<path id="Vector 96_3" d="M43.127 115.689L43.127 116.472C43.127 119.019 45.1919 121.084 47.7391 121.084L66.4068 121.084C68.954 121.084 71.0189 119.019 71.0189 116.472L71.0189 115.689" stroke="#005FA5" stroke-width="1.61424" stroke-linecap="round"/>
+<rect id="Rectangle 3744_3" opacity="0.6" x="45.3984" y="118.494" width="23.5424" height="23.5424" rx="3.45907" transform="rotate(-90 45.3984 118.494)" fill="#005FA5"/>
+</g>
+<g id="Group 33673">
+<path id="Vector 96_4" d="M84.126 115.689L84.126 116.472C84.126 119.019 86.1909 121.084 88.7381 121.084L107.406 121.084C109.953 121.084 112.018 119.019 112.018 116.472L112.018 115.689" stroke="#005FA5" stroke-width="1.61424" stroke-linecap="round"/>
+<rect id="Rectangle 3744_4" opacity="0.6" x="86.3975" y="118.494" width="23.5424" height="23.5424" rx="3.45907" transform="rotate(-90 86.3975 118.494)" fill="#005FA5"/>
+</g>
+<g id="Group 33672">
+<path id="Vector 96_5" d="M43.127 7.06711L43.127 6.28398C43.127 3.73678 45.1919 1.67187 47.7391 1.67187L66.4068 1.67187C68.954 1.67187 71.0189 3.73678 71.0189 6.28397L71.0189 7.06711" stroke="#005FA5" stroke-width="1.61424" stroke-linecap="round"/>
+<rect id="Rectangle 3744_5" opacity="0.6" width="23.5424" height="23.5424" rx="3.45907" transform="matrix(4.37114e-08 1 1 -4.37114e-08 45.3984 4.26172)" fill="#005FA5"/>
+</g>
+<g id="Group 33674">
+<path id="Vector 96_6" d="M84.126 7.06711L84.126 6.28398C84.126 3.73678 86.1909 1.67187 88.7381 1.67187L107.406 1.67187C109.953 1.67187 112.018 3.73678 112.018 6.28397L112.018 7.06711" stroke="#005FA5" stroke-width="1.61424" stroke-linecap="round"/>
+<rect id="Rectangle 3744_6" opacity="0.6" width="23.5424" height="23.5424" rx="3.45907" transform="matrix(4.37114e-08 1 1 -4.37114e-08 86.3975 4.26172)" fill="#005FA5"/>
+</g>
+<rect id="Rectangle 3743" x="18.3828" y="14.9023" width="118.379" height="93.2788" rx="14.9893" fill="#005FA5"/>
+</g>
+</svg>

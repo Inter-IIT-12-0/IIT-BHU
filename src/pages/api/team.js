@@ -19,7 +19,7 @@ const handler = async (req, res) => {
         .populate({
             path: 'teamUserMap.user',
             model: 'User',
-            select: '-__v -email -role -fees -sectorName -companyName -aiTools -aiToolsLimit'
+            select: '-__v -role -fees -sectorName -companyName -aiTools -aiToolsLimit'
         });
 
       res.status(200).json(teams);
@@ -27,7 +27,7 @@ const handler = async (req, res) => {
       console.error(error);
       res.status(500).json({ error: 'Error retrieving teams' });
     }
-  } else if (req.method === 'PUT') {
+  } else if (req.method === 'PATCH') {
     const { teamId } = req.query;
 
     if (!teamId) {

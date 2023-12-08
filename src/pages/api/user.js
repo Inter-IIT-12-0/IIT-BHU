@@ -60,7 +60,7 @@ const handler = async (req, res) => {
         }
         break;
 
-    case 'PUT':
+    case 'PATCH':
       try {
         const { userId } = req.query;
         const { user_id, collabRating, skillRating } = req.body;
