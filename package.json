@@ -35,7 +35,8 @@
     "react-hot-toast": "^2.4.1",
     "react-router-dom": "^6.20.1",
     "swiper": "^11.0.5",
-    "typewriter-effect": "^2.21.0"
+    "typewriter-effect": "^2.21.0",
+    "validator": "^13.11.0"
   },
   "devDependencies": {
     "@types/react": "18.2.39",
