@@ -6,8 +6,7 @@ import Typewriter from 'typewriter-effect'
 import 'prismjs/themes/prism.css';
 import Prism from 'prismjs';
 import "prismjs/components/prism-javascript";
-// import "prismjs/components/prism-cpp";
-import codecheck from "../../pages/api/GPT/codecheck";
+import codecheck from "../../pages/api/GPT/Codecheck";
 
 const Learning = () => {
 

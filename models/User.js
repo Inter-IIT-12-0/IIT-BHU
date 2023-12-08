@@ -1,15 +1,28 @@
 const mongoose = require("mongoose");
-
 const LanguageEnum = ['English', 'Spanish', 'French', 'German'];
-const DomainEnum = ['UX/UI Designer', 'Developer', 'Product Management'];
-const RoleEnum = ['Student', 'Client', 'Professor'];
+const RoleEnum = ['Student', 'Client'];
 const DaysEnum = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-const statusEnum = ['certified', 'Incomplete']
-import Project from "./Project";
+const domainEnum = [
+    "UI/UX Designing",
+    "Engineering",
+    "Product Management",
+    "Data Analysis",
+    "Consultancy",
+    "Research",
+    "Software Development",
+    "Marketing and Branding",
+    "Business Development",
+    "Project Management",
+    "Sustainability",
+    "AI/ML"
+];
 
-const EducationSchema = new mongoose.Schema({
-    nameOfCollegeOrUniversity: { type: String },
-    degree: { type: String }
+const InviteSchema = new mongoose.Schema({
+    id:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Team'
+    },
+    name: { type: String }
 });
 
 const SocialMediaSchema = new mongoose.Schema({
@@ -20,18 +33,6 @@ const SocialMediaSchema = new mongoose.Schema({
 const aiToolsSchema = new mongoose.Schema({
     name: { type: String, unique: true },
     image: { type: String }
-})
-
-const AchievementSchema = new mongoose.Schema({
-    badgeImage:{ type: String },
-    badgeName:{ type: String },
-    status:{ type: String, enum:statusEnum }
-})
-
-const EarningStatsSchema = new mongoose.Schema({
-    image:{ type: String },
-    name:{ type: String },
-    data:{ type: Number }
 })
 
 const UserSchema = new mongoose.Schema({
@@ -61,16 +62,13 @@ const UserSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Project'
     }],
+    invites:[InviteSchema],
+    lastLogin: { type: Date },
     paymentsCompleted: { type: Number, default: 0 },
     projectsPosted: { type: Number, default: 0 },
     rating: { type: Number, default: 0 },
-    skillRating: { type: Number, default: 0},
-    collabRating: { type: Number, default: 0 },
-    numberOfFeedbacks: { type: Number },
     aiTools: [aiToolsSchema],
-    aiToolsLimit: { type: Number, default: 3 },
-    achievements: [AchievementSchema],
-    earningStats: [EarningStatsSchema]
+    aiToolsLimit: { type: Number, default: 3 }
 }, { timestamps: true });
 
 export default mongoose.models.User || mongoose.model("User", UserSchema);

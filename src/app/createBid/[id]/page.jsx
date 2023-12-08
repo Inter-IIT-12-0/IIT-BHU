@@ -337,7 +337,8 @@ const CreateBid = ({ params }) => {
                 if (project && recommended) {
                     console.log(project.statement);
                     const obj = await recommend(project.statement);
-                    setRecommended(recommended.filter(person => obj.includes(person.domain)));
+                    setRecommended(recommended.filter(person => person.domain.some(domain => obj.includes(domain))));
+
                 }
 
             }
@@ -350,7 +351,21 @@ const CreateBid = ({ params }) => {
 
     }, [])
 
-    const addToTeam = (member) => {
+    const handleInvite = async (teamId,userId) => { 
+        try {
+          const response = await axios.patch('/api/sendinvite', {
+            userId,
+            teamId,
+            teamName,
+          });
+          console.log(response.data);
+        } catch (error) {
+          console.error('API request failed:', error.message);
+        }
+      };
+    
+
+    const addToTeam = async (member) => {
         try {
             if (presentTeam.teamUserMap.map(map => map.user.email).includes(member.email)) return console.log("Member already added")
             let newTeam = presentTeam;
@@ -361,9 +376,10 @@ const CreateBid = ({ params }) => {
             }]
             console.log(teamUserMapNew)
             newTeam.teamUserMap = teamUserMapNew
-            axios.patch(`/api/team/?teamId=${presentTeam._id}`, newTeam)
+            await axios.patch(`/api/team/?teamId=${presentTeam._id}`, newTeam)
                 .then(res => {
                     setPresentTeam(res.data)
+                    handleInvite(res.data._id,member._id);
                 }).catch(console.log)
             setNoOfTeams(prev => prev + 1)
         } catch (error) {
@@ -378,8 +394,15 @@ const CreateBid = ({ params }) => {
         console.log(presentTeam.teamUserMap)
         let newTeam = presentTeam
         newTeam.teamUserMap = newArr
+        let teamId=presentTeam._id;
+        let userId = member._id;
         axios.patch(`/api/team/?teamId=${presentTeam._id}`, newTeam)
             .then(res => {
+                  axios.delete('/api/deleteinvite', {
+                    teamId,
+                    userId,
+
+                  });
                 console.log(res.data)
             }).catch(console.log)
         setNoOfTeams(prev => prev - 1)
@@ -440,7 +463,7 @@ const CreateBid = ({ params }) => {
                                                                     <div className='justify-between w-full pr-4 flex items-center'>
                                                                         <span className='text-neutral-700'> {map.user.name} {map.user.email === session.user.email ? '(Me)' : ''} </span>
                                                                         <div className='flex justify-between items-center'>
-                                                                            <p className='px-3 shadow-2xl shadow-zinc-500 flex justify-center items-center py-1 bg-white rounded-xl' style={{ boxShadow: '0 2px #cddae2' }} > {map.user.domain} </p>
+                                                                            <p className='px-3 shadow-2xl shadow-zinc-500 flex justify-center items-center py-1 bg-white rounded-xl' style={{ boxShadow: '0 2px #cddae2' }} > {map.user.domain[0]} </p>
                                                                             {
                                                                                 session.user.email !== map.user.email && <img src="/Images/Minus_Icon.png" alt="-" className='w-6 h-6 cursor-pointer ml-3' onClick={() => removeFromTeam(map.user)} />
                                                                             }
@@ -464,8 +487,6 @@ const CreateBid = ({ params }) => {
                                                     {
                                                         popup && <FriendsSearchPopup users={allUsers} setPopup={setPopup} plusFunction={addToTeam} />
                                                     }
-                                                    {/* <div className='mx-4 border-2 border-dotted border-zinc-500 flex justify-center items-center py-1 rounded-lg w-[40%] cursor-pointer' onClick={() => setPopup(prev => !prev)}>
-                                                        <Invitation_Icon className="scale-75" /> <span>Invite Friends</span> </div> */}
                                                 </div>
                                             </div>
                                             <div className='mb-3 flex justify-end px-8 text-white'>
@@ -503,7 +524,7 @@ const CreateBid = ({ params }) => {
                                                     session ?
                                                         filter === 'Past' && pastTeamMembers ?
                                                             pastTeamMembers.filter(member => {
-                                                                return (member.email !== session.user.email) && ((simpleSearch(search, member.name) || (simpleSearch(search, member.institute))) || (simpleSearch(search, member.domain)))
+                                                                return (member.email !== session.user.email) && ((simpleSearch(search, member.name) || (simpleSearch(search, member.institute))) || (simpleSearch(search, member.domain[0])))
                                                             }).map((member, index) => (
                                                                 <div className='ml-2 pb-2 my-5 bg-white border-gray-200 border-b-2 w-11/12 px-5 flex items-center' key={index}>
                                                                     <img src={member.avatarUrl} alt={member.name} className='rounded-full w-7 h-7 mr-4' />
@@ -513,7 +534,7 @@ const CreateBid = ({ params }) => {
                                                                             <span className='text-neutral-600 text-sm'> {member.institute} </span>
                                                                         </div>
                                                                         <div className='flex items-center'>
-                                                                            <p className='px-3 shadow-2xl mx-2 shadow-zinc-500 flex justify-center items-center py-1 bg-white rounded-xl' style={{ boxShadow: '0 2px #cddae2' }} > {member.domain} </p>
+                                                                            <p className='px-3 shadow-2xl mx-2 shadow-zinc-500 flex justify-center items-center py-1 bg-white rounded-xl' style={{ boxShadow: '0 2px #cddae2' }} > {member.domain[0]} </p>
                                                                             <PlusIcon onClick={() => {
                                                                                 addToTeam(member)
                                                                             }} className="cursor-pointer" />
@@ -527,7 +548,7 @@ const CreateBid = ({ params }) => {
                                                                     <div className='flex justify-between w-full pr-4'>
                                                                         <span className='text-neutral-700'> {user.name} </span>
                                                                         <div className='flex'>
-                                                                            <p className='px-3 shadow-2xl mx-2 shadow-zinc-500 flex justify-center items-center py-1 bg-white rounded-xl' style={{ boxShadow: '0 2px #cddae2' }} > {user.domain} </p>
+                                                                            <p className='px-3 shadow-2xl mx-2 shadow-zinc-500 flex justify-center items-center py-1 bg-white rounded-xl' style={{ boxShadow: '0 2px #cddae2' }} > {user.domain[0]} </p>
                                                                             <PlusIcon />
                                                                         </div>
                                                                     </div>
