@@ -1,13 +1,43 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import ClientMarketPlaceJson from './clientMarketPlace.json';
 import PercentageCircle from "./PercentageCircle";
+import axios from "axios";
 
 const ClientMarketPlaceComponent = () => {
 
+    useEffect(() => {
+        fetchTeams();
+        fetchUsers();
+    },[])
+
+    const[data, setData] = useState(null);
     const recommendedTalent = "Recommended Talent";
     const recommendedTeams = "Recommnended Teams";
     const almaMatter = "Alma Mater";
     const[heading, setHeading] = useState(recommendedTalent);
+    const[allTeams, setAllTeams] = useState([]);
+    const[allUsers, setAllUsers] = useState([]);
+
+    const fetchTeams = async () => {
+        try {
+            const response = await axios.get(`/api/allteams`);
+            setAllTeams(response.data);
+        } catch (error) {
+            console.log("error is:",error);
+        }
+    }
+
+    const fetchUsers = async () => {
+        try {
+            const response = await axios.get(`/api/allusers`);
+            setAllUsers(response.data);
+            setData(response.data);
+        } catch (error) {
+            console.log("error is:",error);
+        }
+    }
+
+    console.log(data);
     
     return (
         <div className="flex flex-col w-full mb-3 max-h-[90vh] overflow-scroll overflow-y-auto overflow-x-hidden">
@@ -23,7 +53,7 @@ const ClientMarketPlaceComponent = () => {
                 <div className="flex flex-row justify-self-start w-full my-3">
                     <h2
                         onClick={() => {
-                        setHeading(recommendedTalent);
+                        setHeading(recommendedTalent); setData(allUsers);
                         }}
                         className={`font-semibold text-2xl mx-8 cursor-pointer ${
                         heading === recommendedTalent ? 'text-blue-700' : 'text-black'
@@ -33,7 +63,7 @@ const ClientMarketPlaceComponent = () => {
                     </h2>
                     <h2
                         onClick={() => {
-                        setHeading(recommendedTeams);
+                        setHeading(recommendedTeams); setData(allTeams);
                         }}
                         className={`font-semibold text-2xl mx-8 cursor-pointer ${
                         heading === recommendedTeams ? 'text-blue-700' : 'text-black'
@@ -54,10 +84,10 @@ const ClientMarketPlaceComponent = () => {
                     </div>
                     <hr className="w-full"/>
                     <div className="flex flex-col px-8 py-3">
-                    {ClientMarketPlaceJson[heading] && ClientMarketPlaceJson[heading].map((ele, index) => {
+                    {data && data.map((ele, index) => {
                         return <div className="flex justify-between m-3" key={index}>
                             <div className="flex flex-row">
-                                <img className="mr-4" src={ele.profilePhoto} alt="" />
+                                <img className="h-12 w-12 rounded-full mr-4" src={ele.avatarUrl} alt="" />
                                 <div className="flex flex-col pt-2">
                                     <h1 className="text-2xl font-semibold">{ele.name}</h1>
                                     <h2 className="text-1xl font-semibold">{ele.role}</h2>
@@ -69,7 +99,7 @@ const ClientMarketPlaceComponent = () => {
                             </div>
                             <h1 className="pt-5 text-1xl font-semibold">{ele.projects} projects</h1>
                             <div className="pt-3">
-                                <PercentageCircle percentage={ele.percentage}/>
+                                <PercentageCircle percentage={75}/>
                             </div>
                             <h2 className="pt-5 text-1xl font-semibold text-green-700">Invite</h2>
                             <div className="flex flex-row">

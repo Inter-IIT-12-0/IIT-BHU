@@ -40,7 +40,7 @@ const MilestoneTable = ({ project, setSelectedSubmilestone }) => {
               </tr>
             </thead>
             <tbody>
-              {milestone.submilestones.map((submilestone, index) => (
+              {milestone.submilestones && milestone.submilestones.map((submilestone, index) => (
                 <tr
                   key={submilestone._id}
                   className="bg-white border-y dark:border-gray-200 cursor-pointer"

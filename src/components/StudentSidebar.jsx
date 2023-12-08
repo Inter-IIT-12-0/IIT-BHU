@@ -79,7 +79,7 @@ export default function StudentSidebar({page}) {
                         People
                     </div>
                 </Link>
-                <div className={`justify-start items-center inline-flex mt-8 gap-6 hover-background transition-all duration-1000 ${page === "chat" && 'bg-sky-100'} rounded-r-2xl pl-5`}>
+                <div className={`justify-start items-center inline-flex mt-8 gap-6 hover-background transition-all duration-1000 ${page === "chat" && 'bg-sky-100'} rounded-r-2xl pl-5 mb-6`}>
                     <div className="w-6 h-6 justify-center items-center flex">
                         <div className="w-6 h-6 relative">
                             <Skill_Test_Icon />
@@ -89,13 +89,14 @@ export default function StudentSidebar({page}) {
                         My Chats
                     </div>
                 </div>
+                <Link href={"/upskilling"}>
+                    <button className="px-6 hover:bg-sky-700 transition-all duration-500 mb-2 py-2 rounded-2xl text-center bg-sky-900 text-white">
+                        Switch to Learn
+                    </button>
+                </Link>
             </div>
 
-                <Link href={"/upskilling"}>
-                <button className="px-6 hover:bg-sky-700 transition-all duration-500 mb-2 py-2 rounded-2xl text-center bg-sky-900 text-white">
-                    Switch to Learn
-                </button>
-            </Link>
+                
         </div>
     );
 }
