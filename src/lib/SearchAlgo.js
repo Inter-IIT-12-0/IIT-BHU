@@ -9,7 +9,6 @@ function simpleSearch(query, word) {
 
 
 function projectSearch(query, location, status, payment, domain, project) {
-    console.log(location, status)
     const queryOk = simpleSearch(query, project.title) || simpleSearch(query, project.domain) 
     const locationOk = location === 'select' || (location === "Remote" ? project.location === "Remote" : project.location !== "Remote")
     const statusOk = status === 'select' || (project.status === status)

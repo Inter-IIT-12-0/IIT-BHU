@@ -51,7 +51,7 @@ const FeedbackForm = () => {
 
       const submitFeedbackForm = () => {
         try {
-            axios.put(`/api/user/`,requestBody).then(console.log("request made successfully"));
+            axios.patch(`/api/user/`,requestBody).then(console.log("request made successfully"));
         } catch (error) {
             console.log(`error is ${error}`);
         }

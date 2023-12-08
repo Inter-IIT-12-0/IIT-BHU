@@ -40,8 +40,11 @@ const Lounges = ({ }) => {
 
   const recommendation = async () => {
     try {
-      const res = await recommendLounge(alldomains, session.user.domain);
-      setRecommendation(filterAndRankLounges(lounges, res.data));
+      if(session) {
+        const res = await recommendLounge(alldomains,session.user.domain);
+      setRecommendation(filterAndRankLounges(lounges,res.data));
+      }
+      
 
     } catch (err) {
       console.error(err);
@@ -58,9 +61,7 @@ const Lounges = ({ }) => {
     }
   };
 
-
-
-  useEffect(() => {
+  useEffect(async() => {
     fetchData();
     recommendation();
   }, []);

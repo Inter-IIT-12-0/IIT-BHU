@@ -19,8 +19,8 @@ const ProjectCard = ({ project, setOpenedProj }) => {
     }
 
     return (
-        <div className='w-full transition-all duration-500 border-2 border-zinc-300 rounded-2xl flex px-8 py-4 my-8 cursor-pointer hover:scale-105' onClick={() => setOpenedProj(project)}>
-            <div className='w-2/3'>
+        <div className=' transition-all duration-500 border-2 border-zinc-300 rounded-2xl flex px-8 py-4 my-8 cursor-pointer hover:scale-105' onClick={() => setOpenedProj(project)}>
+            <div className='xl:w-2/3 w-[60%]'>
                 <div className='text-neutral-700 text-base font-semibold'> {project.status === 'Open' ? 'Open Listing till ' + (new Date(project.endDate).toLocaleDateString('en-US', {
                     year: 'numeric',
                     day: 'numeric',
@@ -55,7 +55,7 @@ const ProjectCard = ({ project, setOpenedProj }) => {
                     </div>
                 </div>
             </div>
-            <div className='flex flex-col w-1/3 pl-6'>
+            <div className='flex flex-col xl:w-1/3 w-[40%] pl-6'>
                 <div className='flex justify-end'>
                     <Heart_Icon />
                 </div>
@@ -84,7 +84,7 @@ const ProjectCard = ({ project, setOpenedProj }) => {
                     </div>
                 </div>
                 <div className='mt-2'>
-                    <span className='font-semibold'> Sector: </span> {project.assignedBy.sectorName}
+                    <span className='font-semibold'> Sector: </span> {project.assignedBy.domain}
                 </div>
                 <div className='mt-2'>
                     <span className='font-semibold'> &#8377; {project.assignedBy.paymentsCompleted} </span> spent so far

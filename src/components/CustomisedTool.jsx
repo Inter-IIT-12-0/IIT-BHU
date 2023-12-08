@@ -40,7 +40,7 @@ const CustomisedTool = ({domain}) => {
   }, [])
 
   return (
-    <main className='w-[100vw] h-[100vh] flex justify-center items-center relative'>
+    <main className='w-[100vw] h-[100vh] overflow-hidden flex justify-center items-center relative'>
       <div className='w-[50vw] h-[90vh] bg-indigo-200 relative rounded-2xl'>
         <div className='h-5/6 overflow-scroll overflow-y-auto overflow-x-hidden relative top-5 mx-3 rounded-xl px-5' ref={chatBox}>
           {message &&

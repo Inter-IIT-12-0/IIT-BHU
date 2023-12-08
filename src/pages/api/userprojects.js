@@ -4,13 +4,10 @@ import User from "../../../models/User";
 
 const handler = async (req, res) => {
     if (req.method === 'GET') {
-        // const { userId } = req.query;
         const session = await getSession({ req });
-
         if (!session) {
             return res.status(403).json({ error: 'Login First' });
         }
-
         const userId = session.user._id;
 
         try {
@@ -24,7 +21,7 @@ const handler = async (req, res) => {
                             select: '-__v',
                             populate: {
                                 path: 'teamUserMap.user',
-                                select: '-__v -email -role -fees -sectorName -companyName -aiTools -aiToolsLimit'
+                                select: '-__v -role -fees -sectorName -companyName -aiTools -aiToolsLimit'
                             }
                         },
                         {

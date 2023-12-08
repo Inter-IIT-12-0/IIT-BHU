@@ -8,7 +8,7 @@ import {useRouter} from "next/navigation"
 
 const ConfirmationModal = ({setModalOpen, teamName, handleAccept}) => {
     return (
-        <main className='w-[100vw] h-[100vh] absolute top-0 left-0 z-20 bg-gray-600 bg-opacity-60 flex justify-center items-center'>
+        <main className='w-[100vw] h-[100vh] overflow-hidden absolute top-0 left-0 z-20 bg-gray-600 bg-opacity-60 flex justify-center items-center'>
             <div className='w-72 flex flex-col justify-around items-center bg-gray-200 p-5 rounded-xl'>
                 <h2 className='font-bold text-lg my-2'> Confirm Bid </h2>
                 <p className='text-zinc-600 my-2'>
@@ -26,12 +26,17 @@ const Bid = ({team, setOpenBid}) => {
     const router = useRouter()
 
     const handleAccept = () => {
+        console.log(team.project, team.proposal)
         axios.patch(`/api/project/${team.project}`, {
             milestones: team.proposal.milestones,
-            assignedTeam: team.id
+            assignedTeam: team._id
         }).then(res => {
-            toast.success("Bid Accepted Successfully")
-            router.push("/myprojects")
+            axios.patch(`/api/team/?teamId=${team._id}`, {
+                status: 'Accepted'
+            }).then(res => {
+                toast.success("Bid Accepted Successfully")
+                router.push("/myprojects")
+            }).catch(console.log)
         })
     }
 
@@ -85,8 +90,8 @@ const Bid = ({team, setOpenBid}) => {
                             {team.proposal.milestones.map((milestone, index) => (
                                 <tr key={index} className="border-t">
                                     <td className="py-2 px-6 text-center">{index + 1}</td>
-                                    <td className="py-2 px-6 text-center"> {milestone.title} </td>
-                                    <td className="py-2 px-6 text-center"> {milestone.cost} </td>
+                                    <td className="py-2 px-6 text-center"> {milestone.heading} </td>
+                                    <td className="py-2 px-6 text-center"> &#8377; {milestone.payment} </td>
                                     <td className="py-2 px-6 text-center"> {milestone.duration} </td>
                                     <td className="py-2 px-6 flex justify-center">
                                         <img src="/Images/eye.svg" alt="" />

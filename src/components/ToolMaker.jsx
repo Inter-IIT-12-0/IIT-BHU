@@ -122,12 +122,13 @@ const ToolMaker = () => {
                 <div className='flex flex-row w-[100%] '>
                     {
                         session && session.user.aiTools.map((ele, index) => {
-                            return <Link key={index} className='w-[18%] h-40 mr-6 justify-around items-center border-gray-300 rounded-lg bg-neutral-400 text-center cursor-pointer flex flex-col relative' href={`/customTool/${ele.name}`}>
-                                <Trash className="absolute -top-2 -right-2" onClick={() => handleDelete(ele.name)}/>
-
+                            return <div key={index} className='w-[18%] h-40 mr-6 justify-around items-center border-gray-300 rounded-lg bg-neutral-400 text-center cursor-pointer flex flex-col relative p-3' >
+                                <Trash className="absolute -top-2 -right-2 z-40 scale-125 " onClick={() => handleDelete(ele.name)}/>
+                                <Link href={`/customTool/${ele.name}`}>
                                 <h2> {ele.name} </h2>
                                 <img src={ele.image} alt={ele.nme} className='w-28 h-28' />
-                            </Link>
+                                </Link>
+                            </div>
                         })
                     }
                 </div>

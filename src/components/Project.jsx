@@ -147,9 +147,7 @@ const Project = ({ project, setOpenedProj }) => {
                 project: project._id
             }).then(res => {
                 console.log(res.data)
-                changedProject.assignedTeam = res.data._id
-                axios.patch(`/api/project/${project._id}`, changedProject).then(res => console.log(res.data)).catch(console.log)
-                router.push(`createBid/${project._id}`)
+                router.push(`/createBid/${project._id}`)
             })
         } catch (error) {
             console.log(error)
@@ -157,14 +155,14 @@ const Project = ({ project, setOpenedProj }) => {
     }
 
     return (
-        <main className="w-[100vw] h-[100vh] z-10 absolute top-0 right-0 overflow-y-hidden">
+        <main className="w-[100vw] h-[100vh] overflow-hidden z-50 absolute top-0 right-0">
             {/* <div className='absolute top-10 right-96 bg-black text-white w-10 h-10 rounded-full flex justify-center items-center z-40 cursor-pointer' onClick={() => setIsOpen(!isOpen)}> X </div> */}
             <div className='w-[100vw] h-[100vh] absolute top-0 right-0 opacity-50 transition-all duration-1000 bg-zinc-800'></div>
             <div className={`absolute right-0 top-0 flex flex-col h-full bg-white rounded-l-3xl animate-[appear_1s_ease-in-out] ${isFullOpen ? 'w-full' : ''} transition-all duration-500`}>
                 <nav className='h-16 flex justify-between px-6 py-4'>
                     <div onClick={() => setOpenedProj({})} className='cursor-pointer'> X </div>
                     <div onClick={() => setFullOpen(!isFullOpen)} className='text-sm mr-16 flex items-center cursor-pointer'>
-                        <Export_Icon />
+                        <Export_Icon className="scale-50" />
                         <span className='ml-3'>  {isFullOpen ? 'Minimize Window' : 'Open in new window'}  </span>
                     </div>
 
@@ -287,7 +285,7 @@ const Project = ({ project, setOpenedProj }) => {
                                 </div>
                             </div>
                             <div className="px-4 py-2 flex flex-col">
-                                <div className="text-neutral-700 text-base font-normal font-sans tracking-wide">Sector: {project.assignedBy.sectorName} </div>
+                                <div className="text-neutral-700 text-base font-normal font-sans tracking-wide">Sector: {project.assignedBy.domain} </div>
                                 <div className="text-neutral-700 text-base font-normal font-sans tracking-wide">Payments Completed: &#8377; {project.assignedBy.paymentsCompleted} </div>
                                 <div className="text-neutral-700 text-base font-normal font-sans tracking-wide">Projects Posted: {project.assignedBy.projectsPosted} </div>
                             </div>

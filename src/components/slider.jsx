@@ -9,10 +9,10 @@ import 'swiper/css/navigation';
 
 import { EffectCoverflow, Pagination, Navigation } from 'swiper/modules';
 
-function Slider({users}) {
-    console.log("users are 123e:",users)
+function Slider({ users }) {
+  console.log("users are 123e:", users)
   return (
-    <div className="container">
+    <div className="container w-full">
       <Swiper
         effect={'coverflow'}
         grabCursor={true}
@@ -36,32 +36,32 @@ function Slider({users}) {
       >
         {
           users && users.map((ele) => {
-                return <SwiperSlide>
-                    <div className='flex flex-col h-80 bg-white' style={{border:'solid 1px black', borderRadius:'15%'}}>
-                        
-                        <div>
-                            <img className='border' src="/Images/slideImage.png" alt="" />
-                        </div>
-                        <div className='flex justify-between mt-6'>
-                          <img className='h-28 mx-4' src="/Images/newElipse.svg" alt="" />
-                          <div className='flex flex-col right-0 w-[60%]'>
-                              <div className='flex justify-between'>
-                                  <div>
-                                    <h1 className='text-black text-1x1 font-semibold'>{ele.name}</h1>
-                                    <h1 className=''>{ele.role}</h1>
-                                  </div>
-                                  <div className='mr-12'>{ele.rating}</div> 
-                              </div>
-                              <h1 className='text-sm font-semibold'>{ele.institute}</h1>
-                          </div>
-                        </div>
-                        <div className='flex justify-center items-center px-auto'>
-                            <button className='py-1 px-6 rounded-full bg-sky-400 text-white'>View Profile</button>
-                        </div>
+            return <SwiperSlide>
+              <div className='flex flex-col h-80 bg-white' style={{ border: 'solid 1px black', borderRadius: '15%' }}>
+
+                <div>
+                  <img className='border' src="/Images/slideImage.png" alt="" />
+                </div>
+                <div className='flex justify-between mt-6'>
+                  <img className='h-28 mx-4' src="/Images/newElipse.svg" alt="" />
+                  <div className='flex flex-col right-0 w-[60%]'>
+                    <div className='flex justify-between'>
+                      <div>
+                        <h1 className='text-black text-1x1 font-semibold'>{ele.name}</h1>
+                        <h1 className=''>{ele.role}</h1>
+                      </div>
+                      <div className='mr-12'>{ele.rating}</div>
                     </div>
-                    
-              </SwiperSlide>
-            })
+                    <h1 className='text-sm font-semibold'>{ele.institute}</h1>
+                  </div>
+                </div>
+                <div className='flex justify-center items-center px-auto'>
+                  <button className='py-1 px-6 rounded-full bg-sky-400 text-white'>View Profile</button>
+                </div>
+              </div>
+
+            </SwiperSlide>
+          })
         }
         {/* <SwiperSlide>
           <img src='/Images/img_2.jpg' alt="slide_image" />

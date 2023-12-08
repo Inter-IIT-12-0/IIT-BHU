@@ -19,7 +19,7 @@ const handler = async (req, res) => {
                 select: '-email -role -fees -aiTools -aiToolsLimit'
             }
         })
-        .populate('teamUserMap.user', '-email -role -fees -projects -aiTools -aiToolsLimit');
+        .populate('teamUserMap.user', '-role -fees -projects -aiTools -aiToolsLimit');
         return res.status(200).json(teams);
     } else {
         res.status(405).json({ error: 'Method Not Allowed' });

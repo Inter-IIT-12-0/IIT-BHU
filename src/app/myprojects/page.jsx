@@ -7,133 +7,81 @@ import StudentSidebar from "../../components/StudentSidebar";
 import Navbar from "../../components/Navbar";
 // import Projects from "../../models/FakeData/Project.json";
 import MyProjectCard from "../../components/MyProjectCard.jsx";
+import MyBidsCard from "../../components/MyBidsCard.jsx";
 import axios from "axios";
+import Loading from "../../components/Loading.jsx";
+import { useSession } from "next-auth/react";
 
 const MyProjects = () => {
-	// const Projects = [
-	// 	{
-	// 		"id": 1,
-	// 		"title": "Sample Project",
-	// 		"statement": "This is a sample project statement.",
-	// 		"milestones": [
-	// 			{
-	// 				"dueDate": "2023-12-31T23:59:59.999Z",
-	// 				"heading": "Milestone 1",
-	// 				"submissionLink": "http://sample-submission-link.com",
-	// 				"feedbackLink": "http://sample-feedback-link.com",
-	// 				"subMilestones": [
-	// 					{
-	// 						"title": "SubMilestone 1",
-	// 						"isCompleted": false,
-	// 						"status": "Not Started",
-	// 						"dueDate": "2023-12-15T23:59:59.999Z",
-	// 						"assignedTo": "<User ObjectId>",
-	// 						"description": "Description of SubMilestone 1",
-	// 						"startDate": null,
-	// 						"endDate": null,
-	// 						"Aitools": ["Engineering"],
-	// 						"connectedApps": [["Figma", "http://figma.com"]],
-	// 						"work": {
-	// 							"fileType": "file",
-	// 							"file": "<Buffer Data>"
-	// 						},
-	// 						"stickyNotes": ["Note 1", "Note 2"]
-	// 					},
-	// 				],
-	// 				"isCompleted": false,
-	// 				"status": "Not Started"
-	// 			}
-	// 		],
-	// 		"userAgreement": {
-	// 		},
-	// 		"assignedTeam": {
-	// 			"name": "Development Team",
-	// 			"users": [
-	// 				{
-	// 					"username": "user1",
-	// 					"email": "user1@example.com"
-	// 				},
-	// 			]
-	// 		},
-	// 		"assignedBy": {
-	// 			"username": "admin",
-	// 			"email": "admin@example.com"
-	// 		},
-	// 		"logo": "https://aemi.ie/wp-content/uploads/2021/10/Project-Arts-Centre-Logo-Black-1-scaled.jpg",
-	// 		"health": {
-	// 			"progress": 0
-	// 		},
-	// 		"startDate": "2023-01-01T00:00:00.000Z",
-	// 		"endDate": "2023-12-31T23:59:59.999Z",
-	// 		"activity": [
-	// 			{
-	// 				"submilestone": "<SubMilestone ObjectId>",
-	// 				"type": "CREATE",
-	// 				"timestamp": "2023-01-01T12:00:00.000Z",
-	// 				"user": "<User ObjectId>",
-	// 				"message": "Created the project."
-	// 			}
-	// 		],
-	// 		"clientRequirements": {
-	// 		},
-	// 		"work": {
-	// 			"fileType": "file",
-	// 			"file": "<Buffer Data>"
-	// 		},
-	// 		"subMilestone": {
-	// 			"title": "SubMilestone 3",
-	// 			"isCompleted": false,
-	// 			"status": "Not Started",
-	// 		}
-	// 	}
-	// ]
 
 	const [Projects, setProjects] = useState([]);
-	const [selectedOption, setSelectedOption] = useState('option1');
-
-	const handleChange = (event) => {
-		setSelectedOption(event.target.value);
-	};
-
+	const [selectedOption, setSelectedOption] = useState('Current');
+	const [loading, setLoading] = useState(false)
+	const { data: session } = useSession()
 
 	useEffect(() => {
-		axios.get(`/api/userprojects`)
-			.then(res => {
-				console.log(res.data)
-				setProjects(res.data)
-			})
-			.catch(err => {
-				console.log(err);
-			})
+		setLoading(true);
+		axios.get(`/api/myprojects`).then(res => {
+			setProjects(res.data)
+			setLoading(false)
+		}).catch(console.error)
 	}, [])
-
-	console.log("projects are:",Projects);
 
 	return (
 
-		<main className='w-[100vw]'>
+		<main className='w-[100vw] h-[100vh] overflow-hidden'>
 			<div className='flex flex-col w-full h-full'>
 				<Navbar />
 				<div className='flex w-full h-full'>
-					<StudentSidebar page={"myprojects"}/>
-					<div className='w-full max-h-[90vh] overflow-scroll overflow-y-auto overflow-x-hidden flex flex-col'>
-						<h2 className="font-semibold text-xl pl-20 my-3"> In Bidding </h2>
-						<div className='h-full p-8 flex'>
-							{
-								Projects.filter(project => !!project.assignedTeam).map(project => {
-									return <MyProjectCard key={project._id} project={project} />
-								})
-							}
-						</div>
-						<h2 className="font-semibold text-xl pl-20 my-3"> Live Projects </h2>
-						<div className='h-full p-8 flex'>
-							{
-								Projects.filter(project => !!!project.assignedTeam).map(project => {
-									return <MyProjectCard key={project._id} project={project} />
-								})
-							}
-						</div>
-					</div>
+					<StudentSidebar page={"myprojects"} />
+					{
+						loading ? <Loading /> :
+							session && session.user.role === "Client" ?
+								<div className='w-full h-[90vh] flex flex-col overflow-scroll overflow-y-auto overflow-x-hidden'>
+									<div>
+										<div className='flex ml-6 mt-3'>
+											<button className={`flex justify-around items-center rounded-2xl ${selectedOption === 'Current' ? 'border border-sky-700 bg-sky-100' : 'border border-neutral-400'} px-3 py-1  mr-5`} onClick={() => setSelectedOption('Current')}>
+												<div className={`${selectedOption === 'Current' ? 'bg-sky-700' : 'border-2 border-gray-300 '} rounded-full w-4 h-4 mx-2`}></div>
+												<span className={`${selectedOption === 'Current' ? 'text-sky-700' : 'text-neutral-600'}`}> Current </span>
+											</button>
+											<button className={`flex justify-around items-center rounded-2xl ${selectedOption === 'Completed' ? 'border border-sky-700 bg-sky-100' : 'border border-neutral-400'} px-3 py-1 mr-5`} onClick={() => setSelectedOption('Completed')}>
+												<div className={`${selectedOption === 'Completed' ? 'bg-sky-700' : 'border-2 border-gray-300 '} rounded-full w-4 h-4 mx-2`}></div>
+												<span className={`${selectedOption === 'Completed' ? 'text-sky-700' : 'text-neutral-600'}`}> Completed </span>
+											</button>
+										</div>
+									</div>
+									{
+										selectedOption === 'Current' && <h2 className="font-semibold text-xl ml-8 mt-8"> In Bidding </h2>
+									}
+									<div className='pl-8 flex w-full flex-wrap'>
+										{
+											Projects.filter(project => (selectedOption === "Completed" ? project.status === "Completed" : true) && !!!project.assignedTeam).length === 0 ? "None" : Projects.filter(project => (selectedOption === "Completed" ? project.status === "Completed" : true) && !!!project.assignedTeam).map(project => {
+												return <MyBidsCard key={project._id} project={project} />
+											})
+										}
+									</div>
+									{
+										selectedOption === 'Current' &&
+										<>
+											<h2 className="font-semibold text-xl ml-8 mt-8"> Live Projects </h2>
+											<div className=' pl-8 flex flex-wrap '>
+												{
+													Projects.filter(project => !!project.assignedTeam).map(project => {
+														return <MyProjectCard key={project._id} project={project} />
+													})
+												}
+											</div>
+										</>
+									}
+								</div> :
+								<div className='w-full h-[90vh] flex flex-wrap px-5'>
+									{
+										Projects.map(project => {
+											return <MyProjectCard key={project._id} project={project} />
+										})
+									}
+								</div>
+					}
 				</div>
 			</div>
 		</main>
