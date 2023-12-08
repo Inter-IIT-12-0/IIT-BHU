@@ -5,7 +5,7 @@ import SidebarUpskilling from "../../components/SidebarUpskilling";
 
 const Mentorship = () => {
     const onj = {
-        name:"name"
+        name: "name"
     }
     const arrayofobj = Array(9).fill(onj);
     return (
@@ -44,42 +44,42 @@ const Mentorship = () => {
                         {/* <div className="py-2 px-6 rounded-xl shadow-lg mr-4 bg-white">College</div> */}
                         <div className="py-2 px-6 rounded-xl shadow-lg mr-4 bg-white">Domains</div>
                     </div>
-                    <div className="flex flex-row flex-wrap relative">
+                    <div className="grid xl:grid-cols-3 grid-cols-2 relative">
                         {arrayofobj.map((ele) => {
-                            return <div className="bg-white shadow-xl w-[30%] my-6 mr-6">
-                            <div className="relative z-10">
-                                <div className="relative">
-                                    <img src="/Images/Rectangle2.png" alt="" className="w-full h-auto relative" />
+                            return <div className="bg-white relative shadow-xl my-6 mr-6">
+                                <div className="relative z-10">
+                                    <div className="relative">
+                                        <img src="/Images/Rectangle2.png" alt="" className="w-full h-auto relative" />
                                         <div className="absolute top-2 left-0 right-0 flex flex-col justify-end p-4">
-                                            <div className="flex justify-between">
+                                            <div className="flex justify-between relative">
                                                 <div className="text-black bg-slate-100 p-1 rounded">Top Rated</div>
                                                 <img src="/Images/Group_stars.svg" alt="" />
+                                                <img
+                                                    className="absolute right-3 2xl:top-16 xl:top-12 top-14 z-20 border border-red-400 w-24 h-24 rounded-full"
+                                                    src="https://www.text-image.com/samples/per_normal_face.jpg"
+                                                    alt=""
+                                                />
                                             </div>
                                             {/* <h2 className="text-black mt-4"></h2> */}
                                         </div>
                                     </div>
                                 </div>
-                                <img
-                                className="absolute ml-64 -mt-9 z-20 border border-red-400 rounded-full"
-                                src="/Images/newElipse.svg"
-                                alt=""
-                            />
-                            <div>
-                            <div className="px-6 mt-10">
-                                <div className="flex flex-col rounded ">
-                                    <h1 htmlFor="">Shri Shamendra</h1>
-                                    <h1 className="w-full h-16 rounded">UX Leader & Career Coach at Adobe  </h1>
-                                        
-                                </div>
-                                <hr className="my-4 w-full" />
-                                <div className="flex justify-between right bg-slate-200 rounded-xl py-2 px-10 mb-3">
-                                    <h1 className="text-sm font-semibold flex flex-wrap">Sessions 26</h1>
-                                    <h1 className="text-sm font-semibold flex flex-wrap">Experience 4 years</h1>
-                                    <h1 className="text-sm font-semibold flex flex-wrap">Reviews 15</h1>
+                                <div>
+                                    <div className="px-6 mt-10">
+                                        <div className="flex flex-col rounded ">
+                                            <h1 htmlFor="">Shri Shamendra</h1>
+                                            <h1 className="w-full h-16 rounded">UX Leader & Career Coach at Adobe  </h1>
+
+                                        </div>
+                                        <hr className="my-4 w-full" />
+                                        <div className="flex justify-between right bg-slate-200 rounded-xl py-2 px-10 mb-3">
+                                            <h1 className="text-sm font-semibold flex flex-wrap">Sessions 26</h1>
+                                            <h1 className="text-sm font-semibold flex flex-wrap">Experience 4 years</h1>
+                                            <h1 className="text-sm font-semibold flex flex-wrap">Reviews 15</h1>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            </div>
-                        </div>
                         })}
                     </div>
                 </div>

@@ -47,7 +47,7 @@ export const ChatbotCard = ({ isOpen }) => {
       handleGenerate();
     if (mode === 'User')
       handleGenerate2();
-    if(mode === 'Project' ) 
+    if (mode === 'Project')
       handleGenerate3();
   }
 
@@ -80,8 +80,9 @@ export const ChatbotCard = ({ isOpen }) => {
     console.log(obj);
     console.log(user)
     if (obj) {
-      console.log(user.filter(person => obj.includes(person.domain[0])))
-      setFiltered(user.filter(person => person.domain === obj[0]));
+      console.log(user.filter(person => person.domain.some(domainElement => obj.includes(domainElement))));
+      setFiltered(user.filter(person => person.domain.some(domainElement => obj.includes(domainElement))));
+
     }
   }
 
@@ -94,7 +95,8 @@ export const ChatbotCard = ({ isOpen }) => {
     setGotResponse(true)
     console.log(obj);
     if (obj) {
-      setFilteredProjects(projects.filter(project => project.domain === obj[0]));
+      setFilteredProjects(projects.filter(project => project.domain.some(domainElement => obj.includes(domainElement))));
+
     }
   }
 
@@ -130,7 +132,7 @@ export const ChatbotCard = ({ isOpen }) => {
                 No User found
               </div>
             }
-            { filtered && filtered.sort((a, b) => b.rating - a.rating).slice(0, 5).map((user, index) => (
+            {filtered && filtered.sort((a, b) => b.rating - a.rating).slice(0, 5).map((user, index) => (
               <div
                 key={index}
                 className="flex px-2 py-1 border-sky-500 border my-2 rounded-lg"
@@ -141,7 +143,7 @@ export const ChatbotCard = ({ isOpen }) => {
                   </div>
                   <div className="flex">
                     {
-                      user.domains.map(domain => (
+                      user.domain.map(domain => (
                         <span className="mx-2"> {domain} </span>
                       ))
                     }
@@ -166,7 +168,7 @@ export const ChatbotCard = ({ isOpen }) => {
                 {projectChat} </div>
             </div>}
             {
-              gotResponse && projectChat && filteredProjects.length === 0 &&  <div className="px-3 py-1 w-40 my-5 rounded-lg border-sky-500 border-2 text-sky-600">
+              gotResponse && projectChat && filteredProjects.length === 0 && <div className="px-3 py-1 w-40 my-5 rounded-lg border-sky-500 border-2 text-sky-600">
                 No Project found
               </div>
             }
@@ -179,7 +181,7 @@ export const ChatbotCard = ({ isOpen }) => {
                   <div className="text-base text-sky-800 font-semibold flex w-full">
                     <div className="w-full"> {project.title} </div>
                   </div>
-                  <div> {project.domain} </div>
+                  <div> {project.domain[0]} </div>
                 </div>
                 <div className="text-sky-500 flex items-center">
                   <Link href={`/marketplace/${project._id}`} target="_blank">

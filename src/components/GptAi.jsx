@@ -170,7 +170,7 @@ const GptAi = ({ setAiOpen }) => {
     };
 
     return (
-        <main className="overflow-hidden absolute right-0 top-0 z-20 w-[100vh] h-[100vh] bg-gray-800 bg-opacity-50 flex justify-center"> 
+        <main className="overflow-hidden absolute right-0 top-0 z-50 w-[100vw] h-[100vh] bg-gray-800 bg-opacity-50 flex justify-center"> 
             <div className="w-8 h-8 flex justify-center items-center absolute top-10 right-20 cursor-pointer bg-black rounded-full text-white" onClick={() => setAiOpen(false)}> X </div>
             <div className="mx-auto relative top-24 w-[600px]">
                 <div className="w-full h-16 bg-gray-100 rounded-xl grid grid-cols-4" >

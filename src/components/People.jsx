@@ -59,11 +59,11 @@ const People = () => {
         if (searchQuery) {
             const usersWithTargetDomain = users.filter(person =>
                 person.name.toLowerCase().includes(searchQuery.toLowerCase())
-            ).filter(person => person.domain === option);
+            ).filter(person => person.domain.includes(option));
             setFilteredPeople(usersWithTargetDomain);
         }
         else {
-            const usersWithTargetDomain = users.filter(person => person.domain === option);
+            const usersWithTargetDomain = users.filter(person => person.domain.includes(option));
             setFilteredPeople(usersWithTargetDomain);
         }
     };
@@ -89,7 +89,7 @@ const People = () => {
             if (domain) {
                 const filteredPeopleResult = users.filter(person =>
                     person.name.toLowerCase().includes(inputValue.toLowerCase())
-                ).filter(person => person.domain === domain);
+                ).filter(person => person.domain.includes(domain));
                 setFilteredPeople(filteredPeopleResult);
             }
             else {

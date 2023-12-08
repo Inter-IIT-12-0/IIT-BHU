@@ -7,6 +7,7 @@ import 'prismjs/themes/prism.css';
 import Prism from 'prismjs';
 import "prismjs/components/prism-javascript";
 // import "prismjs/components/prism-cpp";
+import codecheck from "../../pages/api/GPT/codecheck";
 
 const Learning = () => {
 
@@ -14,11 +15,10 @@ const Learning = () => {
         Prism.highlightAll();
     })
 
-    const [code, setCode] = useState(`function greet() {
-        console.log('Hello, world!');
-      }`);
+    const [code, setCode] = useState(`cout<<"Your Text Input";`);
 
-    const [language, setLanguage] = useState('javascript');
+    const [language, setLanguage] = useState('cpp');
+    const [Final,setChecker] = useState("");
     const [forceRender, setForceRender] = useState(false);
     const handleCodeChange = (event) => {
         setCode(event.target.value);
@@ -35,6 +35,29 @@ const Learning = () => {
     const [firstTypewriterFinished, setFirstTypewriterFinished] = useState(false);
     const [secondTypewriter, setSecondTypewrite] = useState(false);
     const [secondResponse, setSecondResponse] = useState(false);
+    async function fetchData() {
+        try {
+
+          const response = await codecheck(code);
+          const data = await response;
+          if(data)
+          {
+            setChecker("Excellent work!! Your tasks are completed for today. You did a great job, keep it up. Goodbye! see you tomorrow");
+
+          }
+          else
+          {
+            setChecker("Try again");
+          }
+          setResponse(true);
+          
+        } catch (error) {
+          console.error('Error fetching data:', error.message);
+          throw error;
+        }
+      }
+
+      
 
     console.log("the value of code is:", code);
 
@@ -78,53 +101,10 @@ const Learning = () => {
                                         delay: 30,
                                         deleteSpeed: 10000000000000000000000000000,
                                         strings: [`
-                                        Write a concise program in any programming language to display "Hello, World!" on the screen. Ensure simplicity, readability, and correctness. Use a minimal number of lines to achieve the output`],
+                                        Write a concise program in C++ programming language to display "Hello, World" on the screen. Ensure simplicity, readability, and correctness. Use a minimal number of lines to achieve the output`],
                                         cursor: '',
                                     }}
                                 /></div>)}
-                        {response && <>
-                            <div className="p-3 rounded-3xl border border-gray-400 shadow-xl mt-5 ml-5 font-semibold">
-                                <Typewriter options={{
-                                    autoStart: true,
-                                    loop: false,
-                                    delay: 30,
-                                    deleteSpeed: 10000000000000000000000000000,
-                                    strings: ['Well Done!! your first task is completed its time for your second task. Here it is...'],
-                                    cursor: ''
-                                }}
-                                    onInit={() => {
-                                        setTimeout(() => {
-                                            setSecondTypewrite(true);
-                                        }, 2000);
-                                    }} />
-
-                            </div>
-                            {secondTypewriter &&
-                                <div className="p-3 rounded-3xl border border-gray-400 shadow-xl mt-5 ml-5 font-semibold">
-                                    <Typewriter options={{
-                                        autoStart: true,
-                                        loop: false,
-                                        delay: 30,
-                                        deleteSpeed: 10000000000000000000000000000,
-                                        strings: [`Write a concise program in any programming language to generate the Fibonacci sequence. Ensure it calculates and displays the first few terms of the sequence accurately. Optimize your code for efficiency`],
-                                        cursor: ''
-                                    }} />
-                                </div>
-                            }
-                            {secondResponse &&
-                                <div className="p-3 rounded-3xl border border-gray-400 shadow-xl mt-5 ml-5 font-semibold">
-                                    <Typewriter options={{
-                                        autoStart: true,
-                                        loop: false,
-                                        delay: 30,
-                                        deleteSpeed: 10000000000000000000000000000,
-                                        strings: ['Excellent work!! Your tasks are completed for today. You did a great job, keep it up. Goodbye! see you tomorrow'],
-                                        cursor: ''
-                                    }} />
-                                </div>
-                            }
-                        </>
-                        }
                     </div>
                     <div className="bg-gray-600 w-[35%] h-full p-3 ml-3 ax-h-[90vh] overflow-y-scroll rounded-3xl mt-2">
                         {/* <SyntaxHighlighter key={language} language={language} style={docco}>
@@ -137,7 +117,7 @@ const Learning = () => {
                             onChange={handleCodeChange}
                         ></textarea>
 
-                        <div><button type="submit" className="text-white mt-2 py-1 px-3 rounded-full bg-black">Submit</button></div>
+                        <div><button type="submit" className="text-white mt-2 py-1 px-3 rounded-full bg-black" onClick={()=>fetchData()}>Submit</button></div>
                     </div>
                     <div className="bg-gray-800 w-[30%] h-full ml-3 ax-h-[90vh] overflow-y-scroll rounded-2xl p-3">
                         <div className="bg-black rounded-2xl p-2 h-[87vh]">
@@ -145,15 +125,17 @@ const Learning = () => {
                                 <h1 className="text-md text-white font-semibold">Responses</h1>
                             </div>
                             <div className="p-3 rounded-3xl border border-gray-400 shadow-xl mt-5 ml-2 font-semibold text-white">
+                                {response &&
                                 <Typewriter options={{
                                     autoStart: true,
                                     loop: false,
                                     delay: 30,
                                     deleteSpeed: 10000000000000000000000000000,
 
-                                    strings: ['Lorem ipsum dolor sit, amet consectetur adipisicing elit. Labore, ullam?'],
+                                    strings: [Final],
                                     cursor: ''
                                 }} />
+                            }
 
                             </div>
                         </div>

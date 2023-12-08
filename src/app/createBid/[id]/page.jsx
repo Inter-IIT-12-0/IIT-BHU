@@ -196,7 +196,8 @@ const CreateBid = ({ params }) => {
                 if (project && recommended) {
                     console.log(project.statement);
                     const obj = await recommend(project.statement);
-                    setRecommended(recommended.filter(person => obj.includes(person.domain)));
+                    setRecommended(recommended.filter(person => person.domain.some(domain => obj.includes(domain))));
+
                 }
 
             }
