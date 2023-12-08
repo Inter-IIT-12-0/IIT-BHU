@@ -18,29 +18,20 @@ const OnBoarding = () => {
   const [loggedIn, setLoggedin] = useState(false)
 
   const handleCreateAccount = async () => {
-    let role = (selectedCard === 1 ? 'Student' : selectedCard === 2 ? 'Client': 'Professor')
+    let role = (selectedCard === 1 ? 'Student' : selectedCard === 2 ? 'Client': 'Third')
     setCookie("role", role);
-    signIn('google', {role: role} )
-    // setTimeout(() => {
-    //   const isNewUser = getCookie("newUser")
-    //   if (isNewUser) {
-    //     router.push('/onboarding2')
-    //   }
-    //   else {
-    //     router.push('/home')
-    //   }
-    // }, 5000)
-
-    // axios.get('/api/auth/signin/google').then(res => console.log(res)).catch(console.log)
+    signIn('google')
   }
 
   useEffect(() => {
     const isNewUser = getCookie("newUser")
+    const role = getCookie("role")
     console.log(isNewUser)
-    if (isNewUser === "false") {
+    if (isNewUser === "false" ) {
       router.push('/')
     }
     else if (isNewUser === "true") {
+      if (role === 'Third') return router.push("/onboarding3")
       router.push("/onboarding2")
     }
   }, [])

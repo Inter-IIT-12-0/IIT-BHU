@@ -7,8 +7,6 @@ import 'prismjs/themes/prism.css';
 import Prism from 'prismjs';
 import "prismjs/components/prism-javascript";
 // import "prismjs/components/prism-cpp";
-import { Light as SyntaxHighlighter } from 'react-syntax-highlighter'
-import { docco } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import codecheck from "../../pages/api/GPT/Codecheck";
 
 const Learning = () => {

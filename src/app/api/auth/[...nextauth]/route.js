@@ -5,7 +5,7 @@ import User from "../../../../../models/User"
 import { cookies } from "next/headers";
 import { getCookie, getCookies, setCookie } from "cookies-next";
 
-export const authOptions = {
+export const authOptions =  {
     providers: [
         GoogleProvider({
             clientId: process.env.GOOGLE_ID,
@@ -26,16 +26,21 @@ export const authOptions = {
         async signIn({ profile }) {
             try {
                 console.log(profile)
+                const {role} = getCookies({res, req})
                 const existingUser = await User.findOne({ email: profile.email })
                 if (!existingUser) {
                     const user = await User.create({
                         email: profile.email,
                         name: profile.name,
-                        avatarUrl: profile.picture
+                        avatarUrl: profile.picture,
+                        role
                     })
+                    setCookie('newUser', true, {cookies})
                 }
-                // this.session.user = existingUser
-                return true;
+                else {
+                    setCookie('newUser', false, {cookies})
+                }
+                return true
             } catch (error) {
                 console.log(error)
                 return false;
@@ -72,12 +77,14 @@ const handler = connectDb(
                         const {role} = getCookies({res, req})
                         const existingUser = await User.findOne({ email: profile.email })
                         if (!existingUser) {
-                            const user = await User.create({
-                                email: profile.email,
-                                name: profile.name,
-                                avatarUrl: profile.picture,
-                                role
-                            })
+                            if (role === 'Student' || role === 'Client' || role === 'Professor') {
+                                await User.create({
+                                    email: profile.email,
+                                    name: profile.name,
+                                    avatarUrl: profile.picture,
+                                    role
+                                })
+                            }
                             setCookie('newUser', true, {cookies})
                         }
                         else {

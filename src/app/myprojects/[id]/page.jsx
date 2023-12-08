@@ -91,7 +91,7 @@ const Project = ({ params }) => {
           timelineOpen ? <MilestonesTimeline setTimelineOpen={setTimelineOpen} project={project} /> : <></>
 
         }
-        <img width="50" height="50" src="https://img.icons8.com/ios/50/message-bot.png" alt="message-bot" className='absolute top-2 right-1/2 cursor-pointer' onClick={() => setAiOpen(true)} />
+        <img width="50" height="50" src="https://img.icons8.com/ios/50/message-bot.png" alt="message-bot" className='absolute top-2 right-1/2 z-40 cursor-pointer' onClick={() => setAiOpen(true)} />
 
       </main>
     </>
