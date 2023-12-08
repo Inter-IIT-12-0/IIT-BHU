@@ -138,18 +138,14 @@ export const ChatbotCard = ({ isOpen }) => {
                 className="flex px-2 py-1 border-sky-500 border my-2 rounded-lg"
               >
                 <div className="flex flex-col w-7/12">
+                  <div className="flex">
+                    <img src={user.avatarUrl} className="rounded-full h-12 w-12"></img>
+                  </div>
                   <div className="text-base text-sky-800 font-semibold flex w-full">
                     <div className="w-full"> {user.name} ({user.rating} ) </div>
                   </div>
-                  <div className="flex">
-                    {
-                      user.domain.map(domain => (
-                        <span className="mx-2"> {domain} </span>
-                      ))
-                    }
-                  </div>
                 </div>
-                <div className="text-sky-500 flex items-center">
+                <div className="text-sky-500 mt-10 flex items-center">
                   <Link href={`/profile/${user._id}`} target="_blank">
                     View profile
                   </Link>
