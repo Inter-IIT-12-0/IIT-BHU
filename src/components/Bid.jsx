@@ -26,12 +26,17 @@ const Bid = ({team, setOpenBid}) => {
     const router = useRouter()
 
     const handleAccept = () => {
+        console.log(team.project, team.proposal)
         axios.patch(`/api/project/${team.project}`, {
             milestones: team.proposal.milestones,
-            assignedTeam: team.id
+            assignedTeam: team._id
         }).then(res => {
-            toast.success("Bid Accepted Successfully")
-            router.push("/myprojects")
+            axios.patch(`/api/team/${team._id}`, {
+                status: 'Accepted'
+            }).then(res => {
+                toast.success("Bid Accepted Successfully")
+                router.push("/myprojects")
+            }).catch(console.log)
         })
     }
 
@@ -85,8 +90,8 @@ const Bid = ({team, setOpenBid}) => {
                             {team.proposal.milestones.map((milestone, index) => (
                                 <tr key={index} className="border-t">
                                     <td className="py-2 px-6 text-center">{index + 1}</td>
-                                    <td className="py-2 px-6 text-center"> {milestone.title} </td>
-                                    <td className="py-2 px-6 text-center"> {milestone.cost} </td>
+                                    <td className="py-2 px-6 text-center"> {milestone.heading} </td>
+                                    <td className="py-2 px-6 text-center"> &#8377; {milestone.payment} </td>
                                     <td className="py-2 px-6 text-center"> {milestone.duration} </td>
                                     <td className="py-2 px-6 flex justify-center">
                                         <img src="/Images/eye.svg" alt="" />

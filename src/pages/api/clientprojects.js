@@ -20,7 +20,7 @@ const handler = async (req, res) => {
                     select: '-__v',
                     populate: {
                         path: 'teamUserMap',
-                        select: '-__v -email -role -fees -sectorName -companyName -aiTools -aiToolsLimit'
+                        select: '-__v -role -fees -sectorName -companyName -aiTools -aiToolsLimit'
                     }
                 })
                 .populate({

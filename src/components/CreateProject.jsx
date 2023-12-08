@@ -99,8 +99,15 @@ const Form1 = () => {
             }
             console.log(data)
             axios.post('/api/project', data).then(res => {
-                toast.success('Project created successfully')
-                router.push("/marketplace")
+                axios.patch(`/api/user/?userId=${session.user._id}`, {
+                    projects: [
+                        ...session.user.projects,
+                        res.data._id
+                    ]
+                }).then(res => {
+                    toast.success('Project created successfully')
+                    router.push("/marketplace")
+                }).catch(console.log)
             }).catch(err => {
                 toast.error(err.response.data.error)
             })
@@ -229,8 +236,8 @@ const Form1 = () => {
                                                                 Upload Requirements Document
                                                             </label>
                                                             <div className='flex flex-col'>
-                                                                <input id='docName' type="text" placeholder='Document Name' name='docName' className="bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg block w-1/2 p-2.5 outline-none my-1" value={formData.docName} onChange={handleInputChange}/>
-                                                                <input type="text" placeholder='Document Url' name='docUrl' className="bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg block w-full p-2.5 outline-none my-1 h-20" value={formData.docUrl} onChange={handleInputChange}/>
+                                                                <input id='docName' type="text" placeholder='Document Name' name='docName' className="bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg block w-1/2 p-2.5 outline-none my-1" value={formData.docName} onChange={handleInputChange} />
+                                                                <input type="text" placeholder='Document Url' name='docUrl' className="bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg block w-full p-2.5 outline-none my-1 h-20" value={formData.docUrl} onChange={handleInputChange} />
                                                             </div>
                                                         </div>
                                                         <div className='flex flex-col justify-between'>

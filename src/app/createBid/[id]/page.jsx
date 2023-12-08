@@ -45,9 +45,9 @@ const CreateBid = ({ params }) => {
     const [docUrl, setDocUrl] = useState("")
     const [milestones, setMilestones] = useState([
         {
-            cost: '',
+            payment: '',
             duration: '',
-            title: '',
+            heading: '',
             description: '',
             deliverables: ''
         }
@@ -75,9 +75,9 @@ const CreateBid = ({ params }) => {
         setMilestones([
             ...milestones,
             {
-                cost: '',
+                payment: '',
                 duration: '',
-                title: '',
+                heading: '',
                 description: '',
                 deliverables: ''
             }
@@ -100,7 +100,7 @@ const CreateBid = ({ params }) => {
         const submilestones = Object.values(aiGenerated).map((milestone, index1) => (
             milestone.Submilestones.map((submilestone, index2) => (
                 {
-                    title: `Submilestone ${index2}`,
+                    heading: `Submilestone ${index2}`,
                     isCompleted: false,
                     status: 'Not Started',
                     assignedTo: null,
@@ -121,7 +121,7 @@ const CreateBid = ({ params }) => {
         modifiedMilestones = modifiedMilestones.map((milestone, index) => (
             {
                 ...milestone,
-                cost: Number(milestone.cost),
+                payment: Number(milestone.payment),
                 duration: Number(milestone.duration),
                 submilestones: submilestones[index]
             }
@@ -130,7 +130,7 @@ const CreateBid = ({ params }) => {
         let proposal = {
             proposalScore: 0,
             acceptanceProbability: 78,
-            bidAmount: milestones.reduce((acc, milestone) => acc + Number(milestone.cost), 0),
+            bidAmount: milestones.reduce((acc, milestone) => acc + Number(milestone.payment), 0),
             startDate: new Date(startDate),
             milestones: modifiedMilestones,
             file: docUrl
@@ -142,7 +142,7 @@ const CreateBid = ({ params }) => {
         console.log(newTeam)
         axios.patch(`/api/team/?teamId=${presentTeam._id}`, newTeam).then(res => {
             toast.success("Your Bid is submitted")
-            // router.push("/marketplace")
+            router.push("/marketplace")
         })
 
 
@@ -207,7 +207,6 @@ const CreateBid = ({ params }) => {
 
         // fetchFilter();
 
-
     }, [noOfTeams])
 
     const addToTeam = (member) => {
@@ -219,6 +218,7 @@ const CreateBid = ({ params }) => {
                 role: "Member",
                 status: "Pending"
             }]
+            console.log(teamUserMapNew)
             newTeam.teamUserMap = teamUserMapNew
             axios.patch(`/api/team/?teamId=${presentTeam._id}`, newTeam)
                 .then(res => {
@@ -234,6 +234,7 @@ const CreateBid = ({ params }) => {
         const newArr = presentTeam.teamUserMap.filter(map => {
             return map.user.email !== member.email
         })
+        console.log(presentTeam.teamUserMap)
         let newTeam = presentTeam
         newTeam.teamUserMap = newArr
         axios.patch(`/api/team/?teamId=${presentTeam._id}`, newTeam)
@@ -471,7 +472,7 @@ const CreateBid = ({ params }) => {
 
                                             <div className='h-full bg-indigo-50 flex flex-col pb-8 max-h-72 overflow-scroll overflow-y-auto overflow-x-hidden'>
                                                 <div className='flex w-full pt-4'>
-                                                    <input type="number" name='cost' value={milestones[selectedMilestone - 1]['cost']} onChange={handleInputChange} placeholder='Expected cost &#8377;' className='mx-3 w-32 py-1 px-1 italic rounded-lg outline-none' required />
+                                                    <input type="number" name='payment' value={milestones[selectedMilestone - 1]['payment']} onChange={handleInputChange} placeholder='Expected payment &#8377;' className='mx-3 w-32 py-1 px-1 italic rounded-lg outline-none' required />
                                                     <input name='duration' value={milestones[selectedMilestone - 1]['duration']} onChange={handleInputChange} type="number" placeholder='Enter duration' className='mx-3 w-32 py-1 px-1 italic rounded-lg outline-none' required /> <span className='-ml-3'> Weeks </span>
                                                     {/* <div className='flex bg-white p-2 text-neutral-600 rounded-lg'>
                                                         <Folder_Icon className="mr-1" />
@@ -495,8 +496,8 @@ const CreateBid = ({ params }) => {
                                                 </div>
                                                 <div className='flex flex-col px-6 my-4 '>
                                                     <div className='flex items-center'>
-                                                        <span>Milestone Title</span>
-                                                        <input name='title' value={milestones[selectedMilestone - 1]['title']} onChange={handleInputChange} type="text" placeholder='Enter Milestone title' className='w-2/3 mx-10 my-4 h-8 px-4 rounded-xl py-6 outline-none' required />
+                                                        <span>Milestone heading</span>
+                                                        <input name='heading' value={milestones[selectedMilestone - 1]['heading']} onChange={handleInputChange} type="text" placeholder='Enter Milestone heading' className='w-2/3 mx-10 my-4 h-8 px-4 rounded-xl py-6 outline-none' required />
                                                     </div>
                                                     <div className='flex items-center'>
                                                         <span>Description</span>

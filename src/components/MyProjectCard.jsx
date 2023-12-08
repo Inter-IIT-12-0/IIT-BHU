@@ -13,7 +13,7 @@ const MyProjectCard = ({ project }) => {
   return (
     <Link href={`/myprojects/${project._id}`}>
       <div className="cursor-pointer" onClick={clickHandler}>
-        <div className="bg-white rounded mr-4 mt-4">
+        <div className="bg-white rounded mr-4 mt-4 border pb-3">
           <div className="relative z-10">
             <div className="relative">
               <img src="/Images/Rectangle.png" alt="" className="w-full h-auto" />
@@ -36,14 +36,18 @@ const MyProjectCard = ({ project }) => {
             <div className="px-6 mt-10">
               <div className="flex flex-col rounded ">
                 <label htmlFor="">Due Task</label>
-                <input className="w-full h-16 border border-solid border-gray-300 rounded" type="text" />
+                <div className="w-full h-16 flex justify-center items-center border border-solid border-gray-300 rounded">
+                  {project.milestones.sort((a,b) => b.dueDate - a.dueDate)[0]?.heading}
+                </div>
               </div>
               <hr className="my-4 w-full" />
               <div className="flex flex-row right">
                 <h1>Team</h1>
+                <div className="flex overflow-scroll overflow-y-hidden overflow-x-auto">
                 {project.assignedTeam && project.assignedTeam.teamUserMap && project.assignedTeam.teamUserMap.map((ele) => {
                   return <img className="rounded-full h-10 w-10 ml-1 mb-1 mr-1" src={ele.user && ele.user.avatarUrl} alt="" />
                 })}
+                </div>
               </div>
             </div>
           </div>

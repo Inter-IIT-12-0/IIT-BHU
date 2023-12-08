@@ -18,6 +18,7 @@ export const workSchema = new mongoose.Schema({
   
 });
 
+
 const clientRequirementsSchema = new mongoose.Schema({
   paymentType: {
     type: String,
@@ -26,7 +27,7 @@ const clientRequirementsSchema = new mongoose.Schema({
   payment: {
     type: Number
   },
-  workDays: { type: [String], enum: ['Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun'] },
+  workDays: { type: [String] },
   requiredTools: { type: [String] },
   file: { type: workSchema }
 });
@@ -47,15 +48,17 @@ const activitySchema = new mongoose.Schema({
 
 
 
-const milestoneSchema = new mongoose.Schema({
+export const milestoneSchema = new mongoose.Schema({
   dueDate: { type: Date, required: true },
   heading: { type: String, required: true },
   description: { type: String },
-  subMilestones: [subMilestoneSchema],
+  submilestones: [subMilestoneSchema],
   status: { type: String, enum: statusEnum, default: 'Not Started' },
   payment: { type: Number, required: true },
   paymentDate: { type: Date },
-  deliverables : { type: String }
+  deliverables : { type: String },
+  duration: { type: Number },
+  files: [String]
 });
 
 const healthSchema = new mongoose.Schema({

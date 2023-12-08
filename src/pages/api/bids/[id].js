@@ -19,12 +19,11 @@ const handler = async (req, res) => {
         if (String(project.assignedBy) !== clientId) {
             return res.status(403).json({ error: 'You are not allowed to see this project'})
         }
-        console.log(id)
         const teams = await Team.find({project: id, 
             status: { $in: ['Pending', 'Reviewed'] }
         })
         .populate('proposal', '-__v')
-        .populate('teamUserMap.user', '-email -role -fees -projects -aiTools -aiToolsLimit');
+        .populate('teamUserMap.user', '-role -fees -projects -aiTools -aiToolsLimit');
         return res.status(200).json({
             teams,
             projectTitle: project.title

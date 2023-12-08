@@ -15,7 +15,7 @@ const StudentMarketplace = ({projects, setOpenedProj, availDomains, selected, se
     const [myBids, setMyBids] = useState([])
 
     useEffect(() => {
-        axios.get(`/api/userprojects`)
+        axios.get(`/api/myprojects`)
         .then(res => {
             setMyBids(res.data)
         }).catch(console.log)
@@ -32,7 +32,7 @@ const StudentMarketplace = ({projects, setOpenedProj, availDomains, selected, se
                             return <ProjectCard key={project._id} project={project} setOpenedProj={setOpenedProj} />
                         }) : 
                         myBids && myBids.filter(bid => {
-                            return projectSearch(search, location, status, payment, domain, bid)
+                            return (bid.status === "Pending" || bid.status === "Reviewed") && projectSearch(search, location, status, payment, domain, bid)
                         }).map(bid => {
                             return <ProjectCard key={bid._id} project={bid} setOpenedProj={setOpenedProj} />
                         })
