@@ -28,10 +28,20 @@ const ProjectNameComp = () => {
 
     const test_user_id = '656af2a4acba1f116ca953e6';
 
+    const[teams, setTeams] = useState(null);
     // Filter teams containing the target userId
-    const teams = allTeamsData && allTeamsData.filter(project =>
+    const filteredTeams = allTeamsData && allTeamsData.filter(project =>
         project.teamUserMap.some(ele => ele.user._id === test_user_id)
     );
+
+    useEffect(() => {
+        if(teams == null)
+        {
+            setTeams(filteredTeams);
+        }
+    }, [filteredTeams]);
+
+    console.log("all teams are:",teams, filteredTeams);
 
     const mtdata = teams && teams
         .filter((ele) => ele._id === teamId) // Filter by teamName
@@ -39,7 +49,12 @@ const ProjectNameComp = () => {
             return ele.teamUserMap
         });
 
-
+    const handldeInputChange = (event) => {
+        const inputValue = event.target.value;
+        console.log("input value is:",inputValue);
+        const searchedTeam = filteredTeams.filter((team) => team.teamName && team.teamName.toLowerCase().includes(inputValue.toLowerCase()));
+        setTeams(searchedTeam);
+    }
 
     const Recieved = teams && teams.length;
 
@@ -67,7 +82,7 @@ const ProjectNameComp = () => {
                                 <h1 className="text-1x1 text-black font-semibold my-3">TruBot has ranked the bids received by you, take a look!</h1>
                                 <div className="flex flex-row bg-white p-2 rounded-md">
                                     <img className="h-5 pt-1 px-2" src="/Images/Search_Icon.svg" alt="" />
-                                    <input className="w-[100%] p-1" type="text" placeholder="Search for Teams or Talent" />
+                                    <input onChange={handldeInputChange} className="w-[100%] p-1" type="text" placeholder="Search for Teams or Talent" />
                                 </div>
                             </div>
                             <img src="/Images/Filter2_Icon_UIA.svg" className="mt-8 cursor-pointer" alt="" />
