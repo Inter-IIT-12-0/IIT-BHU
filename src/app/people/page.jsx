@@ -6,7 +6,7 @@ import StudentSidebar from "../../components/StudentSidebar"
 
 const people = () => {
     return (
-        <main className='w-[100vw] h-[100vh] overflow-hidden'>
+        <main className='h-[100vh] w-[100%] overflow-hidden'>
             <div className='flex flex-col w-full h-full '>
                 <Navbar />
                 <div className='flex h-full'>

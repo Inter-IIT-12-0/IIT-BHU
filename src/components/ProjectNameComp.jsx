@@ -31,7 +31,7 @@ const ProjectNameComp = () => {
     const[teams, setTeams] = useState(null);
     // Filter teams containing the target userId
     const filteredTeams = allTeamsData && allTeamsData.filter(project =>
-        project.teamUserMap.some(ele => ele.user._id === test_user_id)
+        project.teamUserMap.some(ele => ele.user && ele.user._id === test_user_id)
     );
 
     useEffect(() => {
@@ -43,11 +43,13 @@ const ProjectNameComp = () => {
 
     console.log("all teams are:",teams, filteredTeams);
 
-    const mtdata = teams && teams
+    const mtdata = filteredTeams && filteredTeams
         .filter((ele) => ele._id === teamId) // Filter by teamName
         .map((ele) => {
             return ele.teamUserMap
         });
+
+    console.log("mtdata is:",mtdata);
 
     const handldeInputChange = (event) => {
         const inputValue = event.target.value;
@@ -55,6 +57,8 @@ const ProjectNameComp = () => {
         const searchedTeam = filteredTeams.filter((team) => team.teamName && team.teamName.toLowerCase().includes(inputValue.toLowerCase()));
         setTeams(searchedTeam);
     }
+
+    console.log("abhi ka data is:",teamId,mtdata)
 
     const Recieved = teams && teams.length;
 

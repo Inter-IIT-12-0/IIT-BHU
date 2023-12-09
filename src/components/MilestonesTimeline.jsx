@@ -10,7 +10,7 @@ const MilestonesTimeline = ({ setTimelineOpen, project }) => {
     const currentMilestone = project.milestones.filter(milestone => milestone.status === 'In Progress')[0]
 
     return (
-        <div className="w-96 h-full ml-20 flex flex-col absolute right-0 top-0 animate-[appear_1s_ease-in-out]">
+        <div className="ml-20 flex flex-col absolute right-0 top-0 animate-[appear_1s_ease-in-out] bg-white max-h-[100vh] bottom-0 overflow-y-auto">
             <nav className='flex justify-end py-6 items-center'>
                 <Close onClick={() => setTimelineOpen(false)} className="cursor-pointer" />
             </nav>
@@ -35,9 +35,9 @@ const MilestonesTimeline = ({ setTimelineOpen, project }) => {
             </div>
             <ol className="relative border-s border-gray-200 dark:border-gray-700">
                 <li className="mb-10 ms-6">
-                    <Calendar className="absolute scale-150 -start-2" />
-                    <div className="font-bold text-lg"> Project Started </div>
-                    <div className="mb-4 text-base font-normal">
+                    <Calendar className="absolute scale-150 -start-2 ml-6" />
+                    <div className="font-bold text-lg ml-6"> Project Started </div>
+                    <div className="mb-4 text-base font-normal ml-6">
                         <span className='text-zinc-500'>
                             {(new Date(project.startDate)).toLocaleDateString('en-US', {
                                 day: 'numeric',
@@ -55,9 +55,9 @@ const MilestonesTimeline = ({ setTimelineOpen, project }) => {
                 }
 
                 <li className="mb-10 ms-6">
-                    <Calendar className="absolute scale-150 -start-2" />
-                    <div className="font-bold text-lg"> End Date </div>
-                    <div className="mb-4 text-base font-normal">
+                    <Calendar className="absolute scale-150 -start-2 ml-6" />
+                    <div className="font-bold text-lg ml-6"> End Date </div>
+                    <div className="mb-4 text-base font-normal ml-6">
                         <span className="font-semibold">
                             {(new Date(project.endDate)).toLocaleDateString('en-US', {
                                 day: 'numeric',
