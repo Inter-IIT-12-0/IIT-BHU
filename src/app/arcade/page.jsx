@@ -2,6 +2,8 @@
 import React from "react"
 import Navbar from "../../components/Navbar"
 import StudentSidebar from "../../components/StudentSidebar"
+import SidebarUpskilling from "../../components/SidebarUpskilling"
+import Link from "next/link"
 
 const Arcade = () => {
 
@@ -63,9 +65,9 @@ const Arcade = () => {
         <div className="max-h-[100vh] overflow-scroll overflow-y-auto overflow-x-hidden">
             <Navbar />
             <div className="flex flex-row">
-                <StudentSidebar />
-                <div className="p-8 flex flex-col w-[100%] max-h-[92vh] overflow-scroll overflow-x-hidden overflow-y-auto">
-                    <div className="rounded w-[100%] h-72 flex flex-between p-4 pt-10" style={{ backgroundColor: '#111827' }}>
+                <SidebarUpskilling />
+                <div className="p-8 flex flex-col w-[100%]">
+                    <div className="rounded w-[100%] h-72 flex flex-between p-4 pt-10" style={{backgroundColor:'#111827'}}>
                         <div className="flex flex-col gap-4">
                             <img className="h-10 w-10" src="/Images/GPT.png" alt="" />
                             <h1 className="text-3xl text-white font-semibold">Going Upside Down with <span className="text-red-600">Chat-GPT</span></h1>
@@ -80,7 +82,7 @@ const Arcade = () => {
                     </div>
                     <div className="grid grid-cols-3 gap-4">
                         {obj1.map((ele) => {
-                            return <div className="rounded-3xl shadow-xl p-6 flex flex-col gap-4">
+                            return <Link href="/learning" className="rounded-3xl shadow-xl p-6 flex flex-col gap-4">
                                 <div className="flex justify-between">
                                     <img src={ele.img} alt="" />
                                     <div className="p-1 bg-gray-400 h-8 rounded-xl">POPULAR</div>
@@ -88,7 +90,7 @@ const Arcade = () => {
                                 <h1 className="text-2xl font-semibold">{ele.tag}</h1>
                                 <p>{ele.desc}</p>
                                 <h1>Begineer * 6 Hours</h1>
-                            </div>
+                            </Link>
                         })}
                     </div>
                     <div className="w-[100%] flex flex-col gap-2 my-4">

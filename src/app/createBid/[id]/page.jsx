@@ -21,7 +21,7 @@ import Loading from '../../../components/Loading'
 import validator from 'validator';
 
 
-const TextEditor = ({proposalText, setProposalText, handleSubmit, handleGenerateScores}) => {
+const TextEditor = ({ proposalText, setProposalText, handleSubmit, handleGenerateScores }) => {
     return (
 
         <div className='flex flex-col h-full items-center' >
@@ -43,14 +43,14 @@ const TextEditor = ({proposalText, setProposalText, handleSubmit, handleGenerate
                             </button>
                             <button type="button" className="p-2 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600">
                                 <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 20">
-                                    <path d="M14.066 0H7v5a2 2 0 0 1-2 2H0v11a1.97 1.97 0 0 0 1.934 2h12.132A1.97 1.97 0 0 0 16 18V2a1.97 1.97 0 0 0-1.934-2ZM10.5 6a1.5 1.5 0 1 1 0 2.999A1.5 1.5 0 0 1 10.5 6Zm2.221 10.515a1 1 0 0 1-.858.485h-8a1 1 0 0 1-.9-1.43L5.6 10.039a.978.978 0 0 1 .936-.57 1 1 0 0 1 .9.632l1.181 2.981.541-1a.945.945 0 0 1 .883-.522 1 1 0 0 1 .879.529l1.832 3.438a1 1 0 0 1-.031.988Z"  />
+                                    <path d="M14.066 0H7v5a2 2 0 0 1-2 2H0v11a1.97 1.97 0 0 0 1.934 2h12.132A1.97 1.97 0 0 0 16 18V2a1.97 1.97 0 0 0-1.934-2ZM10.5 6a1.5 1.5 0 1 1 0 2.999A1.5 1.5 0 0 1 10.5 6Zm2.221 10.515a1 1 0 0 1-.858.485h-8a1 1 0 0 1-.9-1.43L5.6 10.039a.978.978 0 0 1 .936-.57 1 1 0 0 1 .9.632l1.181 2.981.541-1a.945.945 0 0 1 .883-.522 1 1 0 0 1 .879.529l1.832 3.438a1 1 0 0 1-.031.988Z" />
                                     <path d="M5 5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707A2.98 2.98 0 0 0 .13 5H5Z" />
                                 </svg>
                                 <span className="sr-only">Upload image</span>
                             </button>
                             <button type="button" className="p-2 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600">
                                 <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 20">
-                                    <path d="M5 5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707A2.96 2.96 0 0 0 .13 5H5Z"  />
+                                    <path d="M5 5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707A2.96 2.96 0 0 0 .13 5H5Z" />
                                     <path d="M14.067 0H7v5a2 2 0 0 1-2 2H0v11a1.969 1.969 0 0 0 1.933 2h12.134A1.97 1.97 0 0 0 16 18V2a1.97 1.97 0 0 0-1.933-2ZM6.709 13.809a1 1 0 1 1-1.418 1.409l-2-2.013a1 1 0 0 1 0-1.412l2-2a1 1 0 0 1 1.414 1.414L5.412 12.5l1.297 1.309Zm6-.6-2 2.013a1 1 0 1 1-1.418-1.409l1.3-1.307-1.295-1.295a1 1 0 0 1 1.414-1.414l2 2a1 1 0 0 1-.001 1.408v.004Z" />
                                 </svg>
                                 <span className="sr-only">Format code</span>
@@ -77,14 +77,14 @@ const TextEditor = ({proposalText, setProposalText, handleSubmit, handleGenerate
                             </button>
                             <button type="button" className="p-2 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600">
                                 <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M18 2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2ZM2 18V7h6.7l.4-.409A4.309 4.309 0 0 1 15.753 7H18v11H2Z"  />
+                                    <path d="M18 2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2ZM2 18V7h6.7l.4-.409A4.309 4.309 0 0 1 15.753 7H18v11H2Z" />
                                     <path d="M8.139 10.411 5.289 13.3A1 1 0 0 0 5 14v2a1 1 0 0 0 1 1h2a1 1 0 0 0 .7-.288l2.886-2.851-3.447-3.45ZM14 8a2.463 2.463 0 0 0-3.484 0l-.971.983 3.468 3.468.987-.971A2.463 2.463 0 0 0 14 8Z" />
                                 </svg>
                                 <span className="sr-only">Timeline</span>
                             </button>
                             <button type="button" className="p-2 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600">
                                 <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z"  />
+                                    <path d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z" />
                                     <path d="M18 12h-2.55l-2.975 2.975a3.5 3.5 0 0 1-4.95 0L4.55 12H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z" />
                                 </svg>
                                 <span className="sr-only">Download</span>
@@ -93,7 +93,7 @@ const TextEditor = ({proposalText, setProposalText, handleSubmit, handleGenerate
                     </div>
                     <button type="button" data-tooltip-target="tooltip-fullscreen" className="p-2 text-gray-500 rounded cursor-pointer sm:ms-auto hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600">
                         <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 19 19">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 1h5m0 0v5m0-5-5 5M1.979 6V1H7m0 16.042H1.979V12M18 12v5.042h-5M13 12l5 5M2 1l5 5m0 6-5 5" fill=""/>
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 1h5m0 0v5m0-5-5 5M1.979 6V1H7m0 16.042H1.979V12M18 12v5.042h-5M13 12l5 5M2 1l5 5m0 6-5 5" fill="" />
                         </svg>
                         <span className="sr-only">Full screen</span>
                     </button>
@@ -108,12 +108,12 @@ const TextEditor = ({proposalText, setProposalText, handleSubmit, handleGenerate
                 </div>
             </div>
             <div className='flex'>
-            <button className="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800 mx-3" onClick={() => handleGenerateScores()}>
-                Generate Bid Score
-            </button>
-            <button className="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800" onClick={handleSubmit}>
-                Submit Bid
-            </button>
+                <button className="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800 mx-3" onClick={() => handleGenerateScores()}>
+                    Generate Bid Score
+                </button>
+                <button className="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800" onClick={handleSubmit}>
+                    Submit Bid
+                </button>
             </div>
         </div>
 
@@ -121,10 +121,8 @@ const TextEditor = ({proposalText, setProposalText, handleSubmit, handleGenerate
 }
 
 const CreateBid = ({ params }) => {
-    // const num = 0
     const { id } = params
     const router = useRouter()
-
     const { data: session } = useSession();
     const [filter, setFilter] = useState('Past')
     const [pastTeamMembers, setPastTeamMembers] = useState([])
@@ -183,56 +181,31 @@ const CreateBid = ({ params }) => {
         ])
     }
 
-    // {
-    //     "prob_stat": "Make a web app.",
-    //     "avg_scores": [
-    //         1,
-    //         0.1
-    //     ],
-    //     "proposals": [
-    //         "Make a website.",
-    //         "Build a skyscraper."
-    //     ],
-    //     "project_key": [
-    //         "Web Development",
-    //         "Computer Science"
-    //     ],
-    //     "team_key": [
-    //         "Web, Django",
-    //         "Architecture, AutoCAD"
-    //     ]
-    // }
-
-    const generateScores = (teams) => {
+    const generateScores = (teams) => { //! The Bid acceptance probability of the team is being generated through a flask API and being rendered to frontend
         teams = [
-            ...teams,
             {
-                teamUserMap: [{
-                    user: {
-                        rating: 4.7,
-                        domain: ['UX/UI Designing', 'Product', 'Web Development']
-                    }
-                }],
+                teamUserMap: presentTeam.teamUserMap,
                 proposal: {
                     text: proposalText,
-                    bidAmount: 2000
+                    bidAmount: milestones.reduce((acc, milestone) => acc + Number(milestone.payment), 0)
                 }
-            }
+            },
+            ...teams
         ]
-        console.log(project)
         const obj = {
             prob_stat: project.statement,
-            avg_scores: teams.map(team =>  team.teamUserMap.reduce((acc,map) => acc + map.user.rating, 0)/team.teamUserMap.length),
+            avg_scores: teams.map(team => team.teamUserMap.reduce((acc, map) => acc + map.user.rating, 0) / team.teamUserMap.length),
             proposals: teams.map(team => team.proposal.text),
             project_key: project.domain,
             team_key: teams.map(team => team.teamUserMap.map(map => map.user.domain.join(', '))[0]),
-            // amount: teams.map(team => team.proposal.bidAmount)
+            amount: teams.map(team => team.proposal.bidAmount)
         }
-        axios.post(`http://trumio.pythonanywhere.com/predict`,obj).then(res => {
-            setTeamProb(res.data.prediction[0].toFixed(2)*100)
+        console.log(JSON.stringify(obj))
+        axios.post(`http://trumio.pythonanywhere.com/predict`, obj).then(res => {
+            setTeamProb(res.data.prediction[0].toFixed(2) * 100)
             const teamScore = res.data.prediction[0]
-            setTeamRank(res.data.prediction.sort((a,b) => b-a).indexOf(teamScore) + 1)
-            console.log(res.data.prediction[0], res.data.prediction, res.data.prediction.sort((a,b) => b - a) )
+            setTeamRank(res.data.prediction.sort((a, b) => b - a).indexOf(teamScore) + 1)
+            console.log(res.data.prediction[0], res.data.prediction, res.data.prediction.sort((a, b) => b - a))
         }).catch(console.error)
         console.log(obj)
     }
@@ -243,14 +216,15 @@ const CreateBid = ({ params }) => {
         })
     }
 
-    const handleGenerate = async () => {
+    const handleGenerate = async () => { //! This generates the submilestones from the milestones given by user
         setLoading(true);
         const res = await createSubMilestones(milestones)
         setLoading(false)
         setAiGenerated(res)
         setPresentPage(prev => prev + 1)
     }
-    const handleSubmit = () => {
+
+    const handleSubmit = () => { //! Bid submission is being done through the handleSubmit function by an API call
         let modifiedMilestones = [...milestones]
         const submilestones = Object.values(aiGenerated).map((milestone, index1) => (
             milestone.Submilestones.map((submilestone, index2) => (
@@ -270,7 +244,6 @@ const CreateBid = ({ params }) => {
                 submilestones: submilestones[index]
             }
         ))
-        // console.log(modifiedMilestones)
         let proposal = {
             acceptanceProbability: teamProb.toFixed(2),
             bidAmount: milestones.reduce((acc, milestone) => acc + Number(milestone.payment), 0),
@@ -283,10 +256,10 @@ const CreateBid = ({ params }) => {
         newTeam.status = 'Pending'
         console.log(newTeam)
 
-        // axios.patch(`/api/team/?teamId=${presentTeam._id}`, newTeam).then(res => {
-        //     toast.success("Your Bid is submitted")
-        //     // router.push("/marketplace")
-        // })
+        axios.patch(`/api/team/?teamId=${presentTeam._id}`, newTeam).then(res => {
+            toast.success("Your Bid is submitted")
+            router.push("/marketplace")
+        })
     }
 
     useEffect(() => {
@@ -331,7 +304,7 @@ const CreateBid = ({ params }) => {
         }
         fetchProject();
 
-        const fetchFilter = async (project, recommended) => {
+        const fetchFilter = async (project, recommended) => { //! Here the recommendation engine filters the tag using the problem statement and returns the recommended users
             try {
                 console.log(project, recommended)
                 if (project && recommended) {
@@ -349,21 +322,21 @@ const CreateBid = ({ params }) => {
 
         // fetchFilter();
 
-    }, [])
+    }, [noOfTeams])
 
-    const handleInvite = async (teamId,userId) => { 
+    const handleInvite = async (teamId, userId) => {
         try {
-          const response = await axios.patch('/api/sendinvite', {
-            userId,
-            teamId,
-            teamName,
-          });
-          console.log(response.data);
+            const response = await axios.patch('/api/sendinvite', {
+                userId,
+                teamId,
+                teamName,
+            });
+            console.log(response.data);
         } catch (error) {
-          console.error('API request failed:', error.message);
+            console.error('API request failed:', error.message);
         }
-      };
-    
+    };
+
 
     const addToTeam = async (member) => {
         try {
@@ -377,9 +350,9 @@ const CreateBid = ({ params }) => {
             console.log(teamUserMapNew)
             newTeam.teamUserMap = teamUserMapNew
             await axios.patch(`/api/team/?teamId=${presentTeam._id}`, newTeam)
-                .then(res => {
+                .then(async res => {
                     setPresentTeam(res.data)
-                    handleInvite(res.data._id,member._id);
+                    await handleInvite(res.data._id, member._id);
                 }).catch(console.log)
             setNoOfTeams(prev => prev + 1)
         } catch (error) {
@@ -394,16 +367,12 @@ const CreateBid = ({ params }) => {
         console.log(presentTeam.teamUserMap)
         let newTeam = presentTeam
         newTeam.teamUserMap = newArr
-        let teamId=presentTeam._id;
+        let teamId = presentTeam._id;
         let userId = member._id;
+        console.log(teamId, userId)
         axios.patch(`/api/team/?teamId=${presentTeam._id}`, newTeam)
             .then(res => {
-                  axios.delete('/api/deleteinvite', {
-                    teamId,
-                    userId,
-
-                  });
-                console.log(res.data)
+                axios.delete(`/api/deleteinvite/?teamId=${teamId}&userId=${userId}`).then(res => console.log(res.data)).catch(console.log)
             }).catch(console.log)
         setNoOfTeams(prev => prev - 1)
     }
@@ -420,21 +389,13 @@ const CreateBid = ({ params }) => {
         setPresentPage(prev => prev + 1)
     }
 
-    // const removeMilesone = () => {
-    //     let newMilestones = [...milestones]
-    //     newMilestones.pop()
-    //     console.log(newMilestones)
-    //     if(selectedMilestone === milestones.length) setSelectedMilestone(prev => prev - 1)
-    //     // setMilestones(newMilestones)
-    // }
-
     return (
-        <main className='w-[100vw] h-[100vh] overflow-hidden'>
+        <main className='w-[100vw] h-[100vh]'>
             <div className='flex flex-col w-full h-full'>
                 <Navbar />
                 <div className='flex w-full h-full'>
                     <StudentSidebar page={"marketplace"} />
-                    <div className='w-full h-full flex flex-col'>
+                    <div className='w-full flex flex-col'>
                         {
                             presentPage === 1 ?
                                 <>
@@ -443,7 +404,7 @@ const CreateBid = ({ params }) => {
                                     <div className='border-b-2 border-zinc-300 py-4 px-4 font-sans text-sky-700 font-semibold'>Create a Team</div>
 
                                     <div className='flex'>
-                                        <div className='flex flex-col justify-between h-[560px] w-7/12'>
+                                        <div className='flex flex-col justify-between h-[450px] w-7/12'>
                                             <div className='w-full px-8 relative'>
                                                 <div className='flex w-full items-center py-4'>
                                                     <div className='bg-blue-100 flex mr-5 w-full h-11 border-b-2 border-sky-800 items-center px-5'>
@@ -496,16 +457,6 @@ const CreateBid = ({ params }) => {
                                             </div>
                                         </div>
                                         <div className='flex flex-col w-5/12 border-l-2 border-gray-200'>
-                                            <div className='flex mt-2 ml-6'>
-                                                <div className='rounded-2xl px-2 py-2 flex items-center border-2 border-gray-200 m-3'>
-                                                    <div className="w-4 h-4 mx-1 rounded-full border border-stone-300" />
-                                                    <div>Invitations</div>
-                                                </div>
-                                                <div className='rounded-2xl px-2 py-2 flex items-center border-2 border-gray-200 m-3'>
-                                                    <div className="w-4 h-4 mx-1 rounded-full border border-stone-300" />
-                                                    <div>Requests</div>
-                                                </div>
-                                            </div>
                                             <div className='px-8 my-4'>
                                                 <div className=' flex rounded-3xl bg-gray-200 w-5/6'>
                                                     <div className={`w-1/2 text-center rounded-3xl cursor-pointer ${filter === 'Past' ? 'bg-sky-700 text-white' : ''} h-full py-3`} onClick={() => setFilter('Past')}>Past Team Mates</div>
@@ -589,7 +540,7 @@ const CreateBid = ({ params }) => {
                                             </div>
                                             <div className='w-2/3'>
                                                 <h3 className='font-semibold'>Description</h3>
-                                                <p>
+                                                <p className='max-h-20 overflow-scroll overflow-y-auto overflow-x-hidden'>
                                                     {Object.keys(presentTeam).length !== 0 && presentTeam.project.statement}
                                                 </p>
                                             </div>
@@ -628,28 +579,10 @@ const CreateBid = ({ params }) => {
 
 
 
-                                            <div className='h-full bg-indigo-50 flex flex-col pb-8 max-h-72 overflow-scroll overflow-y-auto overflow-x-hidden'>
+                                            <div className='h-full bg-indigo-50 flex flex-col pb-8 max-h-60 overflow-scroll overflow-y-auto overflow-x-hidden'>
                                                 <div className='flex w-full pt-4'>
                                                     <input type="number" name='payment' value={milestones[selectedMilestone - 1]['payment']} onChange={handleInputChange} placeholder='Expected payment &#8377;' className='mx-3 w-32 py-1 px-1 italic rounded-lg outline-none' required />
                                                     <input name='duration' value={milestones[selectedMilestone - 1]['duration']} onChange={handleInputChange} type="number" placeholder='Enter duration' className='mx-3 w-32 py-1 px-1 italic rounded-lg outline-none' required /> <span className='-ml-3'> Weeks </span>
-                                                    {/* <div className='flex bg-white p-2 text-neutral-600 rounded-lg'>
-                                                        <Folder_Icon className="mr-1" />
-                                                        {
-                                                            milestones[selectedMilestone-1].files.length !== 0 ?
-                                                                files.map((file, index) => (
-                                                                    <span key={index}> {file.name} </span>
-                                                                )) :
-                                                                <>
-                                                                    <input
-                                                                        id="fileInput"
-                                                                        type="file"
-                                                                        multiple
-                                                                        onChange={handleFileChange2}
-                                                                        className="hidden"
-                                                                    />
-                                                                    <label htmlFor='fileInput' className='cursor-pointer'>Add Attachment</label></>
-                                                        }
-                                                    </div> */}
 
                                                 </div>
                                                 <div className='flex flex-col px-6 my-4 '>
@@ -675,25 +608,25 @@ const CreateBid = ({ params }) => {
                                         </div>
 
                                     </>) :
-                                    presentPage === 3?
-                                    <>
-                                        {/* <div> {aiGenerated['Milestone 0'].Submilestones[0].work} hi </div> */}
-                                        {
-                                            aiGenerated && milestones &&
-                                            <GeneratedSubmilestones aiGenerated={aiGenerated} milestones={milestones} setAiGenerated={setAiGenerated} handleSubmit={handleSubmit} setPresentPage={setPresentPage}  />
-                                        }
-                                    </>:
-                                    <>
-                                    <div className='flex w-full justify-center items-center mt-5'>
-                                        <div className='mx-3'>
-                                        <span className='font-bold'>Bid Acceptance Probability:</span> <span> {teamProb} % </span>
-                                        </div>
-                                        <div className='mx-3'>
-                                        <span className='font-bold'>Rank:</span> <span> {teamRank} </span>
-                                        </div>
-                                    </div>
-                                    <TextEditor setProposalText={setProposalText} handleSubmit={handleSubmit} handleGenerateScores={handleGenerateScores}/>
-                                    </>
+                                    presentPage === 3 ?
+                                        <>
+                                            {/* <div> {aiGenerated['Milestone 0'].Submilestones[0].work} hi </div> */}
+                                            {
+                                                aiGenerated && milestones &&
+                                                <GeneratedSubmilestones aiGenerated={aiGenerated} milestones={milestones} setAiGenerated={setAiGenerated} handleSubmit={handleSubmit} setPresentPage={setPresentPage} />
+                                            }
+                                        </> :
+                                        <>
+                                            <div className='flex w-full justify-center items-center mt-5'>
+                                                <div className='mx-3'>
+                                                    <span className='font-bold'>Bid Acceptance Probability:</span> <span> {teamProb} % </span>
+                                                </div>
+                                                <div className='mx-3'>
+                                                    <span className='font-bold'>Rank:</span> <span> {teamRank} </span>
+                                                </div>
+                                            </div>
+                                            <TextEditor setProposalText={setProposalText} handleSubmit={handleSubmit} handleGenerateScores={handleGenerateScores} />
+                                        </>
                         }
 
 

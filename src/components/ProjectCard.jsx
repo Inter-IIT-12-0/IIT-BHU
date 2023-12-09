@@ -27,7 +27,7 @@ const ProjectCard = ({ project, setOpenedProj }) => {
                     month: 'long',
                 })) : <span className='text-red-500'>In Review</span>} </div>
                 <div className='font-bold text-2xl flex items-center'>
-                    {project.title}  <span className='text-sm text-neutral-400'> &nbsp; ( {project.domain} ) </span>
+                    {project.title}  <span className='text-sm text-neutral-400'> &nbsp; ( {project.domain.map((dom, ind) => <span> {dom}, </span>)} ) </span>
                 </div>
                 <div className='flex my-2'>
                     <div className='flex mr-8 justify-center items-center'>
@@ -56,10 +56,8 @@ const ProjectCard = ({ project, setOpenedProj }) => {
                 </div>
             </div>
             <div className='flex flex-col xl:w-1/3 w-[40%] pl-6'>
-                <div className='flex justify-end'>
-                    <Heart_Icon />
-                </div>
-                <div className='flex'>
+
+                <div className='flex mt-20'>
                     <div className='flex justify-start items-center'>
                         <img src="https://www.text-image.com/samples/per_normal_face.jpg" alt="" className='rounded-full w-16 h-16' />
                     </div>

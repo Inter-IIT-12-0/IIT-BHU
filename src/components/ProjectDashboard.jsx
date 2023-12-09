@@ -9,7 +9,7 @@ import MilestoneTableClient from './MilestoneTableClient';
 
 
 
-const ProjectTimeline = ({ project, setIsOpen, isOpen, setSelectedSubmilestone, role }) => {
+const ProjectDashboard = ({ project, setIsOpen, isOpen, setSelectedSubmilestone, role, setProject }) => {
   const [selectedTab, setSelectedTab] = useState('Milestones');
 
   const handleTabClick = (tab) => {
@@ -20,7 +20,7 @@ const ProjectTimeline = ({ project, setIsOpen, isOpen, setSelectedSubmilestone, 
     switch (selectedTab) {
       case 'Milestones':
         if(role === "Client") return <MilestoneTableClient project={project} />
-        return <MilestoneTable project={project} setSelectedSubmilestone={setSelectedSubmilestone} />
+        return <MilestoneTable project={project} setSelectedSubmilestone={setSelectedSubmilestone} setProject={setProject} />
       case 'Timeline':
         return <Calendar />;
       case 'Health':
@@ -108,4 +108,4 @@ const ProjectTimeline = ({ project, setIsOpen, isOpen, setSelectedSubmilestone, 
   );
 };
 
-export default ProjectTimeline;
+export default ProjectDashboard;

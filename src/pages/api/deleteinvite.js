@@ -6,14 +6,14 @@ connectDb();
 
 const handler = async (req, res) => {
   if (req.method === 'DELETE') {
-    const { userId,teamId } = req.body;
+    const { teamId, userId } = req.query;
     try {
+      console.log(teamId, userId)
       const user = await User.findById(userId);
 
       if (!user) {
         return res.status(404).json({ error: 'User not found' });
       }
-      console.log(teamId,user.invites[0].id);
       const existingInviteIndex = user.invites.findIndex(invite => invite.id.toString() === teamId);
 
       if (existingInviteIndex === -1) {

@@ -5,7 +5,7 @@ import Project from "../../../models/Project";
 const handler = async (req, res) => {
   if (req.method === 'GET') {
     try {
-      const projects = await Project.find({}, '-__v').populate({
+      const projects = await Project.find({status: { $in: ['In Review', 'Open'] }}, '-__v').populate({
         path: 'assignedTeam',
         select: '-__v',
         populate: {

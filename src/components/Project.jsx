@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import RightArrow from "../../public/Images/Right_Arrow.svg"
 import Copy_Link from "../../public/Images/Copy_Link_Icon.svg"
 import Export from "../../public/Images/Export_Icon.svg"
@@ -16,110 +16,12 @@ import axios from 'axios'
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import toast from 'react-hot-toast'
 
-const Project = ({ project, setOpenedProj }) => {
+const Project = ({ project, setOpenedProj, selected }) => {
     const {data: session} = useSession()
     const router = useRouter()
-    // project = {
-    //     "id": 1,
-    //     "title": "Sample Project",
-    //     "domain": "Sales and Marketing",
-    //     "location": "Mumbai",
-    //     "domain": "Sales and Marketing",
-    //     "location": "Mumbai",
-    //     "statement": "This is a sample project statement. lorem ipsum dolor sit amet consectetur adipiscing elit sed diam nonumy eirmod tempor invid id velit esse cillum dolore magna aliquy iaculis nisi ut aliqu incididunt",
-    //     "milestones": [
-    //         {
-    //             "dueDate": "2023-12-31T23:59:59.999Z",
-    //             "heading": "Milestone 1",
-    //             "submissionLink": "http://sample-submission-link.com",
-    //             "feedbackLink": "http://sample-feedback-link.com",
-    //             "subMilestones": [
-    //                 {
-    //                     "title": "SubMilestone 1",
-    //                     "isCompleted": false,
-    //                     "status": "Not Started",
-    //                     "dueDate": "2023-12-15T23:59:59.999Z",
-    //                     "assignedTo": "<User ObjectId>",
-    //                     "description": "Description of SubMilestone 1",
-    //                     "startDate": null,
-    //                     "endDate": null,
-    //                     "Aitools": ["Engineering"],
-    //                     "connectedApps": [["Figma", "http://figma.com"]],
-    //                     "work": {
-    //                         "fileType": "file",
-    //                         "file": "<Buffer Data>"
-    //                     },
-    //                     "stickyNotes": ["Note 1", "Note 2"]
-    //                 },
-    //             ],
-    //             "isCompleted": false,
-    //             "status": "Not Started"
-    //         }
-    //     ],
-    //     "userAgreement": {
-    //     },
-    //     "assignedTeam": {
-    //         "name": "Development Team",
-    //         "users": [
-    //             {
-    //                 "username": "user1",
-    //                 "email": "user1@example.com"
-    //             },
-    //         ]
-    //     },
-    //     "assignedBy": {
-    //         "name": "admin",
-    //         "email": "admin@example.com",
-    //         "companyName": "Google",
-    //         "projectsPosted": 12,
-    //         "sectorName": "DeepTech",
-    //         "paymentsCompleted": 2680
-    //         "projectsPosted": 12,
-    //         "sectorName": "DeepTech",
-    //         "paymentsCompleted": 2680
-    //     },
-    //     "logo": "https://aemi.ie/wp-content/uploads/2021/10/Project-Arts-Centre-Logo-Black-1-scaled.jpg",
-    //     "health": {
-    //         "progress": 0
-    //     },
-    //     "startDate": "2023-01-01T00:00:00.000Z",
-    //     "endDate": "2023-12-31T23:59:59.999Z",
-    //     "activity": [
-    //         {
-    //             "submilestone": "<SubMilestone ObjectId>",
-    //             "type": "CREATE",
-    //             "timestamp": "2023-01-01T12:00:00.000Z",
-    //             "user": "<User ObjectId>",
-    //             "message": "Created the project."
-    //         }
-    //     ],
-    //     "clientRequirements": {
-    //         "paymentType": "Fixed",
-    //         "payment": 2200,
-    //         "payment": 2200,
-    //         "worksDays": ["Mon", "Tue", "Wed"],
-    //         "requiredTools": ["Figma", "MERN"],
-    //         "files": [("doc.docx", Buffer.from([0x53, 0x61, 0x6D, 0x70, 0x6C, 0x65, 0x20, 0x62, 0x69, 0x6E, 0x61, 0x72, 0x79, 0x20, 0x64, 0x61, 0x74, 0x61]))]
-    //     },
-    //     "work": {
-    //         "fileType": "file",
-    //         "file": "<Buffer Data>"
-    //     },
-    //     "duration": 8,
-    //     "postedOn": "2023-11-26T12:00:00.000Z"
-    //     "duration": 8,
-    //     "postedOn": "2023-11-26T12:00:00.000Z"
-    // }
-    const winning_prob = 39;
-    const [files, setFiles] = useState([]);
-    // useEffect(() => {
-    //     let files = []
-    //     project.clientRequirements.files.forEach(file => {
-    //         files = [...files, (file[0], file[1].toString('base64'))]
-    //     })
-    //     setBase64Data(files);
-    // }, [project.clientRequirements.files]);
+    const [myTeam, setMyTeam] = useState({})
 
     const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
     function getDaysDifference(startDate, endDate) {
@@ -133,7 +35,7 @@ const Project = ({ project, setOpenedProj }) => {
     }
     const [isFullOpen, setFullOpen] = useState(false);
 
-    const handleCreateBid = () => {
+    const handleCreateBid = () => { //! Creates a bid by making an api call posting a new team and redirected to the createBid Page
         try {
             let changedProject = project
             axios.post('/api/team', {
@@ -153,6 +55,10 @@ const Project = ({ project, setOpenedProj }) => {
             console.log(error)
         }
     }
+
+    useEffect(() => {
+        axios.get('/api/myTeams').then(res => setMyTeam(res.data.filter(team => team.project === project._id).length !== 0 ? res.data.filter(team => team.project === project._id)[0] : {})).catch(console.log)
+    }, [])
 
     return (
         <main className="w-[100vw] h-[100vh] overflow-hidden z-50 absolute top-0 right-0">
@@ -187,7 +93,7 @@ const Project = ({ project, setOpenedProj }) => {
                                         </div>
                                         <div className='flex'>
                                             <Star_Bold className="scale-75" />
-                                            <span className='ml-3'> {project.domain} </span>
+                                            <span className='ml-3'> {project.domain[0]} </span>
                                         </div>
                                     </div>
                                     <div className='flex mr-20 ml-5'>
@@ -235,22 +141,17 @@ const Project = ({ project, setOpenedProj }) => {
 
                         <div className='m-3'>
                             <h3 className='font-bold text-xl'>Description:</h3>
-                            <div className='rounded-lg py-4 text-neutral-700 text-base'>
+                            <div className='rounded-lg py-4 text-neutral-700 text-base max-h-32 overflow-scroll overflow-x-hidden overflow-y-auto'>
                                 {project.statement}
                             </div>
                         </div>
 
-                        <div className='mx-3 py-8'>
+                        <div className='mx-3 pb-8'>
                             <h3 className='font-semibold'>Attachments: </h3>
                             <div className='flex mt-3'>
-                                {
-                                    // files.map((file, id) => (
-                                    //     <a key={id} className='w-10 h-10 bg-slate-200 rounded-md' href={`data:image/png;base64,${file[1]}`}> {file[0]} </a>
-                                    // ))
-                                    [["File 1", "sdfg"], ["File 2", "abcd"]].map(([filename, filepath], id) => (
-                                        <a key={id} className='h-10 text-sky-700 rounded-md w-20 mr-5 flex justify-center items-center' href={`data:image/png;base64,${filepath}`}> {filename} </a>
-                                    ))
-                                }
+                                <a href={project.clientRequirements.file?.url} target="_blank" className='px-2 py-1 bg-gray-200 rounded-lg flex items-center'>
+                                    <span>{project.clientRequirements.file?.title}</span> <Export_Icon className="scale-50" />
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -258,18 +159,22 @@ const Project = ({ project, setOpenedProj }) => {
                     <div className={`bg-white rounded shadow-lg ${isFullOpen ? 'w-full' : 'w-80'}`}>
                         <div className="text-center  border-b-2 flex items-center flex-col pt-5 pb-5">
                             {
-                                session && (session.user.role === "Student" ?
-                                <button className="w-48 h-12 bg-blue-400 rounded-lg shadow mb-5 text-xl font-bold font-sans tracking-tight" onClick={handleCreateBid} >Create Bid </button> :
-                                <Link href={`/viewBids/${project._id}`} className="w-48 h-12 bg-blue-400 rounded-lg shadow mb-5 text-xl font-bold font-sans tracking-tight flex items-center justify-center" >View Bid </Link>
+                                session && (session.user.role === "Student" || session.user.role === "Professor"? ( Object.keys(myTeam).length === 0  ?
+                                <button className="w-48 h-12 bg-blue-400 rounded-lg shadow mb-5 text-xl font-bold font-sans tracking-tight" onClick={handleCreateBid}> Create Bid </button> :
+                                <button className="w-48 h-12 bg-blue-400 rounded-lg shadow mb-5 text-xl font-bold font-sans tracking-tight" onClick={() => {
+                                    if (myTeam.status === "In Proposal") return router.push(`/createBid/${project._id}`)
+                                    // else return router.push(`/createBid/${project._id}`)
+                                }}> View Proposal </button>
+                                ) 
+                                :
+                                <Link href={ `/viewBids/${project._id}`} className="w-48 h-12 bg-blue-400 rounded-lg shadow mb-5 text-xl font-bold font-sans tracking-tight flex items-center justify-center" >View Bid </Link>
                                 )
                             }
-                            <button className="w-48 h-12 rounded-lg shadow border text-xl border-blue-400 flex justify-center items-center cursor-pointer" >
+                            <button className="w-48 h-12 rounded-lg shadow border text-xl border-blue-400 flex justify-center items-center cursor-pointer" onClick={() => {
+                                toast.success("Your interest has been conveyed")
+                            }}>
                                 <Hand className="scale-75" />
                                 <span> Interested </span>
-                            </button>
-                            <button className="mt-5 w-32 h-8 bg-blue-400 bg-opacity-0 rounded-lg shadow border border-blue-400 flex items-center justify-center text-sm cursor-pointer" >
-                                <Heart className="scale-50" />
-                                <span> Favourite </span>
                             </button>
                         </div>
                         <div className="pt-6 flex flex-col items-center text-xl border-b-2">

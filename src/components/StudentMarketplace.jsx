@@ -5,7 +5,7 @@ import { getSession, useSession } from 'next-auth/react'
 import { projectSearch } from '../lib/SearchAlgo'
 import axios from 'axios'
 
-const StudentMarketplace = ({projects, setOpenedProj, availDomains, selected, setSelected}) => {
+const StudentMarketplace = ({projects, setOpenedProj, selected, setSelected}) => {
     const {data:session} = useSession()
     const [location, setLocation] = useState("select")
     const [status, setStatus] = useState("select")
@@ -48,19 +48,19 @@ const StudentMarketplace = ({projects, setOpenedProj, availDomains, selected, se
 
     return (
         <div className='w-full h-full overflow-x-hidden flex flex-col'>
-            <Filterbar location={location} setLocation={setLocation} status={status} setStatus={setStatus} payment={payment} setPayment={setPayment} domain={domain} setDomain={setDomain} setSearch={setSearch} search={search} domains={availDomains} selected={selected} setSelected={setSelected} />
+            <Filterbar location={location} setLocation={setLocation} status={status} setStatus={setStatus} payment={payment} setPayment={setPayment} domain={domain} setDomain={setDomain} setSearch={setSearch} search={search} selected={selected} setSelected={setSelected} />
             <div className='h-full p-8 max-h-[70vh] overflow-scroll overflow-y-auto overflow-x-hidden'>
                 {
                     session && (
                         selected === 'All' ? projects && projects.filter(project => {
                             return projectSearch(search, location, status, payment, domain, project)
                         }).map(project => {
-                            return <ProjectCard key={project._id} project={project} setOpenedProj={setOpenedProj} />
+                            return <ProjectCard key={project._id} project={project} setOpenedProj={setOpenedProj} selected={selected}/>
                         }) : 
                         myBids && myBids.filter(bid => {
                             return (bid.status === "Pending" || bid.status === "Reviewed") && projectSearch(search, location, status, payment, domain, bid)
                         }).map(bid => {
-                            return <ProjectCard key={bid._id} project={bid} setOpenedProj={setOpenedProj} />
+                            return <ProjectCard key={bid._id} project={bid} setOpenedProj={setOpenedProj} selected={selected}/>
                         })
                     )
                 }

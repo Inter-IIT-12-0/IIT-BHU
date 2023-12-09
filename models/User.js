@@ -62,7 +62,7 @@ const UserSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Project'
     }],
-    invites:[InviteSchema],
+    invites: { type: [{type: InviteSchema}] , default: []} ,
     lastLogin: { type: Date },
     paymentsCompleted: { type: Number, default: 0 },
     projectsPosted: { type: Number, default: 0 },

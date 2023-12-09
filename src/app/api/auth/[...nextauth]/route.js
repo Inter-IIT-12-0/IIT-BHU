@@ -82,6 +82,7 @@ const handler = connectDb(
                                     email: profile.email,
                                     name: profile.name,
                                     avatarUrl: profile.picture,
+                                    invites: [],
                                     role
                                 })
                             }

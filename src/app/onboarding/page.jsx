@@ -1,7 +1,7 @@
 "use client";
 
 import axios from "axios";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { getCookie, setCookie } from "cookies-next"
 // components/GlassyCard.js
 import { useRouter } from 'next/navigation'
@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 const OnBoarding = () => {
   const router = useRouter()
   const [selectedCard, setSelectedCard] = useState(1);
+  const {data:session} = useSession()
   const handleCardClick = (cardNumber) => {
     setSelectedCard(cardNumber);
   };
@@ -19,20 +20,22 @@ const OnBoarding = () => {
 
   const handleCreateAccount = async () => {
     let role = (selectedCard === 1 ? 'Student' : selectedCard === 2 ? 'Client': 'Third')
+    if (role === 'Third') return router.push('/selectRole')
     setCookie("role", role);
-    signIn('google')
+    const gid = signIn('google')
+    console.log(gid)
   }
 
   useEffect(() => {
     const isNewUser = getCookie("newUser")
     const role = getCookie("role")
-    console.log(isNewUser)
+    if (session) return router.push('/')
     if (isNewUser === "false" ) {
       router.push('/')
     }
     else if (isNewUser === "true") {
-      if (role === 'Third') return router.push("/onboarding3")
-      router.push("/onboarding2")
+      if (role === 'Third') return router.push("/selectRole")
+      router.push("/selectDomains")
     }
   }, [])
 
@@ -56,7 +59,7 @@ const OnBoarding = () => {
               <input
                 type="radio"
                 name="subcard"
-                className="mb-28 w-6 h-6" // Adjust the size as needed
+                className="mb-28 w-6 h-6"
                 checked={selectedCard === 1}
                 readOnly
               />
@@ -74,11 +77,11 @@ const OnBoarding = () => {
             onClick={() => handleCardClick(2)}
           >
             <div className="flex">
-              <img src="/24.png" className="mr-6"></img>
+              <img src="/24.png"></img>
               <input
                 type="radio"
                 name="subcard"
-                className="mb-28 w-6 h-6" // Adjust the size as needed
+                className="mb-28 w-6 h-6"
                 checked={selectedCard === 2}
                 readOnly
               />

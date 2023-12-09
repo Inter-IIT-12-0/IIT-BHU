@@ -17,19 +17,19 @@ const Project = ({ params }) => {
 
   const [AiOpen, setAiOpen] = useState(false);
   const [timelineOpen, setTimelineOpen] = useState(false);
-  const [selectedSubmilestone, setSelectedSubmilestone] = useState(null);
+  const [selectedSubmilestone, setSelectedSubmilestone] = useState({hi:"hi"});
 
   useEffect(() => {
     axios.get(`/api/project/${id}`)
       .then(res => {
         setProject(res.data);
       }).catch(err => console.log(err));
-  }, [])
+  }, [selectedSubmilestone])
 
   return (
     <>
       {AiOpen && (
-        <GptAi setAiOpen={setAiOpen} />
+        <GptAi setAiOpen={setAiOpen} /> //! AI Tools for the workspace are in GptAi 
       )}
       <main className={`w-full h-[100vh] overflow-hidden`}>
         <div className={` ${timelineOpen ? 'w-[75vw]' : 'w-full'} transition-all duration-1000`}>
@@ -38,7 +38,7 @@ const Project = ({ params }) => {
               <Navbar />
             </div>
             {
-              session && session.user.role === "Client" ? (
+              session && Object.keys(selectedSubmilestone).length === 0 ? (
                 <div className='flex w-full h-full'>
                   <StudentSidebar page={"myprojects"}/>
                   <div className="w-full flex flex-col px-20 py-5">
@@ -56,13 +56,13 @@ const Project = ({ params }) => {
                     <div className="my-5 max-h-[70vh] overflow-scroll overflow-y-auto overflow-x-hidden">
 
                       {
-                        Object.keys(project).length !== 0 ? <ProjectDashboard project={project} role={session.user.role} /> : <></>
-                      }
+                        Object.keys(project).length !== 0 ? <ProjectDashboard project={project} role={session.user.role} setProject={setProject} setSelectedSubmilestone={setSelectedSubmilestone}/> : <></>
+                      } //! This is the project dshboard
                     </div>
                   </div>
                 </div>
               ) : 
-              selectedSubmilestone && (Object.keys(project).length !== 0) ?
+              session & selectedSubmilestone && (Object.keys(project).length !== 0) ?
                 <SubMilestoneCard submilestone={selectedSubmilestone} setSelectedSubmilestone={setSelectedSubmilestone} project={project} setTimelineOpen={setTimelineOpen} /> :
                 <div className='flex w-full h-full'>
                   <StudentSidebar page={"myprojects"}/>
@@ -81,7 +81,7 @@ const Project = ({ params }) => {
                     <div className="my-5 max-h-[70vh] overflow-scroll overflow-y-auto overflow-x-hidden">
 
                       {
-                        Object.keys(project).length !== 0 ? <ProjectDashboard project={project} setSelectedSubmilestone={setSelectedSubmilestone} role={session.user.role}/> : <></>
+                        Object.keys(project).length !== 0 ? <ProjectDashboard project={project} setSelectedSubmilestone={setSelectedSubmilestone} role={session.user.role} setProject={setProject}/> : <></>
                       }
                     </div>
                   </div>

@@ -71,7 +71,8 @@ export const milestoneSchema = new mongoose.Schema({
   paymentDate: { type: Date },
   deliverables : { type: String },
   duration: { type: Number },
-  files: [String]
+  files: [String],
+  paymentCompleted: {type: Boolean, default: false}
 });
 
 const healthSchema = new mongoose.Schema({
@@ -94,9 +95,9 @@ const projectSchema = new mongoose.Schema({
   clientRequirements: clientRequirementsSchema,
   work: [workSchema],
   duration: { type: Number, required: true },
-  domain: [{ type: String, required: true ,enum:domainEnum}],
+  domain: { type: [{ type: String, required: true ,enum:domainEnum}], required: true },
   postedOn: {type: Date, default: Date.now},
-  status: {type: String, enum: ['Open', 'In Review', 'Completed'], default: 'In Review'},
+  status: {type: String, enum: ['Open', 'In Review', 'Completed', 'Assigned'], default: 'Open'},
   location: { type: String, required: true},
   connectedApps: { type: [ApplicationSchema] },
 });

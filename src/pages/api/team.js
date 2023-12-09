@@ -40,7 +40,8 @@ const handler = async (req, res) => {
         teamId,
         { $set: req.body },
         { new: true }
-      );
+      )
+      .populate('teamUserMap.user', '-role -fees -projects -aiTools -aiToolsLimit');
 
       if (!updatedTeam) {
         res.status(404).json({ error: 'Team not found' });
