@@ -198,7 +198,7 @@ const CreateBid = ({ params }) => {
             proposals: teams.map(team => team.proposal.text),
             project_key: project.domain,
             team_key: teams.map(team => team.teamUserMap.map(map => map.user.domain.join(', '))[0]),
-            amount: teams.map(team => team.proposal.bidAmount)
+            amounts: teams.map(team => team.proposal.bidAmount)
         }
         console.log(JSON.stringify(obj))
         axios.post(`http://trumio.pythonanywhere.com/predict`, obj).then(res => {

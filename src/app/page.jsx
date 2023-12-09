@@ -29,7 +29,7 @@ const Home = () => {
   const year = today.getFullYear();
   const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-  useEffect(() => {
+  useEffect(() => { //! User details are fetched here
     const fetchdata = async () => {
       try {
         const response = await axios.get(`http://localhost:3000/api/user?id=${session.user._id}`);
