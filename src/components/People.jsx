@@ -108,7 +108,7 @@ const People = () => {
 
     return (
         <>
-            {!onUniversity && (<div className='flex-col flex pt-8 px-8 max-w-[100%] max-h-[92vh] overflow-scroll overflow-y-auto overflow-x-hidden bg-white'>
+            {!onUniversity && (<div className='flex-col flex pt-8 px-8 w-[100%] max-h-[92vh] overflow-scroll overflow-y-auto overflow-x-hidden bg-white'>
                 <div className='flex flex-row'>
                     <div className={`flex flex-row items-center justify-center my-6 mr-6 border border-slate-200 py-4 pl-4 pr-10 cursor-pointer rounded-xl ${!state ? 'bg-blue-200' : ''}`}>
                             <img className='h-6 mx-3 my-2' src="/Images/newElipse.svg" alt="" />
@@ -265,8 +265,8 @@ const People = () => {
                     </div>
                 </section>
                 <section className="bg-white  mt-10">
-                    <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-6 lg:px-6">
-                        <div className="mx-auto max-w-screen-sm text-center mb-8 lg:mb-16">
+                    <div className="pb-5 px-4 mx-auto max-w-screen-xl lg:pb-6 lg:px-6">
+                        <div className="mx-auto max-w-screen-sm text-center mb-5 lg:mb-8">
                             <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Peoples</h2>
                         </div>
                         <div className="grid gap-8 mb-6 lg:mb-16 grid-cols-2 xl:grid-cols-3">

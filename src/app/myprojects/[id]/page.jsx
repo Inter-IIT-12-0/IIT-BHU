@@ -34,7 +34,9 @@ const Project = ({ params }) => {
       <main className={`w-full h-[100vh] overflow-hidden`}>
         <div className={` ${timelineOpen ? 'w-[75vw]' : 'w-full'} transition-all duration-1000`}>
           <div className='flex flex-col w-full h-full'>
-            <Navbar />
+            <div>
+              <Navbar />
+            </div>
             {
               session && session.user.role === "Client" ? (
                 <div className='flex w-full h-full'>

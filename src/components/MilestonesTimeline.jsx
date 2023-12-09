@@ -11,7 +11,7 @@ const MilestonesTimeline = ({ setTimelineOpen, project }) => {
 
     return (
         <div className="ml-20 flex flex-col absolute right-0 top-0 animate-[appear_1s_ease-in-out] bg-white max-h-[100vh] bottom-0 overflow-y-auto">
-            <nav className='flex justify-end py-6 items-center mt-10'>
+            <nav className='flex justify-end py-6 items-center'>
                 <Close onClick={() => setTimelineOpen(false)} className="cursor-pointer" />
             </nav>
             <div className='w-96 rounded-2xl py-3 flex flex-col mb-10 border border-gray-300 p-4 my-4'>

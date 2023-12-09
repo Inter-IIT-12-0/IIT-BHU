@@ -38,12 +38,11 @@ function Slider({ users }) {
           users && users.map((ele) => {
             return <SwiperSlide>
               <div className='flex flex-col rounded-3xl h-[19vw] bg-white' style={{ border: 'solid 1px black', borderRadius: '15%' }}>
-
                 <div>
                   <img className='border' src="/Images/slideImage.png" alt="" />
                 </div>
                 <div className='flex justify-between mt-6'>
-                  <img className='h-24 w-24 rounded-full mx-4' src={ele.avatarUrl} alt="" />
+                  <img className='h-[7vw] w-[7vw] rounded-full mx-4' src={ele.avatarUrl} alt="" />
                   <div className='flex flex-col right-0 w-[60%]'>
                     <div className='flex justify-between'>
                       <div>
