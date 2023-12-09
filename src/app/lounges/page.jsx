@@ -61,7 +61,7 @@ const Lounges = ({ }) => {
     }
   };
 
-  useEffect(async () => {
+  useEffect(() => {
     fetchData();
     recommendation();
   }, []);

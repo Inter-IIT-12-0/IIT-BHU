@@ -348,7 +348,7 @@ const CreateBid = ({ params }) => {
 
         // fetchFilter();
 
-    }, [noOfTeams])
+    }, [])
 
     const handleInvite = async (teamId, userId) => {
         try {

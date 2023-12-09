@@ -15,7 +15,7 @@ const Arcade = () => {
     const arrayOfObjs = Array(3).fill(obj);
 
     return (
-        <div>
+        <div className="max-h-[100vh] overflow-scroll overflow-y-auto overflow-x-hidden">
             <Navbar/>
             <div className="flex flex-row">
                 <SidebarUpskilling />

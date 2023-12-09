@@ -2,7 +2,7 @@ import React from "react";
 
 const EarningStats = ({EarningStats}) => {
     return (
-        <div className="w-full h-[42%] p-8 bg-blue-100 rounded">
+        <div className="w-full p-8 bg-blue-100 rounded">
             <h1 className="font-semibold text-2xl">Earning Stats</h1>
             <p className="py-3">Here's Your overall performance</p>
             <div className="flex flex-row">

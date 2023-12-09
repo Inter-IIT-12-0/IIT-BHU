@@ -34,7 +34,9 @@ const Projects = () => {
                 )}
             <main className='w-[100vw] h-[100vh] overflow-hidden'>
                 <div className='flex flex-col w-full h-full'>
-                    <Navbar />
+                    <div>
+                        <Navbar />
+                    </div>
                     <div className='flex w-full h-full'>
                         <StudentSidebar page={"marketplace"}/>
                         {

@@ -50,7 +50,7 @@ const Upskilling = () => {
                 Continue Learning{" "}
               </div>
               <div className="flex">
-                <div className="xl:w-[600px] w-[400px] h-96 bg-white bg-opacity-50 rounded-2xl border-2 border-sky-800 border-dotted mt-5 flex flex-col justify-center items-center px-6">
+                <div className="xl:w-[600px] h-96 bg-white bg-opacity-50 rounded-2xl border-2 border-sky-800 border-dotted mt-5 flex flex-col justify-center items-center px-6">
                   <Plus className="scale-75 xl:scale-100" />
                   <div className="text-black text-base xl:text-2xl font-semibold font-['HelveticaNeueLTW06-97BlkCnObl'] tracking-wide">
                     You don't have any active courses yet{" "}
@@ -70,12 +70,12 @@ const Upskilling = () => {
               </div>
             </div>
 
-            <div className="mt-4 flex flex-col w-[1200px] h-[500px] relative  top-24 pl-12 pt-4">
+            <div className="mt-4 flex flex-col h-[500px] relative top-24 pl-12 pt-4">
               <div className="text-sky-800 text-4xl font-medium font-['Helvetica Neue'] tracking-wide">
                 Recommended Courses For You
               </div>
 
-              <div className="grid grid-cols-2 xl:grid-cols-3 grid-flow-row w-[80vw] mt-8 ">
+              <div className="grid grid-cols-2 xl:grid-cols-3 grid-flow-row mt-8 ">
                 <GlossyCard />
                 <GlossyCard />
                 <GlossyCard />

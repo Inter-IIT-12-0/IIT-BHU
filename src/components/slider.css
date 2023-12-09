@@ -34,10 +34,10 @@ body {
 
 @media (max-width: 500px) {
   .swiper_container {
-    height: 47rem;
+    /* height: 47rem; */
   }
   .swiper-slide {
-    width: 28rem !important;
+    /* width: 28rem !important; */
   }
 
 }
@@ -90,7 +90,7 @@ body {
 .slider-controler .slider-arrow {
   background: var(--white);
   width: 3.5rem;
-  height: 3.5rem;
+  /* height: 3.5rem; */
   border-radius: 50%;
   left: 42%;
   transform: translateX(-42%);
