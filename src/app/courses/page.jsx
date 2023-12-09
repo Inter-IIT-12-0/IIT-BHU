@@ -6,7 +6,6 @@ import SidebarUpskilling from "../../components/SidebarUpskilling";
 const Mentorship = () => {
 
     const obj = [];
-
     const courseNames = [
         "Web Development Fundamentals",
         "Introduction to Data Science",
