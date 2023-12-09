@@ -12,6 +12,8 @@ const handler = async (req, res) => {
         const id = session.user._id;
         const role = session.user.role;
 
+        console.log("the data that I wanted is:",id,role);
+
         try {
             // const user = await User.findOne({ _id: id })
             //     .populate({
@@ -57,7 +59,7 @@ const handler = async (req, res) => {
                     });
                 res.status(200).json(user.projects);
             } else {
-                const teams = await Team.find({ 'teamUserMap.user': id, 'status': 'Accepted' })
+                const teams = await Team.find({ 'teamUserMap.user._id': id, 'teamUserMap.status': 'Accepted' })
                     .populate({
                         path: 'project',
                         select: '-__v',
@@ -76,7 +78,7 @@ const handler = async (req, res) => {
                             }
                         ]
                     });
-                    // console.log(teams)
+                    console.log("teams are:",teams)
                     res.status(200).json(teams.map((team => team.project)));
             }
         } catch (error) {
