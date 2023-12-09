@@ -5,10 +5,32 @@ import SidebarUpskilling from "../../components/SidebarUpskilling";
 
 const Mentorship = () => {
 
-    const obj = {
-        heading : "test Name hai ye",
-        img : "/Images/newImage.png"
+    const obj = [];
+
+    const courseNames = [
+        "Web Development Fundamentals",
+        "Introduction to Data Science",
+        "UX Design Essentials",
+        "Mobile App Development with React Native",
+        "Machine Learning Basics",
+        "Digital Marketing Strategies",
+        "Project Management Fundamentals",
+        "UI/UX Prototyping",
+        "Full-Stack JavaScript Development",
+        "Data Visualization Techniques",
+        "Cybersecurity Fundamentals",
+        "Content Marketing Mastery"
+    ];
+
+    for (let i = 0; i < 12; i++) {
+        const fakeObject = {
+            heading: courseNames[i],
+            img: "/Images/newImage.png"
+        };
+
+        obj.push(fakeObject);
     }
+
 
     const arrayOfObj = Array(12).fill(obj);
 
@@ -48,13 +70,13 @@ const Mentorship = () => {
                         <div className="py-2 px-6 rounded-xl shadow-lg mr-4 bg-white">Domains</div>
                     </div>
                     <div className="grid grid-cols-3 gap-5">
-                       {arrayOfObj.map((ele) => {
-                            return  <div className="bg-blue-300 rounded-xl my-6 flex   flex-col items-center justify-between">
-                            <h1 className="text-sm text-white font-semibold mt-3">{ele.heading}</h1>
-                            <img src={ele.img} className="h-[50%] w-[50%]" alt="" />
-                            <button className="rounded-full bg-white text-black text-sm font-semibold py-2 px-6 mb-3">Start Learning</button>
-                        </div>
-                       })}
+                        {obj.map((ele) => {
+                            return <div className="bg-blue-300 rounded-xl my-6 flex   flex-col items-center justify-between">
+                                <h1 className="text-sm text-white font-semibold mt-3">{ele.heading}</h1>
+                                <img src={ele.img} className="h-[50%] w-[50%]" alt="" />
+                                <button className="rounded-full bg-white text-black text-sm font-semibold py-2 px-6 mb-3">Start Learning</button>
+                            </div>
+                        })}
                     </div>
                 </div>
             </div>
