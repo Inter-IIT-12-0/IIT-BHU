@@ -32,9 +32,11 @@ const Project = ({ params }) => {
         <GptAi setAiOpen={setAiOpen} />
       )}
       <main className={`w-full h-[100vh] overflow-hidden`}>
-        <div className={` ${timelineOpen ? 'w-[1120px]' : 'w-full'} transition-all duration-1000`}>
+        <div className={` ${timelineOpen ? 'w-[75vw]' : 'w-full'} transition-all duration-1000`}>
           <div className='flex flex-col w-full h-full'>
-            <Navbar />
+            <div>
+              <Navbar />
+            </div>
             {
               session && session.user.role === "Client" ? (
                 <div className='flex w-full h-full'>
@@ -88,7 +90,9 @@ const Project = ({ params }) => {
           </div>
         </div>
         {
-          timelineOpen ? <MilestonesTimeline setTimelineOpen={setTimelineOpen} project={project} /> : <></>
+          timelineOpen ? <div className="max-h-[90vh] overflow-scroll overflow-y-scroll">
+            <MilestonesTimeline setTimelineOpen={setTimelineOpen} project={project} />
+          </div> : <></>
 
         }
         <img width="50" height="50" src="https://img.icons8.com/ios/50/message-bot.png" alt="message-bot" className='absolute top-2 right-1/2 z-40 cursor-pointer' onClick={() => setAiOpen(true)} />

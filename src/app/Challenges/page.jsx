@@ -15,11 +15,11 @@ const Challenges = () => {
     const otherArray = Array(3).fill(obj);
 
     return (
-        <div>
+        <div className="overflow-x-hidden">
             <Navbar/>
             <div className="flex flex-row">
                 <StudentSidebar page={"challenges"}/>
-                <div className="flex flex-col p-5 bg-blue-100 w-[100%]">
+                <div className="flex flex-col p-5 max-h-[90vh] overflow-y-auto overflow-x-hidden bg-blue-100 ">
                     <h1 className="mb-5 text-3xl font-semibold">Challenges</h1>
                     <div className="flex flex-row">
                         {otherArray.map((ele) => {
