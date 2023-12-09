@@ -19,7 +19,7 @@ const MyProjects = () => {
 	const [loading, setLoading] = useState(false)
 	const { data: session } = useSession()
 
-	useEffect(() => {
+	useEffect(() => { //! Fetches all my projects through api call
 		setLoading(true);
 		axios.get(`/api/myprojects`).then(res => {
 			setProjects(res.data)

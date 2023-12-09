@@ -17,7 +17,7 @@ const Projects = () => {
     const [openedProj, setOpenedProj] = useState({})
     const [selected, setSelected] = useState("All")
 
-    useEffect(() => {
+    useEffect(() => { //! fetches all projects through api
         axios.get('/api/allprojects')
         .then(res => {
             setProjects(res.data)

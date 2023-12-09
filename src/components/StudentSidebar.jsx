@@ -52,7 +52,7 @@ export default function StudentSidebar({page}) {
                 </Link>
                 {
                     <Link
-                    href={"/toolsPageMarketplace"}
+                    href={"/toolsTableMarketplace"}
                     className={`justify-start items-center inline-flex mt-8 gap-6 hover-background transition-all duration-1000 ${page === "tools" && 'bg-sky-100'} rounded-r-2xl pl-5`}
                 >
                     <div className="w-6 h-6 justify-center items-center flex">

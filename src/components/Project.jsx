@@ -35,7 +35,7 @@ const Project = ({ project, setOpenedProj, selected }) => {
     }
     const [isFullOpen, setFullOpen] = useState(false);
 
-    const handleCreateBid = () => {
+    const handleCreateBid = () => { //! Creates a bid by making an api call posting a new team and redirected to the createBid Page
         try {
             let changedProject = project
             axios.post('/api/team', {

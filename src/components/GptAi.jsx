@@ -15,6 +15,7 @@ const Subdomain = ({ domain, subdomain }) => {
     const handleGenerate = async (domain, subdomain, formValues, result, setResult) => {
         await generate(domain, subdomain, formValues, result, setResult);
     };
+    //! This is a generative AI function which responds to the user's request considering its subdomain (DEMO)
 
     const handleStop = () => {
         stop(controller, setResult);
@@ -81,7 +82,7 @@ const GptAi = ({ setAiOpen }) => {
     const [submittedData, setSubmittedData] = useState(null);
     const { data: session } = useSession()
 
-    const domains = [
+    const domains = [ //! Contains the domains and subdomains offered by Generative AI
         /* case "Write Technical Specifications":
         return `Provide detailed technical specifications based on the given requirements (${input.businessRequirements}), systems involved (${input.systemsInvolved}), and best practices (${input.bestPractices}).`;
     
@@ -188,7 +189,7 @@ const GptAi = ({ setAiOpen }) => {
                     }
                     {
                         session && session.user.aiTools.length < 3 &&
-                        <Link href="/toolsPage" className="flex items-center justify-center">
+                        <Link href="/toolsTable" className="flex items-center justify-center">
                             <div className="bg-sky-600 hover:bg-sky-700 transition-all duration-500 text-white rounded-md px-2 py-1 cursor-pointer">Add tool</div>
                         </Link>
                     }

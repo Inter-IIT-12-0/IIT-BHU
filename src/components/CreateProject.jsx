@@ -1,3 +1,4 @@
+"use client"
 import React, { useState, useEffect } from 'react';
 import classNames from 'classnames';
 import ClientMarketPlaceComponent from './ClientMarketPlaceComp';
@@ -81,7 +82,7 @@ const Form1 = () => {
         setInputSkill("")
     }
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e) => { //! Genertes optimized description of the problem PS input by the client
         e.preventDefault();
         if (progress != 99) {
             if (progress === 33) {
@@ -168,10 +169,6 @@ const Form1 = () => {
         newSkills.splice(indexOfSkill, 0, skill);
         setSkills(newSkills)
     }
-
-    // useEffect(() => {
-
-    // }, [domains])
 
     return (
         <>

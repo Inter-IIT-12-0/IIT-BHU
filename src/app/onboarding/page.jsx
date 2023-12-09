@@ -20,7 +20,7 @@ const OnBoarding = () => {
 
   const handleCreateAccount = async () => {
     let role = (selectedCard === 1 ? 'Student' : selectedCard === 2 ? 'Client': 'Third')
-    if (role === 'Third') return router.push('/onboarding3')
+    if (role === 'Third') return router.push('/selectRole')
     setCookie("role", role);
     const gid = signIn('google')
     console.log(gid)
@@ -34,8 +34,8 @@ const OnBoarding = () => {
       router.push('/')
     }
     else if (isNewUser === "true") {
-      if (role === 'Third') return router.push("/onboarding3")
-      router.push("/onboarding2")
+      if (role === 'Third') return router.push("/selectRole")
+      router.push("/selectDomains")
     }
   }, [])
 

@@ -3,6 +3,7 @@ import React from "react"
 import Navbar from "../../components/Navbar"
 import StudentSidebar from "../../components/StudentSidebar"
 import SidebarUpskilling from "../../components/SidebarUpskilling"
+import Link from "next/link"
 
 const Arcade = () => {
 
@@ -81,7 +82,7 @@ const Arcade = () => {
                     </div>
                     <div className="grid grid-cols-3 gap-4">
                         {obj1.map((ele) => {
-                            return <div className="rounded-3xl shadow-xl p-6 flex flex-col gap-4">
+                            return <Link href="/learning" className="rounded-3xl shadow-xl p-6 flex flex-col gap-4">
                                 <div className="flex justify-between">
                                     <img src={ele.img} alt="" />
                                     <div className="p-1 bg-gray-400 h-8 rounded-xl">POPULAR</div>
@@ -89,7 +90,7 @@ const Arcade = () => {
                                 <h1 className="text-2xl font-semibold">{ele.tag}</h1>
                                 <p>{ele.desc}</p>
                                 <h1>Begineer * 6 Hours</h1>
-                            </div>
+                            </Link>
                         })}
                     </div>
                     <div className="w-[100%] flex flex-col gap-2 my-4">

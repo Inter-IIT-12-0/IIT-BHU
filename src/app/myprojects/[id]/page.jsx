@@ -29,7 +29,7 @@ const Project = ({ params }) => {
   return (
     <>
       {AiOpen && (
-        <GptAi setAiOpen={setAiOpen} />
+        <GptAi setAiOpen={setAiOpen} /> //! AI Tools for the workspace are in GptAi 
       )}
       <main className={`w-full h-[100vh] overflow-hidden`}>
         <div className={` ${timelineOpen ? 'w-[75vw]' : 'w-full'} transition-all duration-1000`}>
@@ -57,7 +57,7 @@ const Project = ({ params }) => {
 
                       {
                         Object.keys(project).length !== 0 ? <ProjectDashboard project={project} role={session.user.role} setProject={setProject} setSelectedSubmilestone={setSelectedSubmilestone}/> : <></>
-                      }
+                      } //! This is the project dshboard
                     </div>
                   </div>
                 </div>

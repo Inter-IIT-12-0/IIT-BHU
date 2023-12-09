@@ -22,7 +22,7 @@ const OnBoarding3 = () => {
     useEffect(() => {
         const role = getCookie("role")
         if (role) {
-            router.push("/onboarding2")
+            router.push("/selectDomains")
         }
     }, [])
 

@@ -17,7 +17,7 @@ const CustomisedTool = ({params}) => {
         handleGenerate();
     }
 
-    const handleGenerate = async () => {
+    const handleGenerate = async () => { //! In the handleGenerate function, Depending on the domain and the ai model being chosen, the context is being passed to the Gpt system prompt so that it generates the response accordingly
         if (message.length == 0) {
             aiToolUserPrompt(
                 domain,

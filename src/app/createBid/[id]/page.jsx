@@ -123,7 +123,6 @@ const TextEditor = ({ proposalText, setProposalText, handleSubmit, handleGenerat
 const CreateBid = ({ params }) => {
     const { id } = params
     const router = useRouter()
-
     const { data: session } = useSession();
     const [filter, setFilter] = useState('Past')
     const [pastTeamMembers, setPastTeamMembers] = useState([])
@@ -182,15 +181,8 @@ const CreateBid = ({ params }) => {
         ])
     }
 
-    const generateScores = (teams) => {
+    const generateScores = (teams) => { //! The Bid acceptance probability of the team is being generated through a flask API and being rendered to frontend
         teams = [
-            {
-                teamUserMap: presentTeam.teamUserMap,
-                proposal: {
-                    text: proposalText,
-                    bidAmount: milestones.reduce((acc, milestone) => acc + Number(milestone.payment), 0)
-                }
-            },
             {
                 teamUserMap: presentTeam.teamUserMap,
                 proposal: {
@@ -206,7 +198,7 @@ const CreateBid = ({ params }) => {
             proposals: teams.map(team => team.proposal.text),
             project_key: project.domain,
             team_key: teams.map(team => team.teamUserMap.map(map => map.user.domain.join(', '))[0]),
-            // amount: teams.map(team => team.proposal.bidAmount)
+            amount: teams.map(team => team.proposal.bidAmount)
         }
         console.log(JSON.stringify(obj))
         axios.post(`http://trumio.pythonanywhere.com/predict`, obj).then(res => {
@@ -224,14 +216,15 @@ const CreateBid = ({ params }) => {
         })
     }
 
-    const handleGenerate = async () => {
+    const handleGenerate = async () => { //! This generates the submilestones from the milestones given by user
         setLoading(true);
         const res = await createSubMilestones(milestones)
         setLoading(false)
         setAiGenerated(res)
         setPresentPage(prev => prev + 1)
     }
-    const handleSubmit = () => {
+
+    const handleSubmit = () => { //! Bid submission is being done through the handleSubmit function by an API call
         let modifiedMilestones = [...milestones]
         const submilestones = Object.values(aiGenerated).map((milestone, index1) => (
             milestone.Submilestones.map((submilestone, index2) => (
@@ -251,7 +244,6 @@ const CreateBid = ({ params }) => {
                 submilestones: submilestones[index]
             }
         ))
-        // console.log(modifiedMilestones)
         let proposal = {
             acceptanceProbability: teamProb.toFixed(2),
             bidAmount: milestones.reduce((acc, milestone) => acc + Number(milestone.payment), 0),
@@ -264,10 +256,10 @@ const CreateBid = ({ params }) => {
         newTeam.status = 'Pending'
         console.log(newTeam)
 
-        // axios.patch(`/api/team/?teamId=${presentTeam._id}`, newTeam).then(res => {
-        //     toast.success("Your Bid is submitted")
-        //     // router.push("/marketplace")
-        // })
+        axios.patch(`/api/team/?teamId=${presentTeam._id}`, newTeam).then(res => {
+            toast.success("Your Bid is submitted")
+            router.push("/marketplace")
+        })
     }
 
     useEffect(() => {
@@ -312,7 +304,7 @@ const CreateBid = ({ params }) => {
         }
         fetchProject();
 
-        const fetchFilter = async (project, recommended) => {
+        const fetchFilter = async (project, recommended) => { //! Here the recommendation engine filters the tag using the problem statement and returns the recommended users
             try {
                 console.log(project, recommended)
                 if (project && recommended) {

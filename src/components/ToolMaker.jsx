@@ -18,7 +18,7 @@ const ToolMaker = () => {
     const { data: session } = useSession();
     const defaultAiImage = "https://img.freepik.com/premium-vector/ai-technology-digital-artificial-intelligence-future-circuit-electronic-colorful-vector-logo-design_216988-1080.jpg"
 
-    const submitHandler = async () => {
+    const submitHandler = async () => { 
         try {
             setShowDomain(false)
             setShowAiTools(false)

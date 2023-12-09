@@ -26,7 +26,7 @@ export const ChatbotCard = ({ isOpen }) => {
   const [projectChat, setProjectChat] = useState("")
   const [gotResponse, setGotResponse] = useState(false)
 
-  useEffect(() => {
+  useEffect(() => { //! The chat bot is loaded with ll the persons through an apicall
     axios.get('/api/allusers/')
       .then(res => { // Log the response to the console
 
@@ -51,7 +51,7 @@ export const ChatbotCard = ({ isOpen }) => {
       handleGenerate3();
   }
 
-  const handleGenerate = async () => {
+  const handleGenerate = async () => { //! Responsible uses the LLM model for responding to the general queries and can handle conversations
     if (messages.length == 0) {
       aiToolUserPrompt(
         "General ChatBot for company Trumio named as TruBot",
@@ -70,7 +70,7 @@ export const ChatbotCard = ({ isOpen }) => {
     await generate(messages, result, setResult, setMessages);
     setChat("");
   };
-  const handleGenerate2 = async () => {
+  const handleGenerate2 = async () => { //! This uses the flask API which is based on Recommendation engine, returns users satisfying the query
     setUserChat(chat);
     setChat("");
     setFiltered([])
@@ -86,7 +86,7 @@ export const ChatbotCard = ({ isOpen }) => {
     }
   }
 
-  const handleGenerate3 = async () => {
+  const handleGenerate3 = async () => { //! This uses the flask API which is based on Recommendation engine, returns the projects satisfying the query
     setProjectChat(chat);
     setChat("");
     setFilteredProjects([])
