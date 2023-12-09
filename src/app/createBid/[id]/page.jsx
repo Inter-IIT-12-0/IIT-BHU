@@ -182,43 +182,24 @@ const CreateBid = ({ params }) => {
         ])
     }
 
-    // {
-    //     "prob_stat": "Make a web app.",
-    //     "avg_scores": [
-    //         1,
-    //         0.1
-    //     ],
-    //     "proposals": [
-    //         "Make a website.",
-    //         "Build a skyscraper."
-    //     ],
-    //     "project_key": [
-    //         "Web Development",
-    //         "Computer Science"
-    //     ],
-    //     "team_key": [
-    //         "Web, Django",
-    //         "Architecture, AutoCAD"
-    //     ]
-    // }
-
     const generateScores = (teams) => {
         teams = [
-            ...teams,
             {
-                teamUserMap: [{
-                    user: {
-                        rating: 4.7,
-                        domain: ['UX/UI Designing', 'Product', 'Web Development']
-                    }
-                }],
+                teamUserMap: presentTeam.teamUserMap,
                 proposal: {
                     text: proposalText,
-                    bidAmount: 2000
+                    bidAmount: milestones.reduce((acc, milestone) => acc + Number(milestone.payment), 0)
                 }
-            }
+            },
+            {
+                teamUserMap: presentTeam.teamUserMap,
+                proposal: {
+                    text: proposalText,
+                    bidAmount: milestones.reduce((acc, milestone) => acc + Number(milestone.payment), 0)
+                }
+            },
+            ...teams
         ]
-        console.log(project)
         const obj = {
             prob_stat: project.statement,
             avg_scores: teams.map(team => team.teamUserMap.reduce((acc, map) => acc + map.user.rating, 0) / team.teamUserMap.length),
@@ -227,6 +208,7 @@ const CreateBid = ({ params }) => {
             team_key: teams.map(team => team.teamUserMap.map(map => map.user.domain.join(', '))[0]),
             // amount: teams.map(team => team.proposal.bidAmount)
         }
+        console.log(JSON.stringify(obj))
         axios.post(`http://trumio.pythonanywhere.com/predict`, obj).then(res => {
             setTeamProb(res.data.prediction[0].toFixed(2) * 100)
             const teamScore = res.data.prediction[0]
@@ -348,7 +330,7 @@ const CreateBid = ({ params }) => {
 
         // fetchFilter();
 
-    }, [])
+    }, [noOfTeams])
 
     const handleInvite = async (teamId, userId) => {
         try {
@@ -395,14 +377,10 @@ const CreateBid = ({ params }) => {
         newTeam.teamUserMap = newArr
         let teamId = presentTeam._id;
         let userId = member._id;
+        console.log(teamId, userId)
         axios.patch(`/api/team/?teamId=${presentTeam._id}`, newTeam)
             .then(res => {
-                axios.delete('/api/deleteinvite', {
-                    teamId,
-                    userId,
-
-                });
-                console.log(res.data)
+                axios.delete(`/api/deleteinvite/?teamId=${teamId}&userId=${userId}`).then(res => console.log(res.data)).catch(console.log)
             }).catch(console.log)
         setNoOfTeams(prev => prev - 1)
     }
@@ -418,14 +396,6 @@ const CreateBid = ({ params }) => {
         axios.patch(`/api/team/?teamId=${presentTeam._id}`, newTeam).then(res => console.log(res.data)).catch(console.log)
         setPresentPage(prev => prev + 1)
     }
-
-    // const removeMilesone = () => {
-    //     let newMilestones = [...milestones]
-    //     newMilestones.pop()
-    //     console.log(newMilestones)
-    //     if(selectedMilestone === milestones.length) setSelectedMilestone(prev => prev - 1)
-    //     // setMilestones(newMilestones)
-    // }
 
     return (
         <main className='w-[100vw] h-[100vh]'>
@@ -495,16 +465,6 @@ const CreateBid = ({ params }) => {
                                             </div>
                                         </div>
                                         <div className='flex flex-col w-5/12 border-l-2 border-gray-200'>
-                                            {/* <div className='flex mt-2 ml-6'>
-                                                <div className='rounded-2xl px-2 py-2 flex items-center border-2 border-gray-200 m-3'>
-                                                    <div className="w-4 h-4 mx-1 rounded-full border border-stone-300" />
-                                                    <div>Invitations</div>
-                                                </div>
-                                                <div className='rounded-2xl px-2 py-2 flex items-center border-2 border-gray-200 m-3'>
-                                                    <div className="w-4 h-4 mx-1 rounded-full border border-stone-300" />
-                                                    <div>Requests</div>
-                                                </div>
-                                            </div> */}
                                             <div className='px-8 my-4'>
                                                 <div className=' flex rounded-3xl bg-gray-200 w-5/6'>
                                                     <div className={`w-1/2 text-center rounded-3xl cursor-pointer ${filter === 'Past' ? 'bg-sky-700 text-white' : ''} h-full py-3`} onClick={() => setFilter('Past')}>Past Team Mates</div>
@@ -588,7 +548,7 @@ const CreateBid = ({ params }) => {
                                             </div>
                                             <div className='w-2/3'>
                                                 <h3 className='font-semibold'>Description</h3>
-                                                <p>
+                                                <p className='max-h-20 overflow-scroll overflow-y-auto overflow-x-hidden'>
                                                     {Object.keys(presentTeam).length !== 0 && presentTeam.project.statement}
                                                 </p>
                                             </div>
@@ -627,28 +587,10 @@ const CreateBid = ({ params }) => {
 
 
 
-                                            <div className='h-full bg-indigo-50 flex flex-col pb-8 max-h-72 overflow-scroll overflow-y-auto overflow-x-hidden'>
+                                            <div className='h-full bg-indigo-50 flex flex-col pb-8 max-h-60 overflow-scroll overflow-y-auto overflow-x-hidden'>
                                                 <div className='flex w-full pt-4'>
                                                     <input type="number" name='payment' value={milestones[selectedMilestone - 1]['payment']} onChange={handleInputChange} placeholder='Expected payment &#8377;' className='mx-3 w-32 py-1 px-1 italic rounded-lg outline-none' required />
                                                     <input name='duration' value={milestones[selectedMilestone - 1]['duration']} onChange={handleInputChange} type="number" placeholder='Enter duration' className='mx-3 w-32 py-1 px-1 italic rounded-lg outline-none' required /> <span className='-ml-3'> Weeks </span>
-                                                    {/* <div className='flex bg-white p-2 text-neutral-600 rounded-lg'>
-                                                        <Folder_Icon className="mr-1" />
-                                                        {
-                                                            milestones[selectedMilestone-1].files.length !== 0 ?
-                                                                files.map((file, index) => (
-                                                                    <span key={index}> {file.name} </span>
-                                                                )) :
-                                                                <>
-                                                                    <input
-                                                                        id="fileInput"
-                                                                        type="file"
-                                                                        multiple
-                                                                        onChange={handleFileChange2}
-                                                                        className="hidden"
-                                                                    />
-                                                                    <label htmlFor='fileInput' className='cursor-pointer'>Add Attachment</label></>
-                                                        }
-                                                    </div> */}
 
                                                 </div>
                                                 <div className='flex flex-col px-6 my-4 '>

@@ -190,7 +190,7 @@ const Home = () => {
                         </div>
                         <div className="flex justify-between">
                           <h1 className="text text-1xl font-semibold">{ele.assignedTeam?.teamName}</h1>
-                          <h1 className="text text-1xl font-semibold">{ele.domain}</h1>
+                          <h1 className="text text-1xl font-semibold">{ele.domain[0]}</h1>
                         </div>
                         <div className="w-[100%] bg-blue-100 rounded-lg h-6">
                           <div className="w-[50%] bg-white rounded-lg h-6"></div>
@@ -205,7 +205,7 @@ const Home = () => {
                         </div>
                         <div className="flex justify-between">
                           <h1 className="text text-1xl font-semibold">{ele.assignedTeam.teamName}</h1>
-                          <h1 className="text text-1xl font-semibold">{ele.domain}</h1>
+                          <h1 className="text text-1xl font-semibold">{ele.domain[0]}</h1>
                         </div>
                         <div className="w-[100%] bg-blue-100 rounded-lg h-6">
                           <div className="w-[50%] bg-white rounded-lg h-6"></div>

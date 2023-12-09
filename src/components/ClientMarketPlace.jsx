@@ -29,12 +29,12 @@ const ClientMarketplace = ({projects, setOpenedProj, selected, setSelected}) => 
                         selected === 'All' ? projects && projects.filter(project => {
                             return projectSearch(search, location, status, payment, domain, project)
                         }).map(project => {
-                            return <ProjectCard key={project._id} project={project} setOpenedProj={setOpenedProj} />
+                            return <ProjectCard key={project._id} project={project} setOpenedProj={setOpenedProj} selected={selected} />
                         }) : 
                         myProjects && myProjects.filter(bid => {
                             return !!!bid.assignedTeam && projectSearch(search, location, status, payment, domain, bid)
                         }).map(bid => {
-                            return <ProjectCard key={bid._id} project={bid} setOpenedProj={setOpenedProj} />
+                            return <ProjectCard key={bid._id} project={bid} setOpenedProj={setOpenedProj} selected={selected}/>
                         })
                     )
                 }

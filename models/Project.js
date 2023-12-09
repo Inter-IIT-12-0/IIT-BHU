@@ -97,7 +97,7 @@ const projectSchema = new mongoose.Schema({
   duration: { type: Number, required: true },
   domain: { type: [{ type: String, required: true ,enum:domainEnum}], required: true },
   postedOn: {type: Date, default: Date.now},
-  status: {type: String, enum: ['Open', 'In Review', 'Completed'], default: 'In Review'},
+  status: {type: String, enum: ['Open', 'In Review', 'Completed', 'Assigned'], default: 'Open'},
   location: { type: String, required: true},
   connectedApps: { type: [ApplicationSchema] },
 });

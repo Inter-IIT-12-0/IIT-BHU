@@ -16,13 +16,15 @@ const handler = async (req, res) => {
       }
       let existingInvite
       if (user.invites) {
+        console.log(user.invites)
         existingInvite = user.invites.filter(invite => String(invite.id) === teamId);
-        if (existingInvite) {
+        if (existingInvite.length !== 0) {
           return res.status(400).json({ error: 'Project already in invites' });
         }
       }
       user.invites = []
       user.invites.push({ id: teamId, name: teamName });
+      console.log(user)
       await user.save();
 
       return res.status(200).json({ message: 'Invite added successfully' });

@@ -9,11 +9,14 @@ import Footer from "./Footer"
 import { useEffect, useState } from "react"
 import { deleteCookie } from 'cookies-next';
 import {useRouter} from 'next/navigation'
+import Notifications from "./Notifications"
 
 const Navbar = () => {
   const { data: session } = useSession()
   const [click, setClick] = useState(false)
   const router = useRouter()
+  const [notifs, setNotifs] = useState([])
+  const [openNotifs, setOpenNotifs] = useState(false)
 
   const handleLogout = () => {
     deleteCookie("role")
@@ -23,9 +26,7 @@ const Navbar = () => {
   }
 
   useEffect(() => {
-    // if(!session) {
-    //   router.push('/onboarding')
-    // }
+    
   }, [])
 
   return (
@@ -41,7 +42,13 @@ const Navbar = () => {
       </Link>
       <div className="flex">
         <SearchIcon className="mx-5" />
-        <NotificationsIcon className="mx-5" />
+        <div className="relative">
+        <NotificationsIcon className="mx-5 cursor-pointer" onClick={() => setOpenNotifs(prev => !prev)} />
+        {
+          session && openNotifs && 
+        <Notifications notifs={session.user.invites} />
+        }
+        </div>
         {
           session &&
             <div onClick={() => setClick(prev => !prev)} className="cursor-pointer relative w-16 mr-8">

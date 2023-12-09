@@ -29,12 +29,12 @@ const StudentMarketplace = ({projects, setOpenedProj, selected, setSelected}) =>
                         selected === 'All' ? projects && projects.filter(project => {
                             return projectSearch(search, location, status, payment, domain, project)
                         }).map(project => {
-                            return <ProjectCard key={project._id} project={project} setOpenedProj={setOpenedProj} />
+                            return <ProjectCard key={project._id} project={project} setOpenedProj={setOpenedProj} selected={selected}/>
                         }) : 
                         myBids && myBids.filter(bid => {
                             return (bid.status === "Pending" || bid.status === "Reviewed") && projectSearch(search, location, status, payment, domain, bid)
                         }).map(bid => {
-                            return <ProjectCard key={bid._id} project={bid} setOpenedProj={setOpenedProj} />
+                            return <ProjectCard key={bid._id} project={bid} setOpenedProj={setOpenedProj} selected={selected}/>
                         })
                     )
                 }

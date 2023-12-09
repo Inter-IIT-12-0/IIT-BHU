@@ -1,6 +1,6 @@
 import { getSession } from "next-auth/react";
-import connectDb from "../../../../middlewares/mongoose";
-import Team from "../../../../models/Team";
+import connectDb from "../../../middlewares/mongoose";
+import Team from "../../../models/Team";
 
 const handler = async (req, res) => {
     if (req.method === 'GET') {
