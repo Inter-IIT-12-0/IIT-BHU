@@ -116,7 +116,7 @@ const Learning = () => {
                             onChange={handleCodeChange}
                         ></textarea>
 
-                        <div><button type="submit" className="text-white mt-2 py-1 px-3 rounded-full bg-black" onClick={()=>fetchData()}>Submit</button></div>
+                        <div><button type="submit" className="text-white mb-4 py-1 px-3 rounded-full bg-black" onClick={()=>fetchData()}>Submit</button></div>
                     </div>
                     <div className="bg-gray-800 w-[30%] h-full ml-3 ax-h-[90vh] overflow-y-scroll rounded-2xl p-3">
                         <div className="bg-black rounded-2xl p-2 h-[87vh]">
