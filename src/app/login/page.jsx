@@ -34,7 +34,7 @@ const login = () => {
             ) : (
                 <button onClick={() => {
                     console.log("CLicked")
-                    signIn('google')
+                    console.log(signIn('google'))
                 }} > Sign in </button>
             )}
         </main>

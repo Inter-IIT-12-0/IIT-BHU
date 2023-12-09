@@ -8,31 +8,28 @@ import SingleTimeline from './SingleTimeline'
 const MilestonesTimeline = ({ setTimelineOpen, project }) => {
 
     const currentMilestone = project.milestones.filter(milestone => milestone.status === 'In Progress')[0]
-
+    console.log(project, currentMilestone)
     return (
-        <div className="w-96 h-full ml-20 flex flex-col absolute right-0 top-0 animate-[appear_1s_ease-in-out]">
+        <div className="w-96 h-full ml-20 flex flex-col absolute right-0 top-12 animate-[appear_1s_ease-in-out] z-50">
             <nav className='flex justify-end py-6 items-center'>
                 <Close onClick={() => setTimelineOpen(false)} className="cursor-pointer" />
             </nav>
-            <div className='w-96 rounded-2xl py-3 flex flex-col mb-10 border border-gray-300 p-4 my-4'>
-                <div className='flex justify-between border-b-2 border-zinc-200 mb-3'>
-                    <span className='font-normal text-zinc-500'>Current milestone</span>
-                    <span>Due Date: {(new Date(currentMilestone.dueDate)).toLocaleDateString('en-US', {
-                        day: 'numeric',
-                        month: 'long',
-                        year: 'numeric'
-                    })} </span>
+            {
+                currentMilestone &&
+                <div className='w-96 rounded-2xl py-3 flex flex-col mb-10 border border-gray-300 p-4 my-4'>
+
+                    <div className='mb-3'>
+                        <h2 className='font-bold'> {currentMilestone.heading} </h2>
+                        <span className='text-sm font-normal text-zinc-600'>
+                            {currentMilestone.description}
+                        </span>
+                    </div>
+                    <div className='mb-3 flex justify-center items-center font-semibold underline underline-offset-2'>
+                        Show Full In Workspace <Export_Icon className="ml-4" />
+                    </div>
                 </div>
-                <div className='mb-3'>
-                    <h2 className='font-bold'> {currentMilestone.heading} </h2>
-                    <span className='text-sm font-normal text-zinc-600'>
-                        {currentMilestone.description}
-                    </span>
-                </div>
-                <div className='mb-3 flex justify-center items-center font-semibold underline underline-offset-2'>
-                    Show Full In Workspace <Export_Icon className="ml-4" />
-                </div>
-            </div>
+            }
+
             <ol className="relative border-s border-gray-200 dark:border-gray-700">
                 <li className="mb-10 ms-6">
                     <Calendar className="absolute scale-150 -start-2" />

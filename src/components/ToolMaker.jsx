@@ -85,7 +85,7 @@ const ToolMaker = () => {
                     <p className="text-Text-Black text-center font-Lato text-base font-normal leading-normal tracking-wide">
                         You have {
                             session && session.user.aiToolsLimit - session.user.aiTools.length
-                        } attempts remaining. Visit Arcade to earn more
+                        } attempts remaining. Visit <Link href={"/arcade"} className='text-sky-700'> Arcade </Link> to earn more
                     </p>
 
                 </div>

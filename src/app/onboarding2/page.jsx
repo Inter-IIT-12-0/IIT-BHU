@@ -3,38 +3,36 @@
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-// components/GlassyCard.js
-
+import domains from "../../../models/Domains.json"
+import toast from "react-hot-toast";
 import { useState } from "react";
 
 
-const OnBoarding = () => {
+const OnBoarding2 = () => {
   const router = useRouter()
   const {data:session} = useSession()
-  const [selectedCard, setSelectedCard] = useState("UI/UX Designing");
+  const [selectedCards, setSelectedCards] = useState([domains[0]]);
   const handleCardClick = (domain) => {
-    setSelectedCard(domain);
+    if(selectedCards.includes(domain)) {
+      if(selectedCards.length === 1) return
+      setSelectedCards(prev => prev.filter(c => c !== domain))
+    }
+    else {
+      if(selectedCards.length === 3) return
+      let newSelCards = [...selectedCards]
+      setSelectedCards([
+        ...newSelCards,
+        domain
+      ]);
+    }
   };
-  const domains  = [
-    "UI/UX Designing",
-    "Engineering",
-    "Product Management",
-    "Data Analysis",
-    "Consultancy",
-    "Research",
-    "Software Development",
-    "Marketing and Branding",
-    "Business Development",
-    "Project Management",
-    "Sustainability",
-    "AI/ML"
-  ];
 
   const handleDomainSubmit = () => {
     let user = session.user
-    user.domain.push(selectedCard)
-    axios.patch(`/api/user/?userId=${session.user._id}`, user).then(res => router.push("/")).catch(console.log)
-
+    user.domain = (selectedCards)
+    axios.patch(`/api/user/?userId=${session.user._id}`, user).then(res => router.push("/")).catch((err) =>{
+      toast.error(err.response.data.error)
+    })
   }
 
   return (
@@ -43,14 +41,14 @@ const OnBoarding = () => {
         <div className=" justify-center items-center w-100 ml-20 ">
           <div className="glass-card bg-white bg-opacity-80 rounded-md p-8 shadow-lg mt-2">
             <h1 className="text-2xl font-medium leading-normal ml-16 text-black-600 font-helvetica-neue text-center mb-12">
-              Select your Domain of Interest
+              Select your Domains of Interest (Max 3)
             </h1>
-            <div className="grid grid-cols-3 ml-20 space-x- ">
+            <div className="grid xl:grid-cols-4 grid-cols-3 ml-2">
               {/* Subcard 1 */}
               {
                 domains.map(domain => (
-                  <label
-                    className={`flex-1 cursor-pointer relative p-4 m-2 rounded-lg hover:shadow-md w-64 h-52 flex justify-center items-center  ${selectedCard === domain ? "border-2 border-blue-500" : ""
+                  <div
+                    className={`flex-1 cursor-pointer relative p-4 m-2 rounded-lg hover:shadow-md w-48 h-28 flex justify-center items-center  ${selectedCards.includes(domain) ? "border-2 border-blue-500" : ""
                       }`}
                     onClick={() => handleCardClick(domain)}
                   >
@@ -58,16 +56,16 @@ const OnBoarding = () => {
 
                       <input
                         type="radio"
-                        name="subcard"
-                        className="mb-28 w-6 h-6" // Adjust the size as needed
-                        checked={selectedCard === domain}
+                        name={domain}
+                        className="ml-5 w-6 h-6"
+                        checked={selectedCards.includes(domain)}
                         readOnly
                       />
                     </div>
-                    <h1 className="text-2xl font-medium leading-normal ml-16 text-black font-helvetica-neue ">
+                    <h1 className="text-base font-medium leading-normal ml-16 text-black font-helvetica-neue mr-5">
                       {domain}
                     </h1>
-                  </label>
+                  </div>
                 ))
               }
 
@@ -85,4 +83,4 @@ const OnBoarding = () => {
   );
 };
 
-export default OnBoarding;
+export default OnBoarding2;

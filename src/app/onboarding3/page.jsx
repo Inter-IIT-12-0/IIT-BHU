@@ -4,17 +4,14 @@ import axios from "axios";
 import { signIn } from "next-auth/react";
 import { getCookie, setCookie } from "cookies-next"
 import { useRouter } from 'next/navigation'
-
-
 import { useEffect, useState } from "react";
 
-const OnBoarding = () => {
+const OnBoarding3 = () => {
     const router = useRouter()
     const [selectedCard, setSelectedCard] = useState(1);
     const handleCardClick = (cardNumber) => {
         setSelectedCard(cardNumber);
     };
-    const [loggedIn, setLoggedin] = useState(false)
 
     const handleCreateAccount = async () => {
         let role = (selectedCard === 1 ? 'Student' : 'Professor')
@@ -23,8 +20,11 @@ const OnBoarding = () => {
     }
 
     useEffect(() => {
-        
-    })
+        const role = getCookie("role")
+        if (role) {
+            router.push("/onboarding2")
+        }
+    }, [])
 
     return (
         <div className="bg-cover bg-center h-screen" style={{ "backgroundImage": "url('./Rectangle.png')" }}>
@@ -94,4 +94,4 @@ const OnBoarding = () => {
     );
 };
 
-export default OnBoarding;
+export default OnBoarding3;

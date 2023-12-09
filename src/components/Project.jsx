@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import RightArrow from "../../public/Images/Right_Arrow.svg"
 import Copy_Link from "../../public/Images/Copy_Link_Icon.svg"
 import Export from "../../public/Images/Export_Icon.svg"
@@ -20,106 +20,7 @@ import { useRouter } from 'next/navigation'
 const Project = ({ project, setOpenedProj }) => {
     const {data: session} = useSession()
     const router = useRouter()
-    // project = {
-    //     "id": 1,
-    //     "title": "Sample Project",
-    //     "domain": "Sales and Marketing",
-    //     "location": "Mumbai",
-    //     "domain": "Sales and Marketing",
-    //     "location": "Mumbai",
-    //     "statement": "This is a sample project statement. lorem ipsum dolor sit amet consectetur adipiscing elit sed diam nonumy eirmod tempor invid id velit esse cillum dolore magna aliquy iaculis nisi ut aliqu incididunt",
-    //     "milestones": [
-    //         {
-    //             "dueDate": "2023-12-31T23:59:59.999Z",
-    //             "heading": "Milestone 1",
-    //             "submissionLink": "http://sample-submission-link.com",
-    //             "feedbackLink": "http://sample-feedback-link.com",
-    //             "subMilestones": [
-    //                 {
-    //                     "title": "SubMilestone 1",
-    //                     "isCompleted": false,
-    //                     "status": "Not Started",
-    //                     "dueDate": "2023-12-15T23:59:59.999Z",
-    //                     "assignedTo": "<User ObjectId>",
-    //                     "description": "Description of SubMilestone 1",
-    //                     "startDate": null,
-    //                     "endDate": null,
-    //                     "Aitools": ["Engineering"],
-    //                     "connectedApps": [["Figma", "http://figma.com"]],
-    //                     "work": {
-    //                         "fileType": "file",
-    //                         "file": "<Buffer Data>"
-    //                     },
-    //                     "stickyNotes": ["Note 1", "Note 2"]
-    //                 },
-    //             ],
-    //             "isCompleted": false,
-    //             "status": "Not Started"
-    //         }
-    //     ],
-    //     "userAgreement": {
-    //     },
-    //     "assignedTeam": {
-    //         "name": "Development Team",
-    //         "users": [
-    //             {
-    //                 "username": "user1",
-    //                 "email": "user1@example.com"
-    //             },
-    //         ]
-    //     },
-    //     "assignedBy": {
-    //         "name": "admin",
-    //         "email": "admin@example.com",
-    //         "companyName": "Google",
-    //         "projectsPosted": 12,
-    //         "sectorName": "DeepTech",
-    //         "paymentsCompleted": 2680
-    //         "projectsPosted": 12,
-    //         "sectorName": "DeepTech",
-    //         "paymentsCompleted": 2680
-    //     },
-    //     "logo": "https://aemi.ie/wp-content/uploads/2021/10/Project-Arts-Centre-Logo-Black-1-scaled.jpg",
-    //     "health": {
-    //         "progress": 0
-    //     },
-    //     "startDate": "2023-01-01T00:00:00.000Z",
-    //     "endDate": "2023-12-31T23:59:59.999Z",
-    //     "activity": [
-    //         {
-    //             "submilestone": "<SubMilestone ObjectId>",
-    //             "type": "CREATE",
-    //             "timestamp": "2023-01-01T12:00:00.000Z",
-    //             "user": "<User ObjectId>",
-    //             "message": "Created the project."
-    //         }
-    //     ],
-    //     "clientRequirements": {
-    //         "paymentType": "Fixed",
-    //         "payment": 2200,
-    //         "payment": 2200,
-    //         "worksDays": ["Mon", "Tue", "Wed"],
-    //         "requiredTools": ["Figma", "MERN"],
-    //         "files": [("doc.docx", Buffer.from([0x53, 0x61, 0x6D, 0x70, 0x6C, 0x65, 0x20, 0x62, 0x69, 0x6E, 0x61, 0x72, 0x79, 0x20, 0x64, 0x61, 0x74, 0x61]))]
-    //     },
-    //     "work": {
-    //         "fileType": "file",
-    //         "file": "<Buffer Data>"
-    //     },
-    //     "duration": 8,
-    //     "postedOn": "2023-11-26T12:00:00.000Z"
-    //     "duration": 8,
-    //     "postedOn": "2023-11-26T12:00:00.000Z"
-    // }
-    const winning_prob = 39;
-    const [files, setFiles] = useState([]);
-    // useEffect(() => {
-    //     let files = []
-    //     project.clientRequirements.files.forEach(file => {
-    //         files = [...files, (file[0], file[1].toString('base64'))]
-    //     })
-    //     setBase64Data(files);
-    // }, [project.clientRequirements.files]);
+    const [myTeams, setMyTeams] = useState()
 
     const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
     function getDaysDifference(startDate, endDate) {
@@ -153,6 +54,10 @@ const Project = ({ project, setOpenedProj }) => {
             console.log(error)
         }
     }
+
+    useEffect(() => {
+        axios.get('/api/myteams').then(res => setMyTeams(res.data)).catch(console.log)
+    }, [])
 
     return (
         <main className="w-[100vw] h-[100vh] overflow-hidden z-50 absolute top-0 right-0">
@@ -258,7 +163,7 @@ const Project = ({ project, setOpenedProj }) => {
                     <div className={`bg-white rounded shadow-lg ${isFullOpen ? 'w-full' : 'w-80'}`}>
                         <div className="text-center  border-b-2 flex items-center flex-col pt-5 pb-5">
                             {
-                                session && (session.user.role === "Student" ?
+                                session && (session.user.role === "Student" ? myTeams && myTeams.filter(team => team.project === project._id).length !== 0 &&
                                 <button className="w-48 h-12 bg-blue-400 rounded-lg shadow mb-5 text-xl font-bold font-sans tracking-tight" onClick={handleCreateBid} >Create Bid </button> :
                                 <Link href={`/viewBids/${project._id}`} className="w-48 h-12 bg-blue-400 rounded-lg shadow mb-5 text-xl font-bold font-sans tracking-tight flex items-center justify-center" >View Bid </Link>
                                 )

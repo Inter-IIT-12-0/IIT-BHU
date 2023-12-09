@@ -12,7 +12,7 @@ const Healthdashboard = ({ project }) => {
   }
 
   const getCompletedAmount = () => {
-    const amount = project.milestones.filter(milestone => milestone.status === 'Completed').reduce((acc, currJson) => {
+    const amount = project.milestones.filter(milestone => milestone.paymentCompleted).reduce((acc, currJson) => {
       return acc + currJson.payment
     }, 0);
     return amount;
@@ -35,7 +35,7 @@ const Healthdashboard = ({ project }) => {
               year: 'numeric'
             })} </span> </div>
           </div>
-          <RoundedProgressBar progress={project.health.progress} />
+          <RoundedProgressBar progress={((project.milestones.map(mil => mil.submilestones.filter(sub => sub.status === 'Completed').length/mil.submilestones.length)).reduce((acc,compl) => acc + compl, 0) / project.milestones.length) *100} />
 
         </div>
 

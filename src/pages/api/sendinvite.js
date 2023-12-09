@@ -6,18 +6,22 @@ connectDb();
 const handler = async (req, res) => {
   if (req.method === 'PUT' || req.method === 'PATCH') {
 
-    const {userId, teamId, teamName } = req.body; 
+    const { userId, teamId, teamName } = req.body;
     try {
+      console.log(userId, teamId, teamName);
       const user = await User.findById(userId);
 
       if (!user) {
         return res.status(404).json({ error: 'User not found' });
       }
-      const existingInvite = user.invites.find(invite => String(invite.id) === teamId);
-
-      if (existingInvite) {
-        return res.status(400).json({ error: 'Project already in invites' });
+      let existingInvite
+      if (user.invites) {
+        existingInvite = user.invites.filter(invite => String(invite.id) === teamId);
+        if (existingInvite) {
+          return res.status(400).json({ error: 'Project already in invites' });
+        }
       }
+      user.invites = []
       user.invites.push({ id: teamId, name: teamName });
       await user.save();
 

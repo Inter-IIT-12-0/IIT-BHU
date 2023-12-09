@@ -1,18 +1,41 @@
 // MilestoneTable.js
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import SubMilestoneCard from './SubMilestoneCard';
 import CalendarIcon from '../../public/Images/Calendar2.svg'
+import axios from 'axios';
+import ExportIcon from "../../public/Images/Export_Icon.svg"
 
 
-const MilestoneTable = ({ project, setSelectedSubmilestone }) => {
-  console.log(project)
+const MilestoneTable = ({ project, setSelectedSubmilestone, setProject }) => {
+
+  const handleStatusChange = (e, index1, index2) => {
+    let updatedMilestones = [...project.milestones]
+    updatedMilestones[index1].submilestones[index2].status = e.target.checked ? 'Completed' : 'In Progress'
+    axios.patch(`/api/project/${project._id}`, {
+      milestones: updatedMilestones
+    }).then(res => setProject(res.data)).catch(console.log)
+  }
+
+  const handleOpenSub = (submilestone, index1, index2) => {
+    let updatedMilestones = [...project.milestones]
+    updatedMilestones[index1].submilestones[index2].status = 'In Progress'
+    axios.patch(`/api/project/${project._id}`, {
+      milestones: updatedMilestones
+    }).then(res => {
+      setSelectedSubmilestone(submilestone)
+    }).catch(console.log)
+  }
+
+  useEffect(() => {
+
+  }, [project])
 
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
       <div>
-        {project.milestones.map((milestone) => (
-          <table key={milestone.id} className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        {project.milestones.map((milestone, index1) => (
+          <table key={milestone._id} className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
             <caption className="p-5 text-lg font-semibold text-left rtl:text-right text-gray-900 bg-white">
               <div className='flex w-3/4 justify-between'>
                 <p className='mr-10 font-bold'> {milestone.heading} </p>
@@ -37,26 +60,34 @@ const MilestoneTable = ({ project, setSelectedSubmilestone }) => {
                 <th scope="col" className="px-6 py-3">
                   Description
                 </th>
+                <th scope="col" className="px-6 py-3">
+                  Open
+                </th>
               </tr>
             </thead>
             <tbody>
-              {milestone.submilestones.map((submilestone, index) => (
-                <tr
+              {milestone.submilestones.map((submilestone, index2) => {
+                return <tr
                   key={submilestone._id}
                   className="bg-white border-y dark:border-gray-200 cursor-pointer"
                   onClick={() => setSelectedSubmilestone(submilestone)}
                 >
                   <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap">
-                    <span className='ml-8'>{index + 1}</span>
+                    <span className='ml-8'>{index2 + 1}</span>
                   </th>
                   <td className="px-6 py-4">
-                    {submilestone.status}
+                    <input type="checkbox" name="status" checked={submilestone.status === 'Completed'} onChange={(e) => handleStatusChange(e, index1, index2)} />
                   </td>
                   <td className="px-6 py-4">
                     {submilestone.description}
                   </td>
+                  <td className="px-6 py-4">
+                    <ExportIcon className="scale-50" onClick={() => {
+                      handleOpenSub(submilestone, index1, index2)
+                    }} />
+                  </td>
                 </tr>
-              ))}
+              })}
             </tbody>
           </table>
         ))}

@@ -15,13 +15,11 @@ const Projects = () => {
     const {data:session} = useSession()
     const [projects, setProjects] = useState([])
     const [openedProj, setOpenedProj] = useState({})
-    const [availDomains, setAvailDomains] = useState([])
     const [selected, setSelected] = useState("All")
 
     useEffect(() => {
         axios.get('/api/allprojects')
         .then(res => {
-            setAvailDomains(Array.from(new Set(res.data.flatMap(proj => proj.domain))));
             setProjects(res.data)
         })
         .catch(err => console.log(err))
@@ -41,7 +39,7 @@ const Projects = () => {
                         <StudentSidebar page={"marketplace"}/>
                         {
                             session && 
-                            ( session.user.role === 'Student' ? <StudentMarketplace projects={projects} setOpenedProj={setOpenedProj} availDomains={availDomains} selected={selected} setSelected={setSelected} /> : <ClientMarketPlace projects={projects} setOpenedProj={setOpenedProj} availDomains={availDomains} selected={selected} setSelected={setSelected}/>)
+                            ( session.user.role !== 'Client' ? <StudentMarketplace projects={projects} setOpenedProj={setOpenedProj} selected={selected} setSelected={setSelected} /> : <ClientMarketPlace projects={projects} setOpenedProj={setOpenedProj} selected={selected} setSelected={setSelected}/>)
                         }
                     </div>
                 </div>

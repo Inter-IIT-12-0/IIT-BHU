@@ -9,12 +9,20 @@ import createStatement from '../pages/api/GPT/statementBreakdown';
 import Loading from './Loading';
 import { useRouter } from "next/navigation"
 import validator from 'validator';
+import Skills from '../../models/Skills.json'
+import Domains from '../../models/Domains.json'
 
 
 const Form1 = () => {
+    const [domains, setDomains] = useState(Domains)
+    const [skills, setSkills] = useState(Skills)
     const { data: session } = useSession()
     const [progress, setProgress] = useState(33);
     const [loading, setLoading] = useState(false)
+    const [domainsOpen, setDomainsOpen] = useState(false)
+    const [skillsOpen, setSkillsOpen] = useState(false)
+    const [inputSkill, setInputSkill] = useState("")
+    const [inputDomain, setInputDomain] = useState("")
     const router = useRouter()
 
     const [formData, setFormData] = useState({
@@ -22,10 +30,8 @@ const Form1 = () => {
         from: '',
         to: '',
         description: '',
-        industry: 'Engineering',
-        Skill1: '',
-        Skill2: '',
-        Skill3: '',
+        industry: [],
+        skills: [],
         location: 'Remote',
         workdays: [],
         aiDescription: '',
@@ -51,6 +57,30 @@ const Form1 = () => {
         })
     };
 
+    const domainHandler = (domain) => {
+        let newFormData = { ...formData }
+        newFormData.industry = [
+            ...newFormData.industry,
+            domain
+        ]
+        setDomains(domains.filter(dom => dom !== domain))
+        setFormData(newFormData);
+        setDomainsOpen(false)
+        setInputDomain("")
+    }
+    
+    const skillHandler = (skill) => {
+        let newFormData = { ...formData }
+        newFormData.skills = [
+            ...newFormData.skills,
+            skill
+        ]
+        setSkills(skills.filter(ski => ski !== skill))
+        setFormData(newFormData);
+        setSkillsOpen(false)
+        setInputSkill("")
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (progress != 99) {
@@ -63,7 +93,7 @@ const Form1 = () => {
                 const aiGen = await createStatement(JSON.stringify({
                     title: formData.title,
                     description: formData.description,
-                    skills: [formData.Skill1, formData.Skill2, formData.Skill3]
+                    skills: formData.skills
                 }))
                 let newFormData = { ...formData }
                 newFormData.aiDescription = aiGen.newstatement
@@ -83,11 +113,7 @@ const Form1 = () => {
                     paymentType: formData.paymentType,
                     payment: Number(formData.payment),
                     workdays: formData.workdays,
-                    requiredTools: [
-                        formData.Skill1,
-                        formData.Skill2,
-                        formData.Skill3
-                    ],
+                    requiredTools: formData.skills,
                     file: {
                         title: formData.docName,
                         url: formData.docUrl
@@ -122,6 +148,30 @@ const Form1 = () => {
             formData.workdays = formData.workdays.filter(day => day !== e.target.name)
         }
     }
+
+    const handleRemoveDomain = domain => {
+        let newFormData = { ...formData }
+        newFormData.industry = newFormData.industry.filter(industry => industry !== domain)
+        setFormData(newFormData)
+        let newDomains = [...domains]
+        let indexOfDomain = Domains.indexOf(domain)
+        newDomains.splice(indexOfDomain, 0, domain);
+        setDomains(newDomains)
+    }
+
+    const handleRemoveSkill = skill => {
+        let newFormData = { ...formData }
+        newFormData.skills = newFormData.skills.filter(ski => ski !== skill)
+        setFormData(newFormData)
+        let newSkills = [...skills]
+        let indexOfSkill = Skills.indexOf(skill)
+        newSkills.splice(indexOfSkill, 0, skill);
+        setSkills(newSkills)
+    }
+
+    // useEffect(() => {
+
+    // }, [domains])
 
     return (
         <>
@@ -241,43 +291,78 @@ const Form1 = () => {
                                                             </div>
                                                         </div>
                                                         <div className='flex flex-col justify-between'>
-                                                            <div>
+                                                            <div className='relative'>
                                                                 <label
                                                                     htmlFor="industry"
                                                                     className="block mb-2 text-sm font-medium text-gray-900 "
                                                                 >
-                                                                    Industry of Project
+                                                                    Domains of the Project (Max 3)
                                                                 </label>
-                                                                <select name="industry" id="industry" value={formData.industry} onChange={handleInputChange} className="bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg block w-full p-2.5 outline-none" required>
-                                                                    <option value="Engineering">Engineering & Code</option>
-                                                                    <option value="Product">Product</option>
-                                                                    <option value="Design">Design</option>
-                                                                    <option value="Marketing">Marketing & SEO</option>
-                                                                    <option value="Finance">Finance</option>
-                                                                    <option value="Research">Lab Research</option>
-                                                                </select>
+                                                                <div className='flex px-3 py-2 bg-white rounded-md overflow-scroll overflow-x-auto overflow-y-auto'>
+                                                                    {
+                                                                        formData.industry.map((indus) => (
+                                                                            <div key={indus} className='flex items-center bg-sky-500 py-1 px-2 mr-2 rounded-xl text-white'>
+                                                                                <span>
+                                                                                    {indus}
+                                                                                </span>
+                                                                                <span className='p-1 rounded-full flex justify-center cursor-pointer items-center ml-2' onClick={() => handleRemoveDomain(indus)}> x </span>
+                                                                            </div>
+                                                                        ))
+                                                                    }
+                                                                    {
+                                                                        formData.industry.length < 3 &&
+                                                                        <input type="text" value={inputDomain} onChange={e=>setInputDomain(e.target.value)} placeholder='Domain' className='px-2 outline-none rounded-xl py-1' onClick={() => setDomainsOpen(prev => !prev)} />
+                                                                    }
+                                                                </div>
+                                                                {
+                                                                    domainsOpen &&
+                                                                    <div className="absolute top-20 right-0 z-10 bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg block w-full p-2.5 max-h-32 overflow-scroll overflow-y-auto overflow-x-hidden">
+                                                                        {
+                                                                            domains.filter(dom => dom.toLowerCase().includes(inputDomain.toLowerCase())).map((domain, i) => (
+                                                                                <div className='my-2 py-1 px-1 hover:bg-sky-100 transition-all duration-300 cursor-pointer' onClick={() => {
+                                                                                    console.log("Hi")
+                                                                                    domainHandler(domain)
+                                                                                }} key={i}> {domain} </div>
+                                                                            ))
+                                                                        }
+                                                                    </div>
+                                                                }
                                                             </div>
-                                                            <div>
+                                                            <div className='relative'>
                                                                 <label
                                                                     htmlFor="skills"
                                                                     className="block mb-2 text-sm font-medium text-gray-900 "
                                                                 >
-                                                                    Top 3 Skills Required
+                                                                    Top Skills Required (Max 3)
                                                                 </label>
-                                                                {/* <input
-                                                            type="text"
-                                                            id="skills"
-                                                            name='skills'
-                                                            value={formData.skills}
-                                                            onChange={handleInputChange}
-                                                            className="bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg block w-full p-2.5 outline-none"
-                                                            required
-                                                        /> */}
-                                                                <div className='bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg w-full p-2.5 outline-none flex justify-around'>
-                                                                    <input type="text" placeholder='Skill 1' onChange={handleInputChange} name='Skill1' className='outline-none border border-gray-300 w-32 rounded-lg text-center py-1' value={formData.Skill1} />
-                                                                    <input type="text" placeholder='Skill 2' onChange={handleInputChange} name='Skill2' className='outline-none border border-gray-300 w-32 rounded-lg text-center py-1' value={formData.Skill2} />
-                                                                    <input type="text" placeholder='Skill 3' onChange={handleInputChange} name='Skill3' className='outline-none border border-gray-300 w-32 rounded-lg text-center py-1' value={formData.Skill3} />
+                                                                <div className='flex px-3 py-2 bg-white rounded-md overflow-scroll overflow-x-auto overflow-y-auto'>
+                                                                    {
+                                                                        formData.skills.map((skill) => (
+                                                                            <div key={skill} className='flex items-center bg-sky-500 py-1 px-2 mr-2 rounded-xl text-white'>
+                                                                                <span>
+                                                                                    {skill}
+                                                                                </span>
+                                                                                <span className='p-1 rounded-full flex justify-center cursor-pointer items-center ml-2' onClick={() => handleRemoveSkill(skill)}> x </span>
+                                                                            </div>
+                                                                        ))
+                                                                    }
+                                                                    {
+                                                                        formData.skills.length < 3 &&
+                                                                        <input type="text" value={inputSkill} onChange={e => setInputSkill(e.target.value)} placeholder='Skill' className='px-2 outline-none rounded-xl py-1' onClick={() => setSkillsOpen(prev => !prev)} />
+                                                                    }
                                                                 </div>
+                                                                {
+                                                                    skillsOpen &&
+                                                                    <div className="absolute bottom-12 right-0 bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg block w-full p-2.5 max-h-32 overflow-scroll overflow-y-auto overflow-x-hidden">
+                                                                        {
+                                                                            skills.filter(ski => ski.toLowerCase().includes(inputSkill.toLowerCase())).map((skill, i) => (
+                                                                                <div className='my-2 py-1 px-1 hover:bg-sky-100 transition-all duration-300 cursor-pointer' onClick={() => {
+                                                                                    skillHandler(skill)
+                                                                                }} key={i}> {skill} </div>
+                                                                            ))
+                                                                        }
+                                                                    </div>
+                                                                }
                                                             </div>
                                                         </div>
 

@@ -2,6 +2,7 @@
 import React from "react"
 import Navbar from "../../components/Navbar"
 import StudentSidebar from "../../components/StudentSidebar"
+import SidebarUpskilling from "../../components/SidebarUpskilling"
 
 const Arcade = () => {
 
@@ -17,7 +18,7 @@ const Arcade = () => {
         <div>
             <Navbar/>
             <div className="flex flex-row">
-                <StudentSidebar/>
+                <SidebarUpskilling />
                 <div className="p-8 flex flex-col w-[100%]">
                     <div className="rounded w-[100%] h-72 flex flex-between p-4 pt-10" style={{backgroundColor:'#111827'}}>
                         <div className="flex flex-col gap-4">
