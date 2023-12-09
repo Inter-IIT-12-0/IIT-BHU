@@ -38,19 +38,19 @@ const Loading = () => {
         <div className="loading-screen flex flex-col w-full h-full justify-center items-center absolute top-0 left-0">
             <style>{keyframesStyle}</style>
             <div className="flex">
-                <div className="dot" style={{ ...dotStyle, backgroundColor: '#ffcf8c' }}>
+                <div className="dot" style={{ ...dotStyle, backgroundColor: '#0080ff' }}>
                     <div style={{ ...dotBeforeStyle, animationDelay: '0s' }}></div>
                 </div>
-                <div className="dot" style={{ ...dotStyle, backgroundColor: '#ffa500' }}>
+                <div className="dot" style={{ ...dotStyle, backgroundColor: '#3399ff' }}>
                     <div style={{ ...dotBeforeStyle, animationDelay: '0.2s' }}></div>
                 </div>
-                <div className="dot" style={{ ...dotStyle, backgroundColor: '#ff8000' }}>
+                <div className="dot" style={{ ...dotStyle, backgroundColor: '#66b2ff' }}>
                     <div style={{ ...dotBeforeStyle, animationDelay: '0.4s' }}></div>
                 </div>
-                <div className="dot" style={{ ...dotStyle, backgroundColor: '#ff5500' }}>
+                <div className="dot" style={{ ...dotStyle, backgroundColor: '#99ccff' }}>
                     <div style={{ ...dotBeforeStyle, animationDelay: '0.6s' }}></div>
                 </div>
-                <div className="dot" style={{ ...dotStyle, backgroundColor: '#ff2200' }}>
+                <div className="dot" style={{ ...dotStyle, backgroundColor: '#cce5ff' }}>
                     <div style={{ ...dotBeforeStyle, animationDelay: '0.8s' }}></div>
                 </div>
             </div>

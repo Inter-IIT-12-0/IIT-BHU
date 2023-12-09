@@ -184,6 +184,22 @@ const CreateBid = ({ params }) => {
     const generateScores = (teams) => { //! The Bid acceptance probability of the team is being generated through a flask API and being rendered to frontend
         teams = [
             {
+                teamUserMap: [{
+                    user: {
+                        rating: 4.5,
+                        domain: ['UI/UX Designing']
+                    },
+                    proposal: {
+                        text: 'Backend'
+                    }
+                }
+                ],
+                proposal: {
+                    text: proposalText,
+                    bidAmount: milestones.reduce((acc, milestone) => acc + Number(milestone.payment), 0)
+                }
+            },
+            {
                 teamUserMap: presentTeam.teamUserMap,
                 proposal: {
                     text: proposalText,
@@ -198,7 +214,7 @@ const CreateBid = ({ params }) => {
             proposals: teams.map(team => team.proposal.text),
             project_key: project.domain,
             team_key: teams.map(team => team.teamUserMap.map(map => map.user.domain.join(', '))[0]),
-            amount: teams.map(team => team.proposal.bidAmount)
+            amounts: teams.map(team => team.proposal.bidAmount)
         }
         console.log(JSON.stringify(obj))
         axios.post(`http://trumio.pythonanywhere.com/predict`, obj).then(res => {
