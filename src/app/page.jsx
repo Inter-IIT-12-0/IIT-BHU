@@ -7,6 +7,9 @@ import { useSession } from "next-auth/react";
 
 const Home = () => {
   const { data: session } = useSession()
+  let value1 = Math.floor(Math.random()*10000);
+  let value2 = Math.floor(Math.random()*10000);
+  let value3 = Math.floor(Math.random()*10000);
 
   const [userData, setUserData] = useState(null)
   const [myprojects, setMyProjects] = useState(null)
@@ -89,24 +92,24 @@ const Home = () => {
                 <h1 className="text-2xl font-bold mb-6">Your Finances</h1>
                 <div className="grid grid-cols-3 gap-3">
                   <div className="p-4 border border-gray-400 rounded-3xl h-60 bg-white shadow-md flex flex-col items-center gap-4">
-                    <img src="/Images/coin_image.png" className="h-28 mt-5 w-28" alt="" />
+                    <img src="/Images/bbM.png" className="h-28 mt-5 w-28" alt="" />
                     <div className="flex flex-col items-center justify-center">
-                      <h1 className="text-black text-2xl font-bold">$2,700</h1>
-                      <h1 className="text-black font-semibold">Total Released</h1>
+                      <h1 className="text-black text-2xl font-bold">${value1}</h1>
+                      <h1 className="text-black font-semibold">Total pending</h1>
                     </div>
                   </div>
                   <div className="p-4 border border-gray-400 rounded-3xl h-60 bg-white shadow-md flex flex-col items-center gap-4">
-                    <img src="/Images/coin_image.png" className="h-28 mt-5 w-28" alt="" />
+                    <img src="/Images/ois.png" className="h-28 mt-5 w-28" alt="" />
                     <div className="flex flex-col items-center justify-center">
-                      <h1 className="text-black text-2xl font-bold">$2,700</h1>
-                      <h1 className="text-black font-semibold">Total Released</h1>
+                      <h1 className="text-black text-2xl font-bold">${value2}</h1>
+                      <h1 className="text-black font-semibold">Total Earned</h1>
                     </div>
                   </div>
                   <div className="p-4 border border-gray-400 rounded-3xl h-60 bg-white shadow-md flex flex-col items-center gap-4">
-                    <img src="/Images/coin_image.png" className="h-28 mt-5 w-28" alt="" />
+                    <img src="/Images/wim.png" className="h-28 mt-5 w-28" alt="" />
                     <div className="flex flex-col items-center justify-center">
-                      <h1 className="text-black text-2xl font-bold">$2,700</h1>
-                      <h1 className="text-black font-semibold">Total Released</h1>
+                      <h1 className="text-black text-2xl font-bold">${value3}</h1>
+                      <h1 className="text-black font-semibold">Last Month</h1>
                     </div>
                   </div>
                 </div>

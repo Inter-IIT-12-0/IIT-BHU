@@ -8,12 +8,12 @@ import ClientProjectComponent from "../../components/ClientProjectsComponent"
 const clientProjects = () => {
       
     return (
-        <div>
+        <div className="overflow-x-hidden">
             <Navbar/>
             <div className="flex flex-row">
                 <StudentSidebar page={"dashboard"}/>
                 <ProjectNameComp/>
-                <ClientProjectComponent teamId={"6570f721da1fb728a85dea5f"} />
+                {/* <ClientProjectComponent teamId={"6570f721da1fb728a85dea5f"} /> */}
                 {/* <ClientProjectsRightSidebar/> */}
             </div>
         </div>

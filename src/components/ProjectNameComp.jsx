@@ -2,19 +2,22 @@ import React, { useEffect, useState } from "react";
 import ClientProjectComponent from "./ClientProjectsComponent";
 import ClientProjectsRightSidebar from "./clientProjectsRightSidebar";
 import axios from "axios";
+import { getSession } from "next-auth/react";
 
 const ProjectNameComp = () => {
 
     const [insideTeam, setInsideTeam] = useState(false);
 
     const [teamId, setTeamId] = useState(null)
-
+    const [userId, setUserId] = useState('');
     const [allTeamsData, setAllTeamsData] = useState(null);
     const [bidAmount, setBidAmount] = useState(null);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
+                const session = await getSession();
+                setUserId(session.user._id);
                 const response = await axios.get('http://localhost:3000/api/allteams/');
                 setAllTeamsData(response.data);
                 console.log(`Data is:`, response.data);
@@ -22,7 +25,6 @@ const ProjectNameComp = () => {
                 console.error("Error is:", error);
             }
         };
-
         fetchData(); // Call the async function
     }, []);
 
@@ -31,7 +33,7 @@ const ProjectNameComp = () => {
     const[teams, setTeams] = useState(null);
     // Filter teams containing the target userId
     const filteredTeams = allTeamsData && allTeamsData.filter(project =>
-        project.teamUserMap.some(ele => ele.user && ele.user._id === test_user_id)
+        project.teamUserMap.some(ele => ele.user && ele.user._id === userId)
     );
 
     useEffect(() => {
@@ -63,9 +65,9 @@ const ProjectNameComp = () => {
     const Recieved = teams && teams.length;
 
     return (
-        <>
+        <div className="w-[100%] max-h-[90vh] overflow-y-auto overflow-x-hidden">
             {
-                !insideTeam && <div className="flex flex-col p-8 w-full">
+                !insideTeam && <div className="flex flex-col p-8 w-[80vw]">
                     <div className="flex justify-between">
                         <div className="flex flex-row">
                             <h1 className="text-black text-2xl font-semibold mr-3">Project Name</h1>
@@ -151,12 +153,12 @@ const ProjectNameComp = () => {
                 </div>
             }
             {
-                insideTeam && <div className="flex flex-row w-full">
+                insideTeam && <div className="flex justify-between">
                     <ClientProjectComponent teamId={teamId} bidAmount={bidAmount} />
                     <ClientProjectsRightSidebar mtdata={mtdata} />
                 </div>
             }
-        </>
+        </div>
     )
 }
 

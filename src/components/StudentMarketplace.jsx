@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import ProjectCard from './ProjectCard'
 import Filterbar from './Filterbar'
-import { useSession } from 'next-auth/react'
+import { getSession, useSession } from 'next-auth/react'
 import { projectSearch } from '../lib/SearchAlgo'
 import axios from 'axios'
 
@@ -14,12 +14,38 @@ const StudentMarketplace = ({projects, setOpenedProj, selected, setSelected}) =>
     const [search, setSearch] = useState("")
     const [myBids, setMyBids] = useState([])
 
+    // const fetchUserData = async (req, res) => {
+        
+    //     setId(session.user._id);
+    //     setRole(session.user.role);
+        
+    // }
+
     useEffect(() => {
-        axios.get(`/api/myprojects`)
-        .then(res => {
-            setMyBids(res.data)
-        }).catch(console.log)
+        // axios.get(`/api/myprojects`)
+        // .then(res => {
+        //     setMyBids(res.data)
+            
+        // }).catch(console.log)
+        // fetchUserData();
+        fetchData();
     }, [])
+
+    const fetchData = async (req, res) => {
+        try {
+            const session = await getSession({ req });
+            const response = await axios(`/api/allprojects`);
+            console.log("the data is:",response.data);
+            console.log(session.user._id, session.user.role);
+            const myProject = response.data.find((project) => project.assignedTeam.teamUserMap.find((ele) =>  
+                ele.user._id === session.user._id && ele.status === 'Approved'));
+            setMyBids(Array(myProject));
+        } catch (error) {
+            console.log("error is:",error);
+        }
+    }
+    console.log("my bids are:",myBids);
+
     return (
         <div className='w-full h-full overflow-x-hidden flex flex-col'>
             <Filterbar location={location} setLocation={setLocation} status={status} setStatus={setStatus} payment={payment} setPayment={setPayment} domain={domain} setDomain={setDomain} setSearch={setSearch} search={search} selected={selected} setSelected={setSelected} />
