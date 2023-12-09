@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { getSession } from "next-auth/react";
 
 const ClientProjectComponent = ({ teamId, bidAmount }) => {
     console.log("the data that I wanted is:", teamId, bidAmount);
     const test_client_Id = "656af2a4acba1f116ca953e6";
     const [projectData, setProjectData] = useState(null);
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchData = async (req, res) => {
             try {
-                const response = await axios.get(`http://localhost:3000/api/clientprojects?clientId=${test_client_Id}`);
+                const session = await getSession();
+                const id = session.user._id;
+                console.log('id is:',id);
+                const response = await axios.get(`http://localhost:3000/api/clientprojects?clientId=${id}`);
                 setProjectData(response.data);
                 console.log(`Data is:`, response.data);
             } catch (error) {
@@ -21,10 +25,11 @@ const ClientProjectComponent = ({ teamId, bidAmount }) => {
     console.log("project data is:", projectData);
 
     return (
-        <div>
+        // <></>
+        <div className="w-[75%]">   
             {projectData && projectData.filter((ele) => ele.assignedTeam._id === teamId).map((ele) => {
                 console.log("me chal rha hu")
-                return <div className="p-8 w-[75%]">
+                return <div className="p-8">
                     <div className="flex justify-between">
                         <div className="flex flex-row">
                             <img src="" alt="" />
@@ -32,24 +37,24 @@ const ClientProjectComponent = ({ teamId, bidAmount }) => {
                         </div>
                         <h1 className="text-2xl text-black font-semibold">{ele.assignedTeam.rating} /5.0</h1>
                     </div>
-                    <div className="flex flex-col p-8 bg-blue-100 rounded-md mt-6">
+                    <div className="flex flex-col p-8 bg-blue-100 rounded-md w-[100%] mt-6">
                         <h1 className="text-2xl text-black font-semibold">Bid Details</h1>
                         <div className="flex justify-between">
                             <div className="flex justify-between flex-nowrap bg-white px-10 py-4 rounded-md">
-                                <div className="flex flex-row mr-20">
-                                    <h1 className="text-2x1 text-black font-semibold mr-2">Total Bid Amount</h1>
-                                    <div className="pt-1">
+                                <div className="flex flex-row">
+                                    <h1 className="text-2xl text-black font-semibold mr-2">Total Bid Amount - </h1>
+                                    {/* <div className="pt-1">
                                         <img className="h-4" src="/Images/info-circle.png" alt="" />
-                                    </div>
+                                    </div> */}
                                 </div>
                                 <div className="text-back text-2xl font-semibold"> &#8377;{ele.assignedTeam.proposal.bidAmount}</div>
                             </div>
                             <div className="flex justify-between flex-nowrap bg-white px-10 py-4 rounded-md">
-                                <div className="flex flex-row mr-20">
-                                    <h1 className="text-2x1 text-black font-semibold mr-2">Expected Duration</h1>
-                                    <div className="pt-1">
+                                <div className="flex flex-row">
+                                    <h1 className="text-2xl text-black font-semibold mr-2">Expected Duration - </h1>
+                                    {/* <div className="pt-1">
                                         <img className="h-4" src="/Images/info-circle.png" alt="" />
-                                    </div>
+                                    </div> */}
                                 </div>
                                 <div className="text-back text-2xl font-semibold">{ele.assignedTeam.duration} Weeks</div>
                             </div>
@@ -58,7 +63,7 @@ const ClientProjectComponent = ({ teamId, bidAmount }) => {
                     <div className="flex flex-col bg-blue-100 rounded-md p-8 mt-6 w-full">
                         <h1 className=" text-black text-2xl font-semibold">Milestone Details</h1>
                         {/* <div className="flex flex-col mt-4 w-full"> */}
-                        <table className="min-w-full bg-white border border-blue-900">
+                        <table className="bg-white border border-blue-900">
                             <thead className="bg-blue-900 text-white">
                                 <tr>
                                     <th className="py-2 px-6 font-semibold">Sr. No</th>
@@ -82,8 +87,7 @@ const ClientProjectComponent = ({ teamId, bidAmount }) => {
                                 ))}
                             </tbody>
                         </table>
-
-                        <hr className="w-[100%]" />
+                        <hr className="" />
                         {/* </div> */}
                     </div>
                 </div>
