@@ -30,7 +30,7 @@ const Cards = ({ setOpenPostCard, tabName, ele, setDetails }) => {
   };
 
   return (<>
-    {ele[tabName].map((ele) => {
+    {ele[tabName].length > 0 && ele[tabName].map((ele) => {
       return <div className="h-1/2 mb-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-blue-100 dark:border-gray-700 mx-4">
         <div className="flex flex-col items-center pb-10 mt-4 w-40 h-40 ">
           <img className="w-16 h-16 mb-3 rounded-full shadow-lg" src='' alt="" />
@@ -42,6 +42,9 @@ const Cards = ({ setOpenPostCard, tabName, ele, setDetails }) => {
         </div>
       </div >
     })}
+    {ele[tabName].length === 0 && <div>
+        Look's like university has no {tabName}.
+      </div>}
   </>);
 
 }
@@ -101,7 +104,7 @@ const University = ({params}) => {
   const [openPostcard, setOpenPostCard] = useState(false);
 
   return (
-    <div>
+    <div className='overflow-x-hidden'>
       <Navbar />
       <div className="flex">
         <StudentSidebar page={"people"}/>
