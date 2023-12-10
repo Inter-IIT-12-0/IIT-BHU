@@ -53,7 +53,7 @@ export default function SidebarUpskilling({ page }) {
                 </Link>
                 <div className="w-full h-5 opacity-0"></div>
 
-                <Link href={"/mentorship"} className={` justify-start items-center gap-8 inline-flex hover-background ${page === "mentorship" && "bg-sky-100"} rounded mt-6`}>
+                <Link href={"/Mentorship"} className={` justify-start items-center gap-8 inline-flex hover-background ${page === "mentorship" && "bg-sky-100"} rounded mt-6`}>
                     <div className="w-6 h-6 justify-center items-center flex">
                         <div className="w-6 h-6 relative">
                             <MentorshipIconUpskill />
