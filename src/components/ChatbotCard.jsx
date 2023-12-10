@@ -71,16 +71,17 @@ export const ChatbotCard = ({ isOpen }) => {
       chat,
       messages, setMessages
     );
-    setChat("");
+    
     await generate(messages, result, setResult, setMessages);
+    setChat("");
   };
   const handleGenerate2 = async () => { //! This uses the flask API which is based on Recommendation engine, returns users satisfying the query
     setUserChat(chat);
-    setChat("");
     setFiltered([])
     setGotResponse(false)
     const obj = await recommend(chat);
     setGotResponse(true)
+    setChat("");
     if (obj) {
       setFiltered(user.filter(person => person.domain.some(domainElement => obj.includes(domainElement))));
 
@@ -94,6 +95,7 @@ export const ChatbotCard = ({ isOpen }) => {
     setGotResponse(false)
     const obj = await recommendProject(chat);
     setGotResponse(true)
+    setChat("");
     if (obj) {
       setFilteredProjects(projects.filter(project => project.domain.some(domainElement => obj.includes(domainElement))));
 
