@@ -14,32 +14,16 @@ const StudentMarketplace = ({projects, setOpenedProj, selected, setSelected}) =>
     const [search, setSearch] = useState("")
     const [myBids, setMyBids] = useState([])
 
-    // const fetchUserData = async (req, res) => {
-        
-    //     setId(session.user._id);
-    //     setRole(session.user.role);
-        
-    // }
-
     useEffect(() => {
-        // axios.get(`/api/myprojects`)
-        // .then(res => {
-        //     setMyBids(res.data)
-            
-        // }).catch(console.log)
-        // fetchUserData();
         fetchData();
     }, [])
 
     const fetchData = async (req, res) => {
         try {
-            const session = await getSession({ req });
-            const response = await axios(`/api/allprojects`);
-            console.log("the data is:",response.data);
-            console.log(session.user._id, session.user.role);
-            const myProject = response.data.find((project) => project.assignedTeam.teamUserMap.find((ele) =>  
-                ele.user._id === session.user._id && ele.status === 'Approved'));
-            setMyBids(Array(myProject));
+            if(session) {
+                const response1 = await axios(`/api/mybids`);
+                setMyBids(response1.data)
+            }
         } catch (error) {
             console.log("error is:",error);
         }
@@ -48,8 +32,15 @@ const StudentMarketplace = ({projects, setOpenedProj, selected, setSelected}) =>
 
     return (
         <div className='w-full h-full overflow-x-hidden flex flex-col'>
-            <Filterbar location={location} setLocation={setLocation} status={status} setStatus={setStatus} payment={payment} setPayment={setPayment} domain={domain} setDomain={setDomain} setSearch={setSearch} search={search} selected={selected} setSelected={setSelected} />
+            <Filterbar status={status} setStatus={setStatus} payment={payment} setPayment={setPayment} domain={domain} setDomain={setDomain} setSearch={setSearch} search={search} selected={selected} setSelected={setSelected} />
             <div className='h-full p-8 max-h-[70vh] overflow-scroll overflow-y-auto overflow-x-hidden'>
+                {
+                    projects && projects.filter(project => {
+                        return projectSearch(search, location, status, payment, domain, project)
+                    }).map(project => {
+                        return <ProjectCard key={project._id} project={project} setOpenedProj={setOpenedProj} selected={selected}/>
+                    })
+                }
                 {
                     session && (
                         selected === 'All' ? projects && projects.filter(project => {
@@ -58,9 +49,9 @@ const StudentMarketplace = ({projects, setOpenedProj, selected, setSelected}) =>
                             return <ProjectCard key={project._id} project={project} setOpenedProj={setOpenedProj} selected={selected}/>
                         }) : 
                         myBids && myBids.filter(bid => {
-                            return (bid.status === "Pending" || bid.status === "Reviewed") && projectSearch(search, location, status, payment, domain, bid)
+                            return projectSearch(search, location, status, payment, domain, bid.project)
                         }).map(bid => {
-                            return <ProjectCard key={bid._id} project={bid} setOpenedProj={setOpenedProj} selected={selected}/>
+                            return <ProjectCard key={bid._id} project={bid.project} setOpenedProj={setOpenedProj} selected={selected}/>
                         })
                     )
                 }

@@ -39,7 +39,7 @@ const ProjectCard = ({ project, setOpenedProj }) => {
                         {project.clientRequirements.paymentType} - &#8377; {project.clientRequirements.payment}
                     </div>
                 </div>
-                <div className='my-6 text-neutral-700'>
+                <div className='my-6 text-neutral-700 max-h-32 overflow-scroll overflow-x-hidden overflow-y-auto'>
                     {project.statement}
                 </div>
                 <div className='flex flex-col'>

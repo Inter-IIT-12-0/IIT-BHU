@@ -22,6 +22,7 @@ const MyProjects = () => {
 	useEffect(() => { //! Fetches all my projects through api call
 		setLoading(true);
 		axios.get(`/api/myprojects`).then(res => {
+			console.log(res.data)
 			setProjects(res.data)
 			setLoading(false)
 		}).catch(console.error)

@@ -19,7 +19,7 @@ import { useRouter } from 'next/navigation'
 import toast from 'react-hot-toast'
 
 const Project = ({ project, setOpenedProj, selected }) => {
-    const {data: session} = useSession()
+    const { data: session } = useSession()
     const router = useRouter()
     const [myTeam, setMyTeam] = useState({})
 
@@ -147,35 +147,48 @@ const Project = ({ project, setOpenedProj, selected }) => {
                         </div>
 
                         <div className='mx-3 pb-8'>
-                            <h3 className='font-semibold'>Attachments: </h3>
-                            <div className='flex mt-3'>
-                                <a href={project.clientRequirements.file?.url} target="_blank" className='px-2 py-1 bg-gray-200 rounded-lg flex items-center'>
-                                    <span>{project.clientRequirements.file?.title}</span> <Export_Icon className="scale-50" />
-                                </a>
-                            </div>
+                            <h3 className='font-semibold text-xl'>Attachments: </h3>
+                            {
+
+                                <div div className='flex mt-3'>
+                                    {
+                                        project.clientRequirements.file && Object.keys(project.clientRequirements.file).length !== 0 ?
+                                            <a href={project.clientRequirements.file?.url} target="_blank" className='px-2 py-1 bg-gray-200 rounded-lg flex items-center'>
+                                                <span>{project.clientRequirements.file?.title}</span> <Export_Icon className="scale-50" />
+                                            </a> :
+                                            <div> No Attachments </div>
+                                    }
+                                </div>
+                            }
                         </div>
                     </div>
 
                     <div className={`bg-white rounded shadow-lg ${isFullOpen ? 'w-full' : 'w-80'}`}>
                         <div className="text-center  border-b-2 flex items-center flex-col pt-5 pb-5">
                             {
-                                session && (session.user.role === "Student" || session.user.role === "Professor"? ( Object.keys(myTeam).length === 0  ?
-                                <button className="w-48 h-12 bg-blue-400 rounded-lg shadow mb-5 text-xl font-bold font-sans tracking-tight" onClick={handleCreateBid}> Create Bid </button> :
-                                <button className="w-48 h-12 bg-blue-400 rounded-lg shadow mb-5 text-xl font-bold font-sans tracking-tight" onClick={() => {
-                                    if (myTeam.status === "In Proposal") return router.push(`/createBid/${project._id}`)
-                                    // else return router.push(`/createBid/${project._id}`)
-                                }}> View Proposal </button>
-                                ) 
-                                :
-                                <Link href={ `/viewBids/${project._id}`} className="w-48 h-12 bg-blue-400 rounded-lg shadow mb-5 text-xl font-bold font-sans tracking-tight flex items-center justify-center" >View Bid </Link>
+                                session && (session.user.role === "Student" || session.user.role === "Professor" ? (Object.keys(myTeam).length === 0 ?
+                                    <button className="w-48 h-12 bg-blue-400 rounded-lg shadow mb-5 text-xl font-bold font-sans tracking-tight" onClick={handleCreateBid}> Create Bid </button> :
+                                    <button className="w-48 h-12 bg-blue-400 rounded-lg shadow mb-5 text-xl font-bold font-sans tracking-tight" onClick={() => {
+                                        return router.push(`/createBid/${project._id}`)
+                                    }}> View My Proposal </button>
+                                )
+                                    :
+                                    (
+                                        selected !== 'My' ?
+                                            <Link href={`/createBid/${project._id}`} className="w-48 h-12 bg-blue-400 rounded-lg shadow mb-5 text-xl font-bold font-sans tracking-tight flex items-center justify-center" >Create Bid </Link> :
+                                            <Link href={`/viewBids/${project._id}`} className="w-48 h-12 bg-blue-400 rounded-lg shadow mb-5 text-xl font-bold font-sans tracking-tight flex items-center justify-center" >View Bids </Link>
+                                    )
                                 )
                             }
-                            <button className="w-48 h-12 rounded-lg shadow border text-xl border-blue-400 flex justify-center items-center cursor-pointer" onClick={() => {
-                                toast.success("Your interest has been conveyed")
-                            }}>
-                                <Hand className="scale-75" />
-                                <span> Interested </span>
-                            </button>
+                            {
+                                selected !== 'My' &&
+                                <button className="w-48 h-12 rounded-lg shadow border text-xl border-blue-400 flex justify-center items-center cursor-pointer" onClick={() => {
+                                    toast.success("Your interest has been conveyed")
+                                }}>
+                                    <Hand className="scale-75" />
+                                    <span> Interested </span>
+                                </button>
+                            }
                         </div>
                         <div className="pt-6 flex flex-col items-center text-xl border-b-2">
                             <h3 className='font-bold'>About the Client</h3>
@@ -218,7 +231,7 @@ const Project = ({ project, setOpenedProj, selected }) => {
                     </div>
                 </div>
             </div>
-        </main>
+        </main >
     )
 }
 

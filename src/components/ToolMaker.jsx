@@ -7,6 +7,7 @@ import { toast } from 'react-hot-toast';
 import Trash from "../../public/Images/trash.svg"
 import Link from 'next/link';
 // import Slider from './Slider';
+import Domains from "../../models/Domains.json"
 
 
 const ToolMaker = () => {
@@ -92,11 +93,11 @@ const ToolMaker = () => {
 
             {showDomain && !showAiTools && <div className='ml-8'>
                 <h1 className="text-Text-Black font-Lato text-2xl font-bold leading-normal tracking-tight mb-3">Choose your Domain</h1>
-                <div className='flex flex-row w-[100%]'>
+                <div className='flex flex-wrap w-[100%]'>
                     {
-                        tools.Domains && tools.Domains.map((ele, index) => {
-                            return <div key={index} className={`w-[18%] h-40 mr-6 border-gray-300 rounded-lg   text-center cursor-pointer ${ele.name === domainName ? 'bg-neutral-500' : 'bg-neutral-400'}`} onClick={() => { setShowAiTools(false); setDomainName(ele.name) }}>
-                                {ele.name}
+                        Domains.map((ele, index) => {
+                            return <div key={index} className={`w-[18%] h-40 mr-6 mb-5 border-gray-300 rounded-lg   text-center cursor-pointer ${ele === domainName ? 'bg-neutral-500' : 'bg-neutral-400'} flex justify-center items-center`} onClick={() => { setShowAiTools(false); setDomainName(ele) }}>
+                                {ele}
                             </div>
                         })
                     }
@@ -121,11 +122,11 @@ const ToolMaker = () => {
                 <div className='flex flex-row w-[100%] '>
                     {
                         session && session.user.aiTools.map((ele, index) => {
-                            return <div key={index} className='w-[18%] h-40 mr-6 justify-around items-center border-gray-300 rounded-lg bg-neutral-400 text-center cursor-pointer flex flex-col relative p-3' >
-                                <Trash className="absolute -top-2 -right-2 z-40 scale-125 " onClick={() => handleDelete(ele.name)}/>
+                            return <div key={index} className='w-[18%] mr-6 justify-around items-center border-gray-300 rounded-lg bg-neutral-400 text-center cursor-pointer flex flex-col relative p-3' >
+                                <Trash className="absolute -top-2 -right-2 z-40 items-center scale-125 " onClick={() => handleDelete(ele.name)}/>
                                 <Link href={`/customTool/${ele.name}`}>
                                 <h2> {ele.name} </h2>
-                                <img src={ele.image} alt={ele.nme} className='w-28 h-28' />
+                                <img src={ele.image} alt={ele.nme} className='w-28 h-28 rounded-xl' />
                                 </Link>
                             </div>
                         })

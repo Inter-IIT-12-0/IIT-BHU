@@ -1,11 +1,13 @@
 // Import necessary modules and schemas
+import { getSession } from "next-auth/react";
 import connectDb from "../../../middlewares/mongoose";
 import Project from "../../../models/Project";
 
 const handler = async (req, res) => {
+  const session = await getSession({req})
   if (req.method === 'GET') {
     try {
-      const projects = await Project.find({status: { $in: ['In Review', 'Open'] }}, '-__v').populate({
+      const projects = await Project.find({status: { $in: ['In Review', 'Open'] }, assignedBy: {$ne: session.user._id}}, '-__v').populate({
         path: 'assignedTeam',
         select: '-__v',
         populate: {

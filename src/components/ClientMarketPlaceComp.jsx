@@ -8,7 +8,7 @@ const ClientMarketPlaceComponent = () => {
     const [data1, setData1] = useState(null);
     const [data, setData] = useState(null);
     const recommendedTalent = "Recommended Talent";
-    const recommendedTeams = "Recommnended Teams";
+    const recommendedTeams = "Recommended Teams";
     const almaMatter = "Alma Mater";
     const [heading, setHeading] = useState(recommendedTalent);
     const [allTeams, setAllTeams] = useState([]);
@@ -21,11 +21,11 @@ const ClientMarketPlaceComponent = () => {
     useEffect(() => {
         fetchTeams();
         fetchUsers();
-        if(data === null)
-        {
-            setData(data1)
-        }
-    }, [data1])
+        // if(data === null)
+        // {
+        //     setData(data1)
+        // }
+    }, [])
 
     const fetchTeams = async () => {
         try {
@@ -41,7 +41,7 @@ const ClientMarketPlaceComponent = () => {
             const response = await axios.get(`/api/allusers`);
             setAllUsers(response.data);
             setData1(response.data);
-            // setData(response.data);
+            setData(response.data)
         } catch (error) {
             console.log("error is:", error);
         }
@@ -50,14 +50,14 @@ const ClientMarketPlaceComponent = () => {
     const handleInputChange = (event) => {
         const inputValue = event.target.value;
         console.log(inputValue)
-        const filteredData = data1.filter(users => users.name.toLowerCase().includes(inputValue.toLowerCase()))
+        const filteredData = data1.filter(users => users?.name?.toLowerCase().includes(inputValue.toLowerCase()))
         setData(filteredData);
     }
 
     const handleInputChange2 = (event) => {
         const inputValue = event.target.value;
         console.log(inputValue)
-        const filteredData = data1.filter(team => team.teamName.toLowerCase().includes(inputValue.toLowerCase()))
+        const filteredData = data1.filter(team => team?.teamName?.toLowerCase().includes(inputValue.toLowerCase()))
         setData(filteredData);
     }
 
@@ -65,7 +65,7 @@ const ClientMarketPlaceComponent = () => {
         <div className="flex flex-col w-full mb-3 max-h-[90vh] overflow-scroll overflow-y-auto overflow-x-hidden">
             {/* <h1 className="text-blue-700 font-semibold text-3xl m-6 mt-0">Create a Project</h1>
             <div className="w-full h-3 rounded-full bg-blue-950"></div> */}
-            <div className="rounded-xl bg-blue-100 p-8 w-full">
+            <div className="rounded-xl bg-blue-100 p-8 w-full max-h-[60vh] overflow-scroll overflow-x-hidden overflow-y-auto">
                 <h1 className="text-2xl font-semibold">Invite Bids</h1>
                 <div className="flex flex-row bg-white rounded-md mt-3">
                     <img className="p-2" src="/Images/Search_Icon.svg" alt="" />

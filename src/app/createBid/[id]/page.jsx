@@ -168,6 +168,18 @@ const CreateBid = ({ params }) => {
         setMilestones(prevMilestones);
     };
 
+    function calculateDueDates(startDate, milestones) {
+        const dueDates = [];
+
+        milestones.forEach((milestone, index) => {
+            const dueDate = new Date(startDate);
+            dueDate.setDate(dueDate.getDate() + Number(milestone.duration) * 7);
+            dueDates.push(dueDate);
+        });
+
+        return dueDates;
+    }
+
     const handleAddMilestone = () => {
         setMilestones([
             ...milestones,
@@ -192,6 +204,7 @@ const CreateBid = ({ params }) => {
             },
             ...teams
         ]
+        console.log(teams)
         const obj = {
             prob_stat: project.statement,
             avg_scores: teams.map(team => team.teamUserMap.reduce((acc, map) => acc + map.user.rating, 0) / team.teamUserMap.length),
@@ -202,7 +215,7 @@ const CreateBid = ({ params }) => {
         }
         console.log(JSON.stringify(obj))
         axios.post(`http://trumio.pythonanywhere.com/predict`, obj).then(res => {
-            setTeamProb(res.data.prediction[0].toFixed(2) * 100)
+            setTeamProb(Math.floor(res.data.prediction[0] * 100))
             const teamScore = res.data.prediction[0]
             setTeamRank(res.data.prediction.sort((a, b) => b - a).indexOf(teamScore) + 1)
             console.log(res.data.prediction[0], res.data.prediction, res.data.prediction.sort((a, b) => b - a))
@@ -226,6 +239,7 @@ const CreateBid = ({ params }) => {
 
     const handleSubmit = () => { //! Bid submission is being done through the handleSubmit function by an API call
         let modifiedMilestones = [...milestones]
+        console.log(new Date(startDate))
         const submilestones = Object.values(aiGenerated).map((milestone, index1) => (
             milestone.Submilestones.map((submilestone, index2) => (
                 {
@@ -236,18 +250,21 @@ const CreateBid = ({ params }) => {
                 }
             ))
         ))
+        const dueDates = calculateDueDates(startDate, milestones)
+        console.log(dueDates)
         modifiedMilestones = modifiedMilestones.map((milestone, index) => (
             {
                 ...milestone,
                 payment: Number(milestone.payment),
                 duration: Number(milestone.duration),
-                submilestones: submilestones[index]
+                submilestones: submilestones[index],
+                dueDate: dueDates[index],
             }
         ))
         let proposal = {
-            acceptanceProbability: teamProb.toFixed(2),
+            acceptanceProbability: Number(teamProb.toFixed(2)),
             bidAmount: milestones.reduce((acc, milestone) => acc + Number(milestone.payment), 0),
-            startDate: new Date(startDate),
+            startDate: startDate,
             milestones: modifiedMilestones,
             text: proposalText
         }
@@ -258,6 +275,7 @@ const CreateBid = ({ params }) => {
 
         axios.patch(`/api/team/?teamId=${presentTeam._id}`, newTeam).then(res => {
             toast.success("Your Bid is submitted")
+            console.log(res.data)
             router.push("/marketplace")
         })
     }
@@ -349,6 +367,7 @@ const CreateBid = ({ params }) => {
             }]
             console.log(teamUserMapNew)
             newTeam.teamUserMap = teamUserMapNew
+            newTeam.teamName = teamName
             await axios.patch(`/api/team/?teamId=${presentTeam._id}`, newTeam)
                 .then(async res => {
                     setPresentTeam(res.data)
@@ -625,6 +644,9 @@ const CreateBid = ({ params }) => {
                                                     <span className='font-bold'>Rank:</span> <span> {teamRank} </span>
                                                 </div>
                                             </div>
+                                            <BackArrow_Icon onClick={() => {
+                                                setPresentPage(prev => prev - 1)
+                                            }} className="cursor-pointer" />
                                             <TextEditor setProposalText={setProposalText} handleSubmit={handleSubmit} handleGenerateScores={handleGenerateScores} />
                                         </>
                         }

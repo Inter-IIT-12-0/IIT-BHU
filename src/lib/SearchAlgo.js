@@ -10,12 +10,10 @@ function simpleSearch(query, word) {
 
 function projectSearch(query, location, status, payment, domain, project) {
     const queryOk = simpleSearch(query, project.title) || simpleSearch(query, project.domain[0]) 
-    const locationOk = location === 'select' || (location === "Remote" ? project.location === "Remote" : project.location !== "Remote")
     const statusOk = status === 'select' || (project.status === status)
     const paymentOk = payment === 'select' || (project.clientRequirements.paymentType === payment)
-    console.log(project,project.domain)
     const domainOk = domain === 'select' || (project.domain?.includes(domain))
-    return queryOk && locationOk && statusOk && paymentOk && domainOk
+    return queryOk && statusOk && paymentOk && domainOk
 }
 
 module.exports = {simpleSearch, projectSearch}

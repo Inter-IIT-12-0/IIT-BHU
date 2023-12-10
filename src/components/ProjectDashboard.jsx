@@ -6,6 +6,7 @@ import TeamCard from './TeamCard';
 import AppCard from './AppCard';
 import SubMilestoneCard from './SubMilestoneCard';
 import MilestoneTableClient from './MilestoneTableClient';
+import FeedbackForm from './FeedbackForm';
 
 
 
@@ -29,6 +30,8 @@ const ProjectDashboard = ({ project, setIsOpen, isOpen, setSelectedSubmilestone,
         return <div> <AppCard project={project} /> </div>;
       case 'Team':
         return <div> <TeamCard project={project} /> </div>;
+      case 'Feedback':
+        return <div> <FeedbackForm project={project} /> </div>
       default:
         return null;
     }
@@ -99,6 +102,18 @@ const ProjectDashboard = ({ project, setIsOpen, isOpen, setSelectedSubmilestone,
                 } `}
             >
               Team
+            </a>
+          </li>
+          <li className="me-2">
+            <a
+              href="#"
+              onClick={() => handleTabClick('Feedback')}
+              className={`inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300 ${selectedTab === 'Feedback'
+                ? 'text-blue-600 bg-gray-100 rounded-t-lg active dark:bg-gray-800 dark:text-blue-500'
+                : 'text-gray-500 dark:text-gray-400'
+                } `}
+            >
+              Feedback
             </a>
           </li>
         </ul>

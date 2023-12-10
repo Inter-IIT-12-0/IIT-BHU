@@ -1,15 +1,15 @@
 "use client"
 import { Navbar } from "@material-tailwind/react";
 import React from "react"
-import StudentSidebar from "../../components/StudentSidebar";
 import Link from "next/link";
+import SidebarUpskilling from "../../components/SidebarUpskilling";
 
 const HomeArcade = () => {
     return (
         <div>
             <Navbar/>
             <div className="flex flex-row">
-                <StudentSidebar/>
+                <SidebarUpskilling/>
                 <div className="flex flex-col py-10 pl-10 w-[100%]">
                     <div className="flex flex-col justify-center items-center">
                         <h1 className="text text-2xl font-semibold mb-3">Welcome to AI Arcade</h1>

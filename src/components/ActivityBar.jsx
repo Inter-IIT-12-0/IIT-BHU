@@ -37,7 +37,7 @@ const ActivityBar = ({ activities }) => {
                 </div>
                 <div className='h-[48vh] overflow-x-hidden overflow-y-auto overflow-scroll mb-8 relative px-2'>
                     {
-                        openSummarized ? (loading ? <img src="/Images/loading2.gif" alt="Loading ..." className='scale-50'/> : report &&
+                        openSummarized ? (loading ? <img src="/Images/loading2.gif" alt="Loading ..." className='scale-50'/> : Object.keys(report).length !==0 &&
                             <>
                             <div className='mt-2'>
                                 <span className='font-semibold bg-gray-300 p-2 flex w-8 h-8 justify-center items-center rounded-full cursor-pointer' onClick={() => setOpenSummarized(false)}> X </span>
@@ -55,11 +55,7 @@ const ActivityBar = ({ activities }) => {
                             activities.map((activity, index) => (
                                 <div className='flex my-5 justify-between'>
                                     <span className="w-3 h-3 bg-sky-700 rounded-full m-2" />
-                                    <div className="text-black text-base font-normal pl-2"> {activity.user.name} has {activity.type === 'CREATE' ? <span className='text-green-600'> Created </span> : activity.type === 'EDITED' ? <span className='text-yellow-500'> Edited </span> : <span className='text-red-500'> Deleted </span>}  submilestone <span className='text-sky-600'> {activity.submilestone.title} </span> at  {(new Date(activity.timestamp)).toLocaleDateString('en-US', {
-                                        day: 'numeric',
-                                        month: 'long',
-                                        year: 'numeric'
-                                    })} </div>
+                                    <div className="text-black text-base font-normal pl-2"> {activity.user.name} {activity.message} </div>
                                 </div>
                             ))
                     }

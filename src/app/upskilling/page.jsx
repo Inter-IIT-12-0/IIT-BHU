@@ -32,16 +32,19 @@ const Upskilling = () => {
                   heading="Table of Tools"
                   image={<TableOfTools  className="xl:scale-100 scale-75" />}
                   content="Explore and use different AI Tools"
+                  url={"/toolsTable"}
                 />
                 <UpskillingCard
                   heading="AI Arcade"
                   image={<AIArcade  className="xl:scale-100 scale-75" />}
                   content="Learn AI tools through fun games"
+                  url={"/homeArcade"}
                 />
                 <UpskillingCard
                   heading="Mentorship"
                   image={<Mentorship className="xl:scale-100 scale-75" />}
                   content="Get one on one mentorship from AI experts"
+                  url={"/mentorship"}
                 />
               </div>
             </div>

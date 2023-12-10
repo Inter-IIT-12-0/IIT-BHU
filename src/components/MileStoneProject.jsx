@@ -70,7 +70,7 @@ const MilestoneTable = ({ project, setSelectedSubmilestone, setProject }) => {
                 return <tr
                   key={submilestone._id}
                   className="bg-white border-y dark:border-gray-200 cursor-pointer"
-                  onClick={() => setSelectedSubmilestone(submilestone)}
+                  
                 >
                   <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap">
                     <span className='ml-8'>{index2 + 1}</span>

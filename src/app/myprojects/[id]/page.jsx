@@ -17,7 +17,7 @@ const Project = ({ params }) => {
 
   const [AiOpen, setAiOpen] = useState(false);
   const [timelineOpen, setTimelineOpen] = useState(false);
-  const [selectedSubmilestone, setSelectedSubmilestone] = useState({hi:"hi"});
+  const [selectedSubmilestone, setSelectedSubmilestone] = useState({});
 
   useEffect(() => {
     axios.get(`/api/project/${id}`)
@@ -38,7 +38,7 @@ const Project = ({ params }) => {
               <Navbar />
             </div>
             {
-              session && Object.keys(selectedSubmilestone).length === 0 ? (
+              session &&  Object.keys(selectedSubmilestone).length === 0 ? (
                 <div className='flex w-full h-full'>
                   <StudentSidebar page={"myprojects"}/>
                   <div className="w-full flex flex-col px-20 py-5">
@@ -57,12 +57,12 @@ const Project = ({ params }) => {
 
                       {
                         Object.keys(project).length !== 0 ? <ProjectDashboard project={project} role={session.user.role} setProject={setProject} setSelectedSubmilestone={setSelectedSubmilestone}/> : <></>
-                      } //! This is the project dshboard
+                      }
                     </div>
                   </div>
                 </div>
               ) : 
-              session & selectedSubmilestone && (Object.keys(project).length !== 0) ?
+              session ?
                 <SubMilestoneCard submilestone={selectedSubmilestone} setSelectedSubmilestone={setSelectedSubmilestone} project={project} setTimelineOpen={setTimelineOpen} /> :
                 <div className='flex w-full h-full'>
                   <StudentSidebar page={"myprojects"}/>

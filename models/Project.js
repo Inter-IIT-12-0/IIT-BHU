@@ -40,7 +40,7 @@ const clientRequirementsSchema = new mongoose.Schema({
   payment: {
     type: Number
   },
-  workDays: { type: [String] },
+  workDays: { type: [String], enum: ['Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun'] },
   requiredTools: { type: [String] },
   file: { type: workSchema }
 });
@@ -48,7 +48,8 @@ export const subMilestoneSchema = new mongoose.Schema({
   title: { type: String, required: true },
   status: { type: String, enum: statusEnum, default: 'Not Started' },
   description: { type: String, required: true },
-  stickyNotes: { type: [String], default: [] }
+  stickyNotes: { type: [String], default: [] },
+  work: { type: workSchema }
 });
 
 const activitySchema = new mongoose.Schema({
@@ -71,7 +72,6 @@ export const milestoneSchema = new mongoose.Schema({
   paymentDate: { type: Date },
   deliverables : { type: String },
   duration: { type: Number },
-  files: [String],
   paymentCompleted: {type: Boolean, default: false}
 });
 

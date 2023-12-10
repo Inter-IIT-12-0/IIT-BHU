@@ -45,6 +45,9 @@ const Navbar = () => {
         <div className="relative">
         <NotificationsIcon className="mx-5 cursor-pointer" onClick={() => setOpenNotifs(prev => !prev)} />
         {
+          session?.user.invites.length !== 0 && <img src="/Images/red_dot.png" alt="" className="scale-50 absolute -top-2 right-3" style={{width: '32px', height: '32px'}}/>
+        }
+        {
           session && openNotifs && 
         <Notifications notifs={session.user.invites} />
         }
