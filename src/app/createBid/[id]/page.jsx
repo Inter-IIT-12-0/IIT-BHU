@@ -204,6 +204,7 @@ const CreateBid = ({ params }) => {
             },
             ...teams
         ]
+        console.log(teams)
         const obj = {
             prob_stat: project.statement,
             avg_scores: teams.map(team => team.teamUserMap.reduce((acc, map) => acc + map.user.rating, 0) / team.teamUserMap.length),
