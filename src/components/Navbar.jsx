@@ -48,11 +48,11 @@ const Navbar = () => {
         <div className="relative">
         <NotificationsIcon className="mx-5 cursor-pointer" onClick={() => setOpenNotifs(prev => !prev)} />
         {
-          session?.user.invites.length !== 0 && <img src="/Images/red_dot.png" alt="" className="scale-50 absolute -top-2 right-3" style={{width: '32px', height: '32px'}}/>
+          session?.user?.invites.length !== 0 && <img src="/Images/red_dot.png" alt="" className="scale-50 absolute -top-2 right-3" style={{width: '32px', height: '32px'}}/>
         }
         {
           session && openNotifs && 
-        <Notifications notifs={session.user.invites} />
+        <Notifications notifs={session.user?.invites} />
         }
         </div>
         {
@@ -64,7 +64,7 @@ const Navbar = () => {
               {
                 click &&
                 <div className="flex flex-col absolute top-10 w-32 -left-6 px-5 py-2 rounded-b-xl z-40 bg-sky-600 text-white">
-                  <Link href={`/profile/${session.user._id}`}>
+                  <Link href={`/profile/${session.user?._id}`}>
                     View Profile
                   </Link>
                   <div onClick={handleLogout}> Logout </div>

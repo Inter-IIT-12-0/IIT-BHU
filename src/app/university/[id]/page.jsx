@@ -86,7 +86,7 @@ const University = ({params}) => {
   useEffect(() => {
     const fetchdata = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/university?id=${id}`);
+        const response = await axios.get(`/api/university?id=${id}`);
         setUniData(response.data);
       } catch (error) {
         console.log(error)

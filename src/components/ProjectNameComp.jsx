@@ -18,7 +18,7 @@ const ProjectNameComp = () => {
             try {
                 const session = await getSession();
                 setUserId(session.user._id);
-                const response = await axios.get('http://localhost:3000/api/allteams/');
+                const response = await axios.get('/api/allteams/');
                 setAllTeamsData(response.data);
             } catch (error) {
                 console.log(error)

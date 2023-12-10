@@ -11,7 +11,7 @@ const ClientProjectsRightSidebar = ({ mtdata }) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/api/allteams/');
+                const response = await axios.get('/api/allteams/');
                 // setAllTeamsData(response.data);
             } catch (error) {
                 console.log(error)

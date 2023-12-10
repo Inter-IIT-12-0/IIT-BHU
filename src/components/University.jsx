@@ -41,7 +41,7 @@ const University = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`http://localhost:3000/api/alluniversities/`);
+                const response = await axios.get(`/api/alluniversities/`);
                 setUniversityData(response.data);
             } catch (error) {
                 console.log(error)
