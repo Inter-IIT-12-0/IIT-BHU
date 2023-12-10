@@ -59,70 +59,78 @@ NEXT_PUBLIC_API_KEY = "a3747a057e097e01bb19782e8a74da946ae4aa49"
 NEXT_PUBLIC_SITE_URL = "http://localhost:3000`
 
 ## Tech stack 
-- Next.js
-- MongoDB
-- Tailwind
-- Flask
 
 Our project's tech stack is a powerful symphony of cutting-edge technologies designed to deliver a seamless and innovative user experience.
 
-- With Next.js driving both our frontend and backend API, we ensure efficiency and speed as Next.js provides automatic code splitting, meaning that only the necessary code is sent to the client, resulting in faster initial page loads.
-- MongoDB Cluster, our database choice, provides scalability and its flexible schema allows for easy addition of new fields and changes to the data structure while being cost-effective.
-- Tailwind CSS lends elegance to our frontend, ensuring a visually stunning interface and it’s a great tool for making responsive frontends.
-- The persona recommendation engine, powered by spaCy for NLP, operates seamlessly through Flask, enriching user interactions. We've navigated limitations to craft a solution that's not just functional but truly exceptional.
+- `Next.js`
+  With Next.js driving both our frontend and backend API, we ensure efficiency and speed as Next.js provides automatic code splitting, meaning that only the necessary code is sent to the client, resulting in faster initial page loads.
+  
+- `MongoDB`
+  MongoDB Cluster, our database choice, provides scalability and its flexible schema allows for easy addition of new fields and changes to the data structure while being cost-effective.
+  
+- `Tailwind`
+  Tailwind CSS lends elegance to our frontend, ensuring a visually stunning interface and it’s a great tool for making responsive frontends.
+  
+- `Flask`
+  The persona recommendation engine, powered by spaCy for NLP, operates seamlessly through Flask, enriching user interactions. We've navigated limitations to craft a solution that's not just functional but truly exceptional.
 
 ## Services
 
-- OAuth
-- Gpt 3.5
-
 In crafting our platform, we've prioritized seamless user onboarding and dynamic content creation. 
 
-- Leveraging OAuth for Google login authentication, we ensure a user-friendly experience, effortlessly accommodating talents with university IDs and clients with work IDs. This not only streamlines access but also verifies user affiliations.
-- For our generative features, we turned to the powerful GPT-3.5, a generative AI that perfectly aligns with our time and resource constraints. Both OAuth and GPT-3.5 are seamlessly integrated into our system, accessed securely as environment variables specified in our .env.local file. This ensures a robust, secure, and efficient foundation for our platform.
+- `OAuth`
+  Leveraging OAuth for Google login authentication, we ensure a user-friendly experience, effortlessly accommodating talents with university IDs and clients with work IDs. This not only streamlines access but also verifies user affiliations.
+  
+- `Gpt 3.5`
+   For our generative features, we turned to the powerful GPT-3.5, a generative AI that perfectly aligns with our time and resource constraints. Both OAuth and GPT-3.5 are seamlessly integrated into our system, accessed securely as environment variables specified in our .env.local file. This ensures a robust, secure, and efficient foundation for our platform.
 
 ## Features
 
-- TruBot
-- Fine Tuned Bots
-- Custom AI tool
-- Recommendation Engine 
-- PS Breakdown
-- SubMilestone Breakdown
-
 To make our platform compatible with today’s needs and satisfy all users' needs we have created several AI features.
 
-- TruBot is available throughout the application, providing general support for users. It assists when users encounter difficulties or have queries, such as when working on a project and needing answers to basic questions. In such instances, users can obtain immediate assistance, currently It answers general , user and project queries.
-- Fine-Tuned Bots, available in the My Projects section within a specific project, are designed to assist users with their projects. For example, in a development-related project, users can generate bug reports, code snippets, and receive various forms of support from this bot, which utilizes GPT-3.5 for enhanced capabilities.
-- The "Custom AI Tools" section is a specialized feature that we provide in our app. This feature enables users to create their own AI tool for a particular domain. This AI tool will be fully proficient in the chosen domain and will provide all types of assistance in that domain.
-- The recommendation Engine built on the top of NLP takes the user input and then responds to the query by filtering the users by the keywords given by the Flask API
-- With the help of GPT-3.5 the problem statement provided by the client is being elaborated wrt to the client requirements.
-- Depending on the Milestones being submitted in the Proposal Form GPT 3.5 breaks down the Milestone into submilestones to better assess the projects completion and its health.
-
-
+- `TruBot`
+  TruBot is available throughout the application, providing general support for users. It assists when users encounter difficulties or have queries, such as when working on a project and needing answers to basic questions. In such instances, users can obtain immediate assistance, currently It answers general , user and project queries.
+  
+- `Fine Tuned Bots`
+  Fine-Tuned Bots, available in the My Projects section within a specific project, are designed to assist users with their projects. For example, in a development-related project, users can generate bug reports, code snippets, and receive various forms of support from this bot, which utilizes GPT-3.5 for enhanced capabilities.
+  
+- `Custom AI tool`
+  The "Custom AI Tools" section is a specialized feature that we provide in our app. This feature enables users to create their own AI tool for a particular domain. This AI tool will be fully proficient in the chosen domain and will provide all types of assistance in that domain.
+  
+- `Recommendation Engine`
+  The recommendation Engine built on the top of NLP takes the user input and then responds to the query by filtering the users by the keywords given by the Flask API
+  
+- `PS Breakdown`
+  With the help of GPT-3.5 the problem statement provided by the client is being elaborated wrt to the client requirements.
+- `SubMilestone Breakdown`
+  Depending on the Milestones being submitted in the Proposal Form GPT 3.5 breaks down the Milestone into submilestones to better assess the projects completion and its health.
 
 ## Pages
 
-- Marketplace
-- My Projects
-- People
-- Profile
-- Dashboard
-- ToolsTable
-- Mentorship,Challenges and Courses
-
-- Marketplace is accessed both from the client side as well as the student side.
-  - From the student's perspective, they can view all the projects that have been listed and place bids on them.
-- From the Client side, the client can additionally create projects.
-- In "My Projects," users can view and navigate to the "/myprojects/[id]" page to explore more about their projects. This is the place where the Fine-Tuned Bot is present to assist users and the Generative tool for various subdomains is also present there. On this page, users can access information such as milestones, milestone timelines, team details, project health, and other important aspects related to the project.
-- In the people page all the students, clients and universities are listed so users can explore all the people. Here our recommendation system recommends the best talent and client to the users.
-- In the profile page everything about the user is mentioned like their projects, educational details, company details, skills, their achievements and many more.
-- In the Dashboard page users can see their finances, project status, meetings, available days of work and other details.
-- The Tools Table page has the feature to create custom fine tuned bots wrt to the context the user wants and then these tools can be accessed by the user in the project workspace
-- The Mentorship,Challenges and Courses are for the upskilling of the user where the recommendation engine is being implemented to provide the upskilling as close as to the user’s need
+- `Marketplace`
+  Marketplace is accessed both from the client side as well as the student side.
+  ->From the student's perspective, they can view all the projects that have been listed and place bids on them.
+  ->From the Client side, the client can additionally create projects.
+- `My Projects`
+  In "My Projects," users can view and navigate to the "/myprojects/[id]" page to explore more about their projects. This is the place where the Fine-Tuned Bot is present to assist users and the Generative tool for various subdomains is also present there. On this page, users can access information such as milestones, milestone timelines, team details, project health, and other important aspects related to the project.
+- `People`
+  In the people page all the students, clients and universities are listed so users can explore all the people. Here our recommendation system recommends the best talent and client to the users.
+- `Profile`
+   In the profile page everything about the user is mentioned like their projects, educational details, company details, skills, their achievements and many more.
+- `Dashboard`
+  In the Dashboard page users can see their finances, project status, meetings, available days of work and other details.
+- `ToolsTable`
+  The Tools Table page has the feature to create custom fine tuned bots wrt to the context the user wants and then these tools can be accessed by the user in the project workspace
+- `Mentorship,Challenges and Courses`
+  The Mentorship,Challenges and Courses are for the upskilling of the user where the recommendation engine is being implemented to provide the upskilling as close as to the user’s need
 - AI Arcade is based on the AI generate Guided learning which moulds itself to the user’s performance and its need
+  
+  
+  
+  
 
-- 
+
+
 
 
 ## Deploy on Vercel
