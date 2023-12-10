@@ -90,7 +90,7 @@ const Home = () => {
                 <h1 className="text-white font-semibold">{daysOfWeek[dayOfWeek]}, {date}-{month + 1}-{year}</h1>
               </div>
               <div>
-                <h1 className="text-white text-3xl font-semibold">Hello There, {userData && userData.name}</h1>
+                <h1 className="text-white text-3xl font-semibold">Hello There, {session?.user?.name}</h1>
                 <h1 className="text-white font-semibold my-1">Let's find out how your projects are coming to shape.</h1>
               </div>
             </div>
