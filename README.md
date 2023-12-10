@@ -1,7 +1,7 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
-# NEXT JS Project
+# Trumio Team 18
 ## Setting Up the project
 ### Reuirements
 - Node version 18
@@ -43,7 +43,7 @@ Steps:
 
 The flask app has been hosted on Python Anywhere at trumio.pythonanywhere.com, if you wish to use the local server, change NEXT_PUBLIC_FLAS_APP_URL in env file to ```http://127.0.0.1:5000``` or as shown on the terminal.
 
-## .env
+## .env.local
 
 `MONGO_URI = mongodb+srv://trumio:trumio@cluster0.dv3akgs.mongodb.net/?retryWrites=true&w=majority
 JWT_SECRET= TrumioDevSecretKey@IITBhu
