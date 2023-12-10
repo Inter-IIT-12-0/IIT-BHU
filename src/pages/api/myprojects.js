@@ -77,7 +77,7 @@ const handler = async (req, res) => {
                         }
                     ]
                 });
-                    res.status(200).json(teams);
+                    res.status(200).json(teams.map(team => team.project));
             }
         } catch (error) {
             console.error(error);

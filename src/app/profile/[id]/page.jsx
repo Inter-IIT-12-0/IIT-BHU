@@ -13,7 +13,7 @@ const ProfilePage = ({params}) => {
 
     // const test_user_id = "656ff14b85ccd18b3fd73a5d";
     const user_id = params.id
-    const[userData, setUserData] = useState(null);
+    const [userData, setUserData] = useState(null);
 
     useEffect(() => {
         const fetchdata = async () => {

@@ -14,11 +14,7 @@ const handler = async (req, res) => {
         const uniqueSkills = await User.distinct("expertise.skills");
 
         const allUniqueKeywords = [
-          ...uniqueDomains,
-          ...uniqueRoles,
-          ...uniqueTools,
-          ...uniqueCertificates,
-          ...uniqueSkills,
+          ...uniqueDomains
         ];
 
         // Remove any null or undefined values

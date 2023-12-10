@@ -45,7 +45,7 @@ export const ChatbotCard = ({ isOpen }) => {
       });
     }
 
-  }, []);
+  }, [session]);
   const submitHandler = (e) => {
     e.preventDefault()
     if (mode === 'General')
@@ -71,8 +71,8 @@ export const ChatbotCard = ({ isOpen }) => {
       chat,
       messages, setMessages
     );
-    await generate(messages, result, setResult, setMessages);
     setChat("");
+    await generate(messages, result, setResult, setMessages);
   };
   const handleGenerate2 = async () => { //! This uses the flask API which is based on Recommendation engine, returns users satisfying the query
     setUserChat(chat);
@@ -180,9 +180,12 @@ export const ChatbotCard = ({ isOpen }) => {
                   <div> {project.domain[0]} </div>
                 </div>
                 <div className="text-sky-500 flex items-center">
-                  <Link href={`/marketplace/${project._id}`} target="_blank">
-                    View Project
+                  {
+                    ['In review', 'Open'].includes(project.status) &&
+                    <Link href={`/createBid/${project._id}`} target="_blank">
+                    Create Bid
                   </Link>
+                  }
                 </div>
               </div>
             ))}

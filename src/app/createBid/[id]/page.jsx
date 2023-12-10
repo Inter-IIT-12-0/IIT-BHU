@@ -425,7 +425,7 @@ const CreateBid = ({ params }) => {
                                                         />
                                                         <Edit_Icon />
                                                     </div>
-                                                    <div className='bg-blue-100 h-10 flex justify-center items-center rounded-xl border-b-2 border-sky-800 w-1/3'> Winning Odds 60% </div>
+
                                                 </div>
                                                 <p className='text-lg ml-3'> Teammates </p>
                                                 <div className='max-h-60 overflow-scroll overflow-y-auto overflow-x-hidden mb-8'>
@@ -535,9 +535,6 @@ const CreateBid = ({ params }) => {
                                             <div className='flex text-lg'>
                                                 <div className='bg-blue-100 h-10 flex justify-center items-center rounded-xl border-b-2 border-sky-800 w-24 px-2 mx-4'>
                                                     {presentTeam.teamName}
-                                                </div>
-                                                <div className='bg-blue-100 h-10 flex justify-center items-center rounded-xl border-b-2 border-sky-800 px-2 mx-4'>
-                                                    80%
                                                 </div>
                                             </div>
                                         </div>

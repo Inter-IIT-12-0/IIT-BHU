@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 
 const MyProjectCard = ({ project }) => {
+  console.log(project)
 
   const [isOpen, setIsOpen] = useState(false)
   const clickHandler = () => {
@@ -37,7 +38,7 @@ const MyProjectCard = ({ project }) => {
               <div className="flex flex-col rounded ">
                 <label htmlFor="">Due Task</label>
                 <div className="w-full h-16 flex justify-center items-center border border-solid border-gray-300 rounded">
-                  {project.milestones.sort((a,b) => b.dueDate - a.dueDate)[0]?.heading}
+                  {project?.milestones?.sort((a,b) => b.dueDate - a.dueDate)[0]?.heading}
                 </div>
               </div>
               <hr className="my-4 w-full" />
