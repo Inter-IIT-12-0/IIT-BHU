@@ -28,7 +28,7 @@ const Projects = () => {
         <>
             {
                 Object.keys(openedProj).length !== 0 ? (
-                    <Project project={openedProj} setOpenedProj={setOpenedProj} />
+                    <Project project={openedProj} setOpenedProj={setOpenedProj} selected={selected}/>
                 ) : (
                     <></>
                 )}

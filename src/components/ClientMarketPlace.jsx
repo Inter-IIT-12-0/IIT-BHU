@@ -7,7 +7,6 @@ import axios from 'axios'
 
 const ClientMarketplace = ({projects, setOpenedProj, selected, setSelected}) => {
     const {data:session} = useSession()
-    const [location, setLocation] = useState("select")
     const [status, setStatus] = useState("select")
     const [payment, setPayment] = useState("select")
     const [domain, setDomain] = useState("select")
@@ -22,7 +21,7 @@ const ClientMarketplace = ({projects, setOpenedProj, selected, setSelected}) => 
     }, [])
     return (
         <div className='h-full overflow-x-hidden flex flex-col'>
-            <Filterbar location={location} setLocation={setLocation} status={status} setStatus={setStatus} payment={payment} setPayment={setPayment} domain={domain} setDomain={setDomain} setSearch={setSearch} search={search} selected={selected} setSelected={setSelected} />
+            <Filterbar status={status} setStatus={setStatus} payment={payment} setPayment={setPayment} domain={domain} setDomain={setDomain} setSearch={setSearch} search={search} selected={selected} setSelected={setSelected} />
             <div className='h-full p-8 max-h-[70vh] overflow-scroll overflow-y-auto overflow-x-hidden'>
                 {
                     session && (

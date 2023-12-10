@@ -35,7 +35,7 @@ const Healthdashboard = ({ project }) => {
               year: 'numeric'
             })} </span> </div>
           </div>
-          <RoundedProgressBar progress={((project.milestones.map(mil => mil.submilestones.filter(sub => sub.status === 'Completed').length/mil.submilestones.length)).reduce((acc,compl) => acc + compl, 0) / project.milestones.length) *100} />
+          <RoundedProgressBar progress={Math.floor(((project.milestones.map(mil => mil.submilestones.filter(sub => sub.status === 'Completed').length/mil.submilestones.length)).reduce((acc,compl) => acc + compl, 0) / project.milestones.length) *100)} />
 
         </div>
 

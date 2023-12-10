@@ -52,10 +52,7 @@ const Form1 = () => {
             ...prevData,
             [name]: value,
         }));
-        console.log({
-            ...formData,
-            [name]: value,
-        })
+        console.log(formData)
     };
 
     const domainHandler = (domain) => {
@@ -84,6 +81,8 @@ const Form1 = () => {
 
     const handleSubmit = async (e) => { //! Genertes optimized description of the problem PS input by the client
         e.preventDefault();
+        if (formData.industry.length === 0) return toast.error("Domains can't be empty")
+        if (formData.skills.length === 0) return toast.error("Skills can't be empty")
         if (progress != 99) {
             if (progress === 33) {
                 if (!isValidUrl(formData.docUrl)) {
@@ -102,6 +101,7 @@ const Form1 = () => {
                 setLoading(false);
             }
             setProgress(prev => prev + 33);
+            console.log(formData)
         }
         else {
             const data = {
@@ -113,7 +113,7 @@ const Form1 = () => {
                 clientRequirements: {
                     paymentType: formData.paymentType,
                     payment: Number(formData.payment),
-                    workdays: formData.workdays,
+                    workDays: formData.workdays,
                     requiredTools: formData.skills,
                     file: {
                         title: formData.docName,
@@ -122,7 +122,7 @@ const Form1 = () => {
                 },
                 duration: Math.floor(((new Date(formData.to)) - (new Date(formData.from))) / (1000 * 60 * 60 * 24 * 7)),
                 domain: formData.industry,
-                location: formData.location
+                location: formData.location,
             }
             console.log(data)
             axios.post('/api/project', data).then(res => {
@@ -142,12 +142,19 @@ const Form1 = () => {
     };
 
     const handleWorkdays = e => {
+        const {name} = e.target
+        let newFormData = {...formData}
         if (e.target.checked) {
-            formData.workdays.push(e.target.name)
+            if (!newFormData.workdays.includes(name)) {
+                newFormData.workdays.push(name)
+                setFormData(newFormData)
+            }
         }
         else {
-            formData.workdays = formData.workdays.filter(day => day !== e.target.name)
+            newFormData.workdays = newFormData.workdays.filter(day => day !== e.target.name)
+            setFormData(newFormData)
         }
+        console.log(formData)
     }
 
     const handleRemoveDomain = domain => {
@@ -462,7 +469,7 @@ const Form1 = () => {
                                                                 >
                                                                     Work days
                                                                 </label>
-                                                                <div id='workDays' className='flex items-center h-full'>
+                                                                <div id='workDays' className='flex flex-wrap items-center h-full'>
                                                                     <input type="checkbox" id="monday" name="Mon" value={formData.workdays.includes("Mon")} onChange={handleWorkdays} className='mx-3' />
                                                                     <label htmlFor="monday">Mon</label>
 

@@ -13,8 +13,8 @@ const Notes = ({submilestone, project}) => {
         let mil, submil
         let got = false
         for (let i=0; i<newMilestones.length; i++) {
-            for (let j=0; j<newMilestones[i].subMilestones.length; j++) {
-                if((newMilestones[i].subMilestones)[j]._id === submilestone._id) {
+            for (let j=0; j<newMilestones[i].submilestones.length; j++) {
+                if((newMilestones[i].submilestones)[j]._id === submilestone._id) {
                     mil = i
                     submil = j
                     got = true
@@ -23,7 +23,7 @@ const Notes = ({submilestone, project}) => {
             }
             if (got) break
         }
-        newMilestones[mil].subMilestones[submil].stickyNotes.push(note)
+        newMilestones[mil].submilestones[submil].stickyNotes.push(note)
         console.log(newMilestones)
         axios.patch(`/api/project/${project._id}`, {
             milestones: newMilestones

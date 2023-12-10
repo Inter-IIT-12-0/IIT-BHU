@@ -8,6 +8,7 @@ import Notes from './Notes';
 import axios from 'axios';
 import { useEffect } from 'react';
 import { useSession } from "next-auth/react"
+import toast from 'react-hot-toast';
 
 const SubMilestoneCard = ({ submilestone, setSelectedSubmilestone, project, setTimelineOpen }) => {
   const { data: session } = useSession()
@@ -15,16 +16,24 @@ const SubMilestoneCard = ({ submilestone, setSelectedSubmilestone, project, setT
   const [url, setUrl] = useState('');
   const [nam, setName] = useState('');
   const [link, setLink] = useState('');
+  const [docUrl, setDocUrl] = useState('');
+  const [docName, setDocName] = useState('');
 
   const [connectedApps, setConnectedApps] = useState(0);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    if (name === 'docName') {
+      return setDocName(value);
+    }
+    if(name === 'docUrl') {
+      return setDocUrl(value);
+    }
     if (name === 'tool') {
       setTool(value);
     } else if (name === 'url') {
       setUrl(value);
     }
-    else if (name == 'link') {
+    else if (name === 'link') {
       setLink(value);
     }
     else {
@@ -60,10 +69,12 @@ const SubMilestoneCard = ({ submilestone, setSelectedSubmilestone, project, setT
     e.preventDefault();
 
     try {
+      console.log("Work")
       const { data: existingProject } = await axios.get(`/api/project/${project._id}`);
-      existingProject.work.push({ nam, link });
-      existingProject.activities.push({ submilestone, type: 'CREATE', timestamp: Date.now(), user: session.user._id, message: "Added the file" + nam + "in the submilestone by giving its URL" });
+      existingProject.work.push({ title: docName, url: docUrl });
+      existingProject.activities.push({ submilestone, type: 'CREATE', timestamp: Date.now(), user: session.user._id, message: "Added the file" + docName + "in the submilestone by giving its URL" });
       const response = await axios.patch(`/api/project/${project._id}`, existingProject);
+      toast.success("Added Work")
     } catch (error) {
       console.error('Error submitting data:', error.message);
     }
@@ -77,9 +88,9 @@ const SubMilestoneCard = ({ submilestone, setSelectedSubmilestone, project, setT
 
   const [selectedOption, setSelectedOption] = useState("");
   return (
-    <main className='bg-white flex w-screen overflow-hidden h-screen'>
+    <main className='bg-white flex w-screen  h-screen max-h-[90vh] overflow-scroll overscroll-y-auto overflow-x-hidden'>
       <div className='flex flex-col px-10 pb-20 w-full'>
-        <div className='w-full flex justify-center items-center mt-3'> <span className='flex justify-center items-center rounded-full h-10 w-10 bg-black text-white cursor-pointer' onClick={() => setSelectedSubmilestone(null)}>X </span>  </div>
+        <div className='w-full flex justify-center items-center mt-3'> <span className='flex justify-center items-center rounded-full h-10 w-10 bg-black text-white cursor-pointer' onClick={() => setSelectedSubmilestone({})}>X </span>  </div>
         <div>
           {/* Main Heading and Text Options */}
           <div className="flex justify-between items-center mb-4">
@@ -95,8 +106,6 @@ const SubMilestoneCard = ({ submilestone, setSelectedSubmilestone, project, setT
           <p className="text-zinc-500 font-Lato text-xl leading-normal tracking-tight" style={{ letterSpacing: '0.7px' }}>
             {submilestone.description}
           </p>
-
-          <h1 className="text-black font-Lato text-xl font-medium leading-normal tracking-tight mt-4" style={{ "letterSpacing": 0.7 }}>Dates</h1>
 
           <h1 className="text-black mt-6 mb-5 font-Lato text-2xl font-medium leading-normal tracking-tight " style={{ "letterSpacing": 0.7 }}>CONNECTED APPS</h1>
           {/* Cards */}
@@ -161,24 +170,24 @@ const SubMilestoneCard = ({ submilestone, setSelectedSubmilestone, project, setT
           <div className='mt-8'>
             <div>
               {isOpen2 && <div>
-                <form onSubmit={handleWorkSubmit} className='rounded-3xl shadow-lg p-8 flex flex-col justify-center w-72'>
+                <form onSubmit={handleWorkSubmit} className='rounded-3xl shadow-lg p-8 flex flex-col justify-center bg-gray-100'>
                   <div className='flex flex-row mt-4'>
                     <label className='mr-2 font-bold'>
-                      Tool</label>
+                      Document Name</label>
                     <input
                       type="text"
-                      name="nam"
-                      value={nam}
+                      name="docName"
+                      value={docName}
                       onChange={handleInputChange}
                     />
                   </div>
                   <div className='flex flex-row mt-4'>
                     <label className='mr-2 font-bold'>
-                      Url</label>
+                    Url</label>
                     <input
                       type="text"
-                      name="link"
-                      value={link}
+                      name="docUrl"
+                      value={docUrl}
                       onChange={handleInputChange}
                     />
                   </div>
@@ -205,15 +214,6 @@ const SubMilestoneCard = ({ submilestone, setSelectedSubmilestone, project, setT
             selectedOption === 'Activity' && <ActivityBar activities={project.activities} />
           }
         </div>
-        <div className={`flex flex-col justify-center items-center py-2 mb-4 cursor-pointer ${selectedOption === 'Share' && 'bg-indigo-50'}`}>
-          <div>
-            <Share_Icon className="scale-75" onClick={() => {
-              selectedOption === 'Share' ? setSelectedOption(null) :
-                setSelectedOption("Share")
-            }} />
-          </div>
-          <span>Share</span>
-        </div>
         <div className={`relative flex flex-col justify-center items-center py-2 mb-4 cursor-pointer ${selectedOption === 'Notes' && 'bg-indigo-50'}`}>
           <div>
             <Notes_Icon className="scale-75" onClick={() => {
@@ -227,7 +227,6 @@ const SubMilestoneCard = ({ submilestone, setSelectedSubmilestone, project, setT
           }
         </div>
       </div>
-      {/* <ActivityBar /> */}
     </main>
   );
 };

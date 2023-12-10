@@ -59,25 +59,26 @@ const handler = async (req, res) => {
                     });
                 res.status(200).json(user.projects);
             } else {
-                const teams = await Team.find({ 'teamUserMap.user._id': id, 'teamUserMap.status': 'Accepted' })
-                    .populate({
-                        path: 'project',
-                        select: '-__v',
-                        populate: [
-                            {
-                                path: 'assignedTeam',
-                                select: '-__v',
-                                populate: {
-                                    path: 'teamUserMap.user',
-                                    select: '-__v -role -fees -sectorName -companyName -aiTools -aiToolsLimit'
-                                }
-                            },
-                            {
-                                path: 'assignedBy',
-                                select: '-email -role -fees -projects -aiTools -aiToolsLimit',
+                console.log(id)
+                const teams = await Team.find({ 'status': 'Accepted', 'teamUserMap.user': id })
+                .populate({
+                    path: 'project',
+                    select: '-__v',
+                    populate: [
+                        {
+                            path: 'assignedTeam',
+                            select: '-__v',
+                            populate: {
+                                path: 'teamUserMap.user',
+                                select: '-__v -role -fees -sectorName -companyName -aiTools -aiToolsLimit'
                             }
-                        ]
-                    });
+                        },
+                        {
+                            path: 'assignedBy',
+                            select: '-email -role -fees -projects -aiTools -aiToolsLimit',
+                        }
+                    ]
+                });
                     console.log("teams are:",teams)
                     res.status(200).json(teams.map((team => team.project)));
             }

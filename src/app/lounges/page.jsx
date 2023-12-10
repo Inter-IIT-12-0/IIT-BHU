@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import recommendLounge from "../../pages/api/recommendation/loungeRecommend";
+import SidebarUpskilling from "../../components/SidebarUpskilling";
 
 const Lounges = ({ }) => {
   const [lounges, setLounges] = useState([])
@@ -103,7 +104,7 @@ const Lounges = ({ }) => {
     <div>
       <Navbar />
       <div className="flex flex-row">
-        <StudentSidebar />
+        <SidebarUpskilling />
         <div className="flex flex-col gap-5 p-6 w-[100%] max-h-[91vh] overflow-scroll overflow-y-scroll overflow-x-hidden">
           <div className="rounded-xl w-[100%] h-screen flex flex-col gap-8 items-center justify-center p-4 pt-10" style={{ backgroundColor: '#111827' }}>
             <h1 className="text-white text-2xl font-bold">What discussion would you dive in today</h1>
