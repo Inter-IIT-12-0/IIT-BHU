@@ -59,7 +59,7 @@ const ProjectCard = ({ project, setOpenedProj }) => {
 
                 <div className='flex mt-20'>
                     <div className='flex justify-start items-center'>
-                        <img src="https://www.text-image.com/samples/per_normal_face.jpg" alt="" className='rounded-full w-16 h-16' />
+                        <img src={project.assignedBy.avatarUrl} alt="" className='rounded-full w-16 h-16' />
                     </div>
                     <div className='flex flex-col pl-3'>
                         <div className='flex'>

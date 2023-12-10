@@ -7,24 +7,20 @@ const ClientProjectsRightSidebar = ({ mtdata }) => {
         return ele.user && ele.user.name
     })
 
-    console.log("kya mera data aaya:",mtdata);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await axios.get('http://localhost:3000/api/allteams/');
                 // setAllTeamsData(response.data);
-                console.log(`Data is:`, response.data);
             } catch (error) {
-                console.error("Error is:", error);
+                console.log(error)
             }
         };
 
         fetchData(); // Call the async function
     }, []);
 
-    console.log("new name is:", newData)
-    // console.log("new name is 2:",mtdata)
     return (
         <div className="p-4 bg-blue-100 w-[25%] h-[90vh] max-h-[90vh] overflow-scroll overflow-y-auto overflow-x-hidden hidden xl:block ">
 
@@ -34,7 +30,6 @@ const ClientProjectsRightSidebar = ({ mtdata }) => {
                 <h1 style={{fontSize:'2vw'}} className="text-black font-semibold">Team Members</h1>
                 <div className="rounded-full bg-black w-full h-px my-3"></div>
                 {mtdata && mtdata.map((ele) => {
-                    console.log("element is:", ele.user)
                     return <>
                         {ele.map((ele) => {
                             return <div key={ele.user && ele.user._id}>

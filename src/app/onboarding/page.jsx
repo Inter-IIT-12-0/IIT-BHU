@@ -12,24 +12,23 @@ import { useEffect, useState } from "react";
 const OnBoarding = () => {
   const router = useRouter()
   const [selectedCard, setSelectedCard] = useState(1);
-  const {data:session} = useSession()
   const handleCardClick = (cardNumber) => {
     setSelectedCard(cardNumber);
   };
-  const [loggedIn, setLoggedin] = useState(false)
 
   const handleCreateAccount = async () => {
     let role = (selectedCard === 1 ? 'Student' : selectedCard === 2 ? 'Client': 'Third')
     if (role === 'Third') return router.push('/selectRole')
     setCookie("role", role);
-    const gid = signIn('google')
-    console.log(gid)
+    signIn('google')
   }
 
   useEffect(() => {
+    if(getCookie('loggedIn') === "true") {
+      return router.push('/')
+    }
     const isNewUser = getCookie("newUser")
     const role = getCookie("role")
-    if (session) return router.push('/')
     if (isNewUser === "false" ) {
       router.push('/')
     }

@@ -8,7 +8,6 @@ const handler = async (req, res) => {
   if (req.method === 'DELETE') {
     const { teamId, userId } = req.query;
     try {
-      console.log(teamId, userId)
       const user = await User.findById(userId);
 
       if (!user) {

@@ -204,7 +204,6 @@ const CreateBid = ({ params }) => {
             },
             ...teams
         ]
-        console.log(teams)
         const obj = {
             prob_stat: project.statement,
             avg_scores: teams.map(team => team.teamUserMap.reduce((acc, map) => acc + map.user.rating, 0) / team.teamUserMap.length),
@@ -217,8 +216,8 @@ const CreateBid = ({ params }) => {
             setTeamProb(Math.floor(res.data.prediction[0] * 100))
             const teamScore = res.data.prediction[0]
             setTeamRank(res.data.prediction.sort((a, b) => b - a).indexOf(teamScore) + 1)
-            console.log(res.data.prediction[0], res.data.prediction, res.data.prediction.sort((a, b) => b - a))
-        }).catch(console.error)
+        }).catch(err => toast.error(err.response.data.error)
+        )
     }
 
     const handleGenerateScores = () => {
@@ -237,7 +236,6 @@ const CreateBid = ({ params }) => {
 
     const handleSubmit = () => { //! Bid submission is being done through the handleSubmit function by an API call
         let modifiedMilestones = [...milestones]
-        console.log(new Date(startDate))
         const submilestones = Object.values(aiGenerated).map((milestone, index1) => (
             milestone.Submilestones.map((submilestone, index2) => (
                 {
@@ -249,7 +247,6 @@ const CreateBid = ({ params }) => {
             ))
         ))
         const dueDates = calculateDueDates(startDate, milestones)
-        console.log(dueDates)
         modifiedMilestones = modifiedMilestones.map((milestone, index) => (
             {
                 ...milestone,
@@ -269,11 +266,9 @@ const CreateBid = ({ params }) => {
         let newTeam = { ...presentTeam }
         newTeam.proposal = proposal
         newTeam.status = 'Pending'
-        console.log(newTeam)
 
         axios.patch(`/api/team/?teamId=${presentTeam._id}`, newTeam).then(res => {
             toast.success("Your Bid is submitted")
-            console.log(res.data)
             router.push("/marketplace")
         })
     }
@@ -291,7 +286,8 @@ const CreateBid = ({ params }) => {
                     })
                 })
                 setPastTeamMembers(pastMembers)
-            }).catch(console.log)
+            }).catch(err => toast.error(err.response.data.error))
+
 
         axios.get(`/api/myteams/${id}`)
             .then(res => {
@@ -302,7 +298,8 @@ const CreateBid = ({ params }) => {
                 setNonApprovals(nonApprov);
                 setPresentTeam(res.data)
                 setTeamName(res.data.teamName ? res.data.teamName : '')
-            }).catch(console.log)
+            }).catch(err => toast.error(err.response.data.error))
+
 
 
         const fetchProject = async () => {
@@ -314,17 +311,15 @@ const CreateBid = ({ params }) => {
                 setAllUsers(res2.data);
                 fetchFilter(res1.data, res2.data);
             }
-            catch {
-                console.error("Error fetching data");
+            catch (error) {
+                console.log(error)
             }
         }
         fetchProject();
 
         const fetchFilter = async (project, recommended) => { //! Here the recommendation engine filters the tag using the problem statement and returns the recommended users
             try {
-                console.log(project, recommended)
                 if (project && recommended) {
-                    console.log(project.statement);
                     const obj = await recommend(project.statement);
                     setRecommended(recommended.filter(person => person.domain.some(domain => obj.includes(domain))));
 
@@ -332,7 +327,7 @@ const CreateBid = ({ params }) => {
 
             }
             catch (error) {
-                console.log("Error", error);
+                console.log(error)
             }
         }
 
@@ -347,30 +342,29 @@ const CreateBid = ({ params }) => {
                 teamId,
                 teamName,
             });
-            console.log(response.data);
         } catch (error) {
-            console.error('API request failed:', error.message);
+            console.log(error)
         }
     };
 
 
     const addToTeam = async (member) => {
         try {
-            if (presentTeam.teamUserMap.map(map => map.user.email).includes(member.email)) return console.log("Member already added")
+            if (presentTeam.teamUserMap.map(map => map.user.email).includes(member.email)) return toast.error("Member already added")
             let newTeam = presentTeam;
             const teamUserMapNew = [...newTeam.teamUserMap, {
                 user: member._id,
                 role: "Member",
                 status: "Pending"
             }]
-            console.log(teamUserMapNew)
             newTeam.teamUserMap = teamUserMapNew
             newTeam.teamName = teamName
             await axios.patch(`/api/team/?teamId=${presentTeam._id}`, newTeam)
                 .then(async res => {
                     setPresentTeam(res.data)
                     await handleInvite(res.data._id, member._id);
-                }).catch(console.log)
+                }).catch(err => toast.error(err.response.data.error))
+
             setNoOfTeams(prev => prev + 1)
         } catch (error) {
             console.log(error)
@@ -381,16 +375,16 @@ const CreateBid = ({ params }) => {
         const newArr = presentTeam.teamUserMap.filter(map => {
             return map.user.email !== member.email
         })
-        console.log(presentTeam.teamUserMap)
         let newTeam = presentTeam
         newTeam.teamUserMap = newArr
         let teamId = presentTeam._id;
         let userId = member._id;
-        console.log(teamId, userId)
         axios.patch(`/api/team/?teamId=${presentTeam._id}`, newTeam)
             .then(res => {
-                axios.delete(`/api/deleteinvite/?teamId=${teamId}&userId=${userId}`).then(res => console.log(res.data)).catch(console.log)
-            }).catch(console.log)
+                axios.delete(`/api/deleteinvite/?teamId=${teamId}&userId=${userId}`).then(res => toast.error("Invite Deleted")).catch(err => toast.error(err.response.data.error))
+
+            }).catch(err => toast.error(err.response.data.error))
+
         setNoOfTeams(prev => prev - 1)
     }
 
@@ -402,7 +396,8 @@ const CreateBid = ({ params }) => {
     const handleContinue = () => {
         let newTeam = presentTeam
         newTeam.teamName = teamName
-        axios.patch(`/api/team/?teamId=${presentTeam._id}`, newTeam).then(res => console.log(res.data)).catch(console.log)
+        axios.patch(`/api/team/?teamId=${presentTeam._id}`, newTeam).then(res => console.log(res.data)).catch(err => toast.error(err.response.data.error))
+
         setPresentPage(prev => prev + 1)
     }
 

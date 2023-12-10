@@ -1,6 +1,5 @@
 export default function messageGenerator(domain, tool, input) {
   // Define system prompts based on domain and tool
-  console.log(input)
   const systemPrompts = {
     "Engineering": {
       "Write Technical Specifications":
@@ -40,7 +39,6 @@ export default function messageGenerator(domain, tool, input) {
     { role: "user", content: userPrompt },
   ];
 
-  // console.log(messages)
 
   return messages;
 }

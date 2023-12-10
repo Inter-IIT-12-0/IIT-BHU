@@ -4,7 +4,6 @@ import './globals.css'
 import Provider from '../components/Provider'
 import { Toaster } from "react-hot-toast";
 import { useEffect, useState } from 'react';
-// import NoSSR from 'react-no-ssr'
 
 const Dynamic = ({ children }) => {
   const [hasMounted, setHasMounted] = useState(false);
@@ -28,10 +27,10 @@ export default function RootLayout({
       <body>
         {/* <NoSSR> */}
         <Dynamic>
-          <Provider>
-            <Toaster position="top-center" />
-            {children}
-          </Provider>
+            <Provider>
+              <Toaster position="top-center" />
+              {children}
+            </Provider>
         </Dynamic>
         {/* </NoSSR> */}
       </body>

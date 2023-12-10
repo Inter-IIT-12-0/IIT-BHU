@@ -10,25 +10,29 @@ import { projectSearch } from '../../lib/SearchAlgo'
 import { useSession } from 'next-auth/react'
 import StudentMarketplace from '../../components/StudentMarketplace'
 import ClientMarketPlace from '../../components/ClientMarketPlace'
+import toast from 'react-hot-toast'
 
 const Projects = () => {
-    const {data:session} = useSession()
+    const { data: session } = useSession()
     const [projects, setProjects] = useState([])
     const [openedProj, setOpenedProj] = useState({})
     const [selected, setSelected] = useState("All")
 
     useEffect(() => { //! fetches all projects through api
-        axios.get('/api/allprojects')
-        .then(res => {
-            setProjects(res.data)
-        })
-        .catch(err => console.log(err))
+        if (session) {
+            axios.get('/api/allprojects')
+                .then(res => {
+                    setProjects(res.data)
+                })
+                .catch(err => toast.error(err.response.data.error)
+                )
+        }
     }, [])
     return (
         <>
             {
                 Object.keys(openedProj).length !== 0 ? (
-                    <Project project={openedProj} setOpenedProj={setOpenedProj} selected={selected}/>
+                    <Project project={openedProj} setOpenedProj={setOpenedProj} selected={selected} />
                 ) : (
                     <></>
                 )}
@@ -38,10 +42,10 @@ const Projects = () => {
                         <Navbar />
                     </div>
                     <div className='flex w-full h-full'>
-                        <StudentSidebar page={"marketplace"}/>
+                        <StudentSidebar page={"marketplace"} />
                         {
-                            session && 
-                            ( session.user.role !== 'Client' ? <StudentMarketplace projects={projects} setOpenedProj={setOpenedProj} selected={selected} setSelected={setSelected} /> : <ClientMarketPlace projects={projects} setOpenedProj={setOpenedProj} selected={selected} setSelected={setSelected}/>)
+                            session &&
+                            (session.user.role !== 'Client' ? <StudentMarketplace projects={projects} setOpenedProj={setOpenedProj} selected={selected} setSelected={setSelected} /> : <ClientMarketPlace projects={projects} setOpenedProj={setOpenedProj} selected={selected} setSelected={setSelected} />)
                         }
                     </div>
                 </div>

@@ -14,7 +14,8 @@ const MilestoneTable = ({ project, setSelectedSubmilestone, setProject }) => {
     updatedMilestones[index1].submilestones[index2].status = e.target.checked ? 'Completed' : 'In Progress'
     axios.patch(`/api/project/${project._id}`, {
       milestones: updatedMilestones
-    }).then(res => setProject(res.data)).catch(console.log)
+    }).then(res => setProject(res.data)).catch(err => toast.error(err.response.data.error))
+
   }
 
   const handleOpenSub = (submilestone, index1, index2) => {
@@ -24,7 +25,8 @@ const MilestoneTable = ({ project, setSelectedSubmilestone, setProject }) => {
       milestones: updatedMilestones
     }).then(res => {
       setSelectedSubmilestone(submilestone)
-    }).catch(console.log)
+    }).catch(err => toast.error(err.response.data.error))
+
   }
 
   useEffect(() => {

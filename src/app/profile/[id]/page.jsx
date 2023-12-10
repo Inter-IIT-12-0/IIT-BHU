@@ -21,21 +21,17 @@ const ProfilePage = ({params}) => {
                 const response = await axios.get(`http://localhost:3000/api/user?id=${user_id}`);
                 setUserData(response.data);
             } catch (error) {
-                console.log("error is:",error);
+                console.log(error)
             }
         }
         fetchdata();
     },[])
-
-    console.log("user data is:", userData);
 
     return (
         <div className="overflow-x-hidden">
             <Navbar/>
             
             {userData  && <>
-                {/* console.log("projects are:",userData.projects)
-                return <> */}
                 <div className="relative z-10">
                     <img className="w-full h-25" src='/Images/newImage.jpg'/>
                 </div>
@@ -45,8 +41,6 @@ const ProfilePage = ({params}) => {
                         <ProfileSidebar key={userData.email + "user"} name={userData.name} occupation = {userData.occupation} institute = {userData.institute} tools = {userData.expertise.tools} skills = {userData.expertise.skills} professionalInto = {userData.professionalIntroduction} />
                     </div>
                     <div className="flex flex-col p-8 max-h-[106vh] overflow-y-auto overflow-x-hidden">
-                        <EarningStats EarningStats = {userData.earningStats}/>
-                        <Achievements achievements = {userData.achievements} />
                         <Projects projects = {userData.projects} />
                         <StreaksCount/>
                     </div>

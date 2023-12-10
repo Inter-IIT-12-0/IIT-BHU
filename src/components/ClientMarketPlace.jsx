@@ -17,7 +17,8 @@ const ClientMarketplace = ({projects, setOpenedProj, selected, setSelected}) => 
         axios.get(`/api/clientprojects`)
         .then(res => {
             setMyProjects(res.data)
-        }).catch(console.log)
+        }).catch(err => toast.error(err.response.data.error))
+
     }, [])
     return (
         <div className='h-full overflow-x-hidden flex flex-col'>
@@ -25,16 +26,16 @@ const ClientMarketplace = ({projects, setOpenedProj, selected, setSelected}) => 
             <div className='h-full p-8 max-h-[70vh] overflow-scroll overflow-y-auto overflow-x-hidden'>
                 {
                     session && (
-                        selected === 'All' ? projects && projects.filter(project => {
+                        selected === 'All' ? projects.length !== 0 ? projects.filter(project => {
                             return projectSearch(search, location, status, payment, domain, project)
                         }).map(project => {
                             return <ProjectCard key={project._id} project={project} setOpenedProj={setOpenedProj} selected={selected} />
-                        }) : 
-                        myProjects && myProjects.filter(bid => {
+                        }) : <div className="w-full h-full flex justify-center items-center"> No Projects Found </div> : 
+                        myProjects && myProjects.length !== 0 ? myProjects.filter(bid => {
                             return !!!bid.assignedTeam && projectSearch(search, location, status, payment, domain, bid)
                         }).map(bid => {
                             return <ProjectCard key={bid._id} project={bid} setOpenedProj={setOpenedProj} selected={selected}/>
-                        })
+                        }) : <div className="w-full h-full flex justify-center items-center"> No Projects Found </div>
                     )
                 }
             </div>

@@ -57,8 +57,6 @@ const Challenges = () => {
         obj.push(fakeObject);
     }
 
-    console.log(obj);
-
 
     const arrayOfObjs = [
         {

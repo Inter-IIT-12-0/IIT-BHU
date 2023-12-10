@@ -17,8 +17,6 @@ const obj = {
 const arrayOfObjects = Array(8).fill(obj);
 const Cards = ({ setOpenPostCard, tabName, ele, setDetails }) => {
 
-  console.log("ontained element is:", ele['student'].name);
-
   const [isPopupOpen, setPopupOpen] = useState(false);
 
   const openPopup = () => {
@@ -90,15 +88,12 @@ const University = ({params}) => {
       try {
         const response = await axios.get(`http://localhost:3000/api/university?id=${id}`);
         setUniData(response.data);
-        console.log("fetched data is:", response.data);
       } catch (error) {
-        console.log(error);
+        console.log(error)
       }
     }
     fetchdata();
   }, [])
-
-  console.log("unidata is:", uniData);
 
   const [tabName, setTabName] = useState('posts');
   const [openPostcard, setOpenPostCard] = useState(false);

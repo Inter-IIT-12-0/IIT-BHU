@@ -43,15 +43,13 @@ const University = () => {
             try {
                 const response = await axios.get(`http://localhost:3000/api/alluniversities/`);
                 setUniversityData(response.data);
-                console.log(`Data is:`, response.data);
             } catch (error) {
-                console.error("Error is:", error);
+                console.log(error)
             }
         };
         fetchData(); // Call the async function
     }, []);
     
-    console.log("university data is:",universityData);
 
     return (
         <div className='flex-col flex w-full pt-8 px-6 overflow-x-hidden'>

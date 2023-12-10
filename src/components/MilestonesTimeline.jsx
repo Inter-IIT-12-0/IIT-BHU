@@ -8,7 +8,6 @@ import SingleTimeline from './SingleTimeline'
 const MilestonesTimeline = ({ setTimelineOpen, project }) => {
 
     const currentMilestone = project.milestones.filter(milestone => milestone.status === 'In Progress')[0]
-    console.log(project, currentMilestone)
     return (
         <div className="w-96 h-full ml-20 flex flex-col absolute right-0 top-12 animate-[appear_1s_ease-in-out] z-50">
             <nav className='flex justify-end py-6 items-center'>

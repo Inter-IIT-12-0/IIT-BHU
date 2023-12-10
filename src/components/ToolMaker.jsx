@@ -6,12 +6,10 @@ import { useSession } from 'next-auth/react';
 import { toast } from 'react-hot-toast';
 import Trash from "../../public/Images/trash.svg"
 import Link from 'next/link';
-// import Slider from './Slider';
-import Domains from "../../models/Domains.json"
 
 
 const ToolMaker = () => {
-
+    const Domains = tools.Domains
     const [showDomain, setShowDomain] = useState(false);
     const [showAiTools, setShowAiTools] = useState(false);
     const [domainName, setDomainName] = useState('+Add Domain');
@@ -19,7 +17,7 @@ const ToolMaker = () => {
     const { data: session } = useSession();
     const defaultAiImage = "https://img.freepik.com/premium-vector/ai-technology-digital-artificial-intelligence-future-circuit-electronic-colorful-vector-logo-design_216988-1080.jpg"
 
-    const submitHandler = async () => { 
+    const submitHandler = async () => {
         try {
             setShowDomain(false)
             setShowAiTools(false)
@@ -33,7 +31,6 @@ const ToolMaker = () => {
             window.location.reload()
         } catch (error) {
             console.log(error)
-            toast.error(error.response.data.error)
         }
     }
     const handleDelete = async (name) => {
@@ -43,9 +40,8 @@ const ToolMaker = () => {
             window.location.reload()
         } catch (error) {
             console.log(error)
-            toast.error(error.response.data.error)
         }
-        
+
     }
 
     return (
@@ -58,7 +54,7 @@ const ToolMaker = () => {
 
                     <div className={`flex-1 w-80 p-4 rounded-md bg-[#667188] cursor-pointer ${showDomain ? 'bg-[#ccd0d7] text-[#001338]' : 'text-white'}`} onClick={() => { setShowAiTools(false); setShowDomain(true) }}>
                         <div className="text-Text text-center font-Lato text-xl font-normal leading-normal tracking-wider opacity-50 mt-20">
-                            {domainName}
+                            {domainName.replace("_", " ")}
                         </div>
 
                     </div>
@@ -97,7 +93,7 @@ const ToolMaker = () => {
                     {
                         Domains.map((ele, index) => {
                             return <div key={index} className={`w-[18%] h-40 mr-6 mb-5 border-gray-300 rounded-lg   text-center cursor-pointer ${ele === domainName ? 'bg-neutral-500' : 'bg-neutral-400'} flex justify-center items-center`} onClick={() => { setShowAiTools(false); setDomainName(ele) }}>
-                                {ele}
+                                {ele.replace("_", " ")}
                             </div>
                         })
                     }
@@ -109,8 +105,8 @@ const ToolMaker = () => {
                 <div className='flex flex-row w-[100%]'>
                     {
                         tools.aiTools && tools.aiTools.map((ele, index) => {
-                            return <div key={index} className={`w-[18%] h-40 mr-6 border-gray-300 rounded-lg text-center cursor-pointer ${ele.name === aiToolName ? 'bg-neutral-500' : 'bg-neutral-400'}`} onClick={() => { setAiToolName(ele.name) }}>
-                                {ele.name}
+                            return <div key={index} className={`w-[18%] h-40 mr-6 flex justify-center items-center border-gray-300 rounded-lg text-center cursor-pointer ${ele === aiToolName ? 'bg-neutral-500' : 'bg-neutral-400'}`} onClick={() => { setAiToolName(ele) }}>
+                                {ele}
                             </div>
                         })
                     }
@@ -118,20 +114,25 @@ const ToolMaker = () => {
             </div>}
 
             <div className='ml-8'>
-                <h1 className="text-Text-Black font-Lato text-2xl font-bold leading-normal tracking-tight my-3">Your Personalised Tools</h1>
-                <div className='flex flex-row w-[100%] '>
-                    {
-                        session && session.user.aiTools.map((ele, index) => {
-                            return <div key={index} className='w-[18%] mr-6 justify-around items-center border-gray-300 rounded-lg bg-neutral-400 text-center cursor-pointer flex flex-col relative p-3' >
-                                <Trash className="absolute -top-2 -right-2 z-40 items-center scale-125 " onClick={() => handleDelete(ele.name)}/>
-                                <Link href={`/customTool/${ele.name}`}>
-                                <h2> {ele.name} </h2>
-                                <img src={ele.image} alt={ele.nme} className='w-28 h-28 rounded-xl' />
-                                </Link>
+                {
+                    session && session.user.aiTools.length === 0 ? <></> :
+                        <>
+                            <h1 className="text-Text-Black font-Lato text-2xl font-bold leading-normal tracking-tight my-3">Your Personalised Tools</h1>
+                            <div className='flex flex-row w-[100%] '>
+                                {
+                                    session.user.aiTools.map((ele, index) => {
+                                        return <div key={index} className=' mr-6 justify-around items-center border-gray-300 rounded-lg bg-neutral-400 text-center cursor-pointer flex flex-col relative p-3' >
+                                            <Trash className="absolute -top-2 -right-2 z-40 items-center scale-125 " onClick={() => handleDelete(ele.name)} />
+                                            <Link href={`/customTool/${ele.name}`} className='flex flex-col justify-center items-center'>
+                                                <h2> {ele.name} </h2>
+                                                <img src={`https://ui-avatars.com/api/?name=${ele.name.replace("_", "+")}`} alt={ele.name} className='w-28 h-28 rounded-xl' />
+                                            </Link>
+                                        </div>
+                                    })
+                                }
                             </div>
-                        })
-                    }
-                </div>
+                        </>
+                }
             </div>
 
             {/* {showModal && <SuccessModal setShowModal = {setShowModal} aiToolName = {aiToolName} domainName = {domainName}/>} */}

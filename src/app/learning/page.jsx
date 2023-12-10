@@ -17,18 +17,18 @@ const Learning = () => {
     const [code, setCode] = useState(`cout<<"Your Text Input";`);
 
     const [language, setLanguage] = useState('cpp');
-    const [Final,setChecker] = useState("");
+    const [Final, setChecker] = useState("");
     const [forceRender, setForceRender] = useState(false);
     const handleCodeChange = (event) => {
         setCode(event.target.value);
-    
+
         // Manually highlight the code in the textarea
         const textarea = event.target;
         setForceRender(!forceRender);
         Prism.highlightElement(textarea, false, () => {
-          // Do any additional post-processing if needed
+            // Do any additional post-processing if needed
         });
-      };
+    };
 
     const [response, setResponse] = useState(false);
     const [firstTypewriterFinished, setFirstTypewriterFinished] = useState(false);
@@ -37,28 +37,25 @@ const Learning = () => {
     async function fetchData() {
         try {
 
-          const response = await codecheck(code);
-          const data = await response;
-          if(data)
-          {
-            setChecker("Excellent work!! Your tasks are completed for today. You did a great job, keep it up. Goodbye! see you tomorrow");
+            const response = await codecheck(code);
+            const data = await response;
+            if (data) {
+                setChecker("Excellent work!! Your tasks are completed for today. You did a great job, keep it up. Goodbye! see you tomorrow");
 
-          }
-          else
-          {
-            setChecker("Try again");
-          }
-          setResponse(true);
-          
+            }
+            else {
+                setChecker("Try again");
+            }
+            setResponse(true);
+
         } catch (error) {
-          console.error('Error fetching data:', error.message);
-          throw error;
+            console.log(error)
+            throw error;
         }
-      }
+    }
 
-      
 
-    console.log("the value of code is:", code);
+
 
     return (
         <div>
@@ -116,7 +113,7 @@ const Learning = () => {
                             onChange={handleCodeChange}
                         ></textarea>
 
-                        <div><button type="submit" className="text-white mb-4 py-1 px-3 rounded-full bg-black" onClick={()=>fetchData()}>Submit</button></div>
+                        <div><button type="submit" className="text-white mb-4 py-1 px-3 rounded-full bg-black" onClick={() => fetchData()}>Submit</button></div>
                     </div>
                     <div className="bg-gray-800 w-[30%] h-full ml-3 ax-h-[90vh] overflow-y-scroll rounded-2xl p-3">
                         <div className="bg-black rounded-2xl p-2 h-[87vh]">
@@ -125,16 +122,16 @@ const Learning = () => {
                             </div>
                             <div className="p-3 rounded-3xl border border-gray-400 shadow-xl mt-5 ml-2 font-semibold text-white">
                                 {response &&
-                                <Typewriter options={{
-                                    autoStart: true,
-                                    loop: false,
-                                    delay: 30,
-                                    deleteSpeed: 10000000000000000000000000000,
+                                    <Typewriter options={{
+                                        autoStart: true,
+                                        loop: false,
+                                        delay: 30,
+                                        deleteSpeed: 10000000000000000000000000000,
 
-                                    strings: [Final],
-                                    cursor: ''
-                                }} />
-                            }
+                                        strings: [Final],
+                                        cursor: ''
+                                    }} />
+                                }
 
                             </div>
                         </div>

@@ -66,13 +66,11 @@ export async function GPT(messages) {
     const message = res_message["choices"][0]["message"]["content"];
     const signal = res_message["choices"][0]["finish_reason"];
     if (signal !== "length") {
-      console.log(message);
       return JSON.parse(message);
     }
     return { Error: "Token limit insufficient." };
   } catch (error) {
     // Handle fetch request errors
-    console.log(error);
   }
 }
 

@@ -4,12 +4,24 @@ import Navbar from "../components/Navbar";
 import StudentSidebar from "../components/StudentSidebar";
 import axios from "axios";
 import { useSession } from "next-auth/react";
+import {useRouter} from "next/navigation"
+import toast from "react-hot-toast";
+import { getCookie } from "cookies-next"
 
 const Home = () => {
+
+  // const router = useRouter()
+  // useEffect(() => {
+  //   const loggedIn = getCookie('loggedIn')
+  //   if (loggedIn !== "true") {
+  //     return router.push('/onboarding')
+  //   }
+  // }, []);
+
   const { data: session } = useSession()
-  let value1 = Math.floor(Math.random()*10000);
-  let value2 = Math.floor(Math.random()*10000);
-  let value3 = Math.floor(Math.random()*10000);
+  let value1 = 0
+  let value2 = 0
+  let value3 = 0
 
   const [userData, setUserData] = useState(null)
   const [myprojects, setMyProjects] = useState(null)
@@ -29,19 +41,22 @@ const Home = () => {
   const year = today.getFullYear();
   const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
+
   useEffect(() => { //! User details are fetched here
     const fetchdata = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/user?id=${session.user._id}`);
+        if(session) {
+          const response = await axios.get(`http://localhost:3000/api/user?id=${session.user._id}`);
         const myProjects = await axios.get(`http://localhost:3000/api/myprojects`);
         setUserData(response.data);
         setMyProjects(myProjects.data);
+        }
       } catch (error) {
-        console.log("error is:", error);
+        console.log(error)
       }
     }
     fetchdata();
-  }, [session])
+  }, [])
 
   const [taskName, setTaskName] = useState("PROJECT STATUS");
   const [projectStat, setProjectStat] = useState("ACTIVE");

@@ -48,7 +48,6 @@ const Project = ({ project, setOpenedProj, selected }) => {
                 ],
                 project: project._id
             }).then(res => {
-                console.log(res.data)
                 router.push(`/createBid/${project._id}`)
             })
         } catch (error) {
@@ -57,7 +56,8 @@ const Project = ({ project, setOpenedProj, selected }) => {
     }
 
     useEffect(() => {
-        axios.get('/api/myTeams').then(res => setMyTeam(res.data.filter(team => team.project === project._id).length !== 0 ? res.data.filter(team => team.project === project._id)[0] : {})).catch(console.log)
+        axios.get('/api/myTeams').then(res => setMyTeam(res.data.filter(team => team.project === project._id).length !== 0 ? res.data.filter(team => team.project === project._id)[0] : {})).catch(err => toast.error(err.response.data.error))
+
     }, [])
 
     return (

@@ -9,6 +9,7 @@ import recommend from "../pages/api/recommendation/recommend";
 import axios from "axios";
 import Yellow_Star from "../../public/Images/Yellow_Star.svg"
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 export const ChatbotCard = ({ isOpen }) => {
   const [messages, setMessages] = useState([]);
@@ -25,20 +26,24 @@ export const ChatbotCard = ({ isOpen }) => {
   const [userChat, setUserChat] = useState("")
   const [projectChat, setProjectChat] = useState("")
   const [gotResponse, setGotResponse] = useState(false)
+  const {data:session} = useSession()
 
   useEffect(() => { //! The chat bot is loaded with ll the persons through an apicall
-    axios.get('/api/allusers/')
+    if (session) {
+      axios.get('/api/allusers/')
       .then(res => { // Log the response to the console
 
         setUser(res.data);
 
       })
-      .catch(err => console.log(err));
+      .catch(err => toast.error(err.response.data.error)
+      );
 
     axios.get('/api/allprojects/')
       .then(res => {
         setProjects(res.data);
       });
+    }
 
   }, []);
   const submitHandler = (e) => {
@@ -66,7 +71,6 @@ export const ChatbotCard = ({ isOpen }) => {
       chat,
       messages, setMessages
     );
-    console.log(messages);
     await generate(messages, result, setResult, setMessages);
     setChat("");
   };
@@ -77,10 +81,7 @@ export const ChatbotCard = ({ isOpen }) => {
     setGotResponse(false)
     const obj = await recommend(chat);
     setGotResponse(true)
-    console.log(obj);
-    console.log(user)
     if (obj) {
-      console.log(user.filter(person => person.domain.some(domainElement => obj.includes(domainElement))));
       setFiltered(user.filter(person => person.domain.some(domainElement => obj.includes(domainElement))));
 
     }
@@ -93,7 +94,6 @@ export const ChatbotCard = ({ isOpen }) => {
     setGotResponse(false)
     const obj = await recommendProject(chat);
     setGotResponse(true)
-    console.log(obj);
     if (obj) {
       setFilteredProjects(projects.filter(project => project.domain.some(domainElement => obj.includes(domainElement))));
 

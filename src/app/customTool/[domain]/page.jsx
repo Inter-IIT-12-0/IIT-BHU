@@ -33,7 +33,6 @@ const CustomisedTool = ({params}) => {
             message, setMessage
         );
         await generate(message, result, setResult, setMessage);
-        console.log(message);
         setChat("");
     };
 
@@ -50,7 +49,7 @@ const CustomisedTool = ({params}) => {
         <StudentSidebar/>
         <main className='w-[90vw] h-[90vh] flex flex-row items-center relative p-8'>
             <div className='flex flex-col'>
-                <div className='rounded-xl border border-gray-500 shadow-2xl mr-10 font-semibold p-4 ml-10 text-2xl w-72'>Hello I am <b>{domain}</b> Ai Tool <br /> How may I help you Today ?</div>
+                <div className='rounded-xl border border-gray-500 shadow-2xl mr-10 font-semibold p-4 ml-10 text-2xl w-72 break-words'>Hello I am <b>{domain}</b> Ai Tool <br /> How may I help you Today ?</div>
                 <img src="https://i.pinimg.com/originals/79/04/42/7904424933cc535b666f2de669973530.gif" className='h-60 pr-0' alt="" />
             </div>
             <div className='w-[50vw] h-[85vh] relative rounded-2xl bg-white border border-gray-500 shadow-lg'>

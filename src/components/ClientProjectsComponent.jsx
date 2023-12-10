@@ -3,7 +3,6 @@ import axios from "axios";
 import { getSession } from "next-auth/react";
 
 const ClientProjectComponent = ({ teamId, bidAmount }) => {
-    console.log("the data that I wanted is:", teamId, bidAmount);
     const test_client_Id = "656af2a4acba1f116ca953e6";
     const [projectData, setProjectData] = useState(null);
     useEffect(() => {
@@ -11,24 +10,20 @@ const ClientProjectComponent = ({ teamId, bidAmount }) => {
             try {
                 const session = await getSession();
                 const id = session.user._id;
-                console.log('id is:',id);
                 const response = await axios.get(`http://localhost:3000/api/clientprojects?clientId=${id}`);
                 setProjectData(response.data);
-                console.log(`Data is:`, response.data);
             } catch (error) {
-                console.error("Error is:", error);
+                console.log(error)
             }
         };
-        fetchData(); // Call the async function
+        fetchData();
     }, []);
 
-    console.log("project data is:", projectData);
 
     return (
         // <></>
         <div className="w-[75%]">   
             {projectData && projectData.filter((ele) => ele.assignedTeam._id === teamId).map((ele) => {
-                console.log("me chal rha hu")
                 return <div className="p-8">
                     <div className="flex justify-between">
                         <div className="flex flex-row">

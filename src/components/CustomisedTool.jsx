@@ -28,9 +28,8 @@ const CustomisedTool = ({domain}) => {
       chat,
       message, setMessage
     );
-    await generate(message, result, setResult, setMessage);
-    console.log(message);
     setChat("");
+    await generate(message, result, setResult, setMessage);
   };
 
   useEffect(() => {

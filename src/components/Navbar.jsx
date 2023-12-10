@@ -7,9 +7,11 @@ import { signOut, useSession } from "next-auth/react"
 import Link from "next/link"
 import Footer from "./Footer"
 import { useEffect, useState } from "react"
-import { deleteCookie } from 'cookies-next';
+import { deleteCookie} from 'cookies-next';
 import {useRouter} from 'next/navigation'
 import Notifications from "./Notifications"
+import { destroyCookie } from "next/dist/compiled/@edge-runtime/cookies";
+
 
 const Navbar = () => {
   const { data: session } = useSession()
@@ -21,6 +23,7 @@ const Navbar = () => {
   const handleLogout = () => {
     deleteCookie("role")
     deleteCookie("newUser")
+    deleteCookie('loggedIn')
     signOut()
     router.push('/onboarding')
   }
@@ -60,7 +63,7 @@ const Navbar = () => {
               </img>
               {
                 click &&
-                <div className="flex flex-col absolute top-10 w-32 -left-6 px-5 py-2 rounded-b-xl bg-sky-600 text-white">
+                <div className="flex flex-col absolute top-10 w-32 -left-6 px-5 py-2 rounded-b-xl z-40 bg-sky-600 text-white">
                   <Link href={`/profile/${session.user._id}`}>
                     View Profile
                   </Link>

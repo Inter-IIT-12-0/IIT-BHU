@@ -17,8 +17,7 @@ const SubOptionForm = ({ subOption, onClose }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    onClose(); // Close the form after submission
+    onClose();
   };
 
   return (
