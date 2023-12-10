@@ -181,14 +181,6 @@ export const ChatbotCard = ({ isOpen }) => {
                   </div>
                   <div> {project.domain[0]} </div>
                 </div>
-                <div className="text-sky-500 flex items-center">
-                  {
-                    ['In review', 'Open'].includes(project.status) &&
-                    <Link href={`/createBid/${project._id}`} target="_blank">
-                    Create Bid
-                  </Link>
-                  }
-                </div>
               </div>
             ))}
 
