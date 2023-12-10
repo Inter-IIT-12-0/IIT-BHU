@@ -12,7 +12,6 @@ const handler = async (req, res) => {
         const id = session.user._id;
         const role = session.user.role;
 
-        console.log("the data that I wanted is:",id,role);
 
         try {
             // const user = await User.findOne({ _id: id })
@@ -59,7 +58,6 @@ const handler = async (req, res) => {
                     });
                 res.status(200).json(user.projects);
             } else {
-                console.log(id)
                 const teams = await Team.find({ 'status': 'Accepted', 'teamUserMap.user': id })
                 .populate({
                     path: 'project',
@@ -79,8 +77,7 @@ const handler = async (req, res) => {
                         }
                     ]
                 });
-                    console.log("teams are:",teams)
-                    res.status(200).json(teams.map((team => team.project)));
+                    res.status(200).json(teams);
             }
         } catch (error) {
             console.error(error);

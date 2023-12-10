@@ -1,7 +1,6 @@
 import React from "react";
 
 const Projects = ({ projects }) => {
-    console.log("projects ontained are :", projects);
     return (
         <div>
             <div className="w-full p-8 bg-blue-100 rounded mt-8">

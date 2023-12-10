@@ -8,7 +8,6 @@ const handler = async (req, res) => {
       const teams = await Team.find({}, '-__v').
       populate('proposal', '-id -_v')
       .populate('teamUserMap.user', '-__v -role -fees -sectorName -companyName -aiTools -aiToolsLimit');
-        console.log(teams);
       res.status(200).json(teams);
     } catch (error) {
       console.error(error);

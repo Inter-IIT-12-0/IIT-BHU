@@ -44,11 +44,9 @@ const SubMilestoneCard = ({ submilestone, setSelectedSubmilestone, project, setT
   const [isOpen2, setOpen2] = useState(1);
   const handleFileChange = (e) => {
     const files = Array.from(e.target);
-    console.log(files);
     setSelectedFiles((prevFiles) => [...prevFiles, files]);
   };
   useEffect(() => {
-    console.log(project.activities);
   }, []);
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -60,7 +58,7 @@ const SubMilestoneCard = ({ submilestone, setSelectedSubmilestone, project, setT
       const response = await axios.patch(`/api/project/${project._id}`, existingProject);
 
     } catch (error) {
-      console.error('Error submitting data:', error.message);
+      console.log(error)
     }
 
     setOpen(0);
@@ -69,14 +67,13 @@ const SubMilestoneCard = ({ submilestone, setSelectedSubmilestone, project, setT
     e.preventDefault();
 
     try {
-      console.log("Work")
       const { data: existingProject } = await axios.get(`/api/project/${project._id}`);
       existingProject.work.push({ title: docName, url: docUrl });
       existingProject.activities.push({ submilestone, type: 'CREATE', timestamp: Date.now(), user: session.user._id, message: "Added the file" + docName + "in the submilestone by giving its URL" });
       const response = await axios.patch(`/api/project/${project._id}`, existingProject);
       toast.success("Added Work")
     } catch (error) {
-      console.error('Error submitting data:', error.message);
+      console.log(error)
     }
 
     setOpen(0);

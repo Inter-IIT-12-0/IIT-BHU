@@ -23,7 +23,8 @@ const Project = ({ params }) => {
     axios.get(`/api/project/${id}`)
       .then(res => {
         setProject(res.data);
-      }).catch(err => console.log(err));
+      }).catch(err => toast.error(err.response.data.error)
+      );
   }, [selectedSubmilestone])
 
   return (

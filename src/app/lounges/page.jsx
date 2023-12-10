@@ -48,7 +48,7 @@ const Lounges = ({ }) => {
       
 
     } catch (err) {
-      console.error(err);
+      toast.error(err.response.data.error)
     }
   };
 
@@ -58,7 +58,7 @@ const Lounges = ({ }) => {
       setLounges(res.data);
       setDomains(getAllDomainsFromLounges(res.data));
     } catch (err) {
-      console.error(err);
+      toast.error(err.response.data.error)
     }
   };
 
@@ -66,8 +66,6 @@ const Lounges = ({ }) => {
     fetchData();
     recommendation();
   }, []);
-
-  console.log("lounges data is:",lounges);
 
   const arrOficons = [
     {

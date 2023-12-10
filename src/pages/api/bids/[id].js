@@ -15,9 +15,7 @@ const handler = async (req, res) => {
     const clientId = session.user._id;
     if(req.method === 'GET') {
         const {id} = req.query
-        console.log(id)
         const project = await Project.findById(id)
-        console.log(project)
         const teams = await Team.find({project: id, 
             status: { $in: ['Pending', 'Reviewed'] }
         })

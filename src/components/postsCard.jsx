@@ -5,8 +5,6 @@ const PostCard = ({tabName, ele, details}) => {
 
     const description = ele.description;
     const followers = ele.followers;
-    console.log("details are:",details);
-    console.log("description is:",description);
 
     return (
         <div className="flex flex-row">

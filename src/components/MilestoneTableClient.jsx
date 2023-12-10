@@ -8,7 +8,6 @@ const MilestoneTableClient = ({ project }) => {
     const [milestone, setMilestone] = useState(project.milestones[selectedMilestoneNum - 1])
 
     const handlePayment = async () => {
-        console.log("clicked")
         milestone.paymentCompleted = true
         let proj = {...project}
         proj.milestones = proj.milestones.map(mil => {
@@ -24,7 +23,6 @@ const MilestoneTableClient = ({ project }) => {
         if(response.status === 200) {
             toast.success("Payment Approved")
         }
-        console.log(response)
     }
 
     return (

@@ -22,7 +22,6 @@ const MyProjects = () => {
 	useEffect(() => { //! Fetches all my projects through api call
 		setLoading(true);
 		axios.get(`/api/myprojects`).then(res => {
-			console.log(res.data)
 			setProjects(res.data)
 			setLoading(false)
 		}).catch(console.error)
@@ -56,9 +55,9 @@ const MyProjects = () => {
 									}
 									<div className='pl-8 flex w-full flex-wrap'>
 										{
-											Projects.filter(project => (selectedOption === "Completed" ? project.status === "Completed" : true) && !!!project.assignedTeam).length === 0 ? "None" : Projects.filter(project => (selectedOption === "Completed" ? project.status === "Completed" : true) && !!!project.assignedTeam).map(project => {
+											Projects.length !== 0 ? Projects.filter(project => (selectedOption === "Completed" ? project.status === "Completed" : true) && !!!project.assignedTeam).length === 0 ? "None" : Projects.filter(project => (selectedOption === "Completed" ? project.status === "Completed" : true) && !!!project.assignedTeam).map(project => {
 												return <MyBidsCard key={project._id} project={project} />
-											})
+											}) : <div className="w-full h-full flex justify-center items-center"> No Projects Found </div>
 										}
 									</div>
 									{
@@ -67,9 +66,9 @@ const MyProjects = () => {
 											<h2 className="font-semibold text-xl ml-8 mt-8"> Live Projects </h2>
 											<div className=' pl-8 flex flex-wrap '>
 												{
-													Projects.filter(project => !!project.assignedTeam).map(project => {
+													Projects.length !== 0 ? Projects.filter(project => !!project.assignedTeam).map(project => {
 														return <MyProjectCard key={project._id} project={project} />
-													})
+													}) : <div className="w-full h-full flex justify-center items-center"> No Projects Found </div>
 												}
 											</div>
 										</>
@@ -77,9 +76,9 @@ const MyProjects = () => {
 								</div> :
 								<div className='w-full h-[90vh] flex flex-wrap px-5'>
 									{
-										Projects.map(project => {
+										Projects.length !== 0 ? Projects.map(project => {
 											return <MyProjectCard key={project._id} project={project} />
-										})
+										}) : <div className="w-full h-full flex justify-center items-center"> No Projects Found </div>
 									}
 								</div>
 					}

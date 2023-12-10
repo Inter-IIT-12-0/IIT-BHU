@@ -18,11 +18,10 @@ const ActivityBar = ({ activities }) => {
             setLoading(true)
             const response = await summariseActivity(modifiedActivityArray);
             setLoading(false)
-            console.log(response);
             setReport(response)
 
         } catch (error) {
-            console.error('Error fetching data:', error);
+            console.log(error)
         }
     };
     useEffect(() => {

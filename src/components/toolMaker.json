@@ -1,21 +1,21 @@
 {
     "Domains": [
-        {
-            "name": "Engineering"
-        },
-        {
-            "name": "Research Documentation"
-        }
+        "UI/UX_Designing",
+        "Engineering",
+        "Product_Management",
+        "Data_Analysis",
+        "Consultancy",
+        "Research",
+        "Software_Development",
+        "Marketing_and_Branding",
+        "Business_Development",
+        "Project_Management",
+        "Sustainability",
+        "AI/ML"
     ],
     "aiTools": [
-        {
-            "name": "ChatGpt"
-        },
-        {
-            "name": "Bard"
-        },
-        {
-            "name": "Copilot"
-        }
+        "GPT",
+        "Bard",
+        "Copilot"
     ]
 }

@@ -20,9 +20,8 @@ const ProjectNameComp = () => {
                 setUserId(session.user._id);
                 const response = await axios.get('http://localhost:3000/api/allteams/');
                 setAllTeamsData(response.data);
-                console.log(`Data is:`, response.data);
             } catch (error) {
-                console.error("Error is:", error);
+                console.log(error)
             }
         };
         fetchData(); // Call the async function
@@ -43,7 +42,6 @@ const ProjectNameComp = () => {
         }
     }, [filteredTeams]);
 
-    console.log("all teams are:",teams, filteredTeams);
 
     const mtdata = filteredTeams && filteredTeams
         .filter((ele) => ele._id === teamId) // Filter by teamName
@@ -51,16 +49,13 @@ const ProjectNameComp = () => {
             return ele.teamUserMap
         });
 
-    console.log("mtdata is:",mtdata);
 
     const handldeInputChange = (event) => {
         const inputValue = event.target.value;
-        console.log("input value is:",inputValue);
         const searchedTeam = filteredTeams.filter((team) => team.teamName && team.teamName.toLowerCase().includes(inputValue.toLowerCase()));
         setTeams(searchedTeam);
     }
 
-    console.log("abhi ka data is:",teamId,mtdata)
 
     const Recieved = teams && teams.length;
 

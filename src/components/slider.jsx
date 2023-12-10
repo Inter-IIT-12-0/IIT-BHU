@@ -10,7 +10,6 @@ import 'swiper/css/navigation';
 import { EffectCoverflow, Pagination, Navigation } from 'swiper/modules';
 
 function Slider({ users }) {
-  console.log("users are 123e:", users)
   return (
     <div className="container w-full">
       <Swiper

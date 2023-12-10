@@ -17,9 +17,9 @@ const ViewBids = ({ project_id }) => {
   const [openingTeam, setOpenTeam] = useState({})
   useEffect(() => {
     axios.get(`/api/bids/${project_id}`).then(res => {
-      console.log(res.data)
       setBids(res.data.teams)
-    }).catch(console.log)
+    }).catch(err => toast.error(err.response.data.error))
+
   }, [])
 
   const handleView = (team) => {

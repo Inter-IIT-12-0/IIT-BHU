@@ -22,11 +22,10 @@ const People = () => {
     const fetchData2 = async () => {
         try {
             const response = await axios.get('/api/allusers/');
-            console.log("role is:", role);
             setUser(response.data.filter(person => person.role === role));
             setFilteredPeople(response.data.filter(person => person.role === role));
         } catch (error) {
-            console.log("error is:", error);
+            console.log(error)
         }
     }
 
@@ -34,11 +33,10 @@ const People = () => {
         const fetchData = async () => {
             try {
                 const response = await axios.get('/api/allusers/');
-                console.log("role is:", role);
                 setUser(response.data.filter(person => person.role === 'Student'));
                 setFilteredPeople(response.data.filter(person => person.role === 'Student'));
             } catch (error) {
-                console.log("error is:", error);
+                console.log(error)
             }
         }
         fetchData();
@@ -53,7 +51,6 @@ const People = () => {
     };
     const [searchQuery, setSearchQuery] = useState('');
     const handleDomainClick = (option) => {
-        console.log(option);
         setDomain(option);
         setShowDomainDropdown(false);
         if (searchQuery) {
@@ -162,7 +159,7 @@ const People = () => {
                                                         value={searchQuery}
                                                         onChange={handleInputChange}
                                                         id="simple-search"
-                                                        className="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-blue-50 focus:ring-primary-500 focus:border-primary-500 dark:bg-blue-200 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"></input>
+                                                        className="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-blue-50 focus:ring-primary-500 focus:border-primary-500 dark:bg-blue-200 dark:border-gray-600 dark:focus:ring-primary-500 dark:focus:border-primary-500"></input>
                                                 </div>
                                             </form>
                                         </div>
@@ -271,18 +268,19 @@ const People = () => {
                         </div>
                         <div className="grid gap-8 mb-6 lg:mb-16 grid-cols-2 xl:grid-cols-3">
                             {filteredPeople && filteredPeople.map((person, index) => {
-                                console.log("person is:", person)
                                 return <div key={index} className="flex justify-between items-center bg-white shadow sm:flex dark:bg-blue-200 dark:border-gray-700 border rounded-2xl border-slate-500 pr-6">
                                     <div className='flex flex-col ml-5 top-0 items-center pt-6 h-full'>
                                             <img className="h-12 w-12 rounded-full m-0 p-0" src={person.avatarUrl} alt={`${person.name} Avatar`} />
                                         <h1>Domain</h1>
                                     </div>
                                     <div className="p-5">
-                                        <h3 className="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+                                        <h3 className="text-xl font-bold tracking-tight text-gray-700">
                                             <a href="#">{person.name}</a>
                                         </h3>
                                         <h1>{role === 'Student' ? person.companyName : person.institute}</h1>
-                                        <span className="text-gray-500 dark:text-gray-400">{person.domain}</span>
+                                        <span className="text-gray-600">{person.domain.map(dom => (
+                                            <span> {dom}, </span>
+                                        ))}</span>
                                         {/* <p className="mt-3 mb-4 font-light text-gray-500 dark:text-gray-400">{person.email}</p> */}
                                         <ul className="flex space-x-4 sm:mt-0">
                                             {person.socialMedia.map((social, socialIndex) => (
@@ -299,7 +297,6 @@ const People = () => {
                                     </div>
                                     <div className='flex flex-col py-5 justify-between h-full'>
                                         <h1>{person.rating}/5.0</h1>
-                                        <img className='h-8' src="/Images/Heart_Icon_UIA.svg" alt="" />
                                     </div>
                                 </div>
                             })}

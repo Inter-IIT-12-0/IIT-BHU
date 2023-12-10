@@ -2,7 +2,6 @@ import React from "react";
 import BadgeCheck from '../../public/Images/BadgeCheck.svg'
 
 const ProfileSidebar = ({name, occupation, institute, tools, skills, professionalInto}) => {
-    console.log("tools are :",tools);
     // <ProfileSidebar key={ele.email + "user"} name={ele.name} occupation = {ele.occupation} institute = {ele.institute} tools = {ele.tools} skills = {ele.skills} professionalInto = {ele.professionalIntroduction} />
 
     return (

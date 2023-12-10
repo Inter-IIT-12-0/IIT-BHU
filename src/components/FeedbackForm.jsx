@@ -31,20 +31,6 @@ const FeedbackForm = ({project}) => {
         setInputValue2(event.target.value);
     };
 
-    // const [project, setProject] = useState(null);
-
-    // const id = "6572e6b980069dea3cd98241";
-    // useEffect(() => {
-    //     axios.get(`/api/project/${id}`)
-    //         .then(res => {
-    //             console.log(res.data);
-    //             setProject(res.data);
-    //         }).catch(err => console.log(err));
-    // }, [])
-
-    //   console.log(project);
-
-    //   console.log("input values are:",inputValue," ",inputValue2);
     let requestBody = {
         "user_id": domain,
         "collabRating": parseInt(inputValue2),
@@ -53,13 +39,12 @@ const FeedbackForm = ({project}) => {
 
     const submitFeedbackForm = () => {
         try {
-            axios.patch(`/api/user/`, requestBody).then(console.log("request made successfully"));
+            axios.patch(`/api/user/`, requestBody).then(toast.success("Feedbck sent"));
         } catch (error) {
-            console.log(`error is ${error}`);
+            console.log(error)
         }
     }
 
-    console.log("request body is:", requestBody);
 
     return (
         <>

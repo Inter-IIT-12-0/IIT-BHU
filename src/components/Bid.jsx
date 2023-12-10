@@ -26,7 +26,6 @@ const Bid = ({team, setOpenBid}) => {
     const router = useRouter()
 
     const handleAccept = () => {
-        console.log(team.project, team.proposal)
         axios.patch(`/api/project/${team.project}`, {
             milestones: team.proposal.milestones,
             assignedTeam: team._id
@@ -36,7 +35,8 @@ const Bid = ({team, setOpenBid}) => {
             }).then(res => {
                 toast.success("Bid Accepted Successfully")
                 router.push("/myprojects")
-            }).catch(console.log)
+            }).catch(err => toast.error(err.response.data.error))
+
         })
     }
 

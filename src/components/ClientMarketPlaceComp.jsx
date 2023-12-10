@@ -32,7 +32,8 @@ const ClientMarketPlaceComponent = () => {
             const response = await axios.get(`/api/allteams`);
             setAllTeams(response.data);
         } catch (error) {
-            console.log("error is:", error);
+            console.log(error)
+
         }
     }
 
@@ -43,20 +44,18 @@ const ClientMarketPlaceComponent = () => {
             setData1(response.data);
             setData(response.data)
         } catch (error) {
-            console.log("error is:", error);
+            console.log(error)
         }
     }
 
     const handleInputChange = (event) => {
         const inputValue = event.target.value;
-        console.log(inputValue)
         const filteredData = data1.filter(users => users?.name?.toLowerCase().includes(inputValue.toLowerCase()))
         setData(filteredData);
     }
 
     const handleInputChange2 = (event) => {
         const inputValue = event.target.value;
-        console.log(inputValue)
         const filteredData = data1.filter(team => team?.teamName?.toLowerCase().includes(inputValue.toLowerCase()))
         setData(filteredData);
     }

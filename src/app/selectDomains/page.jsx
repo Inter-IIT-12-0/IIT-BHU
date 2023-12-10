@@ -37,7 +37,7 @@ const OnBoarding2 = () => {
 
   return (
     <div className="h-full w-full">
-      <div class="bg-cover bg-center  " style={{ "background-image": "url('./Rectangle.png');" }}>
+      <div class="bg-cover bg-center  " style={{ "backgroundImage": "url('./Rectangle.png');" }}>
         <div className=" justify-center items-center w-100 ml-20 ">
           <div className="glass-card bg-white bg-opacity-80 rounded-md p-8 shadow-lg mt-2">
             <h1 className="text-2xl font-medium leading-normal ml-16 text-black-600 font-helvetica-neue text-center mb-12">

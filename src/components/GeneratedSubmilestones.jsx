@@ -2,7 +2,6 @@ import React from 'react'
 import PlusIcon from "../../public/Images/PlusIcon.svg"
 import BackArrow_Icon from "../../public/Images/BackArrow_Icon.svg"
 const GeneratedSubmilestones = ({ aiGenerated, milestones, setAiGenerated, setPresentPage }) => {
-  // console.log(milestones)
   return (
 
     <div className=' w-full py-4 px-10 font-sans '>

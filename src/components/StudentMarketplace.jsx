@@ -25,34 +25,26 @@ const StudentMarketplace = ({projects, setOpenedProj, selected, setSelected}) =>
                 setMyBids(response1.data)
             }
         } catch (error) {
-            console.log("error is:",error);
+            console.log(error)
         }
     }
-    console.log("my bids are:",myBids);
 
     return (
         <div className='w-full h-full overflow-x-hidden flex flex-col'>
             <Filterbar status={status} setStatus={setStatus} payment={payment} setPayment={setPayment} domain={domain} setDomain={setDomain} setSearch={setSearch} search={search} selected={selected} setSelected={setSelected} />
             <div className='h-full p-8 max-h-[70vh] overflow-scroll overflow-y-auto overflow-x-hidden'>
                 {
-                    projects && projects.filter(project => {
-                        return projectSearch(search, location, status, payment, domain, project)
-                    }).map(project => {
-                        return <ProjectCard key={project._id} project={project} setOpenedProj={setOpenedProj} selected={selected}/>
-                    })
-                }
-                {
                     session && (
-                        selected === 'All' ? projects && projects.filter(project => {
+                        selected === 'All' ? projects.length !== 0 ? projects.filter(project => {
                             return projectSearch(search, location, status, payment, domain, project)
                         }).map(project => {
                             return <ProjectCard key={project._id} project={project} setOpenedProj={setOpenedProj} selected={selected}/>
-                        }) : 
-                        myBids && myBids.filter(bid => {
+                        }) : <div className="w-full h-full flex justify-center items-center"> No Projects Found </div> : 
+                        myBids && myBids.length !== 0 ? myBids.filter(bid => {
                             return projectSearch(search, location, status, payment, domain, bid.project)
                         }).map(bid => {
                             return <ProjectCard key={bid._id} project={bid.project} setOpenedProj={setOpenedProj} selected={selected}/>
-                        })
+                        }) : <div className="w-full h-full flex justify-center items-center"> No Bids Found </div>
                     )
                 }
             </div>

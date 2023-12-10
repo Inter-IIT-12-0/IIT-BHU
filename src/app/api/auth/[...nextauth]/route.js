@@ -4,8 +4,9 @@ import connectDb from "../../../../../middlewares/mongoose";
 import User from "../../../../../models/User"
 import { cookies } from "next/headers";
 import { getCookie, getCookies, setCookie } from "cookies-next";
+import { useCookies } from 'react-cookie';
 
-export const authOptions =  {
+export const authOptions = {
     providers: [
         GoogleProvider({
             clientId: process.env.GOOGLE_ID,
@@ -25,21 +26,24 @@ export const authOptions =  {
         },
         async signIn({ profile }) {
             try {
-                console.log(profile)
-                const {role} = getCookies({res, req})
+                const { role } = getCookies({ res, req })
                 const existingUser = await User.findOne({ email: profile.email })
                 if (!existingUser) {
-                    const user = await User.create({
-                        email: profile.email,
-                        name: profile.name,
-                        avatarUrl: profile.picture,
-                        role
-                    })
-                    setCookie('newUser', true, {cookies})
+                    if (role === 'Student' || role === 'Client' || role === 'Professor') {
+                        await User.create({
+                            email: profile.email,
+                            name: profile.name,
+                            avatarUrl: profile.picture,
+                            invites: [],
+                            role
+                        })
+                    }
+                    setCookie('newUser', true, { cookies })
                 }
                 else {
-                    setCookie('newUser', false, {cookies})
+                    setCookie('newUser', false, { cookies })
                 }
+                setCookie('loggedIn', true, { cookies })
                 return true
             } catch (error) {
                 console.log(error)
@@ -51,9 +55,7 @@ export const authOptions =  {
 
 const handler = connectDb(
     async function auth(req, res) {
-        // req.hi = "Hi"
-        // console.log(req)
-        return await NextAuth(req,res, {
+        return await NextAuth(req, res, {
             providers: [
                 GoogleProvider({
                     clientId: process.env.GOOGLE_ID,
@@ -73,8 +75,7 @@ const handler = connectDb(
                 },
                 async signIn({ profile }) {
                     try {
-                        console.log(profile)
-                        const {role} = getCookies({res, req})
+                        const { role } = getCookies({ res, req })
                         const existingUser = await User.findOne({ email: profile.email })
                         if (!existingUser) {
                             if (role === 'Student' || role === 'Client' || role === 'Professor') {
@@ -86,11 +87,12 @@ const handler = connectDb(
                                     role
                                 })
                             }
-                            setCookie('newUser', true, {cookies})
+                            setCookie('newUser', true, { cookies })
                         }
                         else {
-                            setCookie('newUser', false, {cookies})
+                            setCookie('newUser', false, { cookies })
                         }
+                        setCookie('loggedIn', true, { cookies })
                         return true
                     } catch (error) {
                         console.log(error)

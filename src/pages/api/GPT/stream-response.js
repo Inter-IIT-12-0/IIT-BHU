@@ -14,7 +14,6 @@ let controller = null; // Store the AbortController instance
 
 export const generate = async (domain, tool, input, result, setResult) => {
   // Alert the user if no prompt value
-  console.log(process.env.NEXT_PUBLIC_OPENAI_API_KEY);
   if (!input) {
     alert("Please enter a prompt.");
     return;
@@ -29,7 +28,6 @@ export const generate = async (domain, tool, input, result, setResult) => {
 
   try {
     const messages = messageGenerator(domain, tool, input);
-    console.log(messages);
     // Fetch the response from the OpenAI API with the signal from AbortController
     const response = await fetch(API_URL, {
       method: "POST",
@@ -81,7 +79,6 @@ export const generate = async (domain, tool, input, result, setResult) => {
       setResult("Request aborted.");
     } else {
       /* console.error("Error:", error); */
-      console.log(domain, tool, input, result, setResult);
       setResult("Error occurred while generating.");
     }
   } finally {

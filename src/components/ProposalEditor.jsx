@@ -5,8 +5,6 @@ const MyStatefulEditor = (props) => {
   const [value, setValue] = useState(RichTextEditor.createEmptyValue());
   const onChange = (value) => {
     setValue(value);
-    console.log((value.toString('html').replace(/<\/?[^>]+(>|$)/g, "")
-    ));
     if (props.onChange) {
       props.onChange(value.toString('html'));
     }

@@ -35,8 +35,6 @@ async function generateMessages(milestones) {
 
 export default async function createSubMilestones(milestones) {
   const messages = await generateMessages(milestones);
-  //   console.log(messages);
   const json_response = await GPT(messages);
-  console.log(json_response);
   return json_response;
 }

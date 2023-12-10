@@ -52,7 +52,6 @@ const Form1 = () => {
             ...prevData,
             [name]: value,
         }));
-        console.log(formData)
     };
 
     const domainHandler = (domain) => {
@@ -101,7 +100,6 @@ const Form1 = () => {
                 setLoading(false);
             }
             setProgress(prev => prev + 33);
-            console.log(formData)
         }
         else {
             const data = {
@@ -124,7 +122,6 @@ const Form1 = () => {
                 domain: formData.industry,
                 location: formData.location,
             }
-            console.log(data)
             axios.post('/api/project', data).then(res => {
                 axios.patch(`/api/user/?userId=${session.user._id}`, {
                     projects: [
@@ -134,7 +131,8 @@ const Form1 = () => {
                 }).then(res => {
                     toast.success('Project created successfully')
                     router.push("/marketplace")
-                }).catch(console.log)
+                }).catch(err => toast.error(err.response.data.error))
+
             }).catch(err => {
                 toast.error(err.response.data.error)
             })
@@ -154,7 +152,6 @@ const Form1 = () => {
             newFormData.workdays = newFormData.workdays.filter(day => day !== e.target.name)
             setFormData(newFormData)
         }
-        console.log(formData)
     }
 
     const handleRemoveDomain = domain => {
@@ -324,7 +321,6 @@ const Form1 = () => {
                                                                         {
                                                                             domains.filter(dom => dom.toLowerCase().includes(inputDomain.toLowerCase())).map((domain, i) => (
                                                                                 <div className='my-2 py-1 px-1 hover:bg-sky-100 transition-all duration-300 cursor-pointer' onClick={() => {
-                                                                                    console.log("Hi")
                                                                                     domainHandler(domain)
                                                                                 }} key={i}> {domain} </div>
                                                                             ))

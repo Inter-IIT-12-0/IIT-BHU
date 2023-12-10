@@ -32,7 +32,6 @@ export async function GPT(messages) {
     const message = res_message["choices"][0]["message"]["content"];
     const signal = res_message["choices"][0]["finish_reason"];
     if (signal !== "length") {
-      console.log(message);
       return JSON.parse(message);
     }
     return { Error: "Token limit insufficient." };
@@ -59,6 +58,5 @@ async function generateMessages(code) {
 export default async function codecheck(code) {
   const messages = await generateMessages(code);
   const json_response = await GPT(messages);
-  console.log(json_response);
   return json_response;
 }
