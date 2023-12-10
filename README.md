@@ -1,17 +1,18 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
-
+# NEXT JS Project
+## Setting Up the project
 ### Reuirements
 - Node version 18
 - npm latest version
   
 open your git termianl or powershell terminal and
 
-- Run the command “ git clone https://github.com/Inter-IIT-12-0/Chutki.git “. This will clone the repository to your local device.
-- Then run “cd Chutki”, this command will take you to the root directory.
-- Then create a “.env” file in the root directory, It will look like this
-- Then run “npm i”, this command will install all packages required for the project to run.
+- Run the command ` git clone https://github.com/Inter-IIT-12-0/Chutki.git `. This will clone the repository to your local device.
+- Then run `cd Chutki`, this command will take you to the root directory.
+- Then create a `.env.local` file in the root directory, It will look like this
+- Then run `npm i`, this command will install all packages required for the project to run.
 - At last run the development server via below commands.
 
 ```bash
@@ -25,6 +26,22 @@ bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Then if you havent logged in then go to the “/onboarding” page to enter the platform and enter the platform’s work flow
+
+##Flask Application 
+###Requirements
+- Python 3.11
+- Pip latest version
+
+Steps:
+- Go into the dir Flask App, ```cd /Flask App```
+- Make a virtual env using ```python3 -m venv venv```
+- Activate the environment, ```.\venv\Scripts\activate```
+- Run ```pip install -r requirements.txt```
+- Download the language model for spAcy using, ```python -m spacy download en_core_web_md```
+- Run the server using ```python app.py```
+
+The flask app has been hosted on Python Anywhere at trumio.pythonanywhere.com, if you wish to use the local server, change NEXT_PUBLIC_FLAS_APP_URL in env file to ```http://127.0.0.1:5000``` or as shown on the terminal.
 
 ## .env
 
@@ -69,12 +86,19 @@ In crafting our platform, we've prioritized seamless user onboarding and dynamic
 - TruBot
 - Fine Tuned Bots
 - Custom AI tool
+- Recommendation Engine 
+- PS Breakdown
+- SubMilestone Breakdown
 
 To make our platform compatible with today’s needs and satisfy all users' needs we have created several AI features.
 
 - TruBot is available throughout the application, providing general support for users. It assists when users encounter difficulties or have queries, such as when working on a project and needing answers to basic questions. In such instances, users can obtain immediate assistance, currently It answers general , user and project queries.
 - Fine-Tuned Bots, available in the My Projects section within a specific project, are designed to assist users with their projects. For example, in a development-related project, users can generate bug reports, code snippets, and receive various forms of support from this bot, which utilizes GPT-3.5 for enhanced capabilities.
 - The "Custom AI Tools" section is a specialized feature that we provide in our app. This feature enables users to create their own AI tool for a particular domain. This AI tool will be fully proficient in the chosen domain and will provide all types of assistance in that domain.
+- The recommendation Engine built on the top of NLP takes the user input and then responds to the query by filtering the users by the keywords given by the Flask API
+- With the help of GPT-3.5 the problem statement provided by the client is being elaborated wrt to the client requirements.
+- Depending on the Milestones being submitted in the Proposal Form GPT 3.5 breaks down the Milestone into submilestones to better assess the projects completion and its health.
+
 
 
 ## Pages
@@ -84,14 +108,21 @@ To make our platform compatible with today’s needs and satisfy all users' need
 - People
 - Profile
 - Dashboard
+- ToolsTable
+- Mentorship,Challenges and Courses
 
 - Marketplace is accessed both from the client side as well as the student side.
- -> From the student's perspective, they can view all the projects that have been listed and place bids on them.
- -> From the Client side, the client can additionally create projects.
-- In "My Projects," users can view and navigate to the "/myprojects/[id]" page to explore more about their projects. This is the place where the Fine-Tuned Bot is present to assist users. On this page, users can access information such as milestones, milestone timelines, team details, project health, and other important aspects related to the project.
+  - From the student's perspective, they can view all the projects that have been listed and place bids on them.
+- From the Client side, the client can additionally create projects.
+- In "My Projects," users can view and navigate to the "/myprojects/[id]" page to explore more about their projects. This is the place where the Fine-Tuned Bot is present to assist users and the Generative tool for various subdomains is also present there. On this page, users can access information such as milestones, milestone timelines, team details, project health, and other important aspects related to the project.
 - In the people page all the students, clients and universities are listed so users can explore all the people. Here our recommendation system recommends the best talent and client to the users.
 - In the profile page everything about the user is mentioned like their projects, educational details, company details, skills, their achievements and many more.
 - In the Dashboard page users can see their finances, project status, meetings, available days of work and other details.
+- The Tools Table page has the feature to create custom fine tuned bots wrt to the context the user wants and then these tools can be accessed by the user in the project workspace
+- The Mentorship,Challenges and Courses are for the upskilling of the user where the recommendation engine is being implemented to provide the upskilling as close as to the user’s need
+- AI Arcade is based on the AI generate Guided learning which moulds itself to the user’s performance and its need
+
+- 
 
 
 ## Deploy on Vercel
