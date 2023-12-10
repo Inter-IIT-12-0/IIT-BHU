@@ -38,8 +38,8 @@ const Home = () => {
     const fetchdata = async () => {
       try {
         if(session) {
-          const response = await axios.get(`http://localhost:3000/api/user?id=${session.user._id}`);
-        const myProjects = await axios.get(`http://localhost:3000/api/myprojects`);
+          const response = await axios.get(`/api/user?id=${session.user._id}`);
+        const myProjects = await axios.get(`/api/myprojects`);
         setUserData(response.data);
         setMyProjects(myProjects.data);
         }

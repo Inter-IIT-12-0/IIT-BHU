@@ -10,7 +10,7 @@ const ClientProjectComponent = ({ teamId, bidAmount }) => {
             try {
                 const session = await getSession();
                 const id = session.user._id;
-                const response = await axios.get(`http://localhost:3000/api/clientprojects?clientId=${id}`);
+                const response = await axios.get(`/api/clientprojects?clientId=${id}`);
                 setProjectData(response.data);
             } catch (error) {
                 console.log(error)

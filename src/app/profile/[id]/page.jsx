@@ -9,7 +9,7 @@ import StreaksCount from "../../../components/StreaksCount"
 import Achievements from "../../../components/Achievements"
 
 const ProfilePage = ({params}) => {
-    // http://localhost:3000/api/user?id=656f65c9429f3743911ceb14
+    // /api/user?id=656f65c9429f3743911ceb14
 
     // const test_user_id = "656ff14b85ccd18b3fd73a5d";
     const user_id = params.id
@@ -18,7 +18,7 @@ const ProfilePage = ({params}) => {
     useEffect(() => {
         const fetchdata = async () => {
             try {
-                const response = await axios.get(`http://localhost:3000/api/user?id=${user_id}`);
+                const response = await axios.get(`/api/user?id=${user_id}`);
                 setUserData(response.data);
             } catch (error) {
                 console.log(error)
