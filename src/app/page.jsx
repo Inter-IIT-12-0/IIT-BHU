@@ -48,7 +48,7 @@ const Home = () => {
       }
     }
     fetchdata();
-  }, [session])
+  }, [])
 
   const [taskName, setTaskName] = useState("PROJECT STATUS");
   const [projectStat, setProjectStat] = useState("ACTIVE");
