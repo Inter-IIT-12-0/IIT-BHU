@@ -31,7 +31,7 @@ const SocialMediaSchema = new mongoose.Schema({
 });
 
 const aiToolsSchema = new mongoose.Schema({
-    name: { type: String, unique: true },
+    name: { type: String },
     image: { type: String }
 })
 
