@@ -204,7 +204,6 @@ const CreateBid = ({ params }) => {
             },
             ...teams
         ]
-        console.log(teams)
         const obj = {
             prob_stat: project.statement,
             avg_scores: teams.map(team => team.teamUserMap.reduce((acc, map) => acc + map.user.rating, 0) / team.teamUserMap.length),
@@ -213,14 +212,12 @@ const CreateBid = ({ params }) => {
             team_key: teams.map(team => team.teamUserMap.map(map => map.user.domain.join(', '))[0]),
             amounts: teams.map(team => team.proposal.bidAmount)
         }
-        console.log(JSON.stringify(obj))
         axios.post(`http://trumio.pythonanywhere.com/predict`, obj).then(res => {
             setTeamProb(Math.floor(res.data.prediction[0] * 100))
             const teamScore = res.data.prediction[0]
             setTeamRank(res.data.prediction.sort((a, b) => b - a).indexOf(teamScore) + 1)
             console.log(res.data.prediction[0], res.data.prediction, res.data.prediction.sort((a, b) => b - a))
         }).catch(console.error)
-        console.log(obj)
     }
 
     const handleGenerateScores = () => {
