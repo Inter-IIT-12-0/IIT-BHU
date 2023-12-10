@@ -513,7 +513,9 @@ const CreateBid = ({ params }) => {
                                                                         <span className='text-neutral-700'> {user.name} </span>
                                                                         <div className='flex'>
                                                                             <p className='px-3 shadow-2xl mx-2 shadow-zinc-500 flex justify-center items-center py-1 bg-white rounded-xl' style={{ boxShadow: '0 2px #cddae2' }} > {user.domain[0]} </p>
-                                                                            <PlusIcon />
+                                                                            <PlusIcon onClick={() => {
+                                                                                addToTeam(user)
+                                                                            }} className="cursor-pointer"/>
                                                                         </div>
                                                                     </div>
                                                                 </div>
