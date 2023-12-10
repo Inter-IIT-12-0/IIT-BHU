@@ -54,7 +54,7 @@ const ToolMaker = () => {
 
                     <div className={`flex-1 w-80 p-4 rounded-md bg-[#667188] cursor-pointer ${showDomain ? 'bg-[#ccd0d7] text-[#001338]' : 'text-white'}`} onClick={() => { setShowAiTools(false); setShowDomain(true) }}>
                         <div className="text-Text text-center font-Lato text-xl font-normal leading-normal tracking-wider opacity-50 mt-20">
-                            {domainName.replace("_", " ")}
+                            {domainName.replace(/_/g, " ")}
                         </div>
 
                     </div>
@@ -93,7 +93,7 @@ const ToolMaker = () => {
                     {
                         Domains.map((ele, index) => {
                             return <div key={index} className={`w-[18%] h-40 mr-6 mb-5 border-gray-300 rounded-lg   text-center cursor-pointer ${ele === domainName ? 'bg-neutral-500' : 'bg-neutral-400'} flex justify-center items-center`} onClick={() => { setShowAiTools(false); setDomainName(ele) }}>
-                                {ele.replace("_", " ")}
+                                {ele.replace(/_/g, " ")}
                             </div>
                         })
                     }
@@ -120,12 +120,12 @@ const ToolMaker = () => {
                             <h1 className="text-Text-Black font-Lato text-2xl font-bold leading-normal tracking-tight my-3">Your Personalised Tools</h1>
                             <div className='flex flex-row w-[100%] '>
                                 {
-                                    session.user.aiTools.map((ele, index) => {
+                                    session?.user.aiTools.map((ele, index) => {
                                         return <div key={index} className=' mr-6 justify-around items-center border-gray-300 rounded-lg bg-neutral-400 text-center cursor-pointer flex flex-col relative p-3' >
                                             <Trash className="absolute -top-2 -right-2 z-40 items-center scale-125 " onClick={() => handleDelete(ele.name)} />
                                             <Link href={`/customTool/${ele.name}`} className='flex flex-col justify-center items-center'>
                                                 <h2> {ele.name} </h2>
-                                                <img src={`https://ui-avatars.com/api/?name=${ele.name.replace("_", "+")}`} alt={ele.name} className='w-28 h-28 rounded-xl' />
+                                                <img src={`https://ui-avatars.com/api/?name=${ele.name.replace(/_/g, "+")}`} alt={ele.name} className='w-28 h-28 rounded-xl' />
                                             </Link>
                                         </div>
                                     })

@@ -17,13 +17,11 @@ const OnBoarding3 = () => {
         let role = (selectedCard === 1 ? 'Student' : 'Professor')
         setCookie("role", role);
         signIn('google')
+        router.push('/selectDomains')
     }
 
     useEffect(() => {
-        const role = getCookie("role")
-        if (role) {
-            router.push("/selectDomains")
-        }
+        
     }, [])
 
     return (

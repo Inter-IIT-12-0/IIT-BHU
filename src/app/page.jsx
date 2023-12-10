@@ -10,14 +10,6 @@ import { getCookie } from "cookies-next"
 
 const Home = () => {
 
-  // const router = useRouter()
-  // useEffect(() => {
-  //   const loggedIn = getCookie('loggedIn')
-  //   if (loggedIn !== "true") {
-  //     return router.push('/onboarding')
-  //   }
-  // }, []);
-
   const { data: session } = useSession()
   let value1 = 0
   let value2 = 0

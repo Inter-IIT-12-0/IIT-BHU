@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const LanguageEnum = ['English', 'Spanish', 'French', 'German'];
-const RoleEnum = ['Student', 'Client'];
+const RoleEnum = ['Student', 'Client', 'Professor'];
 const DaysEnum = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 const domainEnum = [
     "UI/UX Designing",

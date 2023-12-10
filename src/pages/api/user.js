@@ -46,7 +46,7 @@ const handler = async (req, res) => {
               }
             })
             .select('-_id -__v -projectsPosted -paymentsCompleted -lastLogin  -socialMedia -fees -daysAvailable -preferredTimezone -educationDetails -currentAddress -workExperienceYears -workExperienceMonths');
-
+            console.log(userWithProjects)
           res.status(200).json(userWithProjects);
         } else {
           // If no specific user ID, fetch all users

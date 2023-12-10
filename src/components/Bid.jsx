@@ -28,7 +28,8 @@ const Bid = ({team, setOpenBid}) => {
     const handleAccept = () => {
         axios.patch(`/api/project/${team.project}`, {
             milestones: team.proposal.milestones,
-            assignedTeam: team._id
+            assignedTeam: team._id,
+            status: 'Assigned'
         }).then(res => {
             axios.patch(`/api/team/?teamId=${team._id}`, {
                 status: 'Accepted'

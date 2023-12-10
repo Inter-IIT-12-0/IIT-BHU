@@ -36,7 +36,7 @@ const ActivityBar = ({ activities }) => {
                 </div>
                 <div className='h-[48vh] overflow-x-hidden overflow-y-auto overflow-scroll mb-8 relative px-2'>
                     {
-                        openSummarized ? (loading ? <img src="/Images/loading2.gif" alt="Loading ..." className='scale-50'/> : Object.keys(report).length !==0 &&
+                        openSummarized ? (loading ? <img src="/Images/loading2.gif" alt="Loading ..." className='scale-50'/> :  report &&Object.keys(report).length !==0 &&
                             <>
                             <div className='mt-2'>
                                 <span className='font-semibold bg-gray-300 p-2 flex w-8 h-8 justify-center items-center rounded-full cursor-pointer' onClick={() => setOpenSummarized(false)}> X </span>

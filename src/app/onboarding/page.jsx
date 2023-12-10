@@ -10,6 +10,7 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useState } from "react";
 
 const OnBoarding = () => {
+  const {data:session} = useSession()
   const router = useRouter()
   const [selectedCard, setSelectedCard] = useState(1);
   const handleCardClick = (cardNumber) => {
@@ -24,7 +25,7 @@ const OnBoarding = () => {
   }
 
   useEffect(() => {
-    if(getCookie('loggedIn') === "true") {
+    if(getCookie('loggedIn') === "true" && getCookie('isNewUser') === "false") {
       return router.push('/')
     }
     const isNewUser = getCookie("newUser")
@@ -36,7 +37,7 @@ const OnBoarding = () => {
       if (role === 'Third') return router.push("/selectRole")
       router.push("/selectDomains")
     }
-  }, [])
+  }, [session])
 
   return (
     <div className="bg-cover bg-center h-screen" style={{"backgroundImage": "url('./Rectangle.png')"}}>

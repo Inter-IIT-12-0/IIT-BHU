@@ -195,7 +195,7 @@ const Project = ({ project, setOpenedProj, selected }) => {
 
                             <div className="px-4 py-2 flex flex-col">
                                 <div className="text-gray-800 my-3">
-                                    <img src="https://www.text-image.com/samples/per_normal_face.jpg" alt="Face" className='rounded-full w-16 h-16' />
+                                    <img src={project.assignedBy.avatarUrl} alt="Face" className='rounded-full w-16 h-16' />
                                 </div>
                                 <div className="pl-3 flex flex-col justify-around items-center mb-3">
                                     <p className="text-sm font-medium text-gray-800 leading-none mb-1"> {project.assignedBy.name} </p>
