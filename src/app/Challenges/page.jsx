@@ -1,6 +1,7 @@
 import React from "react";
 import Navbar from "../../components/Navbar";
 import StudentSidebar from "../../components/StudentSidebar";
+import SidebarUpskilling from "../../components/SidebarUpskilling";
 
 const Challenges = () => {
 
@@ -85,7 +86,7 @@ const Challenges = () => {
         <div className="overflow-x-hidden">
             <Navbar />
             <div className="flex flex-row">
-                <StudentSidebar page={"challenges"} />
+                <SidebarUpskilling page={"challenges"} />
                 <div className="flex flex-col p-5 max-h-[90vh] overflow-y-auto overflow-x-hidden bg-blue-100 ">
                     <h1 className="mb-5 text-3xl font-semibold">Challenges</h1>
                     <div className="flex flex-row">

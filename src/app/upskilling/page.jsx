@@ -44,7 +44,7 @@ const Upskilling = () => {
                   heading="Mentorship"
                   image={<Mentorship className="xl:scale-100 scale-75" />}
                   content="Get one on one mentorship from AI experts"
-                  url={"/mentorship"}
+                  url={"/Mentorship"}
                 />
               </div>
             </div>
