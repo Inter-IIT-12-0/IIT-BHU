@@ -213,7 +213,8 @@ const CreateBid = ({ params }) => {
             team_key: teams.map(team => team.teamUserMap.map(map => map.user.domain.join(', '))[0]),
             amounts: teams.map(team => team.proposal.bidAmount)
         }
-        axios.post(`http://trumio.pythonanywhere.com/predict`, obj).then(res => {
+        const FLASK_APP_URL = process.env.NEXT_PUBLIC_FLASK_APP_URL + '/predict'
+        axios.post(FLASK_APP_URL, obj).then(res => {
             setTeamProb(Math.floor(res.data.prediction[0] * 100))
             const teamScore = res.data.prediction[0]
             setTeamRank(res.data.prediction.sort((a, b) => b - a).indexOf(teamScore) + 1)
