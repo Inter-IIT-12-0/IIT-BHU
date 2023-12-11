@@ -407,8 +407,8 @@ const Form1 = () => {
                                                                 Payment Type
                                                             </label>
                                                             <select name="paymentType" id="paymentType" value={formData.paymentType} onChange={handleInputChange} className="bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg block w-full p-2.5 outline-none" required>
-                                                                <option value="fixed">Fixed</option>
-                                                                <option value="installment">Installment</option>
+                                                                <option value="Fixed">Fixed</option>
+                                                                <option value="Installment">Installment</option>
                                                             </select>
                                                         </div>
                                                         <div>
