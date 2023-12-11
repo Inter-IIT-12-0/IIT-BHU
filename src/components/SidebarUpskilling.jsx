@@ -71,7 +71,7 @@ export default function SidebarUpskilling({ page }) {
                     <div className="text-black text-base font-semibold font-sans">Courses</div>
                 </Link>
 
-                <Link href={"/challenges"} className={` justify-start items-center gap-8 inline-flex hover-background ${page === "challenges" && "bg-sky-100"} rounded mt-6`}>
+                <Link href={"/Challenges"} className={` justify-start items-center gap-8 inline-flex hover-background ${page === "challenges" && "bg-sky-100"} rounded mt-6`}>
                     <div className="w-6 h-6 justify-center items-center flex">
                         <div className="w-6 h-6 relative">
                             <ChallengesIcon />
