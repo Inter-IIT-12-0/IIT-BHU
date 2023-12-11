@@ -1,8 +1,12 @@
-# ![Trumio][trumio-img]
+<p align="center">
+  <img src="https://trumio.ai/wp-content/uploads/2021/11/Horizontal_layout_350_x_75_pixels-removebg-preview.png" alt="Trumio">
+</p>
 
-[trumio-img]:      https://trumio.ai/wp-content/uploads/2021/11/Horizontal_layout_350_x_75_pixels-removebg-preview.png
+<h1 align="center">
+Trumio Team 18
+</h1>
 
-# Trumio Team 18
+This is the repository of the Web App. The landing page has be deployed at this [link](https://trumio-team18.webflow.io). The "Get Started" CTA is a gateway to this Web App. This is a [Next.js](https://nextjs.org/) project bootstrapped with [create-next-app](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Product Demonstration
 
@@ -36,7 +40,7 @@ npm install
 ```
 
 ## Step 4: Configure Environment Variables
-Create a .env.local file in the root of the project and add the necessary configuration. Example content:
+Create a .env.local file in the root of the project and add the necessary configuration:
 
 ```bash
 MONGO_URI = "mongodb+srv://trumio:trumio@trumio.ulvhes0.mongodb.net/?retryWrites=true&w=majority"      
@@ -59,11 +63,13 @@ npm run dev
 Open your browser and navigate to [http://localhost:3000](http://localhost:3000) to access the web application.
 
 
-# Flask Application Setup Guide
+- ## Note:
+The Flask app is hosted on Python Anywhere at [https://trumio.pythonanywhere.com](https://trumio.pythonanywhere.com) and by now, the web app should be functional. If you prefer to use the local Flask server, update the `NEXT_PUBLIC_FLASK_APP_URL` in the environment file to `http://127.0.0.1:5000` or as indicated in the terminal and follow the below guideline to setup the server:
+# Flask Application Setup Guide 
 
 ## Requirements
-1. `python` version 3.11
-2. Latest version of `pip`
+1. `python` or `python3` version 3.11
+2. Latest version of `pip` or `pip3`
    
 Follow these steps to set up the Flask application on your local machine:
 
@@ -90,10 +96,18 @@ python -m venv venv
 ```bash
 pip install -r requirements.txt
 ```
+or 
+```bash
+pip3 install -r requirements.txt
+```
 
 ## Download the language model for spaCy:
 ```bash
 python -m spacy download en_core_web_md
+```
+or 
+```bash
+python3 -m spacy download en_core_web_md
 ```
 
 ## Run the Flask server:
@@ -105,11 +119,9 @@ or
 python3 app.py
 ```
 
-- Note:
-The Flask app is hosted on Python Anywhere at [https://trumio.pythonanywhere.com](https://trumio.pythonanywhere.com). If you prefer to use the local server, update the `NEXT_PUBLIC_FLASK_APP_URL` in the environment file to `http://127.0.0.1:5000` or as indicated in the terminal.
 
 # Architecture Overview
-Our project's architecture is a sophisticated blend of cutting-edge technologies meticulously orchestrated to deliver a seamless and innovative user experience.
+Our project's architecture is a sophisticated blend of cutting-edge technologies to deliver a seamless and innovative user experience.
 
 ## Frontend and Backend Integration: `Next.js`
 Our project leverages Next.js to drive both the frontend and backend API. This choice ensures efficiency and speed by providing Automatic Code Splitting. Only the necessary code is sent to the client side, resulting in faster initial page loads.
@@ -144,24 +156,44 @@ This service-oriented architecture not only prioritizes the user experience but 
 # Innovative AI-Powered Features
 Our platform is equipped with a suite of cutting-edge AI features designed to meet the diverse needs of our users.
 
+## Intelligent Recommendation Engine
+Harnessing the capabilities of NLP, our recommendation engine responds to user queries by filtering through keywords provided by the Flask API. It ensures personalized and relevant suggestions based on user input.
+
 ## TruBot Assistance
 Seamlessly integrated throughout the application, TruBot provides immediate support for users. Whether tackling project challenges or seeking answers to basic queries, TruBot offers real-time assistance. Currently, it excels in answering general, user, and project-related questions.
+
+<div align="center" >
+<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbTdkY2JvdXEyMTZnc2x5dzlwY2l5eTU1aDdiMGc5Z2F4czY3YjI1bSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Uq0yJotc6U4AG9cHGq/giphy.gif" style="width:70%;" />
+</div>
 
 ## Project-Specific Fine-Tuned Bots
 Nestled within the My Projects section, these bots are tailored to assist users within specific projects. From generating bug reports to offering code snippets, Fine-Tuned Bots leverage the power of GPT-3.5 for enhanced capabilities, providing invaluable project support.
 
+<div align="center" >
+<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExc2tlbTV4Y2oxdTk2NjB2enJ5M3l5bGowczF4aGo2ZjF3b2dscW9vOSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ACmqc2wmiYc3nCup54/giphy.gif" style="height:500px;" />
+</div>
+
 ## Custom AI Tools
 Empowering users in a specialized way, this feature allows the creation of personalized AI tools for specific domains. These tools are proficient in their chosen domains, offering comprehensive assistance tailored to user needs.
 
-## Intelligent Recommendation Engine
-Harnessing the capabilities of NLP, our recommendation engine responds to user queries by filtering through keywords provided by the Flask API. It ensures personalized and relevant suggestions based on user input.
+<div align="center" >
+<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExempja29vZnI3bWQyZzVzMHNpYXpuZWJ4Njd3MmxwdXFqdDk0dXhiayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/yDqsDd943fXPYqLl8x/giphy.gif" style="height:500px;"/>
+</div>
 
 ## Bid Acceptance Probability Calculator
 Using NLP and a sophisticated scoring algorithm, this feature calculates the probability of proposal acceptance. Factors considered include average historical scores, similarity between problem statements and proposals, team-user keyword matches, and quoted project amounts.
 
+<div align="center" >
+<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZTAxdjg4b2xmeGl1OG9rd2psbW9seWtzaWp6ZnZ2bnE3NjA1Z2N0biZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/qDDFEVtcGezoQ6Vu6h/giphy.gif" style="height:500px;"/>
+</div>
+
 ## PS Breakdown and SubMilestone Breakdown
 - PS Breakdown: GPT-3.5 elaborates on client-provided problem statements, breaking them down based on client requirements.
 - SubMilestone Breakdown: Leveraging GPT-3.5, this feature dissects project milestones into submilestones, enhancing project assessment and health evaluation.
+
+<div align="center" >
+<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbjE5MXBxZnd4bnhoNWNjdjh5OWhvcGRocHZjMGZia2x3dWhtb29qZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/UG2MTXeCzKL2IGJdSy/giphy.gif" style="height:500px;"/>
+</div>
 
 These features collectively represent our commitment to providing an innovative and intelligent platform that goes beyond conventional solutions, ensuring a user experience that is both advanced and user-friendly.
 
