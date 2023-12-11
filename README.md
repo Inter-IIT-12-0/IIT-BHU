@@ -8,8 +8,6 @@ Trumio Team 18
 
 This is the repository of the Web App. The landing page has be deployed at this [link](https://trumio-team18.webflow.io). The "Get Started" CTA is a gateway to this Web App. This is a [Next.js](https://nextjs.org/) project bootstrapped with [create-next-app](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Product Demonstration
-
 # Web Application Setup Guide
 
 ## Requirements
@@ -62,8 +60,11 @@ npm run dev
 ## Step 6: Access the Application
 Open your browser and navigate to [http://localhost:3000](http://localhost:3000) to access the web application.
 
+## Code Structure of the Web application:
+<img src="./static/next.png" />
 
-- ## Note:
+
+## Note:
 The Flask app is hosted on Python Anywhere at [https://trumio.pythonanywhere.com](https://trumio.pythonanywhere.com) and by now, the web app should be functional. If you prefer to use the local Flask server, update the `NEXT_PUBLIC_FLASK_APP_URL` in the environment file to `http://127.0.0.1:5000` or as indicated in the terminal and follow the below guideline to setup the server:
 # Flask Application Setup Guide 
 
@@ -80,11 +81,11 @@ cd './Flask App'
 
 ## Create a virtual environment:
 ```bash
-python3 -m venv venv
+python -m venv venv
 ```
 or
 ```bash
-python -m venv venv
+python3 -m venv venv
 ```
 
 ## Activate the virtual environment:
@@ -119,6 +120,60 @@ or
 python3 app.py
 ```
 
+## Code Structure of the Flask application:
+The `Flask App` contains 2 files, `app.py` and `utils.py`, and has 2 API endpoints `/predict` and `/recommend`. 
+
+<div align="center">
+<img src="./static/flask.jpg" style="width:50%;" />
+</div> 
+<br/>
+
+- The `app.py` file is the main entry point for the Flask application. It contains the configuration, initialization, and routing information of the Flask app.  
+- The `utils.py` file contains utility functions or helper functions that are used throughout the application.
+
+# Innovative AI-Powered Features
+Our platform is equipped with a suite of cutting-edge AI features designed to meet the diverse needs of our users.
+
+## Intelligent Recommendation Engine
+Harnessing the capabilities of NLP, our recommendation engine responds to user queries by filtering through keywords provided by the Flask API. It ensures personalized and relevant suggestions based on user input.
+
+## TruBot Assistance
+Seamlessly integrated throughout the application, TruBot provides immediate support for users. Whether tackling project challenges or seeking answers to basic queries, TruBot offers real-time assistance. Currently, it excels in answering general, user, and project-related questions.
+
+<div align="center" >
+<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbTdkY2JvdXEyMTZnc2x5dzlwY2l5eTU1aDdiMGc5Z2F4czY3YjI1bSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Uq0yJotc6U4AG9cHGq/giphy.gif" style="width:70%;" />
+</div>
+
+## Project-Specific Fine-Tuned Bots
+Within the My Projects section, these bots assist the users within specific projects. From generating bug reports to offering code snippets, Fine-Tuned Bots leverage the power of GPT-3.5 for enhanced capabilities, providing best project support.
+
+<div align="center" >
+<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExc2tlbTV4Y2oxdTk2NjB2enJ5M3l5bGowczF4aGo2ZjF3b2dscW9vOSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ACmqc2wmiYc3nCup54/giphy.gif" style="height:500px;" />
+</div>
+
+## Custom AI Tools
+Empowering users in a specialized way, this feature allows the creation of personalized AI tools for specific domains. These tools are proficient in their chosen domains, offering comprehensive assistance customized to user needs.
+
+<div align="center" >
+<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExempja29vZnI3bWQyZzVzMHNpYXpuZWJ4Njd3MmxwdXFqdDk0dXhiayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/yDqsDd943fXPYqLl8x/giphy.gif" style="height:500px;"/>
+</div>
+
+## Bid Acceptance Probability Calculator
+Using NLP and a sophisticated scoring algorithm, this feature calculates the probability of proposal acceptance. Factors considered include average historical scores, similarity between problem statement and team proposals, team users' keyword matches, and quoted project amounts.
+
+<div align="center" >
+<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZTAxdjg4b2xmeGl1OG9rd2psbW9seWtzaWp6ZnZ2bnE3NjA1Z2N0biZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/qDDFEVtcGezoQ6Vu6h/giphy.gif" style="height:500px;"/>
+</div>
+
+## PS Breakdown and SubMilestone Breakdown
+- PS Breakdown: GPT-3.5 elaborates on client-provided problem statements, breaking them down based on client requirements.
+- SubMilestone Breakdown: Leveraging GPT-3.5, this feature dissects project milestones into submilestones, enhancing project assessment and health evaluation.
+
+<div align="center" >
+<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbjE5MXBxZnd4bnhoNWNjdjh5OWhvcGRocHZjMGZia2x3dWhtb29qZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/UG2MTXeCzKL2IGJdSy/giphy.gif" style="height:500px;"/>
+</div>
+
+These features collectively represent our commitment to providing an innovative and intelligent platform that goes beyond conventional solutions, ensuring a user experience that is both advanced and user-friendly.
 
 # Architecture Overview
 Our project's architecture is a sophisticated blend of cutting-edge technologies to deliver a seamless and innovative user experience.
@@ -127,7 +182,7 @@ Our project's architecture is a sophisticated blend of cutting-edge technologies
 Our project leverages Next.js to drive both the frontend and backend API. This choice ensures efficiency and speed by providing Automatic Code Splitting. Only the necessary code is sent to the client side, resulting in faster initial page loads.
 
 ## Database Management: `MongoDB`
-As our database of choice, MongoDB follows the BASE (Basically Available, Soft State, and Eventual Consistency) model. This design choice facilitates easier horizontal scaling, upgradation, and a change-friendly structure. MongoDB's powerful querying capabilities complement our data needs.
+Our database choice, MongoDB follows the BASE (Basically Available, Soft State, and Eventual Consistency) model. This design choice facilitates easier horizontal scaling, upgradation, and a change-friendly structure. MongoDB's powerful querying capabilities complement our data needs.
 
 ## Styling and User Interface: `Tailwind CSS`
 Tailwind CSS enhances our frontend, providing an elegant and visually stunning interface. Its utility-first approach makes it an excellent tool for crafting responsive and engaging user experiences.
