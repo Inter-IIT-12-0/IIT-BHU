@@ -8,13 +8,6 @@ import PostCard from '../../../components/postsCard';
 import axios from 'axios';
 import StudentSidebar from '../../../components/StudentSidebar';
 
-const obj = {
-  "url": "https://tse1.mm.bing.net/th?id=OIP.3l2nfzcHhMemSZooiH3B3AHaFj&pid=Api&rs=1&c=1&qlt=95&w=157&h=117",
-  "name": "Hello",
-  "description": "nice"
-};
-
-const arrayOfObjects = Array(8).fill(obj);
 const Cards = ({ setOpenPostCard, tabName, ele, setDetails }) => {
 
   const [isPopupOpen, setPopupOpen] = useState(false);
