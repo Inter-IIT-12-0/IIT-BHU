@@ -92,7 +92,7 @@ const ViewBids = ({ project_id }) => {
                           </div>
                         </td>
                         <td className="px-6 py-4 text-center">${bid.proposal.bidAmount}</td>
-                        <td className="px-6 py-4 text-center">{bid.rating}/5.0</td>
+                        <td className="px-6 py-4 text-center">{bid.rating?bid.rating:0}/5.0</td>
                         <td className="px-6 py-4 text-center rounded-md"> {bid.status === 'Reviewed' ? <span className='bg-orange-200 text-orange-600 px-2 py-1 rounded-lg font-semibold'> Reviewed </span> : <span className='bg-sky-200 text-sky-700 font-semibold px-2 py-1 rounded-lg'> New </span>} </td>
                         <td className="px-6 py-4 flex justify-center">
                           <img

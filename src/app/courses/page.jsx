@@ -67,7 +67,6 @@ const Mentorship = () => {
                     <div className="flex flex-row mt-6">
                         <div className="py-2 px-6 rounded-xl shadow-lg mr-4 bg-blue-300">All</div>
                         <div className="py-2 px-6 rounded-xl shadow-lg mr-4 bg-white">Recommended</div>
-                        <div className="py-2 px-6 rounded-xl shadow-lg mr-4 bg-white">Domains</div>
                     </div>
                     <div className="grid grid-cols-3 gap-5">
                         {obj.map((ele) => {

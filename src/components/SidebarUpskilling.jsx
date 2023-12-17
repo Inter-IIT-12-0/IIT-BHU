@@ -17,7 +17,7 @@ import Link from "next/link"
 export default function SidebarUpskilling({ page }) {
 
     return (
-        <div className="w-60 bg-white shadow-2xl pb-3 flex flex-col h-[100vh] justify-between items-center">
+        <div className="w-60 bg-white shadow-2xl pb-3 flex flex-col h-[92vh] justify-between items-center">
             <div className="pr-5">
                 <Link href={"/upskilling"} className={` justify-start items-center gap-8 inline-flex hover-background ${page === "dashboard" && "bg-sky-100"} rounded mt-6`}>
                     <div className="w-6 h-6 justify-center items-center flex">
@@ -33,7 +33,6 @@ export default function SidebarUpskilling({ page }) {
                     </div>
                     <div className="text-black text-base font-semibold font-sans">AI Arcade</div>
                 </Link>
-                <div className="w-full h-5 opacity-0"></div>
 
                 <Link href="/toolsTable" className={` justify-start items-center gap-8 inline-flex hover-background ${page === "tools" && "bg-sky-100"} rounded mt-6`}>
                     <div className="w-6 h-6 justify-center items-center flex">
@@ -51,7 +50,6 @@ export default function SidebarUpskilling({ page }) {
                     </div>
                     <div className="text-black text-base font-semibold font-sans">AI Lounge</div>
                 </Link>
-                <div className="w-full h-5 opacity-0"></div>
 
                 <Link href={"/Mentorship"} className={` justify-start items-center gap-8 inline-flex hover-background ${page === "mentorship" && "bg-sky-100"} rounded mt-6`}>
                     <div className="w-6 h-6 justify-center items-center flex">
@@ -81,14 +79,6 @@ export default function SidebarUpskilling({ page }) {
                 </Link>
 
 
-                <div className={` justify-start items-center gap-8 inline-flex hover-background ${page === "settings" && "bg-sky-100"} rounded mt-6 mb-6`}>
-                    <div className="w-6 h-6 justify-center items-center flex">
-                        <div className="w-6 h-6 relative">
-                            <Settings_Icon />
-                        </div>
-                    </div>
-                    <div className="text-black text-base font-semibold font-sans">Settings</div>
-                </div>
             </div>
             <Link href={"/"}>
                 <button className="px-6 mb-2 hover:bg-sky-700 transition-all duration-500 py-2 rounded-2xl text-center bg-sky-900 text-white">

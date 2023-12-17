@@ -28,15 +28,15 @@ const CustomisedTool = ({domain}) => {
       chat,
       message, setMessage
     );
-    setChat("");
     await generate(message, result, setResult, setMessage);
+    setChat("");
   };
 
   useEffect(() => {
     if(chatBox.current) {
       chatBox.current.scrollTop = chatBox.current.scrollHeight
     }
-  }, [])
+  }, [message])
 
   return (
     <main className='w-[100vw] h-[100vh] overflow-hidden flex justify-center items-center relative'>

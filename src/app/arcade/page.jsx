@@ -62,11 +62,11 @@ const Arcade = () => {
     ]
 
     return (
-        <div className="max-h-[100vh] overflow-scroll overflow-y-auto overflow-x-hidden">
+        <div className="overflow-hidden">
             <Navbar />
             <div className="flex flex-row">
-                <SidebarUpskilling />
-                <div className="p-8 flex flex-col w-[100%]">
+                <SidebarUpskilling page={"arcade"} />
+                <div className="p-8 flex flex-col w-[100%] max-h-[95vh] overflow-scroll overflow-y-auto overflow-x-hidden">
                     <div className="rounded w-[100%] h-72 flex flex-between p-4 pt-10" style={{backgroundColor:'#111827'}}>
                         <div className="flex flex-col gap-4">
                             <img className="h-10 w-10" src="/Images/GPT.png" alt="" />

@@ -23,7 +23,7 @@ const Project = ({ project, setOpenedProj, selected }) => {
     const router = useRouter()
     const [myTeam, setMyTeam] = useState({})
 
-    const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+    const days = ["Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun"]
     function getDaysDifference(startDate, endDate) {
         startDate = new Date(startDate)
         endDate = new Date(endDate)
@@ -67,9 +67,9 @@ const Project = ({ project, setOpenedProj, selected }) => {
             <div className={`absolute right-0 top-0 flex flex-col h-full bg-white rounded-l-3xl animate-[appear_1s_ease-in-out] ${isFullOpen ? 'w-full' : ''} transition-all duration-500`}>
                 <nav className='h-16 flex justify-between px-6 py-4'>
                     <div onClick={() => setOpenedProj({})} className='cursor-pointer'> X </div>
-                    <div onClick={() => setFullOpen(!isFullOpen)} className='text-sm mr-16 flex items-center cursor-pointer'>
+                    <div onClick={() => setFullOpen(!isFullOpen)} className='text-sm flex items-center cursor-pointer justify-end gap-2'>
                         <Export_Icon className="scale-50" />
-                        <span className='ml-3'>  {isFullOpen ? 'Minimize Window' : 'Open in new window'}  </span>
+                        <span className='text-sky-700 italic'>  {isFullOpen ? 'Minimize Window' : 'Open in new window'}  </span>
                     </div>
 
                 </nav>
@@ -92,22 +92,23 @@ const Project = ({ project, setOpenedProj, selected }) => {
                                             <span className='ml-3'> {project.location} </span>
                                         </div>
                                         <div className='flex'>
-                                            <Star_Bold className="scale-75" />
-                                            <span className='ml-3'> {project.domain[0]} </span>
+
+                                            <Calendar_Icon />
+                                            <span className='ml-3'> Expected Duration - {getDaysDifference(project.startDate, project.endDate) < 7 ? `${getDaysDifference(project.startDate, project.endDate)} Days` : `${Math.ceil(getDaysDifference(project.startDate, project.endDate) / 7)} Weeks`} </span>
                                         </div>
                                     </div>
                                     <div className='flex mr-20 ml-5'>
-                                        <Calendar_Icon />
-                                        <span className='ml-3'> Expected Duration - {project.duration} W </span>
+                                        <Star_Bold className="scale-75" />
+                                        <span className='ml-3'> {project.domain.join(", ")} </span>
                                     </div>
                                 </div>
-                                <div className='flex flex-col justify-center items-center w-28 bg-zinc-300 rounded-xl'>
+                                <div className='flex flex-col justify-center items-center w-28 bg-indigo-100 rounded-xl'>
                                     <span className='font-bold'> &#8377; {project.clientRequirements.payment} </span>
                                     <span> {project.clientRequirements.paymentType} </span>
                                 </div>
                             </div>
                             <div className='flex justify-between items-center'>
-                                <div className="w-72 h-16 bg-zinc-300 flex justify-evenly items-center mt-3 ml-3" >
+                                <div className="w-72 h-16 bg-indigo-100 flex justify-evenly items-center mt-3 ml-3 rounded-xl" >
                                     {
                                         days.map(day => (
                                             <div className={`flex flex-col items-center ${day === "Fri" && "pr-4 border-r-2 border-zinc-400"}`} key={day}>
@@ -118,9 +119,9 @@ const Project = ({ project, setOpenedProj, selected }) => {
                                     }
 
                                 </div>
-                                <div className='text-sm flex w-40 justify-around'>
+                                <div className='text-sm flex w-40 justify-center gap-2 text-neutral-500 italic'>
                                     <Clock />
-                                    Posted {getDaysDifference(project.postedOn, new Date())} days ago
+                                    Posted {getDaysDifference(project.postedOn, new Date()) === 0 ? 'Today' : getDaysDifference(project.postedOn, new Date()) === 1 ? 'Yesterday' : `${getDaysDifference(project.postedOn, new Date())} days ago`}
                                 </div>
                             </div>
                         </div>
@@ -131,7 +132,7 @@ const Project = ({ project, setOpenedProj, selected }) => {
                             <div className='flex'>
                                 {
                                     project.clientRequirements.requiredTools.map((tool, id) => (
-                                        <div key={id} className='text-sm mr-6 my-2 bg-zinc-300 rounded-lg px-5 py-1'>
+                                        <div key={id} className='text-sm mr-6 my-2 bg-sky-700 text-white px-3 py-1 rounded-xl'>
                                             {tool}
                                         </div>
                                     ))
@@ -167,33 +168,37 @@ const Project = ({ project, setOpenedProj, selected }) => {
                         <div className="text-center  border-b-2 flex items-center flex-col pt-5 pb-5">
                             {
                                 session && (session.user.role === "Student" || session.user.role === "Professor" ? (Object.keys(myTeam).length === 0 ?
-                                    <button className="w-48 h-12 bg-blue-400 rounded-lg shadow mb-5 text-xl font-bold font-sans tracking-tight" onClick={handleCreateBid}> Create Bid </button> :
-                                    <button className="w-48 h-12 bg-blue-400 rounded-lg shadow mb-5 text-xl font-bold font-sans tracking-tight" onClick={() => {
+                                    <button className="w-48 h-12 bg-sky-700 text-white  rounded-3xl shadow mb-5 text-xl  font-sans tracking-tight flex items-center justify-center" onClick={handleCreateBid}> Create Bid </button> :
+                                    <button className="w-48 h-12 bg-sky-700 text-white  rounded-3xl shadow mb-5 text-xl  font-sans tracking-tight flex items-center justify-center" onClick={() => {
                                         return router.push(`/createBid/${project._id}`)
                                     }}> View My Proposal </button>
                                 )
                                     :
                                     (
                                         selected !== 'My' ?
-                                            <Link href={`/createBid/${project._id}`} className="w-48 h-12 bg-blue-400 rounded-lg shadow mb-5 text-xl font-bold font-sans tracking-tight flex items-center justify-center" >Create Bid </Link> :
-                                            <Link href={`/viewBids/${project._id}`} className="w-48 h-12 bg-blue-400 rounded-lg shadow mb-5 text-xl font-bold font-sans tracking-tight flex items-center justify-center" >View Bids </Link>
+                                            (Object.keys(myTeam).length === 0 ?
+                                                <button className="w-48 h-12 bg-sky-700 text-white  rounded-3xl shadow mb-5 text-xl  font-sans tracking-tight flex items-center justify-center" onClick={handleCreateBid}> Create Bid </button> :
+                                                <button className="w-48 h-12 bg-sky-700 text-white  rounded-3xl shadow mb-5 text-xl  font-sans tracking-tight flex items-center justify-center" onClick={() => {
+                                                    return router.push(`/createBid/${project._id}`)
+                                                }}> View My Proposal </button>
+                                            ) :
+                                            <Link href={`/viewBids/${project._id}`} className="w-48 h-12 bg-sky-700  text-white rounded-3xl shadow mb-5 text-xl  font-sans tracking-tight flex items-center justify-center" >View Bids </Link>
                                     )
                                 )
                             }
                             {
-                                selected !== 'My' &&
-                                <button className="w-48 h-12 rounded-lg shadow border text-xl border-blue-400 flex justify-center items-center cursor-pointer" onClick={() => {
+                                selected !== 'My' && Object.keys(myTeam).length === 0 &&
+                                <button className="w-48 h-12 rounded-3xl shadow border text-xl text-sky-700 border-sky-700 flex justify-center items-center cursor-pointer" onClick={() => {
                                     toast.success("Your interest has been conveyed")
                                 }}>
-                                    <Hand className="scale-75" />
                                     <span> Interested </span>
                                 </button>
                             }
                         </div>
                         <div className="pt-6 flex flex-col items-center text-xl border-b-2">
-                            <h3 className='font-bold'>About the Client</h3>
+                            <h3 className='font-bold text-sky-700'>About the Client</h3>
 
-                            <div className="px-4 py-2 flex flex-col">
+                            <div className="px-4 py-2 flex flex-col items-center">
                                 <div className="text-gray-800 my-3">
                                     <img src={project.assignedBy.avatarUrl} alt="Face" className='rounded-full w-16 h-16' />
                                 </div>
@@ -203,9 +208,9 @@ const Project = ({ project, setOpenedProj, selected }) => {
                                 </div>
                             </div>
                             <div className="px-4 py-2 flex flex-col">
-                                <div className="text-neutral-700 text-base font-normal font-sans tracking-wide">Sector: {project.assignedBy.domain[0]} </div>
-                                <div className="text-neutral-700 text-base font-normal font-sans tracking-wide">Payments Completed: &#8377; {project.assignedBy.paymentsCompleted} </div>
-                                <div className="text-neutral-700 text-base font-normal font-sans tracking-wide">Projects Posted: {project.assignedBy.projectsPosted} </div>
+                                <div className="text-neutral-700 text-base font-normal font-sans tracking-wide"> <span className='font-semibold'> Sector:  </span>{project.assignedBy.domain[0]} </div>
+                                <div className="text-neutral-700 text-base font-normal font-sans tracking-wide"> <span className='font-semibold'> Payments Completed: </span> &#8377; {project.assignedBy.paymentsCompleted} </div>
+                                <div className="text-neutral-700 text-base font-normal font-sans tracking-wide"> <span className='font-semibold'> Projects Posted: </span> {project.assignedBy.projectsPosted} </div>
                             </div>
 
                             <div className="flex flex-col py-4">
