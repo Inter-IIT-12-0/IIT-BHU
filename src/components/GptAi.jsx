@@ -175,8 +175,8 @@ const GptAi = ({ setAiOpen }) => {
         const processedParts = [];
     
         for (const part of parts) {
-            if (part.length >= 3) {
-                processedParts.push(part.slice(0, 3));  // Take the first three letters of each part
+            if (part.length >= 4) {
+                processedParts.push(part.slice(0, 4));  // Take the first three letters of each part
             } else {
                 processedParts.push(part);  // If the part is less than 3 characters, keep it as it is
             }
