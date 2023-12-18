@@ -133,7 +133,7 @@ const ProjectDashboard = ({ project, setIsOpen, isOpen, setSelectedSubmilestone,
 
 
             {
-              (role === 'Student' || role === 'Professor') &&
+              (role === 'Student' || role === 'Professor' || role === 'Learner') &&
               <div className={`inline-block px-8 py-1 rounded-2xl cursor-pointer ${selectedTab === 'Apps' ? 'bg-sky-700 text-white' : 'border border-gray-400 font-semibold text-gray-400'}`} onClick={() => handleTabClick('Apps')}>Apps</div>
             }
 

@@ -30,7 +30,14 @@ const OnBoarding2 = () => {
   const handleDomainSubmit = () => {
     let user = session.user
     user.domain = (selectedCards)
-    axios.patch(`/api/user/?userId=${session.user._id}`, user).then(res => router.push("/")).catch((err) =>{
+    axios.patch(`/api/user/?userId=${session.user._id}`, user).then(res => {
+      if (session.user?.role === 'Learner') {
+        return router.push('/upskillingPage')
+      }
+      else {
+        return router.push('/')
+      }
+    }).catch((err) =>{
       toast.error(err.response.data.error)
     })
   }

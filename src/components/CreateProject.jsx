@@ -18,7 +18,7 @@ const Form1 = () => {
     const [domains, setDomains] = useState(Domains)
     const [skills, setSkills] = useState(Skills)
     const { data: session } = useSession()
-    const [progress, setProgress] = useState(33);
+    const [progress, setProgress] = useState(50);
     const [loading, setLoading] = useState(false)
     const [domainsOpen, setDomainsOpen] = useState(false)
     const [skillsOpen, setSkillsOpen] = useState(false)
@@ -82,8 +82,8 @@ const Form1 = () => {
         e.preventDefault();
         if (formData.industry.length === 0) return toast.error("Domains can't be empty")
         if (formData.skills.length === 0) return toast.error("Skills can't be empty")
-        if (progress !== 99) {
-            if (progress === 33) {
+        if (progress !== 100) {
+            if (progress === 50) {
                 if (!isValidUrl(formData.docUrl)) {
                     toast.error("Please enter a valid url");
                     return
@@ -103,7 +103,7 @@ const Form1 = () => {
                 setFormData(newFormData)
                 setLoading(false);
             }
-            setProgress(prev => prev + 33);
+            setProgress(prev => prev + 50);
         }
         else {
             const data = {
@@ -189,9 +189,9 @@ const Form1 = () => {
                         className="relative inset-0 overflow-y-auto overflow-x-hidden flex items-center justify-center w-full bg-gray-200"
                     >
                         {
-                            progress > 33 && <BackArrowIcon className="absolute top-3 left-6 cursor-pointer" onClick={() => {
-                                if (progress > 33)
-                                    setProgress(prev => prev - 33)
+                            progress > 50 && <BackArrowIcon className="absolute top-3 left-6 cursor-pointer" onClick={() => {
+                                if (progress > 50)
+                                    setProgress(prev => prev - 50)
                             }} />
                         }
 
@@ -218,7 +218,7 @@ const Form1 = () => {
                                         aria-hidden="true"
                                         className="justify-center items-center w-full md:inset-0 h-modal md:h-full"
                                     >
-                                        <div className={classNames({ "hidden": progress !== 33 }, "relative p-4 w-full h-full md:h-auto")}>
+                                        <div className={classNames({ "hidden": progress !== 50 }, "relative p-4 w-full h-full md:h-auto")}>
                                             <div className="relative p-4 rounded-lg  sm:p-5 w-full">
                                                 <form onSubmit={handleSubmit}>
                                                     <div className="grid gap-4 mb-4 sm:grid-cols-2">
@@ -411,7 +411,7 @@ const Form1 = () => {
 
 
 
-                                        <div className={classNames({ "hidden": progress !== 66 }, "relative p-4 w-full h-full md:h-auto")}>
+                                        <div className={classNames({ "hidden": progress !== 100 }, "relative p-4 w-full h-full md:h-auto")}>
                                             <div className="relative p-4 rounded-lg sm:p-5 w-full">
                                                 <form onSubmit={handleSubmit}>
                                                     <div className="gap-4 mb-4">
@@ -533,7 +533,7 @@ const Form1 = () => {
                                                         <div
                                                             className="border border-sky-700 px-8 py-2 rounded-3xl text-sky-700 cursor-pointer"
                                                             onClick={() => {
-                                                                setProgress(prev => prev - 33)
+                                                                setProgress(prev => prev - 50)
                                                             }}
                                                         >
                                                             Back
@@ -542,20 +542,11 @@ const Form1 = () => {
                                                             type="submit"
                                                             className="bg-sky-700 px-8 py-2 rounded-3xl text-white"
                                                         >
-                                                            Next
+                                                            Save and List Project
                                                         </button>
                                                     </div>
                                                 </form>
                                             </div>
-                                        </div>
-                                        <div className={classNames({ "hidden": progress !== 99 }, "relative p-4 w-full h-full md:h-auto flex flex-col items-center justify-between")}>
-                                            <ClientMarketPlaceComponent />
-                                            <button
-                                                className="bg-sky-500 px-4 py-2 rounded-xl w-1/4 text-white mt-5"
-                                                onClick={handleSubmit}
-                                            >
-                                                Save and List project
-                                            </button>
                                         </div>
                                     </div>
                                 </div>

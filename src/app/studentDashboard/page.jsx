@@ -10,14 +10,13 @@ import axios from "axios";
 const studentDashboard = () => {
 
     const { data: session } = useSession()
-    console.log("session is:",session);
-    const[data, setData] = useState(null);
+    const [projects, setProjects] = useState(null);
 
     const today = new Date();
     const dayOfWeek = today.getDay();
     let date = today.getDate();
     if (date < 10) {
-    date = '0' + date.toString();
+        date = '0' + date.toString();
     }
     const month = today.getMonth();
     const year = today.getFullYear();
@@ -27,22 +26,20 @@ const studentDashboard = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                if(session)
-                {
-                    const response = await axios.get(`/api/user?id=${session.user._id}`);
-                    console.log("the data that I wanted is:",response.data);
-                    setData(response.data);
+                if (session) {
+                    const response = await axios.get(`/api/myprojects`);
+                    setProjects(response.data.filter(proj => proj.status === 'Assigned'));
                 }
             } catch (error) {
                 console.log(error);
             }
         }
         fetchData();
-    },[session])
+    }, [session])
 
     return (
         <main className='w-[100vw] h-[100vh] overflow-hidden bg-gray-100'>
-            {data && <div className='flex flex-col w-full h-full '>
+            {projects && <div className='flex flex-col w-full h-full '>
                 <Navbar />
                 <div className="flex flex-row w-full h-full overflow-x-hidden">
                     <StudentSidebar page={"dashboard"} />
@@ -78,7 +75,7 @@ const studentDashboard = () => {
                                             </h1>
                                             <div>
                                                 <Link href={'/lounges'}>
-                                                <button className="border-2 border-blue-500 text-blue-500 py-1 px-5 rounded-full mt-2 font-semibold">Enter Lounge</button>
+                                                    <button className="border-2 border-blue-500 text-blue-500 py-1 px-5 rounded-full mt-2 font-semibold">Enter Lounge</button>
                                                 </Link>
                                             </div>
                                         </div>
@@ -96,22 +93,22 @@ const studentDashboard = () => {
                                     </div>
                                 </div>
                                 <div className="grid grid-cols-2 gap-4 w-[100%]">
-                                    {data.projects.map((ele) => {
+                                    {projects.map((ele) => {
                                         const completedPercentage = ele.milestones.reduce((totalPercentage, ele) => {
                                             let sum = 0;
                                             let sum2 = 0;
-                                        
+
                                             sum += ele.submilestones && ele.submilestones.length;
-                                        
+
                                             ele.submilestones && ele.submilestones.forEach((subMilestone) => {
                                                 if (subMilestone.status === 'Completed') {
                                                     sum2 += 1; // Increment sum2 for each 'Completed' submilestone
                                                 }
                                             });
-                                        
+
                                             // If you want to calculate the percentage of completed submilestones
                                             // you can use the formula: (sum2 / sum) * 100
-                                        
+
                                             const milestonePercentage = (sum2 / sum) * 100;
                                             // Add the current milestone's percentage to the total
                                             return totalPercentage + milestonePercentage;
@@ -120,121 +117,81 @@ const studentDashboard = () => {
                                         const totalMilestones = ele.milestones.length;
                                         const milestoneApprovePayment = ele.milestones.reduce((appm, ele) => {
                                             let count = 0;
-                                            if(ele.paymentCompleted === true)
-                                            {
+                                            if (ele.paymentCompleted === true) {
                                                 count++;
                                             }
                                             return appm + count;
-                                        },0)
+                                        }, 0)
 
                                         const verifiedPercentage = (milestoneApprovePayment / totalMilestones) * 100;
-                                        
+
                                         return <div className="flex flex-col p-4 rounded-3xl shadow-lg bg-white">
-                                        <div className="flex justify-between w-52]">
-                                            <h1 className="font-bold text-sm">{ele.title}</h1>
-                                            <div className="flex gap-1">
-                                                {ele.assignedTeam && ele.assignedTeam.teamUserMap.map((ele) => {
-                                                    return <img className="h-6 w-6 rounded-full" src={ele.user.avatarUrl} alt="" />
-                                                })}
-                                            </div>
-                                        </div>
-                                        <div className="flex gap-4 h-32 my-3">
-                                            <div className="relative z-10">
-                                                <div className="flex flex-col absolute z-20 ml-6 mt-8 items-center">
-                                                    <p>{completedPercentage}%</p>
-                                                    <p>Complete</p>
-                                                </div>
-                                                <div className="relative h-28 w-28">
-                                                    <Circle
-                                                        className="relative"
-                                                        percent={completedPercentage}
-                                                        strokeColor='blue'
-                                                        strokeWidth={4}
-                                                        trailColor="lightblue"
-                                                        trailWidth={4}
-                                                        strokeLinecap="circle"
-                                                    />
+                                            <div className="flex justify-between w-52]">
+                                                <h1 className="font-bold text-sm">{ele.title}</h1>
+                                                <div className="flex gap-1">
+                                                    {ele.assignedTeam && ele.assignedTeam.teamUserMap.map((ele) => {
+                                                        return <img className="h-6 w-6 rounded-full" src={ele.user.avatarUrl} alt="" />
+                                                    })}
                                                 </div>
                                             </div>
-                                            <div className="relative z-10">
-                                                <div className="flex flex-col absolute z-20 ml-6 mt-8 items-center">
-                                                    <p>{verifiedPercentage}%</p>
-                                                    <p>Verified</p>
+                                            <div className="flex gap-4 h-32 my-3">
+                                                <div className="relative z-10">
+                                                    <div className="flex flex-col absolute z-20 ml-6 mt-8 items-center">
+                                                        <p>{completedPercentage}%</p>
+                                                        <p>Complete</p>
+                                                    </div>
+                                                    <div className="relative h-28 w-28">
+                                                        <Circle
+                                                            className="relative"
+                                                            percent={completedPercentage}
+                                                            strokeColor='blue'
+                                                            strokeWidth={4}
+                                                            trailColor="lightblue"
+                                                            trailWidth={4}
+                                                            strokeLinecap="circle"
+                                                        />
+                                                    </div>
                                                 </div>
-                                                <div className="relative h-28 w-28">
-                                                    <Circle
-                                                        className="relative"
-                                                        percent={verifiedPercentage}
-                                                        strokeColor='blue'
-                                                        strokeWidth={4}
-                                                        trailColor="lightblue"
-                                                        trailWidth={4}
-                                                        strokeLinecap="circle"
-                                                    />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    })}
-                                    {data.projects.length === 0 && <div>
-                                        No Projects Found
-                                        </div>}
-                                </div>
-                                <h1 className="text-2xl font-semibold my-3">Recommended Posts</h1>
-                                <div className="grid grid-cols-2 gap-4">
-                                    <div className="bg-white relative shadow-xl my-6 mr-6 rounded-xl">
-                                        <div className="relative z-10">
-                                            <div className="relative">
-                                                <img src="/Images/Rectangle2.png" alt="" className="w-full h-24 relative" />
-                                                <div className="absolute top-2 left-0 right-0 flex flex-col justify-end p-4">
-                                                    <div className="flex justify-between relative">
-                                                        <div className="text-black bg-slate-100 p-1 rounded">Top Rated</div>
-                                                        <div className="text-black bg-slate-100 p-1 rounded">$ 25000  + benefits</div>
-                                                        <img
-                                                            className="absolute right-3 2xl:top-16 xl:top-12 top-10 z-20 border border-red-400 w-[6vw] h-[6vw] rounded-full"
+                                                <div className="relative z-10">
+                                                    <div className="flex flex-col absolute z-20 ml-6 mt-8 items-center">
+                                                        <p>{verifiedPercentage}%</p>
+                                                        <p>Verified</p>
+                                                    </div>
+                                                    <div className="relative h-28 w-28">
+                                                        <Circle
+                                                            className="relative"
+                                                            percent={verifiedPercentage}
+                                                            strokeColor='blue'
+                                                            strokeWidth={4}
+                                                            trailColor="lightblue"
+                                                            trailWidth={4}
+                                                            strokeLinecap="circle"
                                                         />
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div>
-                                            <div className="px-6 mt-10">
-                                                <div className="flex flex-col rounded ">
-                                                    <h1 className="font-semibold">User Experience Designer</h1>
-                                                    <div className="flex justify-between">
-                                                        <div className="flex flex-col">
-                                                            <h1>Adobe(basics)</h1> 
-                                                            <h1>Posted 20 Nov</h1>
-                                                        </div>
-                                                        <div className="flex flex-col">
-                                                            <h1>Expiring</h1> 
-                                                            <h1>2 Dec 2023</h1> 
-                                                        </div>
-                                                    </div>
-                                                    <div>
-                                                        <button className="py-1 px-4 my-4 rounded-full border-2 border-blue-500 text-blue-500 font-semibold">View Details</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    })}
+                                    {projects.length === 0 && <div>
+                                        No Projects Found
+                                    </div>}
                                 </div>
                             </div>
                             <div className="w-[27%] flex flex-col gap-5">
                                 <div className="p-6 flex flex-col gap-3 bg-white rounded-3xl shadow-lg">
                                     <Line
-                                     percent={80}
-                                     strokeColor='blue'
-                                     strokeWidth={2}
-                                     trailColor="lightblue"
-                                     trailWidth={2}
-                                     strokeLinecap="circle"
+                                        percent={80}
+                                        strokeColor='blue'
+                                        strokeWidth={2}
+                                        trailColor="lightblue"
+                                        trailWidth={2}
+                                        strokeLinecap="circle"
                                     />
                                     <h1 className="text-3xl font-semibold">80%</h1>
                                     <h1 className="text-sm font-bold">of your Trumio profile is completed</h1>
                                     <p>Complete your profile to get personalised experiences and connect with like-minded individuals</p>
                                     <div>
-                                    <button className="py-2 px-3 border rounded-full border-blue-500 text-blue-500 font-semibold">Complete</button>
+                                        <button className="py-2 px-3 border rounded-full border-blue-500 text-blue-500 font-semibold">Complete</button>
                                     </div>
                                 </div>
                                 <div className="p-6 flex flex-col gap-3 bg-white rounded-3xl shadow-lg">
@@ -247,7 +204,7 @@ const studentDashboard = () => {
                                     <h1 className="text-sm font-bold">Explore Universities</h1>
                                     <p>Traverse through the University Ecosystem to get real-time updates about students, professors and lab facilities.</p>
                                     <Link href={'/university'}>
-                                    <h1 className="text-blue-500 cursor-pointer">Go to University page</h1>
+                                        <h1 className="text-blue-500 cursor-pointer">Go to University page</h1>
                                     </Link>
                                 </div>
                             </div>

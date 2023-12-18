@@ -33,8 +33,8 @@ const People = () => {
         const fetchData = async () => {
             try {
                 const response = await axios.get('/api/allusers/');
-                setUser(response.data.filter(person => person.role === 'Student'));
-                setFilteredPeople(response.data.filter(person => person.role === 'Student'));
+                setUser(response.data.filter(person => person.role === 'Student' || person.role === 'Learner'));
+                setFilteredPeople(response.data.filter(person => person.role === 'Student' || person.role === 'Learner'));
             } catch (error) {
                 console.log(error)
             }
