@@ -19,17 +19,17 @@ const upskillingPage = () => {
                 <Link href={"/toolsTable"} className="flex flex-col gap-3 p-4 bg-white rounded-3xl shadow-lg">
                     <img className="h-16 w-16" src="/Images/toolsImage.png" alt="" />
                     <h1 className="font-bold">Tool Table</h1>
-                    <p>Build and use AI Tools of your own choice with Trumio</p>
+                    <p className="font-serif">Build and use AI Tools of your own choice with Trumio</p>
                 </Link>
                 <Link href={"/homeArcade"} className="flex flex-col gap-3 p-4 bg-white rounded-3xl shadow-lg">
                     <img className="h-16 w-16" src="/Images/controllerImg.png" alt="" />
                     <h1 className="font-bold">AI Arcade</h1>
-                    <p> Learn AI Tools via fun tools and experimentations </p>
+                    <p  className="font-serif"> Learn AI Tools via fun tools and experimentations </p>
                 </Link>
                 <Link href={"/Mentorship"} className="flex flex-col gap-3 p-4 bg-white rounded-3xl shadow-lg">
                     <img className="h-16 w-16" src="/Images/irI.svg" alt="" />
                     <h1 className="font-bold">Mentorships</h1>
-                    <p>Get 1-on-1 support from AI industry experts </p>
+                    <p className="font-serif">Get 1-on-1 support from AI industry experts </p>
                 </Link>
             </div>
         </div>
