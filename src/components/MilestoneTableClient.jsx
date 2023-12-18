@@ -2,10 +2,12 @@ import React, { useState } from 'react'
 import Export_Icon from "../../public/Images/Export_Icon.svg"
 import axios from 'axios'
 import toast from 'react-hot-toast'
+import { useSession } from 'next-auth/react'
 
 const MilestoneTableClient = ({ project }) => {
     const [selectedMilestoneNum, setSelectedMilestoneNum] = useState(1)
     const [milestone, setMilestone] = useState(project.milestones[selectedMilestoneNum - 1])
+    const {data:session} = useSession()
 
     const handlePayment = async () => {
         milestone.paymentCompleted = true
@@ -14,11 +16,16 @@ const MilestoneTableClient = ({ project }) => {
             if(mil._id === milestone._id) {
                 let newMil = {...mil}
                 newMil.paymentCompleted = true
+                let presentClientPayment = session?.user.paymentsCompleted
+                presentClientPayment += newMil.payment
+                axios.patch(`/api/user/?userId=${session?.user._id}`, {
+                    paymentsCompleted: presentClientPayment
+                })
                 return newMil
             }
             return mil
         })
-
+        console.log(proj)
         const response = await axios.patch(`/api/project/${project._id}`, proj);
         if(response.status === 200) {
             toast.success("Payment Approved")
