@@ -40,7 +40,7 @@ const SubMilestoneCard = ({ submilestone, setSelectedSubmilestone, project, setT
       setName(value);
     }
   };
-  const [isOpen, setOpen] = useState(0);
+  const [isOpen, setOpen] = useState(false);
   const [isOpen2, setOpen2] = useState(1);
   const handleFileChange = (e) => {
     const files = Array.from(e.target);
@@ -61,7 +61,7 @@ const SubMilestoneCard = ({ submilestone, setSelectedSubmilestone, project, setT
       console.log(error)
     }
 
-    setOpen(0);
+    setOpen(false);
   };
   const handleWorkSubmit = async (e) => {
     e.preventDefault();
@@ -76,7 +76,7 @@ const SubMilestoneCard = ({ submilestone, setSelectedSubmilestone, project, setT
       console.log(error)
     }
 
-    setOpen(0);
+    setOpen(false);
   };
 
   const getInitialLetter = (fileName) => {
@@ -92,10 +92,6 @@ const SubMilestoneCard = ({ submilestone, setSelectedSubmilestone, project, setT
           {/* Main Heading and Text Options */}
           <div className="flex justify-between items-center mb-4">
             <h1 className="text-black font-Lato text-5xl font-medium leading-normal tracking-wide">{submilestone.title}</h1>
-            {/* <div className="flex space-x-4">
-              <p className="text-blue-500 text-lg font-Lato font-semibold leading-normal tracking-tight underline cursor-pointer">Team Chat</p>
-              <p className="text-blue-500 text-lg font-Latol font-semibold leading-normal tracking-tight underline cursor-pointer" onClick={() => setTimelineOpen(true)} >Milestone Timeline</p>
-            </div> */}
           </div>
 
           {/* Text Description */}
@@ -106,9 +102,9 @@ const SubMilestoneCard = ({ submilestone, setSelectedSubmilestone, project, setT
 
           <h1 className="text-black mt-6 mb-5 font-Lato text-2xl font-medium leading-normal tracking-tight " style={{ "letterSpacing": 0.7 }}>CONNECTED APPS</h1>
           {/* Cards */}
-          <div className="grid grid-cols-6 flex-wrap space-x-4 pl-5 bg-blue-100 p-8 rounded-3xl">
+          <div className="grid grid-cols-6 flex-wrap space-x-4 pl-5 p-8 rounded-3xl">
             {project.connectedApps.map((connectedApp, index) => (
-              <div key={index} className="flex-shrink-0 w-1/3 mb-5 shadow-xl cursor-pointer bg-gray-200 p-8" style={{ "width": "200px", borderRadius: 28 }}>
+              <div key={index} className="flex-shrink-0 w-1/3 mb-5 shadow-xl cursor-pointer bg-indigo-50 p-8" style={{ "width": "200px", borderRadius: 28 }}>
                 {/* Card Image */}
                 <img
                   src={connectedApp.tool}
@@ -129,15 +125,16 @@ const SubMilestoneCard = ({ submilestone, setSelectedSubmilestone, project, setT
             </div>
             <div>
               {isOpen && <div>
-                <form onSubmit={handleFormSubmit} className='rounded-3xl shadow-lg p-8 flex flex-col justify-center w-72 bg-white'>
+                <form onSubmit={handleFormSubmit} className='rounded-3xl shadow-lg p-8 flex flex-col justify-center w-96 bg-white'>
                   <div className='flex flex-row mt-4'>
                     <label className='mr-2 font-bold'>
-                      Tool
+                      Tool Image Url
                     </label>
                     <input
                       type="text"
                       name="tool"
                       value={tool}
+                      className='border'
                       onChange={handleInputChange}
                     />
                   </div>
@@ -148,6 +145,7 @@ const SubMilestoneCard = ({ submilestone, setSelectedSubmilestone, project, setT
                       type="text"
                       name="url"
                       value={url}
+                      className='border'
                       onChange={handleInputChange}
                     />
                   </div>

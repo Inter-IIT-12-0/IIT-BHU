@@ -35,38 +35,34 @@ const ViewBids = ({ project_id }) => {
     <>
       {
         !openBid ?
-          <div className="flex flex-col p-8 w-full">
+          <div className="flex flex-col p-8 w-full bg-gray-200">
             <div className="flex justify-between">
               <div className="flex flex-row">
                 <h1 className="text-black text-2xl font-semibold mr-3">Project Name</h1>
                 <img className="h-7 mt-1" src="/Images/export.svg" alt="" />
               </div>
-              <h1 className="text-black text-2xl font-semibold">Live Until: </h1>
             </div>
-            <div className="flex flex-col bg-blue-100 rounded-md px-3 py-6 mt-8">
+            <div className="flex flex-col rounded-md px-3 py-6 mt-8">
               <div className="flex justify-between">
-                <h1 className="text-2xl text-black font-semibold my-2">Recieved Bids</h1>
+                <h1 className="text-2xl text-black font-semibold my-2">Bids Recieved</h1>
                 <div className="flex flex-row">
                   <h1 className="text-1x1 text-black font-semibold my-2 mr-16">Recieved: {bids && bids.length} </h1>
                   <h1 className="text-1x1 text-black font-semibold my-2 mr-10">Reviewed: {bids && bids.filter(bid => bid.status === 'Reviewed').length} </h1>
                 </div>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between items-end">
                 <div className="w-[70%]">
                   <h1 className="text-1x1 text-black font-semibold my-3">TruBot has ranked the bids received by you, take a look!</h1>
-                  <div className="flex flex-row bg-white p-2 rounded-md">
+                  <div className="flex flex-row bg-white p-2 rounded-2xl">
                     <img className="h-5 pt-1 px-2" src="/Images/Search_Icon.svg" alt="" />
                     <input className="w-[100%] p-1" type="text" placeholder="Search for Teams" value={search} onChange={e => setSearch(e.target.value)} />
                   </div>
                 </div>
-                <img src="/Images/Filter2_Icon_UIA.svg" className="mt-8 cursor-pointer" alt="" />
-                <div className="flex flex-col mt-3">
-                  <h1 className="text-black text-1x1 m-2">Bid Status</h1>
-                  <div className="flex flex-row bg-white px-2 rounded-md">
-                    <input type="text" placeholder="Select Type" className="py-2 px-10 rounded-md border-r-0" />
-                    <img src="/Images/arrow-left.svg" className="h-7 pt-2" alt="" />
-                  </div>
-                </div>
+                <select className="flex flex-col mt-3 w-1/4 h-1/2 outline-none rounded-3xl px-3 pt-3 bg-gray-300" value={status} onChange={e => setStatus(e.target.value)}>
+                  <option value="select"> Bid Status </option>
+                  <option value="Pending"> New </option>
+                  <option value="Reviewed"> Reviewed </option>
+                </select>
               </div>
               <div className="mt-6">
                 <table className="w-full border-collapse">
@@ -81,7 +77,7 @@ const ViewBids = ({ project_id }) => {
                     </tr>
                   </thead>
                   <tbody>
-                    {bids && bids.map((bid, index) => (
+                    {bids && bids.filter(bid => bid.teamName.toLowerCase().includes(search.toLowerCase()) && (status === 'select' || bid.status === status)).map((bid, index) => (
                       <tr key={index} className="bg-white border-t">
                         <td className="px-6 py-4 flex justify-center">
                           <span className='flex justify-center items-center rounded-full p-1 border-2 border-gray-400 w-8 h-8 relative bottom-2'>
@@ -113,7 +109,7 @@ const ViewBids = ({ project_id }) => {
 
             </div>
           </div> :
-          <div className="flex py-5 px-16 w-full">
+          <div className="flex py-5 px-16 w-full bg-gray-200">
             <Bid team={openingTeam} setOpenBid={setOpenBid}/>
             {/* <ClientProjectsRightSidebar  mtdata={openingTeam.teamUserMap}/> */}
           </div>

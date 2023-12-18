@@ -43,7 +43,7 @@ const Bid = ({team, setOpenBid}) => {
 
     const [modalOpen, setModalOpen] = useState(false)
     return (
-            <div className="p-8 w-full ">
+            <div className="p-8 w-full">
                 <BackArrowIcon className="relative  cursor-pointer" onClick={() => setOpenBid(false)} />
                 <div className="flex justify-between mt-3">
                     <div className="flex flex-row">
@@ -52,7 +52,7 @@ const Bid = ({team, setOpenBid}) => {
                     </div>
                     <h1 className="text-2xl text-black font-semibold"> {team.rating?team.rating:0} /5.0</h1>
                 </div>
-                <div className="flex flex-col p-8 bg-blue-100 rounded-md mt-6">
+                <div className="flex flex-col p-8 rounded-md mt-6">
                     <h1 className="text-2xl text-black font-semibold">Bid Details</h1>
                     <div className="flex justify-between">
                         <div className="flex justify-between flex-nowrap bg-white px-10 py-4 rounded-md">
@@ -75,7 +75,7 @@ const Bid = ({team, setOpenBid}) => {
                         </div>
                     </div>
                 </div>
-                <div className="flex flex-col bg-blue-100 max-h-[35vh] overflow-scroll overflow-y-auto overflow-x-hidden rounded-md p-8 mt-6 w-full">
+                <div className="flex flex-col max-h-[35vh] overflow-scroll overflow-y-auto overflow-x-hidden rounded-md p-8 mt-6 w-full">
                     <h1 className=" text-black text-2xl font-semibold">Milestone Details</h1>
                     <table className="min-w-full bg-white border border-blue-900">
                         <thead className="bg-blue-900 text-white">
