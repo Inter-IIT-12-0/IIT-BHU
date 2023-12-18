@@ -59,7 +59,7 @@ export default async function promptcheck(prompt) {
   return 0;
   const messages = await generateMessages(prompt);
   const json_response = await GPT(messages);
-  if(json_response.includes("cat"))
+  if(JSON.stringify(json_response).includes("cat"))
   return 1;
   else
   return 0;
