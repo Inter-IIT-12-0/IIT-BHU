@@ -61,26 +61,26 @@ const Home = () => {
                             <div className="w-[70%] my-3">
                                 <h1 className="font-semibold text-2xl mb-2">Explore</h1>
                                 <div className="w-[100%] flex flex-row gap-6">
-                                    <div className="rounded-3xl shadow-lg p-6 flex flex-col justify-center items-center w-[37%] bg-white">
-                                        <h1 className="text-3xl font-semibold">85%</h1>
-                                        <h1 className="font-semibold">people network with their alumni on Trumio</h1>
+                                    <div className="rounded-3xl shadow-lg p-6 flex flex-col justify-center  w-[37%] bg-white">
+                                        <h1 className="text-6xl font-semibold text-left opacity-70">85%</h1>
+                                        <h1 className="font-semibold">People network with their alumni on Trumio</h1>
                                         <Link href={'/people'}>
                                             <button className="py-1 px-5 rounded-full border-2 odd:border-blue-500 text-blue-500 my-3 font-semibold">Explore People</button>
                                         </Link>
                                     </div>
                                     <div className="rounded-3xl shadow-lg p-6 flex flex-row gap-4 bg-white w-[60%]">
                                         <div className="flex flex-col gap-4">
-                                            <h1 className="font-semibold">
+                                            <h1 className="font-semibold opacity-80">
                                                 Connect with people across the Trumio Ecosystem to drive or engage in various discussions
                                             </h1>
                                             <div>
                                                 <Link href={'/lounges'}>
-                                                    <button className="border-2 border-blue-500 text-blue-500 py-1 px-5 rounded-full mt-2 font-semibold">Enter Lounge</button>
+                                                    <button className="border-2 border-blue-500 text-blue-500 py-1 px-5 rounded-full mt-12 font-semibold">Enter Lounge</button>
                                                 </Link>
                                             </div>
                                         </div>
                                         <div>
-                                            <img src="/Images/gi.png" alt="" />
+                                            <img src="/Images/gi.png" alt="" className="mt-12 w-96" />
                                         </div>
                                     </div>
                                 </div>
@@ -125,29 +125,29 @@ const Home = () => {
 
                                         const verifiedPercentage = (milestoneApprovePayment / totalMilestones) * 100;
 
-                                        return <div className="flex flex-col p-4 rounded-3xl shadow-lg bg-white">
+                                        return <div className="flex flex-col p-2 rounded-3xl shadow-lg bg-white">
                                             <div className="flex justify-between w-52]">
-                                                <h1 className="font-bold text-sm">{ele.title}</h1>
+                                                <h1 className="font-bold text-xl opacity-75 ml-4">{ele.title}</h1>
                                                 <div className="flex gap-1">
                                                     {ele.assignedTeam && ele.assignedTeam.teamUserMap.map((ele) => {
                                                         return <img className="h-6 w-6 rounded-full" src={ele.user.avatarUrl} alt="" />
                                                     })}
                                                 </div>
                                             </div>
-                                            <div className="flex gap-4 h-32 my-3">
+                                            <div className="flex gap-4 h-64 my-3">
                                                 <div className="relative z-10">
-                                                    <div className="flex flex-col absolute z-20 ml-6 mt-8 items-center">
-                                                        <p>{completedPercentage}%</p>
+                                                    <div className="flex flex-col absolute z-20 ml-12 mt-12 items-center">
+                                                        <p className="text-blue-600 text-bold text-5xl">{completedPercentage}%</p>
                                                         <p>Complete</p>
                                                     </div>
-                                                    <div className="relative h-28 w-28">
+                                                    <div className="relative h-40 w-40">
                                                         <Circle
                                                             className="relative"
                                                             percent={completedPercentage}
                                                             strokeColor='blue'
                                                             strokeWidth={4}
                                                             trailColor="lightblue"
-                                                            trailWidth={4}
+                                                            trailWidth={6}
                                                             strokeLinecap="circle"
                                                         />
                                                     </div>
@@ -157,14 +157,14 @@ const Home = () => {
                                                         <p>{verifiedPercentage}%</p>
                                                         <p>Approved</p>
                                                     </div>
-                                                    <div className="relative h-28 w-28">
+                                                    <div className="relative h-40 w-40">
                                                         <Circle
                                                             className="relative"
                                                             percent={verifiedPercentage}
                                                             strokeColor='blue'
                                                             strokeWidth={4}
                                                             trailColor="lightblue"
-                                                            trailWidth={4}
+                                                            trailWidth={6}
                                                             strokeLinecap="circle"
                                                         />
                                                     </div>

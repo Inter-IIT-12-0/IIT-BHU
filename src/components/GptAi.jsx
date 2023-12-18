@@ -170,6 +170,22 @@ const GptAi = ({ setAiOpen }) => {
         setSubmittedData(null);
     };
 
+    function processName(inputName) {
+        const parts = inputName.split('-');  // Split the name into parts using hyphens
+        const processedParts = [];
+    
+        for (const part of parts) {
+            if (part.length >= 4) {
+                processedParts.push(part.slice(0, 4));  // Take the first three letters of each part
+            } else {
+                processedParts.push(part);  // If the part is less than 3 characters, keep it as it is
+            }
+        }
+    
+        const processedName = processedParts.join('-');  // Join the processed parts back into a name
+        return processedName;
+    }
+
     return (
         <main className="overflow-hidden absolute right-0 top-0 z-50 w-[100vw] h-[100vh] bg-gray-800 bg-opacity-50 flex justify-center">
             <div className="w-8 h-8 flex justify-center items-center absolute top-10 right-20 cursor-pointer bg-black rounded-full text-white" onClick={() => setAiOpen(false)}> X </div>
@@ -182,7 +198,7 @@ const GptAi = ({ setAiOpen }) => {
                         session && session.user.aiTools.map((tool, index) => (
                             <div className="flex justify-center items-center">
                                 <Link href={`/customTool/${tool.name}`} target="_blank" className="flex items-center justify-center" >
-                                    <button className="px-3 py-1 border border-sky-700 text-sky-700 rounded-xl"> {tool.name} </button>
+                                    <button className="px-3 py-1 border border-sky-700 text-sky-700 rounded-xl"> {processName(tool.name)} </button>
                                 </Link>
                             </div>
                         ))

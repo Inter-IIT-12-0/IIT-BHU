@@ -75,26 +75,26 @@ const Upskilling = () => {
               <div className="w-[70%] my-3">
                 <h1 className="font-semibold text-2xl mb-2">Explore</h1>
                 <div className="w-[100%] flex flex-row gap-6">
-                  <div className="rounded-3xl shadow-lg p-6 flex flex-col justify-center items-center w-[37%] bg-white">
-                    <h1 className="text-3xl font-semibold">85%</h1>
-                    <h1 className="font-semibold">people network with their alumni on Trumio</h1>
+                  <div className="rounded-3xl shadow-lg p-6 flex flex-col justify-center  w-[37%] bg-white">
+                    <h1 className="text-6xl font-semibold text-left opacity-70">85%</h1>
+                    <h1 className="font-semibold">People network with their alumni on Trumio</h1>
                     <Link href={'/people'}>
                       <button className="py-1 px-5 rounded-full border-2 odd:border-blue-500 text-blue-500 my-3 font-semibold">Explore People</button>
                     </Link>
                   </div>
                   <div className="rounded-3xl shadow-lg p-6 flex flex-row gap-4 bg-white w-[60%]">
                     <div className="flex flex-col gap-4">
-                      <h1 className="font-semibold">
+                      <h1 className="font-semibold opacity-80">
                         Connect with people across the Trumio Ecosystem to drive or engage in various discussions
                       </h1>
                       <div>
                         <Link href={'/lounges'}>
-                          <button className="border-2 border-blue-500 text-blue-500 py-1 px-5 rounded-full mt-2 font-semibold">Enter Lounge</button>
+                          <button className="border-2 border-blue-500 text-blue-500 py-1 px-5 rounded-full mt-12 font-semibold">Enter Lounge</button>
                         </Link>
                       </div>
                     </div>
                     <div>
-                      <img src="/Images/gi.png" alt="" />
+                      <img src="/Images/gi.png" alt="" className="mt-12 w-96" />
                     </div>
                   </div>
                 </div>
@@ -110,7 +110,7 @@ const Upskilling = () => {
                       </div>
                       <h1 className="text-2xl font-semibold">{ele.tag}</h1>
                       <p>{ele.desc}</p>
-                      <h1>Begineer * 6 Hours</h1>
+                      <h1 className="mt-4"> <span className="font-sans rounded-lg border-cyan-600 bg-blue-200 w-fit p-2">Beginner </span><span className="rounded-lg bg-red-200 p-2 font-serif ml-36">6 Hours</span></h1>
                     </Link>
                   })}
                 </div>
