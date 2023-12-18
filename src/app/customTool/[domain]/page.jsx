@@ -32,8 +32,9 @@ const CustomisedTool = ({params}) => {
             chat,
             message, setMessage
         );
-        setChat("");
+        
         await generate(message, result, setResult, setMessage);
+        setChat("");
     };
 
     useEffect(() => {
