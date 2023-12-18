@@ -35,7 +35,7 @@ const Learning = () => {
 
             const response = await promptcheck(prompt);
             const data = await response;
-            if (data) {
+            if (data.includes("cat")) {
                 setChecker("Excellent work!! Your tasks are completed for today. You did a great job, keep it up. Goodbye! see you tomorrow");
 
             }
