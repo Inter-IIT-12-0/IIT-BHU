@@ -112,7 +112,7 @@ export const ChatbotCard = ({ isOpen }) => {
         <button className={`px-4 py-1 rounded-lg font-semibold ${mode === 'Project' ? 'bg-[#004b90] text-white' : 'bg-[#daf7f7] text-[#004b90]'}`} onClick={() => setMode("Project")}> Projects </button>
         <button className={`px-4 py-1 rounded-lg font-semibold ${mode === 'General' ? 'bg-[#004b90] text-white' : 'bg-[#daf7f7] text-[#004b90]'} `} onClick={() => setMode("General")}> General </button>
       </div>
-      <div className='w-full h-full bg-sky-100 relativ bg-inherit'>
+      <div className='w-full h-full relative bg-inherit'>
         {mode == "General" &&
           <div className='h-[270px] overflow-scroll overflow-y-auto overflow-x-hidden px-4'>
             {messages &&
