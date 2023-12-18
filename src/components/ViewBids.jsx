@@ -26,6 +26,9 @@ const ViewBids = ({ project_id }) => {
     axios.patch(`/api/team/?teamId=${team._id}`, {
       ...team,
       status: 'Reviewed'
+    }).then(res => {
+      setOpenTeam(team);
+      setOpenBid(true)
     })
   }
   return (
@@ -45,7 +48,7 @@ const ViewBids = ({ project_id }) => {
                 <h1 className="text-2xl text-black font-semibold my-2">Recieved Bids</h1>
                 <div className="flex flex-row">
                   <h1 className="text-1x1 text-black font-semibold my-2 mr-16">Recieved: {bids && bids.length} </h1>
-                  <h1 className="text-1x1 text-black font-semibold my-2 mr-10">Invited: </h1>
+                  <h1 className="text-1x1 text-black font-semibold my-2 mr-10">Reviewed: {bids && bids.filter(bid => bid.status === 'Reviewed').length} </h1>
                 </div>
               </div>
               <div className="flex justify-between">
@@ -53,7 +56,7 @@ const ViewBids = ({ project_id }) => {
                   <h1 className="text-1x1 text-black font-semibold my-3">TruBot has ranked the bids received by you, take a look!</h1>
                   <div className="flex flex-row bg-white p-2 rounded-md">
                     <img className="h-5 pt-1 px-2" src="/Images/Search_Icon.svg" alt="" />
-                    <input className="w-[100%] p-1" type="text" placeholder="Search for Teams or Talent" />
+                    <input className="w-[100%] p-1" type="text" placeholder="Search for Teams" value={search} onChange={e => setSearch(e.target.value)} />
                   </div>
                 </div>
                 <img src="/Images/Filter2_Icon_UIA.svg" className="mt-8 cursor-pointer" alt="" />
@@ -64,7 +67,6 @@ const ViewBids = ({ project_id }) => {
                     <img src="/Images/arrow-left.svg" className="h-7 pt-2" alt="" />
                   </div>
                 </div>
-                <img src="/Images/refresh-2.svg" className="mt-10" alt="" />
               </div>
               <div className="mt-6">
                 <table className="w-full border-collapse">
@@ -91,15 +93,12 @@ const ViewBids = ({ project_id }) => {
                             <span className="font-semibold">{bid.teamName}</span>
                           </div>
                         </td>
-                        <td className="px-6 py-4 text-center">${bid.proposal.bidAmount}</td>
+                        <td className="px-6 py-4 text-center">&#8377; {bid.proposal.bidAmount}</td>
                         <td className="px-6 py-4 text-center">{bid.rating?bid.rating:0}/5.0</td>
                         <td className="px-6 py-4 text-center rounded-md"> {bid.status === 'Reviewed' ? <span className='bg-orange-200 text-orange-600 px-2 py-1 rounded-lg font-semibold'> Reviewed </span> : <span className='bg-sky-200 text-sky-700 font-semibold px-2 py-1 rounded-lg'> New </span>} </td>
                         <td className="px-6 py-4 flex justify-center">
                           <img
-                            onClick={() => {
-                              setOpenTeam(bid);
-                              setOpenBid(true)
-                            }}
+                            onClick={() => handleView(bid)}
                             className="cursor-pointer"
                             src="/Images/eye.svg"
                             alt=""

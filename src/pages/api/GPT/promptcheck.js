@@ -30,9 +30,10 @@ export async function GPT(messages) {
     // Read the response as a stream of data
     const res_message = await response.json();
     const message = res_message["choices"][0]["message"]["content"];
+    // console.log(message)
     const signal = res_message["choices"][0]["finish_reason"];
     if (signal !== "length") {
-      return JSON.parse(message);
+      return String(message);
     }
     return { Error: "Token limit insufficient." };
   } catch (error) {
@@ -41,15 +42,14 @@ export async function GPT(messages) {
 }
 
 
-async function generateMessages(prompt) {
-  const userprompt = JSON.stringify(prompt);
+function generateMessages(prompt) {
   const messages = [
     {
       role: "system",
       content: `I will be providing you a prompt from a user and you should answer that query as a single string only of not more than 3-4 lines.The format of the response should be strictly a single string of 3-4 lines approx.
       `,
     },                                         
-    { role: "user", content: userprompt },
+    { role: "user", content: prompt },
   ];
   return messages;
 }
@@ -57,7 +57,7 @@ async function generateMessages(prompt) {
 export default async function promptcheck(prompt) {
   if(prompt.includes("cat"))
   return 0;
-  const messages = await generateMessages(prompt);
+  const messages = generateMessages(prompt);
   const json_response = await GPT(messages);
   return json_response;
 }

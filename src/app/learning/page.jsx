@@ -34,9 +34,8 @@ const Learning = () => {
         try {
 
             const response = await promptcheck(prompt);
-            const data = await response;
             
-            if (data && JSON.stringify(data).includes("cat")) {
+            if (response && response.includes("cat")) {
                 setChecker("Excellent work!! Your tasks are completed for today. You did a great job, keep it up. Goodbye! see you tomorrow");
 
             }
