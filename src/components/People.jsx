@@ -33,8 +33,8 @@ const People = () => {
         const fetchData = async () => {
             try {
                 const response = await axios.get('/api/allusers/');
-                setUser(response.data.filter(person => person.role === 'Student'));
-                setFilteredPeople(response.data.filter(person => person.role === 'Student'));
+                setUser(response.data.filter(person => person.role === 'Student' || person.role === 'Learner'));
+                setFilteredPeople(response.data.filter(person => person.role === 'Student' || person.role === 'Learner'));
             } catch (error) {
                 console.log(error)
             }
@@ -296,7 +296,7 @@ const People = () => {
                                         <button className='mt-5 py-1 px-6 rounded-full bg-sky-500 text-white font-semibold'>View Profile</button>
                                     </div>
                                     <div className='flex flex-col py-5 justify-between h-full'>
-                                        <h1>{person.rating}/5.0</h1>
+                                        <h1>{person.ratin?person.ratin:0}/5.0</h1>
                                     </div>
                                 </div>
                             })}

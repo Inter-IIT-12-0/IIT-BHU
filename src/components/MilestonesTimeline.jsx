@@ -9,7 +9,7 @@ const MilestonesTimeline = ({ setTimelineOpen, project }) => {
 
     const currentMilestone = project.milestones.filter(milestone => milestone.status === 'In Progress')[0]
     return (
-        <div className="w-96 h-full ml-20 flex flex-col absolute right-0 top-12 animate-[appear_1s_ease-in-out] z-50">
+        <div className="w-96 max-h-[70vh] overflow-scroll overflow-y-auto overflow-x-hidden ml-20 flex flex-col absolute right-0 top-0 bg-gray-300 rounded-lg pl-5 animate-[appear_1s_ease-in-out] z-50">
             <nav className='flex justify-end py-6 items-center'>
                 <Close onClick={() => setTimelineOpen(false)} className="cursor-pointer" />
             </nav>

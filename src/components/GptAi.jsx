@@ -44,7 +44,7 @@ const Subdomain = ({ domain, subdomain }) => {
                             <div className="p-4 rounded bg-gray-100">
                                 <pre className="whitespace-pre-line">
                                     <code>
-                                    {result}
+                                        {result}
                                     </code>
                                 </pre>
                             </div>
@@ -171,25 +171,25 @@ const GptAi = ({ setAiOpen }) => {
     };
 
     return (
-        <main className="overflow-hidden absolute right-0 top-0 z-50 w-[100vw] h-[100vh] bg-gray-800 bg-opacity-50 flex justify-center"> 
+        <main className="overflow-hidden absolute right-0 top-0 z-50 w-[100vw] h-[100vh] bg-gray-800 bg-opacity-50 flex justify-center">
             <div className="w-8 h-8 flex justify-center items-center absolute top-10 right-20 cursor-pointer bg-black rounded-full text-white" onClick={() => setAiOpen(false)}> X </div>
             <div className="mx-auto relative top-24 w-[600px]">
-                <div className="w-full h-16 bg-gray-100 rounded-xl grid grid-cols-4" >
-                    <div className="flex justify-center items-center bg-gray-300">
-                        <img src="/Images/ChatbotLogo.png" alt="" className="h-12 w-24 rounded-full" />
+                <div className="w-full h-12 bg-gray-100 rounded-xl grid grid-cols-4" >
+                    <div className="flex justify-center items-center">
+                        <button className='bg-gradient-to-r from-cyan-500 to-violet-600 px-5 py-1 text-white rounded-2xl cursor-auto'> AI </button>
                     </div>
                     {
-                        session && session.user.aiTools.map(tool => (
+                        session && session.user.aiTools.map((tool, index) => (
                             <div className="flex justify-center items-center">
-                                <Link href={`/customTool/${tool.name}`} className="flex items-center justify-center w-12 h-12" target="_blank">
-                                    <img src={tool.image} alt={tool.name} className="flex justify-center items-center w-12 h-12 rounded-full" />
+                                <Link href={`/customTool/${tool.name}`} target="_blank" className="flex items-center justify-center" >
+                                    <button className="px-3 py-1 border border-sky-700 text-sky-700 rounded-xl"> {tool.name} </button>
                                 </Link>
                             </div>
                         ))
                     }
                     {
                         session && session.user.aiTools.length < 3 &&
-                        <Link href="/toolsTable" className="flex items-center justify-center">
+                        <Link href="/toolsTableMarketplace" className="flex items-center justify-center">
                             <div className="bg-sky-600 hover:bg-sky-700 transition-all duration-500 text-white rounded-md px-2 py-1 cursor-pointer">Add tool</div>
                         </Link>
                     }

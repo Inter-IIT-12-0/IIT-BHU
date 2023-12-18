@@ -19,6 +19,7 @@ import toast from 'react-hot-toast'
 import { useRouter } from "next/navigation"
 import Loading from '../../../components/Loading'
 import validator from 'validator';
+import ProjectCard from '../../../components/ProjectCard'
 
 
 const TextEditor = ({ proposalText, setProposalText, handleSubmit, handleGenerateScores }) => {
@@ -104,7 +105,7 @@ const TextEditor = ({ proposalText, setProposalText, handleSubmit, handleGenerat
                 </div>
                 <div className="px-4 py-2 bg-white rounded-b-lg">
                     <label for="editor" className=" sr-only">Publish post</label>
-                    <textarea value={proposalText} onChange={e => setProposalText(e.target.value)} id="editor" rows="8" className="outline-none block w-full px-0 text-sm text-gray-800 bg-white border-0  focus:ring-0" placeholder="Write an article..." required></textarea>
+                    <textarea value={proposalText} onChange={e => setProposalText(e.target.value)} id="editor" rows="8" className="outline-none block w-full px-0 text-sm text-gray-800 bg-white border-0  focus:ring-0" placeholder="Write your proposal..." required></textarea>
                 </div>
             </div>
             <div className='flex'>
@@ -142,6 +143,7 @@ const CreateBid = ({ params }) => {
     const [proposalText, setProposalText] = useState("")
     const [teamProb, setTeamProb] = useState(null)
     const [teamRank, setTeamRank] = useState(null)
+    const [teamRating, setTeamRating] = useState(0)
 
     const [milestones, setMilestones] = useState([
         {
@@ -160,6 +162,7 @@ const CreateBid = ({ params }) => {
         let prevMilestones = [...milestones]
         prevMilestones[selectedMilestone - 1][name] = value
         setMilestones(prevMilestones);
+        console.log(startDate)
     };
     const handleFileChange2 = (e) => {
         const files = Array.from(e.target.files);
@@ -173,7 +176,7 @@ const CreateBid = ({ params }) => {
 
         milestones.forEach((milestone, index) => {
             const dueDate = new Date(startDate);
-            dueDate.setDate(dueDate.getDate() + Number(milestone.duration) * 7);
+            dueDate.setDate(dueDate.getDate() + Number(milestone.duration));
             dueDates.push(dueDate);
         });
 
@@ -212,6 +215,7 @@ const CreateBid = ({ params }) => {
             team_key: teams.map(team => team.teamUserMap.map(map => map.user.domain.join(', '))[0]),
             amounts: teams.map(team => team.proposal.bidAmount)
         }
+        setTeamRating(presentTeam.teamUserMap.reduce((acc, map) => acc + map.user.rating, 0) / presentTeam.teamUserMap.length)
         const FLASK_APP_URL = process.env.NEXT_PUBLIC_FLASK_APP_URL + '/predict'
         axios.post(FLASK_APP_URL, obj).then(res => {
             setTeamProb(Math.floor(res.data.prediction[0] * 100))
@@ -222,12 +226,14 @@ const CreateBid = ({ params }) => {
     }
 
     const handleGenerateScores = () => {
+        if (proposalText.length === 0) return toast.error("Proposal can't be empty")
         axios.get(`/api/bids/${id}`).then(res => {
-            generateScores(res.data.teams)
-        })
+            generateScores(res.data.teams.filter(team => team._id !== presentTeam._id))
+        }).catch(err => toast.error(err.response.data.error))
     }
 
-    const handleGenerate = async () => { //! This generates the submilestones from the milestones given by user
+    const handleGenerate = async (e) => { //! This generates the submilestones from the milestones given by user
+        e.preventDefault()
         setLoading(true);
         const res = await createSubMilestones(milestones)
         setLoading(false)
@@ -236,6 +242,7 @@ const CreateBid = ({ params }) => {
     }
 
     const handleSubmit = () => { //! Bid submission is being done through the handleSubmit function by an API call
+        if(teamProb === null) return toast.error("Generate Score first") 
         let modifiedMilestones = [...milestones]
         const submilestones = Object.values(aiGenerated).map((milestone, index1) => (
             milestone.Submilestones.map((submilestone, index2) => (
@@ -267,6 +274,8 @@ const CreateBid = ({ params }) => {
         let newTeam = { ...presentTeam }
         newTeam.proposal = proposal
         newTeam.status = 'Pending'
+        newTeam.rating = teamRating
+
 
         axios.patch(`/api/team/?teamId=${presentTeam._id}`, newTeam).then(res => {
             toast.success("Your Bid is submitted")
@@ -298,7 +307,17 @@ const CreateBid = ({ params }) => {
                 })
                 setNonApprovals(nonApprov);
                 setPresentTeam(res.data)
+                setMilestones(res.data.proposal.milestones.map(milestone => {
+                    return {
+                        payment: milestone.payment,
+                        heading: milestone.heading,
+                        duration: milestone.duration,
+                        description: milestone.description,
+                        deliverables: milestone.deliverables
+                    }
+                }))
                 setTeamName(res.data.teamName ? res.data.teamName : '')
+                setStartDate(res.data.proposal.startDate.split('T')[0])
             }).catch(err => toast.error(err.response.data.error))
 
 
@@ -351,7 +370,8 @@ const CreateBid = ({ params }) => {
 
     const addToTeam = async (member) => {
         try {
-            if (presentTeam.teamUserMap.map(map => map.user.email).includes(member.email)) return toast.error("Member already added")
+            if (teamName.length === 0) return toast.error("Please enter a team name")
+            if (presentTeam.teamUserMap.map(map => map.user._id).includes(member._id)) return toast.error("Member already added")
             let newTeam = presentTeam;
             const teamUserMapNew = [...newTeam.teamUserMap, {
                 user: member._id,
@@ -363,7 +383,11 @@ const CreateBid = ({ params }) => {
             await axios.patch(`/api/team/?teamId=${presentTeam._id}`, newTeam)
                 .then(async res => {
                     setPresentTeam(res.data)
+                    axios.patch(`/api/team/?teamId=${presentTeam._id}`, {
+                        teamName
+                    }).catch(err => toast.error(err.response.data.error))
                     await handleInvite(res.data._id, member._id);
+                    toast.success("Team mate Invited")
                 }).catch(err => toast.error(err.response.data.error))
 
             setNoOfTeams(prev => prev + 1)
@@ -372,18 +396,20 @@ const CreateBid = ({ params }) => {
         }
     }
 
-    const removeFromTeam = (member) => {
+    const removeFromTeam = (memberMap) => {
         const newArr = presentTeam.teamUserMap.filter(map => {
-            return map.user.email !== member.email
+            return map.user._id !== memberMap.user._id
         })
         let newTeam = presentTeam
         newTeam.teamUserMap = newArr
         let teamId = presentTeam._id;
-        let userId = member._id;
+        let userId = memberMap.user._id;
         axios.patch(`/api/team/?teamId=${presentTeam._id}`, newTeam)
             .then(res => {
-                axios.delete(`/api/deleteinvite/?teamId=${teamId}&userId=${userId}`).then(res => toast.error("Invite Deleted")).catch(err => toast.error(err.response.data.error))
-
+                if (memberMap.status !== 'Approved')
+                    axios.delete(`/api/deleteinvite/?teamId=${teamId}&userId=${userId}`).then(res => toast.error("Invite Deleted")).catch(err => toast.error(err.response.data.error))
+                else
+                    toast.success("Team Member Deleted")
             }).catch(err => toast.error(err.response.data.error))
 
         setNoOfTeams(prev => prev - 1)
@@ -394,7 +420,9 @@ const CreateBid = ({ params }) => {
         setFiles([...files, ...newFiles]);
     };
 
-    const handleContinue = () => {
+    const handleContinue = (e) => {
+        e.preventDefault()
+        if (teamName.length === 0) return
         let newTeam = presentTeam
         newTeam.teamName = teamName
         axios.patch(`/api/team/?teamId=${presentTeam._id}`, newTeam).then(res => console.log(res.data)).catch(err => toast.error(err.response.data.error))
@@ -408,20 +436,21 @@ const CreateBid = ({ params }) => {
                 <Navbar />
                 <div className='flex w-full h-full'>
                     <StudentSidebar page={"marketplace"} />
-                    <div className='w-full flex flex-col'>
+                    <div className={`w-full flex flex-col ${presentPage !== 1 && 'bg-gray-200'}`}>
                         {
                             presentPage === 1 ?
                                 <>
-                                    <div className='border-b-2 border-zinc-300 py-4 px-10 font-sans text-2xl font-bold'>Marketing Asset Creation
+                                    <div className='border-b-2 border-zinc-300 py-4 px-10 font-sans text-2xl font-bold'> Create a Team
                                     </div>
-                                    <div className='border-b-2 border-zinc-300 py-4 px-4 font-sans text-sky-700 font-semibold'>Create a Team</div>
+                                    {/* <div className='border-b-2 border-zinc-300 py-4 px-4 font-sans text-sky-700 font-semibold'>Create a Team</div> */}
 
-                                    <div className='flex'>
+                                    <form onSubmit={handleContinue} className='flex'>
                                         <div className='flex flex-col justify-between h-[450px] w-7/12'>
                                             <div className='w-full px-8 relative'>
                                                 <div className='flex w-full items-center py-4'>
                                                     <div className='bg-blue-100 flex mr-5 w-full h-11 border-b-2 border-sky-800 items-center px-5'>
                                                         <input type="text" placeholder='Team Name' className='bg-blue-100 placeholder-neutral-700 w-full outline-none' value={teamName} onChange={e => setTeamName(e.target.value)}
+                                                            disabled={nonApprovals !== 0}
                                                         />
                                                         <Edit_Icon />
                                                     </div>
@@ -439,7 +468,7 @@ const CreateBid = ({ params }) => {
                                                                         <div className='flex justify-between items-center'>
                                                                             <p className='px-3 shadow-2xl shadow-zinc-500 flex justify-center items-center py-1 bg-white rounded-xl' style={{ boxShadow: '0 2px #cddae2' }} > {map.user.domain[0]} </p>
                                                                             {
-                                                                                session.user.email !== map.user.email && <img src="/Images/Minus_Icon.png" alt="-" className='w-6 h-6 cursor-pointer ml-3' onClick={() => removeFromTeam(map.user)} />
+                                                                                session.user._id !== map.user._id && <img src="/Images/Minus_Icon.png" alt="-" className='w-6 h-6 cursor-pointer ml-3' onClick={() => removeFromTeam(map)} />
                                                                             }
                                                                         </div>
                                                                     </div>
@@ -459,13 +488,13 @@ const CreateBid = ({ params }) => {
                                                         <span className='bg-zinc-300 w-6 flex justify-center items-center rounded-full mx-2'> + </span>  Add Another
                                                     </div>
                                                     {
-                                                        popup && <FriendsSearchPopup users={allUsers} setPopup={setPopup} plusFunction={addToTeam} />
+                                                        popup && <FriendsSearchPopup users={allUsers.filter(user => user._id !== session?.user._id)} setPopup={setPopup} plusFunction={addToTeam} />
                                                     }
                                                 </div>
                                             </div>
                                             <div className='mb-3 flex justify-end px-8 text-white'>
                                                 {
-                                                    Object.keys(presentTeam).length !== 0 && <div className={`${nonApprovals !== 0 || teamName.length === 0 ? 'disabled bg-slate-400' : 'bg-sky-700 cursor-pointer'} w-32 text-center px-2 py-2 rounded-xl`} onClick={handleContinue}>Continue</div>
+                                                    Object.keys(presentTeam).length !== 0 && <button type='submit' className={`${nonApprovals !== 0 || teamName.length === 0 ? 'bg-slate-400' : 'bg-sky-700 cursor-pointer'} w-32 text-center px-2 py-2 rounded-xl`} disabled={teamName.length === 0} >Continue</button>
                                                 }
                                             </div>
                                         </div>
@@ -515,7 +544,7 @@ const CreateBid = ({ params }) => {
                                                                             <p className='px-3 shadow-2xl mx-2 shadow-zinc-500 flex justify-center items-center py-1 bg-white rounded-xl' style={{ boxShadow: '0 2px #cddae2' }} > {user.domain[0]} </p>
                                                                             <PlusIcon onClick={() => {
                                                                                 addToTeam(user)
-                                                                            }} className="cursor-pointer"/>
+                                                                            }} className="cursor-pointer" />
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -523,7 +552,7 @@ const CreateBid = ({ params }) => {
                                                 }
                                             </div>
                                         </div>
-                                    </div> : <></>
+                                    </form> : <></>
                                 </> :
                                 presentPage === 2 ?
                                     (loading ? <Loading /> : <>
@@ -532,7 +561,7 @@ const CreateBid = ({ params }) => {
                                                 <BackArrow_Icon onClick={() => {
                                                     setPresentPage(prev => prev - 1)
                                                 }} className="cursor-pointer" />
-                                                <span className='ml-3'>Marketing Asset Creations</span>
+                                                <span className='ml-3'>Milestone Planning</span>
                                             </div>
                                             <div className='flex text-lg'>
                                                 <div className='bg-blue-100 h-10 flex justify-center items-center rounded-xl border-b-2 border-sky-800 w-24 px-2 mx-4'>
@@ -540,7 +569,7 @@ const CreateBid = ({ params }) => {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className='h-36 flex w-full justify-around pt-5 border-b-2 border-zinc-500'>
+                                        {/* <div className='h-36 flex w-full justify-around pt-5 border-b-2 border-zinc-500'>
                                             <div className='flex flex-col items-center'>
                                                 {
                                                     Object.keys(presentTeam).length !== 0 && <>
@@ -560,64 +589,74 @@ const CreateBid = ({ params }) => {
                                                 <span className='text-sky-700'>&#8377; {Object.keys(presentTeam).length !== 0 && presentTeam.project.clientRequirements.payment}</span>
                                                 <span className='text-sky-700'>{Object.keys(presentTeam).length !== 0 && presentTeam.project.clientRequirements.paymentType} </span>
                                             </div>
-                                        </div>
-                                        <div className='w-full flex items-center font-semibold pl-6 pt-3 text-xl'>
+                                        </div> */}
+                                        {/* <div className='w-full flex items-center font-semibold pl-6 pt-3 text-xl'>
                                             Create Milestones that will make it easier to work on this project
-                                        </div>
-                                        <div className='flex items-center'>
-                                            <div className='px-6 mt-4 font-semibold flex'>
-                                                <span className='mx-4'>Start Date <span className='text-red-500'> * </span> </span>
-                                                <input type="date" className='outline-none px-2 border-2 border-zinc-400 rounded-lg' required value={startDate} onChange={(e) => setStartDate(e.target.value)} />
-                                            </div>
-                                        </div>
-                                        <div className='flex flex-col w-full h-full px-6 my-3'>
-                                            <div className='flex'>
-                                                {
-                                                    milestones.map((milestone, index) => (
-                                                        <div key={index} className='pb-2 flex items-center' onClick={() => setSelectedMilestone(index + 1)}>
-                                                            <span className={`h-full pt-2 cursor-pointer mx-3 px-3 ${selectedMilestone === index + 1 && 'bg-indigo-50'} `}>
-                                                                Milestone {index + 1} {
-                                                                    index === 0 && <span className='text-red-500'> * </span>
-                                                                }
-                                                                {/* {
-                                                index === milestones.length - 1 && index !== 0 && <span className='bg-gray-300 rounded-full px-1' onClick={removeMilesone}> x </span>
-                                            } */}
-                                                            </span>
-                                                        </div>
-                                                    ))
-                                                }
-                                                <PlusIcon className="ml-3 cursor-pointer" onClick={handleAddMilestone} />
-                                            </div>
-
-
-
-                                            <div className='h-full bg-indigo-50 flex flex-col pb-8 max-h-60 overflow-scroll overflow-y-auto overflow-x-hidden'>
-                                                <div className='flex w-full pt-4'>
-                                                    <input type="number" name='payment' value={milestones[selectedMilestone - 1]['payment']} onChange={handleInputChange} placeholder='Expected payment &#8377;' className='mx-3 w-32 py-1 px-1 italic rounded-lg outline-none' required />
-                                                    <input name='duration' value={milestones[selectedMilestone - 1]['duration']} onChange={handleInputChange} type="number" placeholder='Enter duration' className='mx-3 w-32 py-1 px-1 italic rounded-lg outline-none' required /> <span className='-ml-3'> Weeks </span>
-
+                                        </div> */}
+                                        <form onSubmit={handleGenerate}>
+                                            <div className='flex items-center'>
+                                                <div className='px-6 mt-4 font-semibold flex'>
+                                                    <span className='mx-4'>Project Start Date <span className='text-red-500'> * </span> </span>
+                                                    <input type="date" className='outline-none px-2 border-2 border-zinc-400 rounded-lg' value={startDate} onChange={(e) => setStartDate(e.target.value)} required />
                                                 </div>
-                                                <div className='flex flex-col px-6 my-4 '>
-                                                    <div className='flex items-center'>
-                                                        <span>Milestone heading</span>
-                                                        <input name='heading' value={milestones[selectedMilestone - 1]['heading']} onChange={handleInputChange} type="text" placeholder='Enter Milestone heading' className='w-2/3 mx-10 my-4 h-8 px-4 rounded-xl py-6 outline-none' required />
+                                            </div>
+                                            <div className='flex flex-col w-full h-full px-6 mt-8'>
+                                                <div className='flex'>
+                                                    <div className='flex items-center' onClick={() => setSelectedMilestone(0)}>
+                                                        <span className={`h-full cursor-pointer mx-3 px-6 py-2 rounded-t-lg ${selectedMilestone === 0 ? 'bg-sky-700 text-white' : 'font-semibold'} `}>
+                                                            Project Details
+                                                        </span>
                                                     </div>
-                                                    <div className='flex items-center'>
-                                                        <span>Description</span>
-                                                        <input name='description' value={milestones[selectedMilestone - 1]['description']} onChange={handleInputChange} type="text" placeholder='Enter Description' className='w-2/3 mx-10 my-4 h-8 px-4 rounded-xl py-9 outline-none' />
-                                                    </div>
-                                                    <div className='flex items-center'>
-                                                        <span>Deliverables</span>
-                                                        <input name='deliverables' value={milestones[selectedMilestone - 1]['deliverables']} onChange={handleInputChange} type="text" placeholder='Enter Deliverables' className='w-2/3 mx-10 my-4 h-8 px-4 rounded-xl py-9 outline-none' required />
-                                                    </div>
+                                                    {
+                                                        milestones.map((milestone, index) => (
+                                                            <div key={index} className='flex items-center' onClick={() => setSelectedMilestone(index + 1)}>
+                                                                <span className={`h-full cursor-pointer mx-3 px-6 py-2 rounded-t-lg ${selectedMilestone === index + 1 ? 'bg-sky-700 text-white' : 'font-semibold'} `}>
+                                                                    Milestone {index + 1} {
+                                                                        index === 0 && <span className='text-red-500'> * </span>
+                                                                    }
+                                                                </span>
+                                                            </div>
+                                                        ))
+                                                    }
+                                                    <PlusIcon className="ml-3 cursor-pointer" onClick={handleAddMilestone} />
                                                 </div>
 
-                                            </div>
 
-                                            <div className='w-full flex justify-end px-10 text-white'>
-                                                <button className='bg-sky-700 px-2 py-3 rounded-3xl w-72 text-xl' onClick={handleGenerate}> Generate Submilestones </button>
+
+                                                <div className={`flex flex-col pb-8 h-96 bg-white border-t border-gray-400`}>
+                                                    {
+                                                        selectedMilestone === 0 ?
+                                                            <ProjectCard project={project} page="createBid" /> :
+                                                            <div className='bg-white'>
+                                                                <div className='flex w-full pt-4'>
+                                                                    <input type="number" name='payment' value={milestones[selectedMilestone - 1]['payment']} onChange={handleInputChange} placeholder='Expected payment &#8377;' className='mx-3 py-1 px-4 italic rounded-2xl outline-none bg-gray-200' required />
+                                                                    <input name='duration' value={milestones[selectedMilestone - 1]['duration']} onChange={handleInputChange} type="number" placeholder='Enter duration' className='mx-3 bg-gray-200 py-1 px-4 italic rounded-2xl outline-none' required /> <span> days </span>
+
+                                                                </div>
+                                                                <div className='flex flex-col px-6 my-4 '>
+                                                                    <div className='flex items-center'>
+                                                                        <span className='w-36'>Milestone heading</span>
+                                                                        <input name='heading' value={milestones[selectedMilestone - 1]['heading']} onChange={handleInputChange} type="text" placeholder='Enter Milestone heading' className='w-2/3 mx-10 my-4 h-8 px-4 rounded-xl py-6 outline-none border border-gray-300' required />
+                                                                    </div>
+                                                                    <div className='flex items-center'>
+                                                                        <span className='w-36'>Description</span>
+                                                                        <input name='description' value={milestones[selectedMilestone - 1]['description']} onChange={handleInputChange} type="text" placeholder='Enter Description' className='w-2/3 mx-10 my-4 h-8 px-4 rounded-xl py-9 outline-none border border-gray-300' required />
+                                                                    </div>
+                                                                    <div className='flex items-center'>
+                                                                        <span className='w-36'>Deliverables</span>
+                                                                        <input name='deliverables' value={milestones[selectedMilestone - 1]['deliverables']} onChange={handleInputChange} type="text" placeholder='Enter Deliverables' className='w-2/3 mx-10 my-4 h-8 px-4 rounded-xl py-9 outline-none border border-gray-300' required />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                    }
+
+                                                </div>
+
+                                                <div className='w-full flex justify-center px-10 text-white'>
+                                                    <button className='bg-sky-700 px-2 py-3 rounded-3xl w-72 text-xl' type='submit'> Generate Submilestones </button>
+                                                </div>
                                             </div>
-                                        </div>
+                                        </form>
 
                                     </>) :
                                     presentPage === 3 ?
@@ -629,14 +668,19 @@ const CreateBid = ({ params }) => {
                                             }
                                         </> :
                                         <>
-                                            <div className='flex w-full justify-center items-center mt-5'>
-                                                <div className='mx-3'>
-                                                    <span className='font-bold'>Bid Acceptance Probability:</span> <span> {teamProb} % </span>
-                                                </div>
-                                                <div className='mx-3'>
-                                                    <span className='font-bold'>Rank:</span> <span> {teamRank} </span>
-                                                </div>
-                                            </div>
+                                            {teamProb && (
+                                                <div className='flex w-full justify-center items-center mt-5'>
+                                                    <div className='mx-3'>
+                                                        <span className='font-bold'>Bid Acceptance Probability:</span> <span> {teamProb} % </span>
+                                                    </div>
+                                                    <div className='mx-3'>
+                                                        <span className='font-bold'>Rank:</span> <span> {teamRank} </span>
+                                                    </div>
+                                                    <div className='mx-3'>
+                                                        <span className='font-bold'>Team Rating:</span> <span> {teamRating} </span>
+                                                    </div>
+                                                </div>)
+                                            }
                                             <BackArrow_Icon onClick={() => {
                                                 setPresentPage(prev => prev - 1)
                                             }} className="cursor-pointer" />

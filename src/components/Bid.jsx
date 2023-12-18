@@ -50,7 +50,7 @@ const Bid = ({team, setOpenBid}) => {
                         <img src="" alt="" />
                         <h1 className="text-2x1 text-black font-semibold text-2xl"> {team.teamName} </h1>
                     </div>
-                    <h1 className="text-2xl text-black font-semibold"> {team.rating} /5.0</h1>
+                    <h1 className="text-2xl text-black font-semibold"> {team.rating?team.rating:0} /5.0</h1>
                 </div>
                 <div className="flex flex-col p-8 bg-blue-100 rounded-md mt-6">
                     <h1 className="text-2xl text-black font-semibold">Bid Details</h1>
@@ -71,7 +71,7 @@ const Bid = ({team, setOpenBid}) => {
                                     <img className="h-4" src="/Images/info-circle.png" alt="" />
                                 </div>
                             </div>
-                            <div className="text-back text-2xl font-semibold"> {team.proposal.milestones.reduce((acc,mil) => acc + mil.duration, 0)} Weeks</div>
+                            <div className="text-back text-2xl font-semibold"> {team.proposal.milestones.reduce((acc,mil) => acc + mil.duration, 0)} Days</div>
                         </div>
                     </div>
                 </div>
@@ -84,7 +84,6 @@ const Bid = ({team, setOpenBid}) => {
                                 <th className="py-2 px-6 font-semibold">Milestone Name</th>
                                 <th className="py-2 px-6 font-semibold">Milestone Amount</th>
                                 <th className="py-2 px-6 font-semibold">Duration</th>
-                                <th className="py-2 px-6 font-semibold">View</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -93,10 +92,7 @@ const Bid = ({team, setOpenBid}) => {
                                     <td className="py-2 px-6 text-center">{index + 1}</td>
                                     <td className="py-2 px-6 text-center"> {milestone.heading} </td>
                                     <td className="py-2 px-6 text-center"> &#8377; {milestone.payment} </td>
-                                    <td className="py-2 px-6 text-center"> {milestone.duration} </td>
-                                    <td className="py-2 px-6 flex justify-center">
-                                        <img src="/Images/eye.svg" alt="" />
-                                    </td>
+                                    <td className="py-2 px-6 text-center"> {milestone.duration} days </td>
                                 </tr>
                             ))}
                         </tbody>

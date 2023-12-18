@@ -7,6 +7,7 @@ import 'prismjs/themes/prism.css';
 import Prism from 'prismjs';
 import "prismjs/components/prism-javascript";
 import codecheck from "../../pages/api/GPT/codecheck";
+import SidebarUpskilling from "../../components/SidebarUpskilling";
 
 const Learning = () => {
 
@@ -61,7 +62,7 @@ const Learning = () => {
         <div>
             <Navbar />
             <div className="flex flex-row">
-                <StudentSidebar />
+                <SidebarUpskilling page="arcade" />
                 <div className="flex flex-row w-[100%] overflow-y-hidden p-1">
                     <div className="flex flex-col w-[35%] max-h-[90vh] overflow-y-scroll rounded-3xl pr-1">
                         <div className="flex flex-row">

@@ -61,7 +61,7 @@ const data = {
   labels,
   datasets: [
     {
-      label: 'Varun Kolanu',
+      label: 'Emily Watson',
       data: getRandomData(),
       borderColor: 'rgb(255, 99, 132)',
       backgroundColor: 'rgba(255, 99, 132, 0.5)',

@@ -9,14 +9,14 @@ const HomeArcade = () => {
         <div>
             <Navbar/>
             <div className="flex flex-row">
-                <SidebarUpskilling/>
+                <SidebarUpskilling page={'arcade'}/>
                 <div className="flex flex-col py-10 pl-10 w-[100%]">
                     <div className="flex flex-col justify-center items-center">
                         <h1 className="text text-2xl font-semibold mb-3">Welcome to AI Arcade</h1>
                         <p>The home to all your exploration, learning and experimentation related to AI Tools</p>
                     </div>
                     <div className="grid grid-cols-3 gap-5 py-10">
-                        <Link href={"/arcade"} className="rounded-3xl hover:transform hover:scale-110 transition-transform duration-300">
+                        <Link href={"/arcade"} className="rounded-3xl">
                             <img className="h-[65vh] fixed rounded-3xl" src="/Images/img1.png" alt=""/>
                             <div className="p-8 fixed">
                                 <h1 className="text-white font-semibold">Going Upside down with</h1>
@@ -27,7 +27,7 @@ const HomeArcade = () => {
                                 <p className="text-white flex">Experiment the aspects of AI-chat & answering <br /> by entering the upside down world of Hawkins.</p>
                             </div>
                         </Link>
-                        <Link href={"/arcade"} className="rounded-3xl hover:transform hover:scale-110 transition-transform duration-300">
+                        <Link href={"/arcade"} className="rounded-3xl">
                             <img className="h-[65vh] fixed rounded-3xl" src="/Images/img2.png" alt=""/>
                             <div className="p-8 fixed">
                                 <h1 className="text-white font-semibold">The Magic Behind</h1>
@@ -38,7 +38,7 @@ const HomeArcade = () => {
                                 <p className="text-white flex">Experiment the aspects of AI-chat & answering <br /> by entering the upside down world of Hawkins.</p>
                             </div>
                         </Link>
-                        <Link href={"/arcade"} className="rounded-3xl hover:transform hover:scale-110 transition-transform duration-300">
+                        <Link href={"/arcade"} className="rounded-3xl">
                             <img className="h-[65vh] fixed rounded-3xl" src="/Images/img3.png" alt=""/>
                             <div className="p-8 fixed">
                                 <h1 className="text-white font-semibold">Going Upside down with</h1>

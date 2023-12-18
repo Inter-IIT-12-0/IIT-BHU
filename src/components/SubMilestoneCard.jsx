@@ -92,10 +92,10 @@ const SubMilestoneCard = ({ submilestone, setSelectedSubmilestone, project, setT
           {/* Main Heading and Text Options */}
           <div className="flex justify-between items-center mb-4">
             <h1 className="text-black font-Lato text-5xl font-medium leading-normal tracking-wide">{submilestone.title}</h1>
-            <div className="flex space-x-4">
+            {/* <div className="flex space-x-4">
               <p className="text-blue-500 text-lg font-Lato font-semibold leading-normal tracking-tight underline cursor-pointer">Team Chat</p>
               <p className="text-blue-500 text-lg font-Latol font-semibold leading-normal tracking-tight underline cursor-pointer" onClick={() => setTimelineOpen(true)} >Milestone Timeline</p>
-            </div>
+            </div> */}
           </div>
 
           {/* Text Description */}

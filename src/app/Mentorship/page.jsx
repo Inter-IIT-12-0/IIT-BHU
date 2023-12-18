@@ -113,7 +113,6 @@ const Mentorship = () => {
                         <div className="py-2 px-6 rounded-xl shadow-lg mr-4 bg-blue-300">All</div>
                         <div className="py-2 px-6 rounded-xl shadow-lg mr-4 bg-white">Recommended</div>
                         {/* <div className="py-2 px-6 rounded-xl shadow-lg mr-4 bg-white">College</div> */}
-                        <div className="py-2 px-6 rounded-xl shadow-lg mr-4 bg-white">Domains</div>
                     </div>
                     <div className="grid xl:grid-cols-3 grid-cols-2 relative">
                         {onj.map((ele) => {

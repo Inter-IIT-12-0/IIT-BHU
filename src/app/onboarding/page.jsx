@@ -18,24 +18,36 @@ const OnBoarding = () => {
   };
 
   const handleCreateAccount = async () => {
-    let role = (selectedCard === 1 ? 'Student' : selectedCard === 2 ? 'Client': 'Third')
+    let role = (selectedCard === 1 ? 'Learner' : selectedCard === 2 ? 'Client': 'Third')
     if (role === 'Third') return router.push('/selectRole')
     setCookie("role", role);
     signIn('google')
   }
 
   useEffect(() => {
-    if(getCookie('loggedIn') === "true" && getCookie('isNewUser') === "false") {
-      return router.push('/')
-    }
-    const isNewUser = getCookie("newUser")
-    const role = getCookie("role")
-    if (isNewUser === "false" ) {
-      router.push('/')
-    }
-    else if (isNewUser === "true") {
-      if (role === 'Third') return router.push("/selectRole")
-      router.push("/selectDomains")
+    if (session) {
+      if(getCookie('loggedIn') === "true" && getCookie('newUser') === "false") {
+        if (session.user.role === 'Learner') {
+          return router.push('/upskillingPage')
+        }
+        else {
+          return router.push('/')
+        }
+      }
+      const isNewUser = getCookie("newUser")
+      const role = getCookie("role")
+      if (isNewUser === "false" ) {
+        if (session.user.role === 'Learner') {
+          return router.push('/upskillingPage')
+        }
+        else {
+          return router.push('/')
+        }
+      }
+      else if (isNewUser === "true") {
+        if (role === 'Third') return router.push("/selectRole")
+        router.push("/selectDomains")
+      }
     }
   }, [session])
 

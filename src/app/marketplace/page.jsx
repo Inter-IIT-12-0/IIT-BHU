@@ -27,7 +27,7 @@ const Projects = () => {
                 .catch(err => toast.error(err.response.data.error)
                 )
         }
-    }, [])
+    }, [session])
     return (
         <>
             {

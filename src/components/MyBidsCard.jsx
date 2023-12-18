@@ -30,8 +30,8 @@ const MyDomainCard = ({ project }) => {
             <div>
                 <div className="px-6 mt-10">
                     <div className="flex flex-col rounded ">
-                        <p> Domain: {project.domain} </p>
-                        <p> Posted on: {(new Date(project.postedOn)).toLocaleDateString('en-US', {
+                        <p> Domain: {project.domain[0]} </p>
+                        <p className="text-neutral-500"> Posted on: {(new Date(project.postedOn)).toLocaleDateString('en-US', {
                             day: 'numeric',
                             month: 'long',
                         })} </p>
