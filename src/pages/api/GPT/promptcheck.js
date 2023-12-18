@@ -41,22 +41,24 @@ export async function GPT(messages) {
 }
 
 
-async function generateMessages(code) {
-  const usercode = JSON.stringify(code);
+async function generateMessages(prompt) {
+  const userprompt = JSON.stringify(prompt);
   const messages = [
     {
       role: "system",
-      content: `I will provide you a code. Ensure that it is the program to print "Hello World" in C++. i.e., Test whether it is cout << "Hello World"; or not. If the provided code is correct with no compilation errors and prints "Hello World", return 1 in the response. Else, return 0. 
-      The response should be strictly 0 or 1 only. If any error in understanding the code I have provided,  return 0
+      content: `I will be providing you a prompt from a user and you should answer that query as a single string only of not more than 3-4 lines.The format of the response should be strictly a single string of 3-4 lines approx.
       `,
     },                                         
-    { role: "user", content: usercode },
+    { role: "user", content: userprompt },
   ];
   return messages;
 }
 
-export default async function codecheck(code) {
-  const messages = await generateMessages(code);
+export default async function promptcheck(prompt) {
+  const messages = await generateMessages(prompt);
   const json_response = await GPT(messages);
-  return json_response;
+  if(json_response.included("cat"))
+  return 1;
+  else
+  return 0;
 }
