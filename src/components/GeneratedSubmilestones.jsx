@@ -10,7 +10,7 @@ const GeneratedSubmilestones = ({ aiGenerated, milestones, setAiGenerated, setPr
         {
           Object.values(aiGenerated).map((milestone, index1) => (
             <div key={index1} className='flex flex-col justify-around bg-zinc-200 shadow-lg p-4 rounded-xl my-3'>
-              <h2 className='mb-3'> <span className='font-bold text-xl'> Milestone Title: </span> <span className='text-xl'> {milestones[index1].heading} </span> </h2>
+              <h2 className='mb-3'> <span className='font-bold text-xl'> Milestone Title: </span> <span className='text-xl'> {milestones[index1]?.heading} </span> </h2>
               {
                 milestone.Submilestones.map((submilestone, index2) => (
                   <div key={index2} className='flex my-2'>

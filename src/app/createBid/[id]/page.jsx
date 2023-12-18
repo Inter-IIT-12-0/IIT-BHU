@@ -162,7 +162,6 @@ const CreateBid = ({ params }) => {
         let prevMilestones = [...milestones]
         prevMilestones[selectedMilestone - 1][name] = value
         setMilestones(prevMilestones);
-        console.log(startDate)
     };
     const handleFileChange2 = (e) => {
         const files = Array.from(e.target.files);
@@ -221,7 +220,6 @@ const CreateBid = ({ params }) => {
             setTeamProb(Math.floor(res.data.prediction[0] * 100))
             const teamScore = res.data.prediction[0]
             setTeamRank(res.data.prediction.sort((a, b) => b - a).indexOf(teamScore) + 1)
-            console.log(res.data.prediction[0], res.data.prediction, res.data.prediction.sort((a, b) => b - a))
         }).catch(console.error)
     }
 
@@ -307,18 +305,21 @@ const CreateBid = ({ params }) => {
                 })
                 setNonApprovals(nonApprov);
                 setPresentTeam(res.data)
-                setMilestones(res.data.proposal.milestones.map(milestone => {
-                    return {
-                        payment: milestone.payment,
-                        heading: milestone.heading,
-                        duration: milestone.duration,
-                        description: milestone.description,
-                        deliverables: milestone.deliverables
-                    }
-                }))
+                if(res.data.proposal?.milestones) {
+                    setMilestones(res.data.proposal?.milestones?.map(milestone => {
+                        return {
+                            payment: milestone.payment,
+                            heading: milestone.heading,
+                            duration: milestone.duration,
+                            description: milestone.description,
+                            deliverables: milestone.deliverables
+                        }
+                    }))
+                }
                 setTeamName(res.data.teamName ? res.data.teamName : '')
-                setStartDate(res.data.proposal.startDate.split('T')[0])
-            }).catch(err => toast.error(err.response.data.error))
+                if(res.data.proposal?.startDate)
+                    setStartDate(res.data.proposal?.startDate?.split('T')[0])
+            }).catch(err => console.log(err))
 
 
 
@@ -425,7 +426,7 @@ const CreateBid = ({ params }) => {
         if (teamName.length === 0) return
         let newTeam = presentTeam
         newTeam.teamName = teamName
-        axios.patch(`/api/team/?teamId=${presentTeam._id}`, newTeam).then(res => console.log(res.data)).catch(err => toast.error(err.response.data.error))
+        axios.patch(`/api/team/?teamId=${presentTeam._id}`, newTeam).catch(err => toast.error(err.response.data.error))
 
         setPresentPage(prev => prev + 1)
     }
