@@ -128,11 +128,6 @@ const Home = () => {
                                         return <div className="flex flex-col p-2 rounded-3xl shadow-lg w-3/4 bg-white">
                                             <div className="flex justify-center">
                                                 <h1 className="font-bold text-xl opacity-75 ml-4">{ele.title}</h1>
-                                                <div className="flex gap-1">
-                                                    {ele.assignedTeam && ele.assignedTeam.teamUserMap.map((ele) => {
-                                                        return <img className="h-6 w-6 rounded-full" src={ele.user.avatarUrl} alt="" />
-                                                    })}
-                                                </div>
                                             </div>
                                             <div className="flex gap-4 h-32 my-3 justify-center">
                                                 <div className="relative z-10">
@@ -195,7 +190,7 @@ const Home = () => {
                                     </div>
                                 </div>
                                 <div className="p-6 flex flex-col gap-3 bg-white rounded-3xl shadow-lg">
-                                    <h1 className="text-3xl font-bold"> &#8377; 0</h1>
+                                    <h1 className="text-3xl font-bold"> &#8377; {session?.user.paymentsCompleted} </h1>
                                     <p>Your total payment on Trumio till date</p>
                                     <h1 className="text-blue-500">see breakup</h1>
                                 </div>
