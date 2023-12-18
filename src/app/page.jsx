@@ -186,7 +186,7 @@ const Home = () => {
                                         trailColor="lightblue"
                                         trailWidth={2}
                                         strokeLinecap="circle"
-                                    />res.data.proposal?.startDate
+                                    />
                                     <h1 className="text-3xl font-semibold">80%</h1>
                                     <h1 className="text-sm font-bold">of your Trumio profile is completed</h1>
                                     <p>Complete your profile to get personalised experiences and connect with like-minded individuals</p>
