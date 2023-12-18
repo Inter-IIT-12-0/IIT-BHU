@@ -70,7 +70,7 @@ const ProjectCard = ({ project, setOpenedProj, page }) => {
                         year: 'numeric'
                     })} logo={<Calendar3 />} />
                     <SmallCard heading={"Duration"} subheading={ getDaysDifference(project.startDate, project.endDate) < 7 ? `${getDaysDifference(project.startDate, project.endDate)} Days` : `${Math.ceil(getDaysDifference(project.startDate, project.endDate)/7)} Weeks`} logo={<Timer />} />
-                    <SmallCard heading={"Domain"} subheading={project.clientRequirements.requiredTools.join(", ")} logo={<Skills />} />
+                    <SmallCard heading={"Skills"} subheading={project.clientRequirements.requiredTools.join(", ")} logo={<Skills />} />
                 </div>
             </div>
             <div className='flex flex-col justify-center gap-3 items-center xl:w-1/3 w-[40%] pl-6 border-l-2 border-gray-300'>
