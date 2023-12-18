@@ -10,7 +10,7 @@ import axios from "axios";
 const Home = () => {
 
     const { data: session } = useSession()
-    const [projects, setProjects] = useState(null);
+    const [projects, setProjects] = useState([]);
 
     const today = new Date();
     const dayOfWeek = today.getDay();
@@ -39,7 +39,7 @@ const Home = () => {
 
     return (
         <main className='w-[100vw] h-[100vh] overflow-hidden bg-gray-100'>
-            {projects && <div className='flex flex-col w-full h-full '>
+            <div className='flex flex-col w-full h-full '>
                 <Navbar />
                 <div className="flex flex-row w-full h-full overflow-x-hidden">
                     <StudentSidebar page={"dashboard"} />
@@ -93,7 +93,7 @@ const Home = () => {
                                     </div>
                                 </div>
                                 <div className="grid grid-cols-2 gap-4 w-[100%]">
-                                    {projects.map((ele) => {
+                                    {projects && projects.map((ele) => {
                                         const completedPercentage = ele.milestones.reduce((totalPercentage, ele) => {
                                             let sum = 0;
                                             let sum2 = 0;
@@ -125,8 +125,8 @@ const Home = () => {
 
                                         const verifiedPercentage = (milestoneApprovePayment / totalMilestones) * 100;
 
-                                        return <div className="flex flex-col p-2 rounded-3xl shadow-lg bg-white">
-                                            <div className="flex justify-between w-52]">
+                                        return <div className="flex flex-col p-2 rounded-3xl shadow-lg w-3/4 bg-white">
+                                            <div className="flex justify-center">
                                                 <h1 className="font-bold text-xl opacity-75 ml-4">{ele.title}</h1>
                                                 <div className="flex gap-1">
                                                     {ele.assignedTeam && ele.assignedTeam.teamUserMap.map((ele) => {
@@ -134,37 +134,37 @@ const Home = () => {
                                                     })}
                                                 </div>
                                             </div>
-                                            <div className="flex gap-4 h-64 my-3">
+                                            <div className="flex gap-4 h-32 my-3 justify-center">
                                                 <div className="relative z-10">
-                                                    <div className="flex flex-col absolute z-20 ml-12 mt-12 items-center">
-                                                        <p className="text-blue-600 text-bold text-5xl">{completedPercentage}%</p>
+                                                    <div className="flex flex-col absolute z-20 ml-6 mt-8 items-center">
+                                                        <p>{completedPercentage}%</p>
                                                         <p>Complete</p>
                                                     </div>
-                                                    <div className="relative h-40 w-40">
+                                                    <div className="relative h-28 w-28">
                                                         <Circle
                                                             className="relative"
                                                             percent={completedPercentage}
                                                             strokeColor='blue'
                                                             strokeWidth={4}
                                                             trailColor="lightblue"
-                                                            trailWidth={6}
+                                                            trailWidth={4}
                                                             strokeLinecap="circle"
                                                         />
                                                     </div>
                                                 </div>
                                                 <div className="relative z-10">
-                                                    <div className="flex flex-col absolute z-20 ml-12 mt-12 items-center">
-                                                        <p className="text-blue-600 text-bold text-5xl">{verifiedPercentage}%</p>
-                                                        <p>Verified</p>
+                                                    <div className="flex flex-col absolute z-20 ml-6 mt-8 items-center">
+                                                        <p>{verifiedPercentage}%</p>
+                                                        <p>Approved</p>
                                                     </div>
-                                                    <div className="relative h-40 w-40">
+                                                    <div className="relative h-28 w-28">
                                                         <Circle
                                                             className="relative"
                                                             percent={verifiedPercentage}
                                                             strokeColor='blue'
                                                             strokeWidth={4}
                                                             trailColor="lightblue"
-                                                            trailWidth={6}
+                                                            trailWidth={4}
                                                             strokeLinecap="circle"
                                                         />
                                                     </div>
@@ -211,7 +211,7 @@ const Home = () => {
                         </div>
                     </div>
                 </div>
-            </div>}
+            </div>
         </main>
     )
 }

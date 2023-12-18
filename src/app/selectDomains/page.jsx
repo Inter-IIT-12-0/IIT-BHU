@@ -42,6 +42,22 @@ const OnBoarding2 = () => {
     })
   }
 
+  const domainImages = {
+    "UI/UX Designing": "/Images/UI_UX.png",
+    "Engineering": "/Images/Engineering.png",
+    "Product Management": "/Images/Product.png",
+    "Data Analysis": "/Images/Data.png" ,
+    "Consultancy" : "/Images/Consultancy.png" ,
+    "Research" :"/Images/Research.png" ,
+    "Software Development": "/Images/Software.png",
+    "Marketing and Branding": "/Images/Marketing.png",
+    "Business Development": "/Images/Business.png" ,
+    "Project Management": "/Images/Project.png",
+    "Sustainability": "/Images/Sustainability.png",
+    "AI/ML": "/Images/AIML.png"
+  }
+
+
   return (
     <div className="h-full w-full">
       <div class="bg-cover bg-center  " style={{ "backgroundImage": "url('./Rectangle.png');" }}>
@@ -53,7 +69,7 @@ const OnBoarding2 = () => {
             <div className="grid xl:grid-cols-4 grid-cols-3 ml-2">
               {/* Subcard 1 */}
               {
-                domains.map(domain => (
+                domains.map((domain, index) => (
                   <div
                     className={`flex-1 cursor-pointer relative p-4 m-2 rounded-lg hover:shadow-md w-48 h-28 flex justify-center items-center  ${selectedCards.includes(domain) ? "border-2 border-blue-500" : ""
                       }`}
@@ -69,9 +85,12 @@ const OnBoarding2 = () => {
                         readOnly
                       />
                     </div>
+                    <div className="flex flex-col items-center">
+                      <img src={domainImages[domain]} alt="" />
                     <h1 className="text-base font-medium leading-normal ml-16 text-black font-helvetica-neue mr-5">
                       {domain}
                     </h1>
+                    </div>
                   </div>
                 ))
               }
