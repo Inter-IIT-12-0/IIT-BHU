@@ -278,10 +278,9 @@ const People = () => {
                                             <a href="#">{person.name}</a>
                                         </h3>
                                         <h1>{role === 'Student' ? person.companyName : person.institute}</h1>
-                                        <span className="text-gray-600">{person.domain.map(dom => (
-                                            <span> {dom}, </span>
+                                        <span className="text-gray-600">{person.domain.map((dom,index) => (
+                                            <span key={index}> {dom}, </span>
                                         ))}</span>
-                                        {/* <p className="mt-3 mb-4 font-light text-gray-500 dark:text-gray-400">{person.email}</p> */}
                                         <ul className="flex space-x-4 sm:mt-0">
                                             {person.socialMedia.map((social, socialIndex) => (
                                                 <li key={socialIndex}>

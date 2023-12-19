@@ -14,28 +14,6 @@ const handler = async (req, res) => {
 
 
         try {
-            // const user = await User.findOne({ _id: id })
-            //     .populate({
-            //         path: 'projects',
-            //         select: '_id title startDate endDate domain postedOn',
-            //         populate: [
-            //             {
-            //                 path: 'assignedTeam',
-            //                 select: "-_id -teamName -teamTagline -teamIntroduction -service -languagesSupported -tools -skills -availability -teamUrl -proposal ",
-            //                 populate: {
-            //                     path: 'teamUserMap.user',
-            //                     select: 'avatarUrl',
-            //                 },
-            //             },
-            //             {
-            //                 path: 'assignedBy',
-            //                 select: 'name',
-            //             },
-            //             {
-            //                 path: 'milestones.heading milestones.dueDate',
-            //             }
-            //         ],
-            //     });
             if (role === 'Client') {
                 const user = await User.findOne({ _id: id })
                     .populate({

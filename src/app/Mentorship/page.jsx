@@ -112,7 +112,6 @@ const Mentorship = () => {
                     <div className="flex flex-row mt-6">
                         <div className="py-2 px-6 rounded-xl shadow-lg mr-4 bg-blue-300">All</div>
                         <div className="py-2 px-6 rounded-xl shadow-lg mr-4 bg-white">Recommended</div>
-                        {/* <div className="py-2 px-6 rounded-xl shadow-lg mr-4 bg-white">College</div> */}
                     </div>
                     <div className="grid xl:grid-cols-3 grid-cols-2 relative">
                         {onj.map((ele) => {
@@ -130,7 +129,6 @@ const Mentorship = () => {
                                                     alt=""
                                                 />
                                             </div>
-                                            {/* <h2 className="text-black mt-4"></h2> */}
                                         </div>
                                     </div>
                                 </div>

@@ -232,6 +232,16 @@ const CreateBid = ({ params }) => {
 
     const handleGenerate = async (e) => { //! This generates the submilestones from the milestones given by user
         e.preventDefault()
+        for(let i=0; i<milestones.length; i++) {
+            let objArr = Object.values(milestones[i])
+            for(let j=0; j<objArr.length; j++) {
+                if(objArr[j] === "" || objArr[j] === undefined || objArr[j] === null) {
+                    return toast.error(`Fill Milestone ${i + 1}`)
+                }
+            }
+            if(Number(milestones[i].payment) <= 0) return toast.error("Payment should be positive")
+            if(Number(milestones[i].duration) <= 0) return toast.error("Duration should be positive")
+        }
         setLoading(true);
         const res = await createSubMilestones(milestones)
         setLoading(false)
@@ -443,7 +453,6 @@ const CreateBid = ({ params }) => {
                                 <>
                                     <div className='border-b-2 border-zinc-300 py-4 px-10 font-sans text-2xl font-bold'> Create a Team
                                     </div>
-                                    {/* <div className='border-b-2 border-zinc-300 py-4 px-4 font-sans text-sky-700 font-semibold'>Create a Team</div> */}
 
                                     <form onSubmit={handleContinue} className='flex'>
                                         <div className='flex flex-col justify-between h-[450px] w-7/12'>
@@ -565,35 +574,11 @@ const CreateBid = ({ params }) => {
                                                 <span className='ml-3'>Milestone Planning</span>
                                             </div>
                                             <div className='flex text-lg'>
-                                                <div className='bg-blue-100 h-10 flex justify-center items-center rounded-xl border-b-2 border-sky-800 w-24 px-2 mx-4'>
+                                                <div className='bg-blue-100 h-10 flex justify-center items-center rounded-xl border-b-2 border-sky-800 px-5 mx-4'>
                                                     {presentTeam.teamName}
                                                 </div>
                                             </div>
                                         </div>
-                                        {/* <div className='h-36 flex w-full justify-around pt-5 border-b-2 border-zinc-500'>
-                                            <div className='flex flex-col items-center'>
-                                                {
-                                                    Object.keys(presentTeam).length !== 0 && <>
-                                                        <img src={presentTeam.project.assignedBy.avatarUrl} alt="" className='w-20 h-20 rounded-full' />
-                                                        <span> {presentTeam.project.assignedBy.name} </span>
-                                                    </>
-                                                }
-
-                                            </div>
-                                            <div className='w-2/3'>
-                                                <h3 className='font-semibold'>Description</h3>
-                                                <p className='max-h-20 overflow-scroll overflow-y-auto overflow-x-hidden'>
-                                                    {Object.keys(presentTeam).length !== 0 && presentTeam.project.statement}
-                                                </p>
-                                            </div>
-                                            <div className='w-20 h-16 rounded-2xl flex flex-col items-center justify-center bg-indigo-50'>
-                                                <span className='text-sky-700'>&#8377; {Object.keys(presentTeam).length !== 0 && presentTeam.project.clientRequirements.payment}</span>
-                                                <span className='text-sky-700'>{Object.keys(presentTeam).length !== 0 && presentTeam.project.clientRequirements.paymentType} </span>
-                                            </div>
-                                        </div> */}
-                                        {/* <div className='w-full flex items-center font-semibold pl-6 pt-3 text-xl'>
-                                            Create Milestones that will make it easier to work on this project
-                                        </div> */}
                                         <form onSubmit={handleGenerate}>
                                             <div className='flex items-center'>
                                                 <div className='px-6 mt-4 font-semibold flex'>
@@ -662,7 +647,6 @@ const CreateBid = ({ params }) => {
                                     </>) :
                                     presentPage === 3 ?
                                         <>
-                                            {/* <div> {aiGenerated['Milestone 0'].Submilestones[0].work} hi </div> */}
                                             {
                                                 aiGenerated && milestones &&
                                                 <GeneratedSubmilestones aiGenerated={aiGenerated} milestones={milestones} setAiGenerated={setAiGenerated} handleSubmit={handleSubmit} setPresentPage={setPresentPage} />

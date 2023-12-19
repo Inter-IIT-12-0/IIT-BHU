@@ -99,7 +99,6 @@ const Bid = ({team, setOpenBid}) => {
                     </table>
 
                     <hr className="w-[100%]" />
-                    {/* </div> */}
                 </div>
                 <div className='w-full flex justify-center items-center my-5 text-white'>
                     <button className='px-4 py-2 rounded-2xl bg-sky-800 hover:bg-sky-600 transition-all duration-500' onClick={() => setModalOpen(true)}>
