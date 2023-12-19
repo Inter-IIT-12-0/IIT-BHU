@@ -82,7 +82,21 @@ export const ChatbotCard = ({ isOpen }) => {
     setGotResponse(true)
     setChat("");
     if (obj) {
-      setFiltered(user.filter(person => person.domain.some(domainElement => obj.includes(domainElement))));
+      const domainOrder = {};
+      obj.forEach((domain, index) => {
+        domainOrder[domain] = index;
+      });
+      const sortedUsers = user.sort((a, b) => {
+        const domainA = a.domain.find(domain => obj.includes(domain));
+        const domainB = b.domain.find(domain => obj.includes(domain));
+
+        return domainOrder[domainA] - domainOrder[domainB];
+      });
+      const filteredUsers = sortedUsers.filter(person =>
+        person.domain.some(domainElement => obj.includes(domainElement))
+      );
+
+      setFiltered(filteredUsers);
 
     }
   }
@@ -96,7 +110,22 @@ export const ChatbotCard = ({ isOpen }) => {
     setGotResponse(true)
     setChat("");
     if (obj) {
-      setFilteredProjects(projects.filter(project => project.domain.some(domainElement => obj.includes(domainElement))));
+
+      const domainOrder = {};
+      obj.forEach((domain, index) => {
+        domainOrder[domain] = index;
+      });
+      const sortedUsers = projects.sort((a, b) => {
+        const domainA = a.domain.find(domain => obj.includes(domain));
+        const domainB = b.domain.find(domain => obj.includes(domain));
+
+        return domainOrder[domainA] - domainOrder[domainB];
+      });
+      const filteredProjects = sortedUsers.filter(person =>
+        person.domain.some(domainElement => obj.includes(domainElement))
+      );
+
+      setFilteredProjects(filteredProjects);
 
     }
   }
