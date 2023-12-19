@@ -114,8 +114,8 @@ const Mentorship = () => {
                         <div className="py-2 px-6 rounded-xl shadow-lg mr-4 bg-white">Recommended</div>
                     </div>
                     <div className="grid xl:grid-cols-3 grid-cols-2 relative">
-                        {onj.map((ele) => {
-                            return <div className="bg-white relative shadow-xl my-6 mr-6">
+                        {onj.map((ele,index) => {
+                            return <div key={index} className="bg-white relative shadow-xl my-6 mr-6">
                                 <div className="relative z-10">
                                     <div className="relative">
                                         <img src="/Images/Rectangle2.png" alt="" className="w-full h-auto relative" />
