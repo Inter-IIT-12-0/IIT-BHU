@@ -92,11 +92,11 @@ export const ChatbotCard = ({ isOpen }) => {
 
         return domainOrder[domainA] - domainOrder[domainB];
       });
-      const filteredProjects = sortedUsers.filter(person =>
+      const filteredUsers = sortedUsers.filter(person =>
         person.domain.some(domainElement => obj.includes(domainElement))
       );
 
-      setFilteredProjects(filteredProjects);
+      setFiltered(filteredUsers);
 
     }
   }
@@ -125,7 +125,7 @@ export const ChatbotCard = ({ isOpen }) => {
         project.domain.some(domainElement => obj.includes(domainElement))
       );
 
-      setFiltered(filteredProjects);
+      setFilteredProjects(filteredProjects);
 
     }
   }
