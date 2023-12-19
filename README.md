@@ -208,50 +208,6 @@ Looking towards the enterprise level and anticipating future growth, our roadmap
 
 This service-oriented architecture not only prioritizes the user experience but also emphasizes security and efficiency. The seamless integration of OAuth and GPT-3.5 contributes to a cohesive and reliable platform that meets the needs of both talents and clients.
 
-# Innovative AI-Powered Features
-Our platform is equipped with a suite of cutting-edge AI features designed to meet the diverse needs of our users.
-
-## Intelligent Recommendation Engine
-Harnessing the capabilities of NLP, our recommendation engine responds to user queries by filtering through keywords provided by the Flask API. It ensures personalized and relevant suggestions based on user input.
-
-## TruBot Assistance
-Seamlessly integrated throughout the application, TruBot provides immediate support for users. Whether tackling project challenges or seeking answers to basic queries, TruBot offers real-time assistance. Currently, it excels in answering general, user, and project-related questions.
-
-<div align="center" >
-<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbTdkY2JvdXEyMTZnc2x5dzlwY2l5eTU1aDdiMGc5Z2F4czY3YjI1bSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Uq0yJotc6U4AG9cHGq/giphy.gif" style="width:70%;" />
-</div>
-
-## Project-Specific Fine-Tuned Bots
-Nestled within the My Projects section, these bots are tailored to assist users within specific projects. From generating bug reports to offering code snippets, Fine-Tuned Bots leverage the power of GPT-3.5 for enhanced capabilities, providing invaluable project support.
-
-<div align="center" >
-<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExc2tlbTV4Y2oxdTk2NjB2enJ5M3l5bGowczF4aGo2ZjF3b2dscW9vOSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ACmqc2wmiYc3nCup54/giphy.gif" style="height:500px;" />
-</div>
-
-## Custom AI Tools
-Empowering users in a specialized way, this feature allows the creation of personalized AI tools for specific domains. These tools are proficient in their chosen domains, offering comprehensive assistance tailored to user needs.
-
-<div align="center" >
-<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExempja29vZnI3bWQyZzVzMHNpYXpuZWJ4Njd3MmxwdXFqdDk0dXhiayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/yDqsDd943fXPYqLl8x/giphy.gif" style="height:500px;"/>
-</div>
-
-## Bid Acceptance Probability Calculator
-Using NLP and a sophisticated scoring algorithm, this feature calculates the probability of proposal acceptance. Factors considered include average historical scores, similarity between problem statements and proposals, team-user keyword matches, and quoted project amounts.
-
-<div align="center" >
-<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZTAxdjg4b2xmeGl1OG9rd2psbW9seWtzaWp6ZnZ2bnE3NjA1Z2N0biZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/qDDFEVtcGezoQ6Vu6h/giphy.gif" style="height:500px;"/>
-</div>
-
-## PS Breakdown and SubMilestone Breakdown
-- PS Breakdown: GPT-3.5 elaborates on client-provided problem statements, breaking them down based on client requirements.
-- SubMilestone Breakdown: Leveraging GPT-3.5, this feature dissects project milestones into submilestones, enhancing project assessment and health evaluation.
-
-<div align="center" >
-<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbjE5MXBxZnd4bnhoNWNjdjh5OWhvcGRocHZjMGZia2x3dWhtb29qZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/UG2MTXeCzKL2IGJdSy/giphy.gif" style="height:500px;"/>
-</div>
-
-These features collectively represent our commitment to providing an innovative and intelligent platform that goes beyond conventional solutions, ensuring a user experience that is both advanced and user-friendly.
-
 # Explore Our Dynamic Pages
 Our platform offers a diverse range of pages, each tailored to enhance the user experience and cater to specific needs.
 

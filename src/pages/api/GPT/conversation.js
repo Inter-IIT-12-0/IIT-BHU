@@ -7,7 +7,6 @@
 
 const API_URL = "https://api.openai.com/v1/chat/completions";
 const API_KEY = process.env.NEXT_PUBLIC_OPENAI_API_KEY;
-// const API_KEY = "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";
 
 let controller = null; // Store the AbortController instance
 

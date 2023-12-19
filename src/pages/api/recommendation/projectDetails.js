@@ -1,3 +1,4 @@
+// API to collect keywords related to all projects
 import connectDb from "../../../../middlewares/mongoose";
 import Project from "../../../../models/Project";
 

@@ -1,3 +1,5 @@
+// Contains the Recommendation Engine and User Recommendation Function
+
 import axios from "axios";
 const API_URL = process.env.NEXT_PUBLIC_FLASK_APP_URL + '/recommend'
 
@@ -12,6 +14,7 @@ async function generateMessages(userPrompt) {
   return messages;
 }
 
+// API call to access the recommendation engine
 export async function recommendEngine(messages) {
   // Alert the user if no prompt value
   if (messages.length === 0) {

@@ -22,6 +22,10 @@ const RightCard = () => {
           alt="Your Image"
           className="scale-75 object-cover"
         />
+        {/* or */}
+        {/* <svg className="w-full h-full" viewBox="0 0 100 100">
+          <!-- Your SVG content goes here -->
+        </svg> */}
       </div>
     </div>
   );

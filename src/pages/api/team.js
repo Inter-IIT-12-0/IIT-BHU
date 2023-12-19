@@ -10,7 +10,7 @@ const handler = async (req, res) => {
       res.status(201).json(savedTeam);
     } catch (error) {
       console.error(error);
-      res.status(500).json({ error: `Error creating team` + error});
+      res.status(500).json({ error: `Error creating team` + error });
     }
   } else if (req.method === 'GET') {
     try {

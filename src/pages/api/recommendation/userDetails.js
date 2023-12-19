@@ -1,3 +1,4 @@
+// API to collect keywords of all the users
 import connectDb from "../../../../middlewares/mongoose";
 import User from "../../../../models/User";
 
@@ -6,12 +7,6 @@ const handler = async (req, res) => {
     case "GET":
       try {
         const uniqueDomains = await User.distinct("domain");
-        const uniqueRoles = await User.distinct("role");
-        const uniqueTools = await User.distinct("expertise.tools");
-        const uniqueCertificates = await User.distinct(
-          "expertise.certificates"
-        );
-        const uniqueSkills = await User.distinct("expertise.skills");
 
         const allUniqueKeywords = [
           ...uniqueDomains

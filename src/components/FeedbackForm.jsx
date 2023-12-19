@@ -1,7 +1,6 @@
 "use client"
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import toast from "react-hot-toast";
 
 const FeedbackForm = ({project}) => {
     const [showDomainDropdown, setShowDomainDropdown] = useState(false);
@@ -40,7 +39,7 @@ const FeedbackForm = ({project}) => {
 
     const submitFeedbackForm = () => {
         try {
-            axios.patch(`/api/user/`, requestBody).then(res => toast.success("Feedbck sent"));
+            axios.patch(`/api/user/`, requestBody).then(toast.success("Feedbck sent"));
         } catch (error) {
             console.log(error)
         }

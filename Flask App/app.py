@@ -5,11 +5,10 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)
-# run_with_ngrok(app)  # Start ngrok when the app is run
 
 # Create a route that accepts JSON data via POST request
 
-
+# Bid Prediction Calculator Endpoint
 @app.route('/predict', methods=['POST'])
 def api_predict():
     if request.method == 'POST':
@@ -30,7 +29,7 @@ def api_predict():
         except json.JSONDecodeError as e:
             return f"Error decoding JSON: {str(e)}", 400
 
-
+# Recommendation Engine Endpoint
 @app.route('/recommend', methods=['POST'])
 def api_recommend():
     if request.method == 'POST':

@@ -141,8 +141,17 @@ const PostCard = ({tabName, ele, details}) => {
                                                 </div>
                                             </div>
                                         </div>
+                                        {/* <img
+                                        className="absolute -mt-9 z-20 h-10"
+                                        src="/Images/newElipse.svg"
+                                        alt=""  
+                                        /> */}
                                     <div>
                                         <div className="px-6 mt-10">
+                                            {/* <div className="flex flex-col rounded ">
+                                                <label htmlFor="">Due Task</label>
+                                                <input className="w-full h-16 border border-solid border-gray-300 rounded" type="text" />
+                                            </div>*/}
                                             <hr className="my-4 w-full" /> 
                                             <div className="flex flex-row right mb-2">
                                                 <h1>Team</h1>

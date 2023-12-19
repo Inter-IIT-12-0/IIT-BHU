@@ -6,8 +6,7 @@ import Typewriter from 'typewriter-effect'
 import 'prismjs/themes/prism.css';
 import Prism from 'prismjs';
 import "prismjs/components/prism-javascript";
-import promptcheck from "../../pages/api/GPT/promptcheck";
-import SidebarUpskilling from "../../components/SidebarUpskilling";
+import codecheck from "../../pages/api/GPT/codecheck";
 
 const Learning = () => {
 
@@ -15,14 +14,19 @@ const Learning = () => {
         Prism.highlightAll();
     })
 
-    const [prompt, setPrompt] = useState(`Write your Prompt`);;
+    const [code, setCode] = useState(`cout<<"Your Text Input";`);
+
+    const [language, setLanguage] = useState('cpp');
     const [Final, setChecker] = useState("");
     const [forceRender, setForceRender] = useState(false);
-    const handlePromptChange = (event) => {
-        setPrompt(event.target.value);
+    const handleCodeChange = (event) => {
+        setCode(event.target.value);
+
+        // Manually highlight the code in the textarea
         const textarea = event.target;
         setForceRender(!forceRender);
         Prism.highlightElement(textarea, false, () => {
+            // Do any additional post-processing if needed
         });
     };
 
@@ -33,9 +37,9 @@ const Learning = () => {
     async function fetchData() {
         try {
 
-            const response = await promptcheck(prompt);
-            
-            if (response && response.includes("cat")) {
+            const response = await codecheck(code);
+            const data = await response;
+            if (data) {
                 setChecker("Excellent work!! Your tasks are completed for today. You did a great job, keep it up. Goodbye! see you tomorrow");
 
             }
@@ -57,7 +61,7 @@ const Learning = () => {
         <div>
             <Navbar />
             <div className="flex flex-row">
-                <SidebarUpskilling page="arcade" />
+                <StudentSidebar />
                 <div className="flex flex-row w-[100%] overflow-y-hidden p-1">
                     <div className="flex flex-col w-[35%] max-h-[90vh] overflow-y-scroll rounded-3xl pr-1">
                         <div className="flex flex-row">
@@ -93,17 +97,20 @@ const Learning = () => {
                                         delay: 30,
                                         deleteSpeed: 10000000000000000000000000000,
                                         strings: [`
-                                        Without using the word, "cat" in your prompt, get a reply from the ask bot that contains the word,"cat" `],
+                                        Write a concise program in C++ programming language to display "Hello, World" on the screen. Ensure simplicity, readability, and correctness. Use a minimal number of lines to achieve the output`],
                                         cursor: '',
                                     }}
                                 /></div>)}
                     </div>
                     <div className="bg-gray-600 w-[35%] h-full p-3 ml-3 ax-h-[90vh] overflow-y-scroll rounded-3xl mt-2">
+                        {/* <SyntaxHighlighter key={language} language={language} style={docco}>
+                            {code}
+                        </SyntaxHighlighter> */}
                         <textarea
-                            value={prompt}
+                            value={code}
                             className="w-[100%] h-[93%] rounded-2xl p-4 font-mono whitespace-pre-wrap bg-black text-white"
-                            placeholder="Enter your prompt here"
-                            onChange={handlePromptChange}
+                            placeholder="Enter your code here..."
+                            onChange={handleCodeChange}
                         ></textarea>
 
                         <div><button type="submit" className="text-white mb-4 py-1 px-3 rounded-full bg-black" onClick={() => fetchData()}>Submit</button></div>

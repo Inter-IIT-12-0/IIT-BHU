@@ -2,7 +2,6 @@ import React from 'react';
 import HealthDashboard from './Milestone_sidebar';
 import ComparisonGraph from './ComparisonGraph';
 import RoundedProgressBar from './RoundedProgressBar';
-import ProjectTop from './ProjectTop';
 
 const Healthdashboard = ({ project }) => {
 
@@ -19,9 +18,7 @@ const Healthdashboard = ({ project }) => {
     return amount;
   }
   return (
-    <>
-    <ProjectTop projectName={project.title} projectDescription={project.statement} />
-    <div className="grid grid-cols-2 gap-4 mt-3">
+    <div className="grid grid-cols-2 gap-4">
       <div className="p-4 bg-gray-200 rounded shadow flex flex-col">
         <div className='w-full flex justify-center font-bold text-xl'> Percentage Completion </div>
         <div className='flex justify-around items-center h-full'>
@@ -101,7 +98,6 @@ const Healthdashboard = ({ project }) => {
         </table>
       </div>
     </div>
-    </>
   );
 };
 

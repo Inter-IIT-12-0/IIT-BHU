@@ -29,7 +29,7 @@ export const authOptions = {
                 const { role } = getCookies({ res, req })
                 const existingUser = await User.findOne({ email: profile.email })
                 if (!existingUser) {
-                    if (role !== 'Third') {
+                    if (role === 'Student' || role === 'Client' || role === 'Professor') {
                         await User.create({
                             email: profile.email,
                             name: profile.name,
@@ -78,7 +78,7 @@ const handler = connectDb(
                         const { role } = getCookies({ res, req })
                         const existingUser = await User.findOne({ email: profile.email })
                         if (!existingUser) {
-                            if (role !== 'Third') {
+                            if (role === 'Student' || role === 'Client' || role === 'Professor') {
                                 await User.create({
                                     email: profile.email,
                                     name: profile.name,

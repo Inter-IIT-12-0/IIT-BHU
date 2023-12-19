@@ -8,23 +8,30 @@ const MyDomainCard = ({ project }) => {
 
     const [isOpen, setIsOpen] = useState(false)
     return (
-        <div className="bg-white rounded-xl mr-4 mt-4 border pb-3 w-1/4">
+        <div className="bg-white rounded mr-4 mt-4 border pb-3">
             <div className="relative z-10">
-                <div className="flex justify-center gap-24 h-28">
-                    <div className="flex items-center"> <img src={project.assignedBy.avatarUrl} alt="" className="w-16 h-16 rounded-full"/> </div>
-                    <div>
-                        <div className="h-14 flex items-end pb-2 text-sky-800"> <span className="bg-white px-4 rounded-md"> &#8377; {project.clientRequirements.payment} </span> </div>
-                        <div className="h-14"></div>
+                <div className="relative">
+                    <img src="/Images/Rectangle.png" alt="" className="w-full h-auto" />
+                    <div className="absolute top-0 left-0 right-0 bottom-0 flex flex-col justify-end p-4">
+                        <div className="flex flex-row">
+                            <h1 className="text-black text-lg font-bold">{project.title}</h1>
+                            <div className="text-black ml-4 bg-slate-100 p-1 rounded">{(new Date(project.startDate)).toLocaleDateString('en-US', {
+                                day: 'numeric',
+                                month: 'short'
+                            })} - {(new Date(project.endDate)).toLocaleDateString('en-US', {
+                                day: 'numeric',
+                                month: 'short'
+                            })}</div>
+                        </div>
+                        <h2 className="text-black mt-4">{project.assignedBy && project.assignedBy.name}</h2>
                     </div>
                 </div>
-                <div className="w-full h-14 bg-gradient-to-b from-sky-500 to-sky-800 absolute top-0 left-0 -z-10 rounded-t-xl"></div>
             </div>
             <div>
-                <div className="px-6">
+                <div className="px-6 mt-10">
                     <div className="flex flex-col rounded ">
-                        <p className="font-semibold text-xl"> {project.title} </p>
-                        <p className="text-neutral-600"> {project.assignedBy.name} </p>
-                        <p className="text-neutral-500"> Posted: {(new Date(project.postedOn)).toLocaleDateString('en-US', {
+                        <p> Domain: {project.domain} </p>
+                        <p> Posted on: {(new Date(project.postedOn)).toLocaleDateString('en-US', {
                             day: 'numeric',
                             month: 'long',
                         })} </p>

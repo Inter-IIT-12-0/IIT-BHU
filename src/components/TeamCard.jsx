@@ -4,7 +4,7 @@ import Link from "next/link"
 const TeamCard = ({ project }) => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-      {project?.assignedTeam?.teamUserMap?.map((Member, appIndex) => (
+      {project.assignedTeam.teamUserMap.map((Member, appIndex) => (
         <div
           key={appIndex}
           className="flex flex-col justify-center p-6 shadow-md rounded-xl bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-100"

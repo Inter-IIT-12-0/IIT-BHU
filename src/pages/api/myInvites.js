@@ -40,12 +40,12 @@ const handler = async (req, res) => {
             return res.status(404).json({error: 'Invite Not found'})
         }
         let team = await Team.findById(teamId)
-        let teamUserMapNew = team.teamUserMap.filter(map => String(map.user) !== session.user._id)
+        let teamUserMapNew = team.teamUserMap.filter(map => map.user !== session.user._id)
         team.teamUserMap = teamUserMapNew
         await team.save()
 
         let newInvites = user.invites
-        newInvites = newInvites.filter(inv => String(inv.id) !== teamId )
+        newInvites = newInvites.filter(inv => invite.id !== teamId)
         user.invites = newInvites
         await user.save()
 

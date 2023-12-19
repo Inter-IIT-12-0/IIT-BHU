@@ -17,6 +17,8 @@ const OnBoarding3 = () => {
         let role = (selectedCard === 1 ? 'Student' : 'Professor')
         setCookie("role", role);
         signIn('google')
+        if (getCookie('newUser') === 'false') return router.push('/')
+        router.push('/selectDomains')
     }
 
     useEffect(() => {

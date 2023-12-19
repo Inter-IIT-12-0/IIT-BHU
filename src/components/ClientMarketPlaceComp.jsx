@@ -14,12 +14,17 @@ const ClientMarketPlaceComponent = () => {
     const [allTeams, setAllTeams] = useState([]);
     const [allUsers, setAllUsers] = useState([]);
 
+    // const randomBid = Math.floor(Math.random()*10000);
 
 
 
     useEffect(() => {
         fetchTeams();
         fetchUsers();
+        // if(data === null)
+        // {
+        //     setData(data1)
+        // }
     }, [])
 
     const fetchTeams = async () => {
@@ -57,7 +62,9 @@ const ClientMarketPlaceComponent = () => {
 
     return (
         <div className="flex flex-col w-full mb-3 max-h-[90vh] overflow-scroll overflow-y-auto overflow-x-hidden">
-            <div className="rounded-xl p-8 w-full max-h-[60vh] overflow-scroll overflow-x-hidden overflow-y-auto">
+            {/* <h1 className="text-blue-700 font-semibold text-3xl m-6 mt-0">Create a Project</h1>
+            <div className="w-full h-3 rounded-full bg-blue-950"></div> */}
+            <div className="rounded-xl bg-blue-100 p-8 w-full max-h-[60vh] overflow-scroll overflow-x-hidden overflow-y-auto">
                 <h1 className="text-2xl font-semibold">Invite Bids</h1>
                 <div className="flex flex-row bg-white rounded-md mt-3">
                     <img className="p-2" src="/Images/Search_Icon.svg" alt="" />

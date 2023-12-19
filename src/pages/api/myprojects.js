@@ -9,8 +9,8 @@ const handler = async (req, res) => {
         if (!session) {
             return res.status(403).json({ error: 'Login First' });
         }
-        const id = session.user?._id;
-        const role = session.user?.role;
+        const id = session.user._id;
+        const role = session.user.role;
 
 
         try {

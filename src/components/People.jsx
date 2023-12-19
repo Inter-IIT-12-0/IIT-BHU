@@ -33,8 +33,8 @@ const People = () => {
         const fetchData = async () => {
             try {
                 const response = await axios.get('/api/allusers/');
-                setUser(response.data.filter(person => person.role === 'Student' || person.role === 'Learner'));
-                setFilteredPeople(response.data.filter(person => person.role === 'Student' || person.role === 'Learner'));
+                setUser(response.data.filter(person => person.role === 'Student'));
+                setFilteredPeople(response.data.filter(person => person.role === 'Student'));
             } catch (error) {
                 console.log(error)
             }
@@ -278,9 +278,10 @@ const People = () => {
                                             <a href="#">{person.name}</a>
                                         </h3>
                                         <h1>{role === 'Student' ? person.companyName : person.institute}</h1>
-                                        <span className="text-gray-600">{person.domain.map((dom,index) => (
-                                            <span key={index}> {dom}, </span>
+                                        <span className="text-gray-600">{person.domain.map(dom => (
+                                            <span> {dom}, </span>
                                         ))}</span>
+                                        {/* <p className="mt-3 mb-4 font-light text-gray-500 dark:text-gray-400">{person.email}</p> */}
                                         <ul className="flex space-x-4 sm:mt-0">
                                             {person.socialMedia.map((social, socialIndex) => (
                                                 <li key={socialIndex}>
@@ -295,7 +296,7 @@ const People = () => {
                                         <button className='mt-5 py-1 px-6 rounded-full bg-sky-500 text-white font-semibold'>View Profile</button>
                                     </div>
                                     <div className='flex flex-col py-5 justify-between h-full'>
-                                        <h1>{person.ratin?person.ratin:0}/5.0</h1>
+                                        <h1>{person.rating}/5.0</h1>
                                     </div>
                                 </div>
                             })}

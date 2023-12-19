@@ -22,6 +22,7 @@ const UniversityCard = ({ universityData }) => {
     return (
         <div className='w-full transition-all duration-500 border-2 border-zinc-500 flex px-8 py-4 my-8 cursor-pointer hover:scale-105'>
             <div className='w-2/3 flex flex-row'>
+                {/* <div className='text-neutral-700 text-base font-semibold'> {project.status === 'Open' ? 'Open Listing till '  : 'Under Review'} </div> */}
                 <div>
                     <div className='font-bold text-2xl'>
                         {universityData.name}
@@ -73,6 +74,8 @@ const UniversityCard = ({ universityData }) => {
                                 universityData.followers
                             } followers
                         </div>
+                        {/* <div className='font-semibold' > {project.assignedBy.name} </div>
+                        <div> {project.assignedBy.companyName} </div> */}
                     </div>
                 </div>
                 <div>
@@ -80,6 +83,13 @@ const UniversityCard = ({ universityData }) => {
                         <div className='py-2 px-6 rounded-full bg-sky-400 text-white mt-20 w-44'>View Page</div>
                     </Link>
                 </div>
+                {/* <div className='mt-2'>
+                    <span className='font-semibold'> Sector: </span> {project.assignedBy.sectorName}
+                </div> */}
+                {/* <div className='mt-2'>
+                    <span className='font-semibold'> &#8377; {project.assignedBy.paymentsCompleted} </span> spent so far
+                </div>
+                <div className='mt-16 text-right'> Posted {getDaysDifference(project.postedOn, new Date())} days ago </div> */}
             </div>
         </div>
     )

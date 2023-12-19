@@ -1,4 +1,5 @@
 "use client"
+import { Inter } from 'next/font/google'
 import './globals.css'
 import Provider from '../components/Provider'
 import { Toaster } from "react-hot-toast";
@@ -24,12 +25,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        {/* <NoSSR> */}
         <Dynamic>
             <Provider>
               <Toaster position="top-center" />
               {children}
             </Provider>
         </Dynamic>
+        {/* </NoSSR> */}
       </body>
     </html>
   )

@@ -34,8 +34,8 @@ function Slider({ users }) {
         className="swiper_container"
       >
         {
-          users && users.map((ele, index) => {
-            return <SwiperSlide key={index}>
+          users && users.map((ele) => {
+            return <SwiperSlide>
               <div className='flex flex-col rounded-3xl h-[19vw] bg-white' style={{ border: 'solid 1px black', borderRadius: '15%' }}>
                 <div>
                   <img className='border' src="/Images/slideImage.png" alt="" />
@@ -61,6 +61,34 @@ function Slider({ users }) {
             </SwiperSlide>
           })
         }
+        {/* <SwiperSlide>
+          <img src='/Images/img_2.jpg' alt="slide_image" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src='/Images/img_3.jpg' alt="slide_image" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src='/Images/img_4.jpg' alt="slide_image" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src='/Images/img_1.jpg' alt="slide_image" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src='/Images/img_3.jpg' alt="slide_image" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src='/Images/img_3.jpg' alt="slide_image" />
+        </SwiperSlide> */}
+
+        {/* <div className="slider-controler">
+          <div className="swiper-button-prev slider-arrow">
+            <ion-icon name="arrow-back-outline"></ion-icon>
+          </div>
+          
+          <div className="swiper-button-next slider-arrow">
+            <ion-icon name="arrow-forward-outline"></ion-icon>
+          </div>
+        </div> */}
       </Swiper>
     </div>
   );

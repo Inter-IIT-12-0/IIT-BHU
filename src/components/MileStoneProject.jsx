@@ -20,18 +20,13 @@ const MilestoneTable = ({ project, setSelectedSubmilestone, setProject }) => {
 
   const handleOpenSub = (submilestone, index1, index2) => {
     let updatedMilestones = [...project.milestones]
-    if (updatedMilestones.status === 'Not Started') {
-      updatedMilestones[index1].submilestones[index2].status = 'In Progress'
-      axios.patch(`/api/project/${project._id}`, {
-        milestones: updatedMilestones
-      }).then(res => {
-        setProject(res.data)
-        setSelectedSubmilestone(submilestone)
-      }).catch(err => toast.error(err.response.data.error))
-    }
-    else {
+    updatedMilestones[index1].submilestones[index2].status = 'In Progress'
+    axios.patch(`/api/project/${project._id}`, {
+      milestones: updatedMilestones
+    }).then(res => {
       setSelectedSubmilestone(submilestone)
-    }
+    }).catch(err => toast.error(err.response.data.error))
+
   }
 
   useEffect(() => {
@@ -76,8 +71,8 @@ const MilestoneTable = ({ project, setSelectedSubmilestone, setProject }) => {
               {milestone.submilestones.map((submilestone, index2) => {
                 return <tr
                   key={submilestone._id}
-                  className="bg-white border-y dark:border-gray-200"
-
+                  className="bg-white border-y dark:border-gray-200 cursor-pointer"
+                  
                 >
                   <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap">
                     <span className='ml-8'>{index2 + 1}</span>
@@ -89,7 +84,7 @@ const MilestoneTable = ({ project, setSelectedSubmilestone, setProject }) => {
                     {submilestone.description}
                   </td>
                   <td className="px-6 py-4">
-                    <ExportIcon className="scale-50 cursor-pointer" onClick={() => {
+                    <ExportIcon className="scale-50" onClick={() => {
                       handleOpenSub(submilestone, index1, index2)
                     }} />
                   </td>

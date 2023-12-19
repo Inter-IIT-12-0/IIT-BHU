@@ -43,16 +43,16 @@ const Bid = ({team, setOpenBid}) => {
 
     const [modalOpen, setModalOpen] = useState(false)
     return (
-            <div className="p-8 w-full">
+            <div className="p-8 w-full ">
                 <BackArrowIcon className="relative  cursor-pointer" onClick={() => setOpenBid(false)} />
                 <div className="flex justify-between mt-3">
                     <div className="flex flex-row">
                         <img src="" alt="" />
                         <h1 className="text-2x1 text-black font-semibold text-2xl"> {team.teamName} </h1>
                     </div>
-                    <h1 className="text-2xl text-black font-semibold"> {team.rating?team.rating:0} /5.0</h1>
+                    <h1 className="text-2xl text-black font-semibold"> {team.rating} /5.0</h1>
                 </div>
-                <div className="flex flex-col p-8 rounded-md mt-6">
+                <div className="flex flex-col p-8 bg-blue-100 rounded-md mt-6">
                     <h1 className="text-2xl text-black font-semibold">Bid Details</h1>
                     <div className="flex justify-between">
                         <div className="flex justify-between flex-nowrap bg-white px-10 py-4 rounded-md">
@@ -71,11 +71,11 @@ const Bid = ({team, setOpenBid}) => {
                                     <img className="h-4" src="/Images/info-circle.png" alt="" />
                                 </div>
                             </div>
-                            <div className="text-back text-2xl font-semibold"> {team.proposal.milestones.reduce((acc,mil) => acc + mil.duration, 0)} Days</div>
+                            <div className="text-back text-2xl font-semibold"> {team.proposal.milestones.reduce((acc,mil) => acc + mil.duration, 0)} Weeks</div>
                         </div>
                     </div>
                 </div>
-                <div className="flex flex-col max-h-[35vh] overflow-scroll overflow-y-auto overflow-x-hidden rounded-md p-8 mt-6 w-full">
+                <div className="flex flex-col bg-blue-100 max-h-[35vh] overflow-scroll overflow-y-auto overflow-x-hidden rounded-md p-8 mt-6 w-full">
                     <h1 className=" text-black text-2xl font-semibold">Milestone Details</h1>
                     <table className="min-w-full bg-white border border-blue-900">
                         <thead className="bg-blue-900 text-white">
@@ -84,6 +84,7 @@ const Bid = ({team, setOpenBid}) => {
                                 <th className="py-2 px-6 font-semibold">Milestone Name</th>
                                 <th className="py-2 px-6 font-semibold">Milestone Amount</th>
                                 <th className="py-2 px-6 font-semibold">Duration</th>
+                                <th className="py-2 px-6 font-semibold">View</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -92,13 +93,17 @@ const Bid = ({team, setOpenBid}) => {
                                     <td className="py-2 px-6 text-center">{index + 1}</td>
                                     <td className="py-2 px-6 text-center"> {milestone.heading} </td>
                                     <td className="py-2 px-6 text-center"> &#8377; {milestone.payment} </td>
-                                    <td className="py-2 px-6 text-center"> {milestone.duration} days </td>
+                                    <td className="py-2 px-6 text-center"> {milestone.duration} </td>
+                                    <td className="py-2 px-6 flex justify-center">
+                                        <img src="/Images/eye.svg" alt="" />
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
 
                     <hr className="w-[100%]" />
+                    {/* </div> */}
                 </div>
                 <div className='w-full flex justify-center items-center my-5 text-white'>
                     <button className='px-4 py-2 rounded-2xl bg-sky-800 hover:bg-sky-600 transition-all duration-500' onClick={() => setModalOpen(true)}>

@@ -37,7 +37,7 @@ const MyProjects = () => {
 					{
 						loading ? <Loading /> :
 							session && session.user.role === "Client" ?
-								<div className='w-full h-[90vh] flex flex-col overflow-scroll overflow-y-auto overflow-x-hidden pb-8'>
+								<div className='w-full h-[90vh] flex flex-col overflow-scroll overflow-y-auto overflow-x-hidden'>
 									<div>
 										<div className='flex ml-6 mt-3'>
 											<button className={`flex justify-around items-center rounded-2xl ${selectedOption === 'Current' ? 'border border-sky-700 bg-sky-100' : 'border border-neutral-400'} px-3 py-1  mr-5`} onClick={() => setSelectedOption('Current')}>
@@ -74,7 +74,7 @@ const MyProjects = () => {
 										</>
 									}
 								</div> :
-								<div className='w-full flex flex-wrap px-5'>
+								<div className='w-full h-[90vh] flex flex-wrap px-5'>
 									{
 										Projects.length !== 0 ? Projects.map(project => {
 											return <MyProjectCard key={project._id} project={project} />

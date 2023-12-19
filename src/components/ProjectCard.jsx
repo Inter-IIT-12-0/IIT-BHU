@@ -4,29 +4,9 @@ import Money_Icon from "../../public/Images/Money_Icon.svg"
 import Heart_Icon from "../../public/Images/Heart_Icon.svg"
 import Yellow_Star from "../../public/Images/Yellow_Star.svg"
 import Star_Icon from "../../public/Images/Star_Icon.svg"
-import Domain from "../../public/Images/Domain.svg"
-import Payment from "../../public/Images/Payment.svg"
-import Location from "../../public/Images/Location.svg"
-import Calendar3 from "../../public/Images/Calendar3.svg"
-import Timer from "../../public/Images/Timer.svg"
-import Skills from "../../public/Images/Skills.svg"
 
 
-const SmallCard = ({ heading, logo, subheading }) => {
-    return (
-        <div className='flex items-center justify-start'>
-            <div className='mx-3 p-2 rounded-lg flex justify-center items-center bg-gray-200'>
-                {logo}
-            </div>
-            <div className='flex flex-col'>
-                <span className='font-semibold'> {heading} </span>
-                <span className='text-neutral-500' > {subheading} </span>
-            </div>
-        </div>
-    )
-}
-
-const ProjectCard = ({ project, setOpenedProj, page }) => {
+const ProjectCard = ({ project, setOpenedProj }) => {
 
     function getDaysDifference(startDate, endDate) {
         startDate = new Date(startDate)
@@ -38,69 +18,76 @@ const ProjectCard = ({ project, setOpenedProj, page }) => {
         return daysDifference;
     }
 
-    function trimPara(paragraph, maxLength) {
-        if (paragraph.length <= maxLength) {
-            return paragraph;
-        } else {
-            return paragraph.substring(0, maxLength) + '...';
-        }
-    }
-
     return (
-        <div className={`bg-white  rounded-2xl flex px-8 py-8 ${page !== 'createBid' ? 'cursor-pointer hover:scale-105 duration-500 transition-all mb-12' : 'mt-6'}`} onClick={() => {
-            if(page !== 'createBid') {
-                setOpenedProj(project)
-            }
-        }}>
+        <div className=' transition-all duration-500 border-2 border-zinc-300 rounded-2xl flex px-8 py-4 my-8 cursor-pointer hover:scale-105' onClick={() => setOpenedProj(project)}>
             <div className='xl:w-2/3 w-[60%]'>
-                <div className='text-neutral-700 text-sm font-semibold'> {project.status === 'Open' ? 'Open for Bidding' : <span className='text-red-500'>In Review</span>} </div>
-                <div className='font-semibold text-3xl text-sky-700'>
-                    {project.title}
+                <div className='text-neutral-700 text-base font-semibold'> {project.status === 'Open' ? 'Open Listing till ' + (new Date(project.endDate).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    day: 'numeric',
+                    month: 'long',
+                })) : <span className='text-red-500'>In Review</span>} </div>
+                <div className='font-bold text-2xl flex items-center'>
+                    {project.title}  <span className='text-sm text-neutral-400'> &nbsp; ( {project.domain.map((dom, ind) => <span> {dom}, </span>)} ) </span>
                 </div>
-                <div className={`my-2 text-neutral-500 ${page === 'createBid' && 'max-h-20 overflow-scroll overflow-y-auto overflow-x-hidden'} `}>
-                    { page === 'createBid' ? project.statement : trimPara(project.statement, 200)}
+                <div className='flex my-2'>
+                    <div className='flex mr-8 justify-center items-center'>
+                        <Location_Icon className="mr-1" />
+                        {project.location}
+                    </div>
+                    <div className='flex mr-8 justify-center items-center'>
+                        <Money_Icon className="mr-1" />
+                        {project.clientRequirements.paymentType} - &#8377; {project.clientRequirements.payment}
+                    </div>
                 </div>
-                <div className='grid grid-cols-3 gap-3 mt-6'>
-                    <SmallCard heading={"Domain"} subheading={project.domain.join(", ")} logo={<Domain />} />
-                    <SmallCard heading={"Payment"} subheading={<span> &#8377; {project.clientRequirements.payment} </span>} logo={<Payment />} />
-                    <SmallCard heading={"Location"} subheading={project.location} logo={<Location />} />
-                    <SmallCard heading={"Deadline"} subheading={(new Date(project.endDate)).toLocaleDateString('en-US', {
-                        day: 'numeric',
-                        month: 'long',
-                        year: 'numeric'
-                    })} logo={<Calendar3 />} />
-                    <SmallCard heading={"Duration"} subheading={ getDaysDifference(project.startDate, project.endDate) < 7 ? `${getDaysDifference(project.startDate, project.endDate)} Days` : `${Math.ceil(getDaysDifference(project.startDate, project.endDate)/7)} Weeks`} logo={<Timer />} />
-                    <SmallCard heading={"Skills"} subheading={project.clientRequirements.requiredTools.join(", ")} logo={<Skills />} />
+                <div className='my-6 text-neutral-700 max-h-32 overflow-scroll overflow-x-hidden overflow-y-auto'>
+                    {project.statement}
+                </div>
+                <div className='flex flex-col'>
+                    <p className='font-semibold' >Skills</p>
+                    <div className='flex'>
+                        {
+                            project.clientRequirements.requiredTools.map((tool, id) => (
+                                <div key={id} className='text-sm mr-6 my-2 bg-zinc-300 rounded-lg px-5 py-1'>
+                                    {tool}
+                                </div>
+                            ))
+                        }
+                    </div>
                 </div>
             </div>
-            <div className='flex flex-col justify-center gap-3 items-center xl:w-1/3 w-[40%] pl-6 border-l-2 border-gray-300'>
+            <div className='flex flex-col xl:w-1/3 w-[40%] pl-6'>
 
-                <div className='flex justify-start items-center'>
-                    <img src={project.assignedBy?.avatarUrl} alt="" className='rounded-full w-20 h-20' />
-                </div>
-                <div>
-                    <span className='text-sky-700 font-semibold text-xl'>
-                        {project.assignedBy?.name}
-                    </span>
-                </div>
-                <div className='text-neutral-500'>
-                    {project.assignedBy?.domain[0]}
-                </div>
-                <div >
-                    {project.assignedBy?.companyName}
-                </div>
-                <div className='flex justify-center'>
-                    <div className='flex justify-around px-2 py-1 border-2 border-gray-300 rounded-xl mx-2'>
-                        <img src="/Images/Rating.png" alt="" />
-                        <span> {project.assignedBy?.rating} </span>
+                <div className='flex mt-20'>
+                    <div className='flex justify-start items-center'>
+                        <img src={project.assignedBy.avatarUrl} alt="" className='rounded-full w-16 h-16' />
                     </div>
-                    <div className='flex justify-around  px-2 py-1 border-2 border-gray-300 rounded-xl mx-2'>
-                        <img src="/Images/Coins.png" alt="" />
-                        <span> &#8377; {project.assignedBy?.paymentsCompleted} </span>
+                    <div className='flex flex-col pl-3'>
+                        <div className='flex'>
+                            {
+                                [1, 2, 3, 4, 5].map(rating => {
+                                    if (project.assignedBy.rating >= rating) {
+
+                                        return <Yellow_Star key={rating} />
+                                    }
+                                    else {
+                                        return <Star_Icon key={rating} />
+                                    }
+
+                                })
+                            }
+                            &nbsp; ( {project.assignedBy.rating} )
+                        </div>
+                        <div className='font-semibold' > {project.assignedBy.name} </div>
+                        <div> {project.assignedBy.companyName} </div>
                     </div>
-                    
                 </div>
-                <div className=' w-full mt-3 text-sm text-neutral-400 font-semibold italic text-right'> Posted {getDaysDifference(project.postedOn, new Date()) === 0 ? 'Today' : getDaysDifference(project.postedOn, new Date()) === 1 ? 'Yesterday' : `${getDaysDifference(project.postedOn, new Date())} days ago` } </div>
+                <div className='mt-2'>
+                    <span className='font-semibold'> Sector: </span> {project.assignedBy.domain[0]}
+                </div>
+                <div className='mt-2'>
+                    <span className='font-semibold'> &#8377; {project.assignedBy.paymentsCompleted} </span> spent so far
+                </div>
+                <div className='mt-16 text-right'> Posted {getDaysDifference(project.postedOn, new Date())} days ago </div>
             </div>
         </div>
     )

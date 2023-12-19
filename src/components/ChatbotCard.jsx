@@ -7,6 +7,7 @@ import aiToolUserPrompt from "../pages/api/GPT/ai-tool-user-prompt";
 import recommendProject from "../pages/api/recommendation/projectRecommend";
 import recommend from "../pages/api/recommendation/recommend";
 import axios from "axios";
+import Yellow_Star from "../../public/Images/Yellow_Star.svg"
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 
@@ -14,7 +15,7 @@ export const ChatbotCard = ({ isOpen }) => {
   const [messages, setMessages] = useState([]);
   const [chat, setChat] = useState("")
   const [toggler, setToggler] = useState(true);
-  const [mode, setMode] = useState("User");
+  const [mode, setMode] = useState("General");
   const [result, setResult] = useState("");
   const [userFilter, setUserFilter] = useState("");
   const [user, setUser] = useState([]);
@@ -25,23 +26,23 @@ export const ChatbotCard = ({ isOpen }) => {
   const [userChat, setUserChat] = useState("")
   const [projectChat, setProjectChat] = useState("")
   const [gotResponse, setGotResponse] = useState(false)
-  const { data: session } = useSession()
+  const {data:session} = useSession()
 
   useEffect(() => { //! The chat bot is loaded with ll the persons through an apicall
     if (session) {
       axios.get('/api/allusers/')
-        .then(res => { // Log the response to the console
+      .then(res => { // Log the response to the console
 
-          setUser(res.data);
+        setUser(res.data);
 
-        })
-        .catch(err => toast.error(err.response.data.error)
-        );
+      })
+      .catch(err => toast.error(err.response.data.error)
+      );
 
-      axios.get('/api/allprojects/')
-        .then(res => {
-          setProjects(res.data);
-        });
+    axios.get('/api/allprojects/')
+      .then(res => {
+        setProjects(res.data);
+      });
     }
 
   }, [session]);
@@ -70,7 +71,7 @@ export const ChatbotCard = ({ isOpen }) => {
       chat,
       messages, setMessages
     );
-
+    
     await generate(messages, result, setResult, setMessages);
     setChat("");
   };
@@ -82,21 +83,7 @@ export const ChatbotCard = ({ isOpen }) => {
     setGotResponse(true)
     setChat("");
     if (obj) {
-      const domainOrder = {};
-      obj.forEach((domain, index) => {
-        domainOrder[domain] = index;
-      });
-      const sortedUsers = user.sort((a, b) => {
-        const domainA = a.domain.find(domain => obj.includes(domain));
-        const domainB = b.domain.find(domain => obj.includes(domain));
-
-        return domainOrder[domainA] - domainOrder[domainB];
-      });
-      const filteredUsers = sortedUsers.filter(person =>
-        person.domain.some(domainElement => obj.includes(domainElement))
-      );
-
-      setFiltered(filteredUsers);
+      setFiltered(user.filter(person => person.domain.some(domainElement => obj.includes(domainElement))));
 
     }
   }
@@ -110,55 +97,26 @@ export const ChatbotCard = ({ isOpen }) => {
     setGotResponse(true)
     setChat("");
     if (obj) {
-
-      const domainOrder = {};
-      obj.forEach((domain, index) => {
-        domainOrder[domain] = index;
-      });
-      const sortedProjects = projects.sort((a, b) => {
-        const domainA = a.domain.find(domain => obj.includes(domain));
-        const domainB = b.domain.find(domain => obj.includes(domain));
-
-        return domainOrder[domainA] - domainOrder[domainB];
-      });
-      const filteredProjects = sortedProjects.filter(project =>
-        project.domain.some(domainElement => obj.includes(domainElement))
-      );
-
-      setFilteredProjects(filteredProjects);
+      setFilteredProjects(projects.filter(project => project.domain.some(domainElement => obj.includes(domainElement))));
 
     }
   }
 
   return (
-    <div className={`${isOpen ? 'w-[400px] h-[450px] opacity-100' : 'w-0 h-0 opacity-0'} bg-gradient-to-b from-[#63a2c3] to-[#0958a2] flex flex-col items-center absolute bottom-20 -right-9 -z-10 transition-all duration-1000 rounded-3xl shadow border-4 border-[#daf7f7]`}>
-      <span className="absolute top-2 left-8 text-2xl font-bold font-sans text-sky-800">
-        TruBot
-      </span>
-      <img src="/Images/Wave.png" className="w-full h-16" />
-      <div className="flex w-full justify-around py-3">
-        <button className={`px-4 py-1  rounded-lg font-semibold ${mode === 'User' ? 'bg-[#004b90] text-white' : 'bg-[#daf7f7] text-[#004b90]'}`} onClick={() => setMode("User")}> People </button>
-        <button className={`px-4 py-1 rounded-lg font-semibold ${mode === 'Project' ? 'bg-[#004b90] text-white' : 'bg-[#daf7f7] text-[#004b90]'}`} onClick={() => setMode("Project")}> Projects </button>
-        <button className={`px-4 py-1 rounded-lg font-semibold ${mode === 'General' ? 'bg-[#004b90] text-white' : 'bg-[#daf7f7] text-[#004b90]'} `} onClick={() => setMode("General")}> General </button>
+    <div className={`${isOpen ? 'w-[350px] h-96 opacity-100' : 'w-0 h-0 opacity-0'} bg-sky-100 rounded-3xl flex flex-col items-center absolute bottom-20 -right-9 -z-10 transition-all duration-1000`}>
+      <div className="flex w-full justify-around py-3 bg-sky-600 rounded-t-3xl">
+        <button className={`px-3 py-1 rounded-lg ${mode === 'General' ? 'bg-zinc-400 text-white' : 'bg-white text-sky-600'} `} onClick={() => setMode("General")}> General </button>
+        <button className={`px-3 py-1  rounded-lg ${mode === 'User' ? 'bg-zinc-400 text-white' : 'bg-white text-sky-600'}`} onClick={() => setMode("User")}> User </button>
+        <button className={`px-3 py-1 rounded-lg ${mode === 'Project' ? 'bg-zinc-400 text-white' : 'bg-white text-sky-600'}`} onClick={() => setMode("Project")}> Project </button>
       </div>
-      <div className='w-full h-full relative bg-inherit'>
+      <div className='w-full h-full bg-sky-100 relative rounded-2xl'>
         {mode == "General" &&
-          <div className='h-[270px] overflow-scroll overflow-y-auto overflow-x-hidden px-4'>
+          <div className='h-[270px] overflow-scroll overflow-y-auto overflow-x-hidden mx-3 rounded-xl px-2'>
             {messages &&
               messages.slice(2).map((msgJson, index) => (
-                <div className={`w-full flex mt-5 ${msgJson.role === 'user' ? 'justify-end' : 'justify-start'}`} key={index}>
-                  <div className="flex gap-3 items-end">
-                    {
-                      msgJson.role !== 'user' &&
-                      <img src={'/Images/Dot.png'} alt="Dot" className="w-8 h-8 rounded-full" />
-                    }
-                    <div className={`px-3 py-1 my-5 rounded-xl relative bottom-2 ${msgJson.role === 'user' ? 'rounded-br-none' : 'rounded-bl-none'} bg-[#daf7f7] text-sky-800`}>
-                      {msgJson.content}
-                    </div>
-                    {
-                      msgJson.role === 'user' &&
-                      <img src={session?.user.avatarUrl} alt="Me" className="w-8 h-8 rounded-full" />
-                    }
+                <div className={`w-full flex ${msgJson.role === 'user' ? 'justify-end' : 'justify-start'}`} key={index}>
+                  <div className={`px-3 py-1 my-5 rounded-lg ${msgJson.role === 'user' ? 'bg-sky-500 text-indigo-50' : 'border-sky-500 border-2 text-sky-600'}`}>
+                    {msgJson.content}
                   </div>
                 </div>
               ))
@@ -166,117 +124,75 @@ export const ChatbotCard = ({ isOpen }) => {
           </div>
         }
         {
-          mode == "User" && <div className='h-[270px] overflow-scroll overflow-y-auto overflow-x-hidden mx-3 px-2'>
-            {userChat &&
-              <div className="`w-full flex mt-5 justify-end">
-                <div className="flex gap-3 items-end">
-                  <div className={`px-3 py-1 my-5 rounded-xl relative bottom-2 rounded-br-none bg-[#daf7f7] text-sky-800`}>
-                    {userChat}
-                  </div>
-                  <img src={session?.user.avatarUrl} alt="Me" className="w-8 h-8 rounded-full" />
-                </div>
-              </div>
-            }
-
-
+          mode == "User" && <div className='h-[270px] overflow-scroll overflow-y-auto overflow-x-hidden mx-3 rounded-xl px-2'>
+            {userChat && <div className="flex justify-end">
+              <div className="px-3 py-1 my-5 rounded-lg bg-sky-500 text-indigo-50">
+                {userChat} </div>
+            </div>}
             {
-              gotResponse && userChat && (filtered.length === 0 ? <div className="px-3 py-1 w-40 my-5 rounded-lg text-sky-600">
-                <div className={`w-full flex mt-5 justify-start`}>
-                  <div className="flex gap-3 items-end">
-                    <img src={'/Images/Dot.png'} alt="Dot" className="w-8 h-8 rounded-full" />
-                    <div className={`px-3 py-1 my-5 rounded-xl relative bottom-2 rounded-bl-none bg-[#daf7f7] text-sky-800`}>
-                      No User found
-                    </div>
+              gotResponse && userChat && filtered.length === 0 && <div className="px-3 py-1 w-40 my-5 rounded-lg border-sky-500 border-2 text-sky-600">
+                No User found
+              </div>
+            }
+            {filtered && filtered.sort((a, b) => b.rating - a.rating).slice(0, 5).map((user, index) => (
+              <div
+                key={index}
+                className="flex px-2 py-1 border-sky-500 border my-2 rounded-lg"
+              >
+                <div className="flex flex-col w-7/12">
+                  <div className="flex">
+                    <img src={user.avatarUrl} className="rounded-full h-12 w-12"></img>
+                  </div>
+                  <div className="text-base text-sky-800 font-semibold flex w-full">
+                    <div className="w-full"> {user.name} ({user.rating} ) </div>
                   </div>
                 </div>
+                <div className="text-sky-500 mt-10 flex items-center">
+                  <Link href={`/profile/${user._id}`} target="_blank">
+                    View profile
+                  </Link>
+                </div>
               </div>
-                :
-                <div className="flex gap-3 items-end">
-                  <img src={'/Images/Dot.png'} alt="Dot" className="w-8 h-8 rounded-full" />
-                  <div className="flex flex-col">
-                    {filtered && filtered.slice(0, 5).map((user, index) => (
-                      <div
-                        key={index}
-                        className="flex px-2 py-1 my-2 rounded-xl rounded-bl-none bg-[#daf7f7]"
-                      >
-                        <div className="flex flex-col p-3">
-                          <div className="flex">
-                            <img src={user.avatarUrl} className="rounded-full h-12 w-12"></img>
-                          </div>
-                          <div className="text-base text-sky-800 font-semibold flex w-full">
-                            <div className="w-full"> {user.name} ({user.rating} ) </div>
-                          </div>
-                        </div>
-                        <div className="text-sky-500 mt-10 flex items-center">
-                          <Link href={`/profile/${user._id}`} target="_blank">
-                            View profile
-                          </Link>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>)
-            }
-
+            ))}
 
           </div>
         }
 
 
         {
-          mode == "Project" && <div className='h-[270px] overflow-scroll overflow-y-auto overflow-x-hidden mx-3 px-2'>
-            {projectChat &&
-              <div className="`w-full flex mt-5 justify-end">
-                <div className="flex gap-3 items-end">
-                  <div className={`px-3 py-1 my-5 rounded-xl relative bottom-2 rounded-br-none bg-[#daf7f7] text-sky-800`}>
-                    {projectChat}
-                  </div>
-                  <img src={session?.user.avatarUrl} alt="Me" className="w-8 h-8 rounded-full" />
-                </div>
-              </div>
-            }
+          mode == "Project" && <div className='h-[270px] overflow-scroll overflow-y-auto overflow-x-hidden mx-3 rounded-xl px-2'>
+            {projectChat && <div className="flex justify-end">
+              <div className="px-3 py-1 my-5 rounded-lg bg-sky-500 text-indigo-50">
+                {projectChat} </div>
+            </div>}
             {
-              gotResponse && projectChat && (filteredProjects.length === 0 ? <div className="px-3 py-1 w-40 my-5 rounded-lg text-sky-600">
-                <div className={`w-full flex mt-5 justify-start`}>
-                  <div className="flex gap-3 items-end w-full">
-                    <img src={'/Images/Dot.png'} alt="Dot" className="w-8 h-8 rounded-full" />
-                    <div className={`px-3 py-1 my-5 rounded-xl relative bottom-2 rounded-bl-none bg-[#daf7f7] text-sky-800`}>
-                      No Project found
-                    </div>
-                  </div>
-                </div>
+              gotResponse && projectChat && filteredProjects.length === 0 && <div className="px-3 py-1 w-40 my-5 rounded-lg border-sky-500 border-2 text-sky-600">
+                No Project found
               </div>
-                :
-                projectChat &&
-                <div className="flex gap-3 items-end">
-                  <img src={'/Images/Dot.png'} alt="Dot" className="w-8 h-8 rounded-full" />
-                  <div className="flex flex-col">
-
-                    {filteredProjects && filteredProjects.slice(0, 5).map((project, index) => (
-                      <div
-                        key={index}
-                        className="flex px-2 py-1 bg-[#daf7f7] my-2 rounded-xl rounded-bl-none"
-                      >
-                        <div className="flex flex-col w-7/12">
-                          <div className="text-base text-sky-800 font-semibold flex w-full">
-                            <div className="w-full"> {project.title} </div>
-                          </div>
-                          <div> {project.domain[0]} </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>)
             }
+            {filteredProjects && filteredProjects.sort((a, b) => b.assignedBy.rating - a.assignedBy.rating).slice(0, 5).map((project, index) => (
+              <div
+                key={index}
+                className="flex px-2 py-1 border-sky-500 border my-2 rounded-lg"
+              >
+                <div className="flex flex-col w-7/12">
+                  <div className="text-base text-sky-800 font-semibold flex w-full">
+                    <div className="w-full"> {project.title} </div>
+                  </div>
+                  <div> {project.domain[0]} </div>
+                </div>
+               
+              </div>
+            ))}
 
           </div>
         }
-        <form className='absolute bottom-1 right-0 w-full flex items-center justify-center gap-3' onSubmit={submitHandler}>
-          <input type="text" className='outline-none bg-[#daf7f7] w-3/4 h-10 rounded-md px-3 border-t border-zinc-300' value={chat} onChange={e => setChat(e.target.value)} />
-          <button className='cursor-pointer bg-[#daf7f7] border-t border-zinc-300 rounded-full px-3 pb-3 pt-2' type='submit' > <Send_Icon className="-rotate-45" /> </button>
+        <form className='absolute bottom-0 right-0 w-full flex items-center' onSubmit={submitHandler}>
+          <input type="text" placeholder='Enter your message...' className='outline-none placeholder-sky-700 bg-sky-100 w-full px-2 py-2 pb-4 border-t border-zinc-300' value={chat} onChange={e => setChat(e.target.value)} />
+          <button className='px-4 py-2 pb-4 cursor-pointer bg-sky-100 border-t border-zinc-300' type='submit' > <Send_Icon /> </button>
         </form>
       </div>
-      <Triangle className="absolute right-4 -bottom-[55px] " />
+      <Triangle className="absolute right-4 -bottom-[50px] " />
     </div>
   );
 }

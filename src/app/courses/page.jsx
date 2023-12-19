@@ -67,10 +67,11 @@ const Mentorship = () => {
                     <div className="flex flex-row mt-6">
                         <div className="py-2 px-6 rounded-xl shadow-lg mr-4 bg-blue-300">All</div>
                         <div className="py-2 px-6 rounded-xl shadow-lg mr-4 bg-white">Recommended</div>
+                        <div className="py-2 px-6 rounded-xl shadow-lg mr-4 bg-white">Domains</div>
                     </div>
                     <div className="grid grid-cols-3 gap-5">
-                        {obj.map((ele,index) => {
-                            return <div key={index} className="bg-blue-300 rounded-xl my-6 flex   flex-col items-center justify-between">
+                        {obj.map((ele) => {
+                            return <div className="bg-blue-300 rounded-xl my-6 flex   flex-col items-center justify-between">
                                 <h1 className="text-sm text-white font-semibold mt-3">{ele.heading}</h1>
                                 <img src={ele.img} className="h-[50%] w-[50%]" alt="" />
                                 <button className="rounded-full bg-white text-black text-sm font-semibold py-2 px-6 mb-3">Start Learning</button>

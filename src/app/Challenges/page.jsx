@@ -88,8 +88,8 @@ const Challenges = () => {
                 <div className="flex flex-col p-5 max-h-[90vh] overflow-y-auto overflow-x-hidden bg-blue-100 ">
                     <h1 className="mb-5 text-3xl font-semibold">Challenges</h1>
                     <div className="flex flex-row">
-                        {arrayOfObjs.map((ele,index) => {
-                            return <div key={index} className='flex flex-col h-62 bg-white shadow-lg rounded-3xl p-8 justify-center w-[25%] mr-5'>
+                        {arrayOfObjs.map((ele) => {
+                            return <div className='flex flex-col h-62 bg-white shadow-lg rounded-3xl p-8 justify-center w-[25%] mr-5'>
                                 <img className="h-10 w-10" src={ele.stickerImg} alt="" />
                                 <h1 className='text-md font-semibold my-3'>{ele.name1}</h1>
                                 <h1 className='text-sm my-3'>{ele.desc}</h1>

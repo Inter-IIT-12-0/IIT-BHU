@@ -38,12 +38,18 @@ const ClientProjectComponent = ({ teamId, bidAmount }) => {
                             <div className="flex justify-between flex-nowrap bg-white px-10 py-4 rounded-md">
                                 <div className="flex flex-row">
                                     <h1 className="text-2xl text-black font-semibold mr-2">Total Bid Amount - </h1>
+                                    {/* <div className="pt-1">
+                                        <img className="h-4" src="/Images/info-circle.png" alt="" />
+                                    </div> */}
                                 </div>
                                 <div className="text-back text-2xl font-semibold"> &#8377;{ele.assignedTeam.proposal.bidAmount}</div>
                             </div>
                             <div className="flex justify-between flex-nowrap bg-white px-10 py-4 rounded-md">
                                 <div className="flex flex-row">
                                     <h1 className="text-2xl text-black font-semibold mr-2">Expected Duration - </h1>
+                                    {/* <div className="pt-1">
+                                        <img className="h-4" src="/Images/info-circle.png" alt="" />
+                                    </div> */}
                                 </div>
                                 <div className="text-back text-2xl font-semibold">{ele.assignedTeam.duration} Weeks</div>
                             </div>
@@ -51,6 +57,7 @@ const ClientProjectComponent = ({ teamId, bidAmount }) => {
                     </div>
                     <div className="flex flex-col bg-blue-100 rounded-md p-8 mt-6 w-full">
                         <h1 className=" text-black text-2xl font-semibold">Milestone Details</h1>
+                        {/* <div className="flex flex-col mt-4 w-full"> */}
                         <table className="bg-white border border-blue-900">
                             <thead className="bg-blue-900 text-white">
                                 <tr>
@@ -76,6 +83,7 @@ const ClientProjectComponent = ({ teamId, bidAmount }) => {
                             </tbody>
                         </table>
                         <hr className="" />
+                        {/* </div> */}
                     </div>
                 </div>
             })}

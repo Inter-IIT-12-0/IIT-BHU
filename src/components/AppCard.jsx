@@ -36,8 +36,12 @@ const AppCard = ({ project }) => {
                                 month: 'long',
                                 year: 'numeric'
                             })}</td>
+                            {/* <td className="px-6 py-4">
+                                <img className='h-16 w-16' src={connectedApp.connectedBy.avatarUrl}></img>
+                            </td> */}
                         </tr>
 
+                        // </div>
                     ))}
                 </tbody>
             </table>

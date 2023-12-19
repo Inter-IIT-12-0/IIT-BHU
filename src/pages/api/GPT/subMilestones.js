@@ -1,3 +1,4 @@
+// Used to generate sub-milestones for a user using GPT
 import { GPT } from "../GPT/statementBreakdown";
 
 const API_URL = "https://api.openai.com/v1/chat/completions";
