@@ -125,7 +125,7 @@ export const ChatbotCard = ({ isOpen }) => {
         project.domain.some(domainElement => obj.includes(domainElement))
       );
 
-      setFiltered(filteredProjects);
+      setFilteredProjects(filteredProjects);
 
     }
   }
