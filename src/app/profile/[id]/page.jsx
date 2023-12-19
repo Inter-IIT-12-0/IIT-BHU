@@ -38,7 +38,7 @@ const ProfilePage = ({params}) => {
                  <img className="absolute ml-6 -mt-28 z-20 h-56 rounded-full" src={userData.avatarUrl} alt="" />
                 <div className="flex flex-row relative z-10 overflow-x-hidden">
                     <div className="h-[106vh]">
-                        <ProfileSidebar key={userData.email + "user"} name={userData.name} occupation = {userData.occupation} institute = {userData.institute} tools = {userData.expertise.tools} skills = {userData.expertise.skills} professionalInto = {userData.professionalIntroduction} />
+                        <ProfileSidebar key={userData.email + "user"} name={userData.name} occupation = {userData.domain} institute = {userData.institute} tools = {userData.expertise.tools} skills = {userData.expertise.skills} professionalInto = {userData.professionalIntroduction} />
                     </div>
                     <div className="flex flex-col p-8 max-h-[106vh] overflow-y-auto overflow-x-hidden">
                         <Projects projects = {userData.projects} />

@@ -82,7 +82,21 @@ export const ChatbotCard = ({ isOpen }) => {
     setGotResponse(true)
     setChat("");
     if (obj) {
-      setFiltered(user.filter(person => person.domain.some(domainElement => obj.includes(domainElement))));
+      const domainOrder = {};
+      obj.forEach((domain, index) => {
+        domainOrder[domain] = index;
+      });
+      const sortedUsers = user.sort((a, b) => {
+        const domainA = a.domain.find(domain => obj.includes(domain));
+        const domainB = b.domain.find(domain => obj.includes(domain));
+
+        return domainOrder[domainA] - domainOrder[domainB];
+      });
+      const filteredUsers = sortedUsers.filter(person =>
+        person.domain.some(domainElement => obj.includes(domainElement))
+      );
+
+      setFiltered(filteredUsers);
 
     }
   }
@@ -96,7 +110,22 @@ export const ChatbotCard = ({ isOpen }) => {
     setGotResponse(true)
     setChat("");
     if (obj) {
-      setFilteredProjects(projects.filter(project => project.domain.some(domainElement => obj.includes(domainElement))));
+
+      const domainOrder = {};
+      obj.forEach((domain, index) => {
+        domainOrder[domain] = index;
+      });
+      const sortedUsers = projects.sort((a, b) => {
+        const domainA = a.domain.find(domain => obj.includes(domain));
+        const domainB = b.domain.find(domain => obj.includes(domain));
+
+        return domainOrder[domainA] - domainOrder[domainB];
+      });
+      const filteredProjects = sortedUsers.filter(person =>
+        person.domain.some(domainElement => obj.includes(domainElement))
+      );
+
+      setFiltered(filteredProjects);
 
     }
   }
@@ -167,7 +196,7 @@ export const ChatbotCard = ({ isOpen }) => {
               <div className="flex gap-3 items-end">
                 <img src={'/Images/Dot.png'} alt="Dot" className="w-8 h-8 rounded-full" />
                 <div className="flex flex-col">
-                  {filtered && filtered.sort((a, b) => b.rating - a.rating).slice(0, 5).map((user, index) => (
+                  {filtered && filtered.slice(0, 5).map((user, index) => (
                     <div
                       key={index}
                       className="flex px-2 py-1 my-2 rounded-xl rounded-bl-none bg-[#daf7f7]"
@@ -226,7 +255,7 @@ export const ChatbotCard = ({ isOpen }) => {
                 <img src={'/Images/Dot.png'} alt="Dot" className="w-8 h-8 rounded-full" />
                 <div className="flex flex-col">
 
-                  {filteredProjects && filteredProjects.sort((a, b) => b.assignedBy.rating - a.assignedBy.rating).slice(0, 5).map((project, index) => (
+                  {filteredProjects && filteredProjects.slice(0, 5).map((project, index) => (
                     <div
                       key={index}
                       className="flex px-2 py-1 bg-[#daf7f7] my-2 rounded-xl rounded-bl-none"
