@@ -92,11 +92,11 @@ export const ChatbotCard = ({ isOpen }) => {
 
         return domainOrder[domainA] - domainOrder[domainB];
       });
-      const filteredUsers = sortedUsers.filter(person =>
+      const filteredProjects = sortedUsers.filter(person =>
         person.domain.some(domainElement => obj.includes(domainElement))
       );
 
-      setFiltered(filteredUsers);
+      setFilteredProjects(filteredProjects);
 
     }
   }
@@ -115,14 +115,14 @@ export const ChatbotCard = ({ isOpen }) => {
       obj.forEach((domain, index) => {
         domainOrder[domain] = index;
       });
-      const sortedUsers = projects.sort((a, b) => {
+      const sortedProjects = projects.sort((a, b) => {
         const domainA = a.domain.find(domain => obj.includes(domain));
         const domainB = b.domain.find(domain => obj.includes(domain));
 
         return domainOrder[domainA] - domainOrder[domainB];
       });
-      const filteredProjects = sortedUsers.filter(person =>
-        person.domain.some(domainElement => obj.includes(domainElement))
+      const filteredProjects = sortedProjects.filter(project =>
+        project.domain.some(domainElement => obj.includes(domainElement))
       );
 
       setFiltered(filteredProjects);
@@ -180,8 +180,8 @@ export const ChatbotCard = ({ isOpen }) => {
 
 
             {
-              gotResponse && userChat && filtered.length === 0 && <div className="px-3 py-1 w-40 my-5 rounded-lg border-sky-500 border-2 text-sky-600">
-                <div className={`w-full flex mt-5 justify-start`} key={index}>
+              gotResponse && userChat && (filtered.length === 0 ? <div className="px-3 py-1 w-40 my-5 rounded-lg text-sky-600">
+                <div className={`w-full flex mt-5 justify-start`}>
                   <div className="flex gap-3 items-end">
                     <img src={'/Images/Dot.png'} alt="Dot" className="w-8 h-8 rounded-full" />
                     <div className={`px-3 py-1 my-5 rounded-xl relative bottom-2 rounded-bl-none bg-[#daf7f7] text-sky-800`}>
@@ -190,34 +190,32 @@ export const ChatbotCard = ({ isOpen }) => {
                   </div>
                 </div>
               </div>
-            }
-            {
-              userChat &&
-              <div className="flex gap-3 items-end">
-                <img src={'/Images/Dot.png'} alt="Dot" className="w-8 h-8 rounded-full" />
-                <div className="flex flex-col">
-                  {filtered && filtered.slice(0, 5).map((user, index) => (
-                    <div
-                      key={index}
-                      className="flex px-2 py-1 my-2 rounded-xl rounded-bl-none bg-[#daf7f7]"
-                    >
-                      <div className="flex flex-col p-3">
-                        <div className="flex">
-                          <img src={user.avatarUrl} className="rounded-full h-12 w-12"></img>
+                :
+                <div className="flex gap-3 items-end">
+                  <img src={'/Images/Dot.png'} alt="Dot" className="w-8 h-8 rounded-full" />
+                  <div className="flex flex-col">
+                    {filtered && filtered.slice(0, 5).map((user, index) => (
+                      <div
+                        key={index}
+                        className="flex px-2 py-1 my-2 rounded-xl rounded-bl-none bg-[#daf7f7]"
+                      >
+                        <div className="flex flex-col p-3">
+                          <div className="flex">
+                            <img src={user.avatarUrl} className="rounded-full h-12 w-12"></img>
+                          </div>
+                          <div className="text-base text-sky-800 font-semibold flex w-full">
+                            <div className="w-full"> {user.name} ({user.rating} ) </div>
+                          </div>
                         </div>
-                        <div className="text-base text-sky-800 font-semibold flex w-full">
-                          <div className="w-full"> {user.name} ({user.rating} ) </div>
+                        <div className="text-sky-500 mt-10 flex items-center">
+                          <Link href={`/profile/${user._id}`} target="_blank">
+                            View profile
+                          </Link>
                         </div>
                       </div>
-                      <div className="text-sky-500 mt-10 flex items-center">
-                        <Link href={`/profile/${user._id}`} target="_blank">
-                          View profile
-                        </Link>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
+                    ))}
+                  </div>
+                </div>)
             }
 
 
@@ -238,9 +236,9 @@ export const ChatbotCard = ({ isOpen }) => {
               </div>
             }
             {
-              gotResponse && projectChat && filteredProjects.length === 0 && <div className="px-3 py-1 w-40 my-5 rounded-lg border-sky-500 border-2 text-sky-600">
-                <div className={`w-full flex mt-5 justify-start`} key={index}>
-                  <div className="flex gap-3 items-end">
+              gotResponse && projectChat && (filteredProjects.length === 0 ? <div className="px-3 py-1 w-40 my-5 rounded-lg text-sky-600">
+                <div className={`w-full flex mt-5 justify-start`}>
+                  <div className="flex gap-3 items-end w-full">
                     <img src={'/Images/Dot.png'} alt="Dot" className="w-8 h-8 rounded-full" />
                     <div className={`px-3 py-1 my-5 rounded-xl relative bottom-2 rounded-bl-none bg-[#daf7f7] text-sky-800`}>
                       No Project found
@@ -248,28 +246,27 @@ export const ChatbotCard = ({ isOpen }) => {
                   </div>
                 </div>
               </div>
-            }
-            {
-              projectChat &&
-              <div className="flex gap-3 items-end">
-                <img src={'/Images/Dot.png'} alt="Dot" className="w-8 h-8 rounded-full" />
-                <div className="flex flex-col">
+                :
+                projectChat &&
+                <div className="flex gap-3 items-end">
+                  <img src={'/Images/Dot.png'} alt="Dot" className="w-8 h-8 rounded-full" />
+                  <div className="flex flex-col">
 
-                  {filteredProjects && filteredProjects.slice(0, 5).map((project, index) => (
-                    <div
-                      key={index}
-                      className="flex px-2 py-1 bg-[#daf7f7] my-2 rounded-xl rounded-bl-none"
-                    >
-                      <div className="flex flex-col w-7/12">
-                        <div className="text-base text-sky-800 font-semibold flex w-full">
-                          <div className="w-full"> {project.title} </div>
+                    {filteredProjects && filteredProjects.slice(0, 5).map((project, index) => (
+                      <div
+                        key={index}
+                        className="flex px-2 py-1 bg-[#daf7f7] my-2 rounded-xl rounded-bl-none"
+                      >
+                        <div className="flex flex-col w-7/12">
+                          <div className="text-base text-sky-800 font-semibold flex w-full">
+                            <div className="w-full"> {project.title} </div>
+                          </div>
+                          <div> {project.domain[0]} </div>
                         </div>
-                        <div> {project.domain[0]} </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
+                    ))}
+                  </div>
+                </div>)
             }
 
           </div>

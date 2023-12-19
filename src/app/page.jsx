@@ -93,7 +93,7 @@ const Home = () => {
                                     </div>
                                 </div>
                                 <div className="grid grid-cols-2 gap-4 w-[100%]">
-                                    {projects && projects.map((ele) => {
+                                    {projects && projects.map((ele,index) => {
                                         const completedPercentage = ele.milestones.reduce((totalPercentage, ele) => {
                                             let sum = 0;
                                             let sum2 = 0;
@@ -125,7 +125,7 @@ const Home = () => {
 
                                         const verifiedPercentage = (milestoneApprovePayment / totalMilestones) * 100;
 
-                                        return <div className="flex flex-col p-2 rounded-3xl shadow-lg w-3/4 bg-white">
+                                        return <div key={index} className="flex flex-col p-2 rounded-3xl shadow-lg w-3/4 bg-white">
                                             <div className="flex justify-center">
                                                 <h1 className="font-bold text-xl opacity-75 ml-4">{ele.title}</h1>
                                             </div>
