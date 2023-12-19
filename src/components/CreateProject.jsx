@@ -80,14 +80,8 @@ const Form1 = () => {
 
     const handleSubmit = async (e) => { //! Genertes optimized description of the problem PS input by the client
         e.preventDefault();
-        if (formData.industry.length === 0) return toast.error("Domains can't be empty")
-        if (formData.skills.length === 0) return toast.error("Skills can't be empty")
         if (progress !== 100) {
             if (progress === 50) {
-                if (!isValidUrl(formData.docUrl)) {
-                    toast.error("Please enter a valid url");
-                    return
-                }
                 if ((new Date(formData.to)) <= (new Date(formData.from))) {
                     toast.error("End Date should be greater")
                     return
@@ -106,16 +100,16 @@ const Form1 = () => {
             setProgress(prev => prev + 50);
         }
         else {
-            if (Number(formData.payment) <= 0) return toast.error("Payment must be positive")
+            if ( formData.payment && Number(formData.payment) <= 0) return toast.error("Payment must be positive")
             const data = {
                 title: formData.title,
                 statement: formData.aiDescription,
-                startDate: (new Date(formData.from)).toISOString(),
-                endDate: (new Date(formData.to)).toISOString(),
+                startDate: formData.from && (new Date(formData.from)).toISOString(),
+                endDate: formData.to && (new Date(formData.to)).toISOString(),
                 assignedBy: session.user._id,
                 clientRequirements: {
                     paymentType: formData.paymentType,
-                    payment: Number(formData.payment),
+                    payment: formData.payment && Number(formData.payment),
                     workDays: formData.workdays,
                     requiredTools: formData.skills,
                     file: {
@@ -238,7 +232,6 @@ const Form1 = () => {
                                                                 name='title'
                                                                 onChange={handleInputChange}
                                                                 className="bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg block w-full p-2.5 outline-none"
-                                                                required
                                                             />
                                                         </div>
                                                         <div>
@@ -256,7 +249,6 @@ const Form1 = () => {
                                                                     value={formData.from}
                                                                     onChange={handleInputChange}
                                                                     className="bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg block w-full p-2.5 outline-none"
-                                                                    required
                                                                 />
                                                                 <span className='mx-3'>To</span>
                                                                 <input
@@ -265,7 +257,6 @@ const Form1 = () => {
                                                                     name='to'
                                                                     onChange={handleInputChange}
                                                                     className="bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg block w-full p-2.5 outline-none"
-                                                                    required
                                                                 />
                                                             </div>
                                                         </div>
@@ -283,7 +274,6 @@ const Form1 = () => {
                                                                 value={formData.description}
                                                                 onChange={handleInputChange}
                                                                 className="bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg block w-full p-2.5 outline-none"
-                                                                required
                                                             ></textarea>
                                                             <div className='text-sm text-neutral-600 italic'>
                                                                 Mention all your requirements. Trubot would elaborate your brief into a detailed description
@@ -297,7 +287,7 @@ const Form1 = () => {
                                                                 Upload Requirements Document
                                                             </label>
                                                             <div className='flex flex-col'>
-                                                                <input id='docName' type="text" placeholder='Document Name' name='docName' className="bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg block w-1/2 p-2.5 outline-none my-1" value={formData.docName} onChange={handleInputChange} required />
+                                                                <input id='docName' type="text" placeholder='Document Name' name='docName' className="bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg block w-1/2 p-2.5 outline-none my-1" value={formData.docName} onChange={handleInputChange} />
                                                                 <input type="text" placeholder='Document Url' name='docUrl' className="bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg block w-full p-2.5 outline-none my-1 h-20" value={formData.docUrl} onChange={handleInputChange} />
                                                             </div>
                                                         </div>
@@ -454,7 +444,7 @@ const Form1 = () => {
                                                                 >
                                                                     Payment Type
                                                                 </label>
-                                                                <select name="paymentType" id="paymentType" value={formData.paymentType} onChange={handleInputChange} className="bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg block w-full p-2.5 outline-none" required>
+                                                                <select name="paymentType" id="paymentType" value={formData.paymentType} onChange={handleInputChange} className="bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg block w-full p-2.5 outline-none" >
                                                                     <option value="Fixed">Fixed</option>
                                                                     <option value="Installment">Installment</option>
                                                                 </select>
@@ -474,7 +464,6 @@ const Form1 = () => {
                                                                         value={formData.payment}
                                                                         onChange={handleInputChange}
                                                                         className="bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg block w-full p-2.5 outline-none"
-                                                                        required
                                                                     />
                                                                 </div>
                                                             </div>
@@ -493,7 +482,6 @@ const Form1 = () => {
                                                                     value={formData.location}
                                                                     onChange={handleInputChange}
                                                                     className="bg-gray-50 border border-gray-300 text-gray-800 rounded-lg  p-2.5 outline-none w-full flex justify-center items-center"
-                                                                    required
                                                                 />
                                                             </div>
                                                         </div>

@@ -60,7 +60,6 @@ const Subdomain = ({ domain, subdomain }) => {
                                     value={formValues[field.name] || ''}
                                     onChange={(e) => handleInputChange(field.name, e.target.value)}
                                     className="p-2 w-11/12 outline-none border-2 border-gray-400 ml-4 rounded-lg mt-1"
-                                    required="true"
                                 />
                             </label>
                         ))}
