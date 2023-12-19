@@ -5,8 +5,6 @@ import Navbar from "../../components/Navbar"
 import ProjectCard from "../../components/ProjectCard"
 import Project from '../../components/Project'
 import axios from 'axios'
-import Filterbar from '../../components/Filterbar'
-import { projectSearch } from '../../lib/SearchAlgo'
 import { useSession } from 'next-auth/react'
 import StudentMarketplace from '../../components/StudentMarketplace'
 import ClientMarketPlace from '../../components/ClientMarketPlace'

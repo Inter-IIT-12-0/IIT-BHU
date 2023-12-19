@@ -150,7 +150,6 @@ const Lounges = ({ }) => {
             </div>
           </div>
           <h1 className="text-2xl font-semibold">Discuss openly with people across diverse domains</h1>
-          {/* <div className="grid grid-cols-4 gap-4"> */}
             {lounges.map((ele) => {
               return<> <h1 className="my-2 font-bold">{ele.title}</h1>
               <div className="grid grid-cols-4 gap-4">
@@ -164,7 +163,6 @@ const Lounges = ({ }) => {
               </div>
               </>
             })}
-          {/* </div> */}
         </div>
       </div>
     </div>

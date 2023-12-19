@@ -106,6 +106,7 @@ const Form1 = () => {
             setProgress(prev => prev + 50);
         }
         else {
+            if (Number(formData.payment) <= 0) return toast.error("Payment must be positive")
             const data = {
                 title: formData.title,
                 statement: formData.aiDescription,
@@ -127,11 +128,12 @@ const Form1 = () => {
                 location: formData.location,
             }
             axios.post('/api/project', data).then(res => {
-                axios.patch(`/api/user/?userId=${session.user._id}`, {
+                axios.patch(`/api/user/?userId=${session?.user._id}`, {
                     projects: [
-                        ...session.user.projects,
+                        ...session?.user.projects,
                         res.data._id
-                    ]
+                    ],
+                    projectsPosted: session?.user.projectsPosted + 1
                 }).then(res => {
                     toast.success('Project created successfully')
                     router.push("/marketplace")

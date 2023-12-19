@@ -132,13 +132,13 @@ const Home = () => {
                                             <div className="flex gap-4 h-32 my-3 justify-center">
                                                 <div className="relative z-10">
                                                     <div className="flex flex-col absolute z-20 ml-6 mt-8 items-center">
-                                                        <p>{completedPercentage}%</p>
+                                                        <p>{Math.floor(completedPercentage)}%</p>
                                                         <p>Complete</p>
                                                     </div>
                                                     <div className="relative h-28 w-28">
                                                         <Circle
                                                             className="relative"
-                                                            percent={completedPercentage}
+                                                            percent={Math.floor(completedPercentage)}
                                                             strokeColor='blue'
                                                             strokeWidth={4}
                                                             trailColor="lightblue"
@@ -149,13 +149,13 @@ const Home = () => {
                                                 </div>
                                                 <div className="relative z-10">
                                                     <div className="flex flex-col absolute z-20 ml-6 mt-8 items-center">
-                                                        <p>{verifiedPercentage}%</p>
+                                                        <p>{Math.floor(verifiedPercentage)}%</p>
                                                         <p>Approved</p>
                                                     </div>
                                                     <div className="relative h-28 w-28">
                                                         <Circle
                                                             className="relative"
-                                                            percent={verifiedPercentage}
+                                                            percent={Math.floor(verifiedPercentage)}
                                                             strokeColor='blue'
                                                             strokeWidth={4}
                                                             trailColor="lightblue"
@@ -198,7 +198,7 @@ const Home = () => {
                                     <img className="h-10 w-10" src="/Images/impImg.png" alt="" />
                                     <h1 className="text-sm font-bold">Explore Universities</h1>
                                     <p>Traverse through the University Ecosystem to get real-time updates about students, professors and lab facilities.</p>
-                                    <Link href={'/university'}>
+                                    <Link href={'/people'}>
                                         <h1 className="text-blue-500 cursor-pointer">Go to University page</h1>
                                     </Link>
                                 </div>

@@ -56,17 +56,6 @@ const Project = ({ params }) => {
                 <div className='flex w-full h-full'>
                   <StudentSidebar page={"myprojects"}/>
                   <div className="w-full flex flex-col px-20 py-5">
-                    {/* <div className="flex justify-between mt-5">
-                      <div>
-                        <h3 className="font-bold text-3xl"> {project.title} </h3>
-                      </div>
-                      <div>
-                        <span className="text-blue-500 underline underline-offset-2 mx-5 cursor-pointer">Team Chat</span>
-                        {
-                          timelineOpen ? <></> : <span onClick={() => setTimelineOpen(true)} className="text-blue-500 underline underline-offset-2 mx-5 cursor-pointer">Milestone Timeline</span>
-                        }
-                      </div>
-                    </div> */}
                     <div className="my-5 max-h-[70vh] overflow-scroll overflow-y-auto overflow-x-hidden">
 
                       {

@@ -1,7 +1,6 @@
 "use client"
 import React, { useEffect, useState } from 'react'
 import ProjectCard from './ProjectCard'
-import Filterbar from './Filterbar'
 import { getSession, useSession } from 'next-auth/react'
 import { projectSearch } from '../lib/SearchAlgo'
 import axios from 'axios'
@@ -33,7 +32,6 @@ const StudentMarketplace = ({ projects, setOpenedProj, selected, setSelected }) 
 
     return (
         <div className='w-full items-center flex flex-col bg-zinc-200 max-h-[92vh] overflow-scroll overflow-y-auto overflow-x-hidden '>
-            {/* <Filterbar status={status} setStatus={setStatus} payment={payment} setPayment={setPayment} domain={domain} setDomain={setDomain} setSearch={setSearch} search={search} selected={selected} setSelected={setSelected} /> */}
             <StudentMarketplaceTop domain={domain} setDomain={setDomain} status={status} setStatus={setStatus} search={search} setSearch={setSearch} />
             <div className='h-full w-full p-8 flex flex-col'>
                 <div className='flex justify-between px-3 mb-3'>

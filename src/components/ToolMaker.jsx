@@ -182,8 +182,6 @@ const ToolMaker = () => {
                 }
             </div>
 
-            {/* {showModal && <SuccessModal setShowModal = {setShowModal} aiToolName = {aiToolName} domainName = {domainName}/>} */}
-
         </div>
     );
 };
