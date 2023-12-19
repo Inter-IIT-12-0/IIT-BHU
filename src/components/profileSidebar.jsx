@@ -9,7 +9,7 @@ const ProfileSidebar = ({name, occupation, institute, tools, skills, professiona
             <div>
             <div className="justify-center items-center text-center">
                 <h1 className="text-center font-Lato text-Text-Black text-3xl font-semibold mt-8">{name}</h1>
-                <h2 className="text-center font-Lato text-Text-Black text-1xl font-semibold">AI {occupation} </h2>
+                <h2 className="text-center font-Lato text-Text-Black text-1xl font-semibold">{occupation} </h2>
                 <p className="text-black text-center font-Lato text-base leading-normal font-semibold my-5">{professionalInto}</p>
                 <button className="px-5 py-2 border-blue-600 border-2 rounded-full text-blue-600 font-semibold">Edit Profile</button>
                 <h1 className="text-center font-Lato text-Text-Black text-2xl font-semibold mt-6">Details</h1>
