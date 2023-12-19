@@ -92,11 +92,11 @@ export const ChatbotCard = ({ isOpen }) => {
 
         return domainOrder[domainA] - domainOrder[domainB];
       });
-      const filteredUsers = sortedUsers.filter(person =>
+      const filteredProjects = sortedUsers.filter(person =>
         person.domain.some(domainElement => obj.includes(domainElement))
       );
 
-      setFiltered(filteredUsers);
+      setFilteredProjects(filteredProjects);
 
     }
   }
