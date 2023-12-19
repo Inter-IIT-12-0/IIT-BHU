@@ -32,7 +32,7 @@ const TextEditor = ({ proposalText, setProposalText, handleSubmit, handleGenerat
                         <div className="flex items-center space-x-1 rtl:space-x-reverse sm:pe-4">
                             <button type="button" className="p-2 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600">
                                 <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 12 20">
-                                    <path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M1 6v8a5 5 0 1 0 10 0V4.5a3.5 3.5 0 1 0-7 0V13a2 2 0 0 0 4 0V6" />
+                                    <path stroke="currentColor" strokeLinejoin="round" strokeWidth="2" d="M1 6v8a5 5 0 1 0 10 0V4.5a3.5 3.5 0 1 0-7 0V13a2 2 0 0 0 4 0V6" />
                                 </svg>
                                 <span className="sr-only">Attach file</span>
                             </button>
@@ -66,7 +66,7 @@ const TextEditor = ({ proposalText, setProposalText, handleSubmit, handleGenerat
                         <div className="flex flex-wrap items-center space-x-1 rtl:space-x-reverse sm:ps-4">
                             <button type="button" className="p-2 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600">
                                 <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 21 18">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.5 3h9.563M9.5 9h9.563M9.5 15h9.563M1.5 13a2 2 0 1 1 3.321 1.5L1.5 17h5m-5-15 2-1v6m-2 0h4" />
+                                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.5 3h9.563M9.5 9h9.563M9.5 15h9.563M1.5 13a2 2 0 1 1 3.321 1.5L1.5 17h5m-5-15 2-1v6m-2 0h4" />
                                 </svg>
                                 <span className="sr-only">Add list</span>
                             </button>
@@ -94,7 +94,7 @@ const TextEditor = ({ proposalText, setProposalText, handleSubmit, handleGenerat
                     </div>
                     <button type="button" data-tooltip-target="tooltip-fullscreen" className="p-2 text-gray-500 rounded cursor-pointer sm:ms-auto hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600">
                         <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 19 19">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 1h5m0 0v5m0-5-5 5M1.979 6V1H7m0 16.042H1.979V12M18 12v5.042h-5M13 12l5 5M2 1l5 5m0 6-5 5" fill="" />
+                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 1h5m0 0v5m0-5-5 5M1.979 6V1H7m0 16.042H1.979V12M18 12v5.042h-5M13 12l5 5M2 1l5 5m0 6-5 5" fill="" />
                         </svg>
                         <span className="sr-only">Full screen</span>
                     </button>
@@ -104,8 +104,8 @@ const TextEditor = ({ proposalText, setProposalText, handleSubmit, handleGenerat
                     </div>
                 </div>
                 <div className="px-4 py-2 bg-white rounded-b-lg">
-                    <label for="editor" className=" sr-only">Publish post</label>
-                    <textarea value={proposalText} onChange={e => setProposalText(e.target.value)} id="editor" rows="8" className="outline-none block w-full px-0 text-sm text-gray-800 bg-white border-0  focus:ring-0" placeholder="Write your proposal..." required></textarea>
+                    <label htmlFor="editor" className=" sr-only">Publish post</label>
+                    <textarea value={proposalText} onChange={e => setProposalText(e.target.value)} id="editor" rows="8" className="outline-none block w-full px-0 text-sm text-gray-800 bg-white border-0  focus:ring-0" placeholder="Write your proposal..." ></textarea>
                 </div>
             </div>
             <div className='flex'>
@@ -224,7 +224,6 @@ const CreateBid = ({ params }) => {
     }
 
     const handleGenerateScores = () => {
-        if (proposalText.length === 0) return toast.error("Proposal can't be empty")
         axios.get(`/api/bids/${id}`).then(res => {
             generateScores(res.data.teams.filter(team => team._id !== presentTeam._id))
         }).catch(err => toast.error(err.response.data.error))
@@ -233,15 +232,33 @@ const CreateBid = ({ params }) => {
     const handleGenerate = async (e) => { //! This generates the submilestones from the milestones given by user
         e.preventDefault()
         for(let i=0; i<milestones.length; i++) {
-            let objArr = Object.values(milestones[i])
-            for(let j=0; j<objArr.length; j++) {
-                if(objArr[j] === "" || objArr[j] === undefined || objArr[j] === null) {
-                    return toast.error(`Fill Milestone ${i + 1}`)
-                }
-            }
             if(Number(milestones[i].payment) <= 0) return toast.error("Payment should be positive")
             if(Number(milestones[i].duration) <= 0) return toast.error("Duration should be positive")
         }
+
+        let modifiedMilestones = [...milestones]
+        const dueDates = calculateDueDates(startDate, milestones)
+        modifiedMilestones = modifiedMilestones.map((milestone, index) => (
+            {
+                ...milestone,
+                payment: Number(milestone.payment),
+                duration: Number(milestone.duration),
+                submilestones: [],
+                dueDate: dueDates[index],
+            }
+        ))
+        let proposal = {
+            bidAmount: milestones.reduce((acc, milestone) => acc + Number(milestone.payment), 0),
+            startDate: startDate,
+            milestones: modifiedMilestones,
+            text: presentTeam.proposal ? presentTeam.proposal.text : '',
+        }
+        let newTeam = { ...presentTeam }
+        newTeam.proposal = proposal
+
+        axios.patch(`/api/team/?teamId=${presentTeam._id}`, newTeam).then(res => {
+        }).catch(err => console.log(err))
+
         setLoading(true);
         const res = await createSubMilestones(milestones)
         setLoading(false)
@@ -250,7 +267,6 @@ const CreateBid = ({ params }) => {
     }
 
     const handleSubmit = () => { //! Bid submission is being done through the handleSubmit function by an API call
-        if(teamProb === null) return toast.error("Generate Score first") 
         let modifiedMilestones = [...milestones]
         const submilestones = Object.values(aiGenerated).map((milestone, index1) => (
             milestone.Submilestones.map((submilestone, index2) => (
@@ -262,28 +278,23 @@ const CreateBid = ({ params }) => {
                 }
             ))
         ))
-        const dueDates = calculateDueDates(startDate, milestones)
         modifiedMilestones = modifiedMilestones.map((milestone, index) => (
             {
                 ...milestone,
-                payment: Number(milestone.payment),
-                duration: Number(milestone.duration),
                 submilestones: submilestones[index],
-                dueDate: dueDates[index],
             }
         ))
         let proposal = {
-            acceptanceProbability: Number(teamProb.toFixed(2)),
+            acceptanceProbability: teamProb? Number(teamProb.toFixed(2)) : 0,
             bidAmount: milestones.reduce((acc, milestone) => acc + Number(milestone.payment), 0),
-            startDate: startDate,
             milestones: modifiedMilestones,
+            startDate: startDate,
             text: proposalText
         }
         let newTeam = { ...presentTeam }
         newTeam.proposal = proposal
-        newTeam.status = 'Pending'
         newTeam.rating = teamRating
-
+        newTeam.status = 'Pending'
 
         axios.patch(`/api/team/?teamId=${presentTeam._id}`, newTeam).then(res => {
             toast.success("Your Bid is submitted")
@@ -329,6 +340,8 @@ const CreateBid = ({ params }) => {
                 setTeamName(res.data.teamName ? res.data.teamName : '')
                 if(res.data.proposal?.startDate)
                     setStartDate(res.data.proposal?.startDate?.split('T')[0])
+                if (res.data.proposal?.text)
+                    setProposalText(res.data.proposal?.text)
             }).catch(err => console.log(err))
 
 
@@ -583,7 +596,7 @@ const CreateBid = ({ params }) => {
                                             <div className='flex items-center'>
                                                 <div className='px-6 mt-4 font-semibold flex'>
                                                     <span className='mx-4'>Project Start Date <span className='text-red-500'> * </span> </span>
-                                                    <input type="date" className='outline-none px-2 border-2 border-zinc-400 rounded-lg' value={startDate} onChange={(e) => setStartDate(e.target.value)} required />
+                                                    <input type="date" className='outline-none px-2 border-2 border-zinc-400 rounded-lg' value={startDate} onChange={(e) => setStartDate(e.target.value)}  />
                                                 </div>
                                             </div>
                                             <div className='flex flex-col w-full h-full px-6 mt-8'>
@@ -615,22 +628,22 @@ const CreateBid = ({ params }) => {
                                                             <ProjectCard project={project} page="createBid" /> :
                                                             <div className='bg-white'>
                                                                 <div className='flex w-full pt-4'>
-                                                                    <input type="number" name='payment' value={milestones[selectedMilestone - 1]['payment']} onChange={handleInputChange} placeholder='Expected payment &#8377;' className='mx-3 py-1 px-4 italic rounded-2xl outline-none bg-gray-200' required />
-                                                                    <input name='duration' value={milestones[selectedMilestone - 1]['duration']} onChange={handleInputChange} type="number" placeholder='Enter duration' className='mx-3 bg-gray-200 py-1 px-4 italic rounded-2xl outline-none' required /> <span> days </span>
+                                                                    <input type="number" name='payment' value={milestones[selectedMilestone - 1]['payment']} onChange={handleInputChange} placeholder='Expected payment &#8377;' className='mx-3 py-1 px-4 italic rounded-2xl outline-none bg-gray-200'  />
+                                                                    <input name='duration' value={milestones[selectedMilestone - 1]['duration']} onChange={handleInputChange} type="number" placeholder='Enter duration' className='mx-3 bg-gray-200 py-1 px-4 italic rounded-2xl outline-none'  /> <span> days </span>
 
                                                                 </div>
                                                                 <div className='flex flex-col px-6 my-4 '>
                                                                     <div className='flex items-center'>
                                                                         <span className='w-36'>Milestone heading</span>
-                                                                        <input name='heading' value={milestones[selectedMilestone - 1]['heading']} onChange={handleInputChange} type="text" placeholder='Enter Milestone heading' className='w-2/3 mx-10 my-4 h-8 px-4 rounded-xl py-6 outline-none border border-gray-300' required />
+                                                                        <input name='heading' value={milestones[selectedMilestone - 1]['heading']} onChange={handleInputChange} type="text" placeholder='Enter Milestone heading' className='w-2/3 mx-10 my-4 h-8 px-4 rounded-xl py-6 outline-none border border-gray-300'  />
                                                                     </div>
                                                                     <div className='flex items-center'>
                                                                         <span className='w-36'>Description</span>
-                                                                        <input name='description' value={milestones[selectedMilestone - 1]['description']} onChange={handleInputChange} type="text" placeholder='Enter Description' className='w-2/3 mx-10 my-4 h-8 px-4 rounded-xl py-9 outline-none border border-gray-300' required />
+                                                                        <input name='description' value={milestones[selectedMilestone - 1]['description']} onChange={handleInputChange} type="text" placeholder='Enter Description' className='w-2/3 mx-10 my-4 h-8 px-4 rounded-xl py-9 outline-none border border-gray-300'  />
                                                                     </div>
                                                                     <div className='flex items-center'>
                                                                         <span className='w-36'>Deliverables</span>
-                                                                        <input name='deliverables' value={milestones[selectedMilestone - 1]['deliverables']} onChange={handleInputChange} type="text" placeholder='Enter Deliverables' className='w-2/3 mx-10 my-4 h-8 px-4 rounded-xl py-9 outline-none border border-gray-300' required />
+                                                                        <input name='deliverables' value={milestones[selectedMilestone - 1]['deliverables']} onChange={handleInputChange} type="text" placeholder='Enter Deliverables' className='w-2/3 mx-10 my-4 h-8 px-4 rounded-xl py-9 outline-none border border-gray-300'  />
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -669,7 +682,7 @@ const CreateBid = ({ params }) => {
                                             <BackArrow_Icon onClick={() => {
                                                 setPresentPage(prev => prev - 1)
                                             }} className="cursor-pointer" />
-                                            <TextEditor setProposalText={setProposalText} handleSubmit={handleSubmit} handleGenerateScores={handleGenerateScores} />
+                                            <TextEditor setProposalText={setProposalText} handleSubmit={handleSubmit} handleGenerateScores={handleGenerateScores} proposalText={proposalText}/>
                                         </>
                         }
 

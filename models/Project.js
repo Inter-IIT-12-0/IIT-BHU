@@ -45,17 +45,17 @@ const clientRequirementsSchema = new mongoose.Schema({
   file: { type: workSchema }
 });
 export const subMilestoneSchema = new mongoose.Schema({
-  title: { type: String, required: true },
+  title: { type: String },
   status: { type: String, enum: statusEnum, default: 'Not Started' },
-  description: { type: String, required: true },
+  description: { type: String },
   stickyNotes: { type: [String], default: [] },
   work: { type: workSchema }
 });
 
 const activitySchema = new mongoose.Schema({
   submilestone:{ type: subMilestoneSchema},
-  type: { type: String, enum: ['CREATE', 'EDIT', 'DELETE', 'Message'], required: true },
-  timestamp: { type: Date, required: true },
+  type: { type: String, enum: ['CREATE', 'EDIT', 'DELETE', 'Message'] },
+  timestamp: { type: Date },
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   message: { type: String }
 });
@@ -63,12 +63,12 @@ const activitySchema = new mongoose.Schema({
 
 
 export const milestoneSchema = new mongoose.Schema({
-  dueDate: { type: Date, required: true },
-  heading: { type: String, required: true },
+  dueDate: { type: Date },
+  heading: { type: String},
   description: { type: String },
   submilestones: [subMilestoneSchema],
   status: { type: String, enum: statusEnum, default: 'Not Started' },
-  payment: { type: Number, required: true },
+  payment: { type: Number },
   paymentDate: { type: Date },
   deliverables : { type: String },
   duration: { type: Number },
@@ -83,8 +83,8 @@ const healthSchema = new mongoose.Schema({
 });
 
 const projectSchema = new mongoose.Schema({
-  title: { type: String, required: true },
-  statement: { type: String, required: true },
+  title: { type: String},
+  statement: { type: String },
   milestones: [milestoneSchema],
   assignedTeam: { type: mongoose.Schema.Types.ObjectId, ref: 'Team' },
   assignedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
@@ -94,11 +94,11 @@ const projectSchema = new mongoose.Schema({
   activities: [activitySchema],
   clientRequirements: clientRequirementsSchema,
   work: [workSchema],
-  duration: { type: Number, required: true },
-  domain: { type: [{ type: String, required: true ,enum:domainEnum}], required: true },
+  duration: { type: Number },
+  domain: { type: [{ type: String ,enum:domainEnum}] },
   postedOn: {type: Date, default: Date.now},
   status: {type: String, enum: ['Open', 'In Review', 'Completed', 'Assigned'], default: 'Open'},
-  location: { type: String, required: true},
+  location: { type: String},
   connectedApps: { type: [ApplicationSchema] },
 });
 
